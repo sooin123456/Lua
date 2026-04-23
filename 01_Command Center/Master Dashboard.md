@@ -74,7 +74,7 @@ claw-reviewed: true
 
 ## 📊 영역별 리소스 현황 (04_Resources)
 
-- [[Energy Policies]]: 개 정책 자료
+- [[Energy Policies]]: 정책 자료 
 - [[Tech Stack]]: 개 기술 스택 문서
 - [[Idea Incubator]]: 개 부화중 아이디어
 - [[Industry Intelligence]]: 개 시장/경쟁 정보
