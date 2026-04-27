@@ -6,6 +6,13 @@ focus_project: 미정
 
 # Vibe CEO Journal
 
+## 관련 노트
+
+- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/OKR 2026|OKR 2026]]
+- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[06_Personal Studio/Daily Notes|Daily Notes]]
+
 ## 🌅 Morning (08:00-08:30)
 
 - [ ] Telegram AI 리포트 확인

@@ -18,6 +18,10 @@ area: Command_Center
 - [[02_Projects/KIEREMS/RTU Development/Backlog|RTU Backlog]]
 - [[02_Projects/KIEREMS/RTU Development/DevLog|RTU DevLog]]
 - [[00_Inbox/Telegram_Capture_20260427_1122|Latest Telegram Capture]]
+- [[02_Projects/Projects Hub|Projects Hub]]
+- [[03_Operation/Operation Hub|Operation Hub]]
+- [[04_Resources/Resources Hub|Resources Hub]]
+- [[99_Templates/Templates Hub|Templates Hub]]
 
 ---
 

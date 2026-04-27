@@ -33,9 +33,10 @@ Personal AI 에이전트 실험실. Multi-Agent Trading, n8n 워크플로우, Op
 
 ## 3. 내부 링크 허브
 
-- Daily Notes: [[Daily Notes]]
-- 연결 프로젝트: [[Lucia/AI Carbon Data Management/Home]]
-- 연결 프로젝트: [[CxEMS/CxEMS SaaS/Home]]
+- Daily Notes: [[06_Personal Studio/Daily Notes|Daily Notes]]
+- 연결 프로젝트: [[02_Projects/Lucia/AI Carbon Data Management/Home|Lucia AI Carbon Home]]
+- 연결 프로젝트: [[02_Projects/CxEMS/CxEMS SaaS/Home|CxEMS SaaS Home]]
+- Hub: [[02_Projects/Projects Hub|Projects Hub]]
 
 ---
 
@@ -52,3 +53,4 @@ Personal AI 에이전트 실험실. Multi-Agent Trading, n8n 워크플로우, Op
 /summarize project AI Studio
 /status-check AI Studio
 /connect AI Studio + Lucia AI Carbon
+```

@@ -7,6 +7,15 @@ type: dashboard
 
 CTO 중앙 관제탑. 모든 프로젝트 현황과 AI 명령을 한눈에 본다.
 
+## 🔗 Navigation
+
+- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[01_Command Center/Weekly Review|Weekly Review]]
+- [[02_Projects/Projects Hub|Projects Hub]]
+- [[03_Operation/Operation Hub|Operation Hub]]
+- [[04_Resources/Resources Hub|Resources Hub]]
+- [[99_Templates/Templates Hub|Templates Hub]]
+
 ---
 
 ## 🏢 Company Projects

@@ -30,9 +30,17 @@ project: Multi-Agent Trading
 
 ---
 
+## 2-1. 내부 링크 허브
+
+- [[06_Personal Studio/Daily Notes|Daily Notes]]
+- [[02_Projects/Projects Hub|Projects Hub]]
+- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[01_Command Center/Weekly Review|Weekly Review]]
+
 ## 3. AI Claw 분석 요청
 
 ```claw
 /summarize project Multi-Agent Trading
 /status-check Multi-Agent Trading
 /connect Multi-Agent Trading + Lucia AI Carbon
+```

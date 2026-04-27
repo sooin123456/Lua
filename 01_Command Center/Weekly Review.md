@@ -37,3 +37,6 @@ status: active
 - [[02_Projects/KIEREMS/RTU Development/Home|RTU Development Home]]
 - [[02_Projects/KIEREMS/RTU Development/Backlog|RTU Backlog]]
 - [[02_Projects/KIEREMS/RTU Development/DevLog|RTU DevLog]]
+- [[02_Projects/Projects Hub|Projects Hub]]
+- [[03_Operation/Operation Hub|Operation Hub]]
+- [[04_Resources/Resources Hub|Resources Hub]]
