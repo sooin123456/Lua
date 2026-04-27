@@ -23,10 +23,13 @@ project: RTU Development
 
 ## 2. 내부 링크 허브
 
-- Backlog: [[Backlog]]
-- DevLog: [[DevLog]]
-- Metrics: [[Metrics]]
-- Research: [[Research]]
+- Backlog: [[02_Projects/KIEREMS/RTU Development/Backlog|Backlog]]
+- DevLog: [[02_Projects/KIEREMS/RTU Development/DevLog|DevLog]]
+- Metrics: [[02_Projects/KIEREMS/RTU Development/Metrics|Metrics]]
+- Research: [[02_Projects/KIEREMS/RTU Development/Research|Research]]
+- Master Dashboard: [[01_Command Center/Master Dashboard|Master Dashboard]]
+- Agent Dashboard: [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- Weekly Review: [[01_Command Center/Weekly Review|Weekly Review]]
 
 ---
 

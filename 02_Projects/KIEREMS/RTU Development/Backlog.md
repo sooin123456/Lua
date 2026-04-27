@@ -8,6 +8,13 @@ status: active
 
 # 📚 RTU Development Backlog
 
+## 🔗 관련 노트
+
+- [[02_Projects/KIEREMS/RTU Development/Home|Home]]
+- [[02_Projects/KIEREMS/RTU Development/DevLog|DevLog]]
+- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+
 ## P0 (이번 주 필수)
 
 - [ ] 핵심 부품 대체 벤더 2개 확보

@@ -35,3 +35,5 @@ status: active
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[02_Projects/KIEREMS/RTU Development/Home|RTU Development Home]]
+- [[02_Projects/KIEREMS/RTU Development/Backlog|RTU Backlog]]
+- [[02_Projects/KIEREMS/RTU Development/DevLog|RTU DevLog]]
