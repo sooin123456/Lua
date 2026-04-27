@@ -21,17 +21,40 @@ jobs:
           set -euo pipefail
           mkdir -p "00_Inbox"
           DATE="$(date +%Y%m%d_%H%M)"
-          FILE="00_Inbox/Telegram_Capture_${DATE}.md"
+          MSG="${MESSAGE_TEXT:-}"
+
+          if printf "%s" "$MSG" | grep -qE '^/'; then
+            FILE="00_Inbox/Telegram_Command_${DATE}.md"
+            NOTE_TYPE="command"
+            NOTE_STATUS="queued"
+            COMMAND_NAME="$(printf "%s" "$MSG" | awk '{print $1}' | tr -d '\r')"
+            PRIORITY="P2"
+            if [ "$COMMAND_NAME" = "/urgent" ]; then
+              PRIORITY="P0"
+            elif [ "$COMMAND_NAME" = "/todo" ] || [ "$COMMAND_NAME" = "/status-check" ]; then
+              PRIORITY="P1"
+            elif [ "$COMMAND_NAME" = "/connect" ] || [ "$COMMAND_NAME" = "/summarize" ]; then
+              PRIORITY="P2"
+            fi
+          else
+            FILE="00_Inbox/Telegram_Capture_${DATE}.md"
+            NOTE_TYPE="idea"
+            NOTE_STATUS="seedling"
+          fi
 
           {
             echo "---"
-            echo "type: idea"
+            echo "type: ${NOTE_TYPE}"
             echo "source: telegram"
-            echo "status: seedling"
+            echo "status: ${NOTE_STATUS}"
+            if [ "${NOTE_TYPE}" = "command" ]; then
+              echo "command: ${COMMAND_NAME}"
+              echo "priority: ${PRIORITY}"
+            fi
             echo "---"
             echo
-            echo "${MESSAGE_TEXT:-}"
-          } >> "$FILE"
+            echo "$MSG"
+          } > "$FILE"
 
       - name: Sync inbox queue to master dashboard
         run: |
@@ -40,36 +63,72 @@ jobs:
           from pathlib import Path
 
           root = Path(".")
-          dashboard = root / "01_Command Center" / "Master Dashboard.md"
+          master_dashboard = root / "01_Command Center" / "Master Dashboard.md"
+          agent_dashboard = root / "01_Command Center" / "Agent Dashboard.md"
           inbox_dir = root / "00_Inbox"
 
-          start_marker = "<!-- AUTO-INBOX-START -->"
-          end_marker = "<!-- AUTO-INBOX-END -->"
+          inbox_start = "<!-- AUTO-INBOX-START -->"
+          inbox_end = "<!-- AUTO-INBOX-END -->"
+          cmd_start = "<!-- AUTO-COMMAND-START -->"
+          cmd_end = "<!-- AUTO-COMMAND-END -->"
 
-          if not dashboard.exists():
+          if not master_dashboard.exists():
               raise SystemExit("Master Dashboard.md not found")
+          if not agent_dashboard.exists():
+              raise SystemExit("Agent Dashboard.md not found")
 
-          files = sorted(inbox_dir.glob("Telegram_Capture_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
-          lines = [start_marker]
-          if files:
-              for p in files:
+          capture_files = sorted(inbox_dir.glob("Telegram_Capture_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
+          inbox_lines = [inbox_start]
+          if capture_files:
+              for p in capture_files:
                   stem = p.stem
-                  lines.append(f"- [ ] [[00_Inbox/{stem}|{stem}]] - `source: telegram`")
+                  inbox_lines.append(f"- [ ] [[00_Inbox/{stem}|{stem}]] - `source: telegram`")
           else:
-              lines.append("- [ ] (telegram 캡처 대기중)")
-          lines.append(end_marker)
-          replacement = "\n".join(lines)
+              inbox_lines.append("- [ ] (telegram 캡처 대기중)")
+          inbox_lines.append(inbox_end)
+          inbox_replacement = "\n".join(inbox_lines)
 
-          content = dashboard.read_text(encoding="utf-8")
-          if start_marker in content and end_marker in content:
-              start = content.index(start_marker)
-              end = content.index(end_marker) + len(end_marker)
-              updated = content[:start] + replacement + content[end:]
+          command_files = sorted(inbox_dir.glob("Telegram_Command_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:5]
+          cmd_lines = [cmd_start]
+          if command_files:
+              for p in command_files:
+                  stem = p.stem
+                  raw = p.read_text(encoding="utf-8")
+                  command = ""
+                  priority = "P2"
+                  for line in raw.splitlines():
+                      if line.startswith("command: "):
+                          command = line.split(":", 1)[1].strip()
+                      if line.startswith("priority: "):
+                          priority = line.split(":", 1)[1].strip()
+                  if not command:
+                      body_lines = [ln.strip() for ln in raw.splitlines() if ln.strip() and not ln.startswith("---")]
+                      command = body_lines[-1][:60] if body_lines else "command"
+                  cmd_lines.append(f"- [ ] [{priority}] [[00_Inbox/{stem}|{command}]]")
           else:
-              block = "\n## 📥 Inbox 처리 큐\n\n" + replacement + "\n"
-              updated = content.rstrip() + "\n\n---\n" + block + "\n"
+              cmd_lines.append("- [ ] (telegram 명령 대기중)")
+          cmd_lines.append(cmd_end)
+          cmd_replacement = "\n".join(cmd_lines)
 
-          dashboard.write_text(updated, encoding="utf-8")
+          master_content = master_dashboard.read_text(encoding="utf-8")
+          if inbox_start in master_content and inbox_end in master_content:
+              start = master_content.index(inbox_start)
+              end = master_content.index(inbox_end) + len(inbox_end)
+              master_updated = master_content[:start] + inbox_replacement + master_content[end:]
+          else:
+              block = "\n## 📥 Inbox 처리 큐\n\n" + inbox_replacement + "\n"
+              master_updated = master_content.rstrip() + "\n\n---\n" + block + "\n"
+          master_dashboard.write_text(master_updated, encoding="utf-8")
+
+          agent_content = agent_dashboard.read_text(encoding="utf-8")
+          if cmd_start in agent_content and cmd_end in agent_content:
+              start = agent_content.index(cmd_start)
+              end = agent_content.index(cmd_end) + len(cmd_end)
+              agent_updated = agent_content[:start] + cmd_replacement + agent_content[end:]
+          else:
+              block = "\n## 📨 Telegram Command Queue\n\n" + cmd_replacement + "\n"
+              agent_updated = agent_content.rstrip() + "\n\n---\n" + block + "\n"
+          agent_dashboard.write_text(agent_updated, encoding="utf-8")
           PY
 
       - name: Commit and push
@@ -77,6 +136,6 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add "00_Inbox" "01_Command Center/Master Dashboard.md"
+          git add "00_Inbox" "01_Command Center/Master Dashboard.md" "01_Command Center/Agent Dashboard.md"
           git commit -m "Inbox: Telegram capture $(date +%Y%m%d_%H%M)" || exit 0
           git push

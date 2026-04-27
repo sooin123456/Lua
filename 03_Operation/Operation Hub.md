@@ -18,6 +18,8 @@ area: Operation
 - [[03_Operation/Government Support/Policy Tracker|Policy Tracker]]
 - [[03_Operation/Patents/Competitor Watch|Competitor Watch]]
 - [[03_Operation/Industry Intelligence/Weekly Brief|Weekly Brief]]
+- [[03_Operation/Paperclip/Paperclip Home|Paperclip Home]]
+- [[03_Operation/Paperclip/Paperclip Runbook|Paperclip Runbook]]
 
 ## Control Links
 

@@ -20,6 +20,8 @@ area: Command_Center
 - [[00_Inbox/Telegram_Capture_20260427_1122|Latest Telegram Capture]]
 - [[02_Projects/Projects Hub|Projects Hub]]
 - [[03_Operation/Operation Hub|Operation Hub]]
+- [[03_Operation/Paperclip/Paperclip Home|Paperclip Home]]
+- [[03_Operation/Paperclip/Paperclip Runbook|Paperclip Runbook]]
 - [[04_Resources/Resources Hub|Resources Hub]]
 - [[99_Templates/Templates Hub|Templates Hub]]
 
@@ -42,6 +44,24 @@ area: Command_Center
 /status-check kgct_green_building_home
 /summarize week
 ```
+
+---
+
+## 📲 Telegram Command Format
+
+- `/urgent <내용>` -> P0 즉시 처리
+- `/todo <내용>` -> P1 실행 항목
+- `/status-check <프로젝트>` -> P1 상태 점검
+- `/summarize <대상>` -> P2 요약 요청
+- `/connect <A> + <B>` -> P2 연결 제안
+
+---
+
+## 📨 Telegram Command Queue
+
+<!-- AUTO-COMMAND-START -->
+- [ ] (telegram 명령 대기중)
+<!-- AUTO-COMMAND-END -->
 
 ---
 
