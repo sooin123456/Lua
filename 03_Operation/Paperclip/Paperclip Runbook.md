@@ -50,3 +50,19 @@ npx paperclipai run
 1. Telegram 메시지 수집 (`00_Inbox`)
 2. Paperclip routine으로 Inbox triage issue 생성
 3. 처리 결과를 `Master Dashboard`와 `Weekly Review`에 반영
+
+## 6) 로컬 OFF 운영 (Cloud 모드)
+
+PC가 꺼져 있어도 Telegram 수집이 되도록 GitHub Actions 폴링을 사용한다.
+
+- 워크플로우: `/.github/workflows/telegram-cloud-capture.yml`
+- 실행 방식: 5분 주기 `getUpdates` 폴링
+- 필요 secret: `TELEGRAM_BOT_TOKEN`
+- 오프셋 저장: `03_Operation/Paperclip/telegram_offset.txt`
+
+설정 순서:
+
+1. GitHub Repo -> Settings -> Secrets and variables -> Actions
+2. `TELEGRAM_BOT_TOKEN` 추가
+3. Actions 탭에서 `Telegram Cloud Capture` 수동 1회 실행
+4. 이후 스케줄 실행 확인

@@ -1,0 +1,173 @@
+name: Telegram Cloud Capture
+
+on:
+  schedule:
+    - cron: "*/5 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Poll Telegram and update vault
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json
+          import os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from urllib.parse import urlencode
+          from urllib.request import Request, urlopen
+
+          root = Path(".")
+          inbox_dir = root / "00_Inbox"
+          inbox_dir.mkdir(parents=True, exist_ok=True)
+          state_file = root / "03_Operation" / "Paperclip" / "telegram_offset.txt"
+          state_file.parent.mkdir(parents=True, exist_ok=True)
+
+          token = os.environ.get("TELEGRAM_BOT_TOKEN", "").strip()
+          if not token:
+              raise SystemExit("Missing TELEGRAM_BOT_TOKEN secret")
+
+          def http_json(url: str):
+              req = Request(url, headers={"Accept": "application/json"})
+              with urlopen(req, timeout=30) as resp:
+                  return json.loads(resp.read().decode("utf-8"))
+
+          offset = 0
+          if state_file.exists():
+              try:
+                  offset = int(state_file.read_text(encoding="utf-8").strip() or "0")
+              except ValueError:
+                  offset = 0
+
+          params = {"timeout": 0, "limit": 50}
+          if offset > 0:
+              params["offset"] = offset
+          url = f"https://api.telegram.org/bot{token}/getUpdates?{urlencode(params)}"
+          payload = http_json(url)
+          if not payload.get("ok"):
+              raise SystemExit(f"Telegram getUpdates failed: {payload}")
+
+          updates = payload.get("result", [])
+          if not updates:
+              print("No updates")
+          else:
+              for upd in updates:
+                  update_id = upd.get("update_id")
+                  msg = upd.get("message") or upd.get("edited_message") or {}
+                  text = (msg.get("text") or msg.get("caption") or "").strip()
+                  if not text:
+                      continue
+
+                  date_str = datetime.now(timezone.utc).strftime("%Y%m%d_%H%M")
+                  if text.startswith("/"):
+                      file_name = f"Telegram_Command_{date_str}_{update_id}.md"
+                      note_type = "command"
+                      status = "queued"
+                      command_name = text.split()[0]
+                      if command_name == "/urgent":
+                          priority = "P0"
+                      elif command_name in ("/todo", "/status-check"):
+                          priority = "P1"
+                      else:
+                          priority = "P2"
+                      frontmatter = [
+                          "---",
+                          f"type: {note_type}",
+                          "source: telegram",
+                          f"status: {status}",
+                          f"command: {command_name}",
+                          f"priority: {priority}",
+                          "---",
+                          "",
+                          text,
+                          "",
+                      ]
+                  else:
+                      file_name = f"Telegram_Capture_{date_str}_{update_id}.md"
+                      frontmatter = [
+                          "---",
+                          "type: idea",
+                          "source: telegram",
+                          "status: seedling",
+                          "---",
+                          "",
+                          text,
+                          "",
+                      ]
+                  (inbox_dir / file_name).write_text("\n".join(frontmatter), encoding="utf-8")
+
+              next_offset = max((u.get("update_id", 0) for u in updates), default=0) + 1
+              state_file.write_text(str(next_offset), encoding="utf-8")
+
+          master_dashboard = root / "01_Command Center" / "Master Dashboard.md"
+          agent_dashboard = root / "01_Command Center" / "Agent Dashboard.md"
+
+          inbox_start = "<!-- AUTO-INBOX-START -->"
+          inbox_end = "<!-- AUTO-INBOX-END -->"
+          cmd_start = "<!-- AUTO-COMMAND-START -->"
+          cmd_end = "<!-- AUTO-COMMAND-END -->"
+
+          def replace_block(content: str, start: str, end: str, replacement: str) -> str:
+              if start in content and end in content:
+                  s = content.index(start)
+                  e = content.index(end) + len(end)
+                  return content[:s] + replacement + content[e:]
+              return content.rstrip() + "\n\n" + replacement + "\n"
+
+          if master_dashboard.exists():
+              captures = sorted(inbox_dir.glob("Telegram_Capture_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:3]
+              lines = [inbox_start]
+              if captures:
+                  for p in captures:
+                      stem = p.stem
+                      lines.append(f"- [ ] [[00_Inbox/{stem}|{stem}]] - `source: telegram`")
+              else:
+                  lines.append("- [ ] (telegram 캡처 대기중)")
+              lines.append(inbox_end)
+              repl = "\n".join(lines)
+              content = master_dashboard.read_text(encoding="utf-8")
+              master_dashboard.write_text(replace_block(content, inbox_start, inbox_end, repl), encoding="utf-8")
+
+          if agent_dashboard.exists():
+              commands = sorted(inbox_dir.glob("Telegram_Command_*.md"), key=lambda p: p.stat().st_mtime, reverse=True)[:5]
+              lines = [cmd_start]
+              if commands:
+                  for p in commands:
+                      raw = p.read_text(encoding="utf-8")
+                      command = ""
+                      priority = "P2"
+                      for ln in raw.splitlines():
+                          if ln.startswith("command: "):
+                              command = ln.split(":", 1)[1].strip()
+                          elif ln.startswith("priority: "):
+                              priority = ln.split(":", 1)[1].strip()
+                      if not command:
+                          command = p.stem
+                      lines.append(f"- [ ] [{priority}] [[00_Inbox/{p.stem}|{command}]]")
+              else:
+                  lines.append("- [ ] (telegram 명령 대기중)")
+              lines.append(cmd_end)
+              repl = "\n".join(lines)
+              content = agent_dashboard.read_text(encoding="utf-8")
+              agent_dashboard.write_text(replace_block(content, cmd_start, cmd_end, repl), encoding="utf-8")
+          PY
+
+      - name: Commit and push if changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add "00_Inbox" "01_Command Center/Master Dashboard.md" "01_Command Center/Agent Dashboard.md" "03_Operation/Paperclip/telegram_offset.txt"
+          git commit -m "Inbox: Telegram cloud sync $(date +%Y%m%d_%H%M)" || exit 0
+          git push
