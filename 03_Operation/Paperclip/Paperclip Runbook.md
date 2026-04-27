@@ -66,3 +66,18 @@ PC가 꺼져 있어도 Telegram 수집이 되도록 GitHub Actions 폴링을 사
 2. `TELEGRAM_BOT_TOKEN` 추가
 3. Actions 탭에서 `Telegram Cloud Capture` 수동 1회 실행
 4. 이후 스케줄 실행 확인
+
+## 7) Notion -> Obsidian 일일 요약 (Cloud)
+
+Notion 최근 수정 문서를 매일 Obsidian Inbox로 가져온다.
+
+- 워크플로우: `/.github/workflows/notion-obsidian-digest.yml`
+- 출력 파일: `00_Inbox/Notion_Digest_YYYYMMDD.md`
+- 필요 secret: `NOTION_API_TOKEN`
+
+설정 순서:
+
+1. GitHub Repo -> Settings -> Secrets and variables -> Actions
+2. `NOTION_API_TOKEN` 추가
+3. Actions 탭에서 `Notion Obsidian Digest` 수동 1회 실행
+4. 이후 UTC 00:00(한국 09:00) 자동 실행
