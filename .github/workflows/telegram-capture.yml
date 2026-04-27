@@ -1,0 +1,43 @@
+name: Telegram Inbox Capture
+
+on:
+  repository_dispatch:
+    types: [telegram-message]
+
+permissions:
+  contents: write
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create inbox note
+        env:
+          MESSAGE_TEXT: ${{ github.event.client_payload.text }}
+        run: |
+          set -euo pipefail
+          mkdir -p "00_Inbox"
+          DATE="$(date +%Y%m%d_%H%M)"
+          FILE="00_Inbox/Telegram_Capture_${DATE}.md"
+
+          {
+            echo "---"
+            echo "type: idea"
+            echo "source: telegram"
+            echo "status: seedling"
+            echo "---"
+            echo
+            echo "${MESSAGE_TEXT:-}"
+          } >> "$FILE"
+
+      - name: Commit and push
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add "00_Inbox"
+          git commit -m "Inbox: Telegram capture $(date +%Y%m%d_%H%M)" || exit 0
+          git push
