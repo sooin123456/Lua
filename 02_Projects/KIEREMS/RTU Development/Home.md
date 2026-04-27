@@ -42,3 +42,4 @@ project: RTU Development
 ```claw
 /summarize project RTU Development
 /status-check RTU Development
+```
