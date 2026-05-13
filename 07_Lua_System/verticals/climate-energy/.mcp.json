@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "_inherits": "_core",
+    "_planned": {
+      "ntis": "https://www.ntis.go.kr 정부 R&D 검색 (Phase 4, MCP 가능시)",
+      "kipris": "특허 검색 (Phase 4, MCP 가능시)",
+      "klimate": "기후기술 데이터 (Phase 4)"
+    }
+  }
+}

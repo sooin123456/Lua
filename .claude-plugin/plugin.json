@@ -9,5 +9,12 @@
     "climate-energy",
     "personal-venture"
   ],
-  "agents": []
+  "agents": [
+    "atlas",
+    "scribe",
+    "forge",
+    "lens",
+    "vault",
+    "archivist"
+  ]
 }
