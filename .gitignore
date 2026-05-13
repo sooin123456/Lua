@@ -2,3 +2,5 @@
 .obsidian/cache
 .trash/
 XX_System/
+node_modules/
+.env

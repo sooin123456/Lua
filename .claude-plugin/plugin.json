@@ -1,0 +1,13 @@
+{
+  "name": "lua",
+  "version": "0.1.0",
+  "description": "Solo agent company for climate-energy R&D and personal ventures",
+  "author": "sooin",
+  "marketplace": false,
+  "verticals": [
+    "_core",
+    "climate-energy",
+    "personal-venture"
+  ],
+  "agents": []
+}
