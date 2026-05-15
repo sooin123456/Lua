@@ -42,3 +42,11 @@ project: Blockchain
 /summarize project Blockchain
 /status-check Blockchain
 ````
+
+## Project Files
+
+- [[02_Projects/Lucia/Blockchain/Backlog|Backlog]]
+- [[02_Projects/Lucia/Blockchain/DevLog|DevLog]]
+- [[02_Projects/Lucia/Blockchain/Metrics|Metrics]]
+- [[02_Projects/Lucia/Blockchain/Research|Research]]
+- [[02_Projects/Projects Hub|Projects Hub]]

@@ -43,3 +43,11 @@ project: Green Building
 ```claw
 /summarize project Green Building
 /status-check Green Building
+
+## Project Files
+
+- [[02_Projects/KGCT/Green Building/Backlog|Backlog]]
+- [[02_Projects/KGCT/Green Building/DevLog|DevLog]]
+- [[02_Projects/KGCT/Green Building/Metrics|Metrics]]
+- [[02_Projects/KGCT/Green Building/Research|Research]]
+- [[02_Projects/Projects Hub|Projects Hub]]

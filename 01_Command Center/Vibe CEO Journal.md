@@ -46,3 +46,8 @@ focus_project: 미정
 
 ### 에너지 체크
 - 오늘 번아웃 지수: ___ / 10
+## Navigation
+
+- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[06_Personal Studio/Daily Notes|Daily Notes]]

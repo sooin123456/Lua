@@ -114,3 +114,8 @@ THEKIE의 사업은 **2개 차원**으로 분류:
 - 양 법인 관계: `relationship.md`
 - CxEMS 제품: `02_Projects/CxEMS/product-spec.md`
 - Identity (사용자): `../Identity/about-me.md`
+## Navigation
+
+- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/_Organization/relationship|Organization Relationship]]
+- [[01_Command Center/_Organization/KGCT|KGCT]]

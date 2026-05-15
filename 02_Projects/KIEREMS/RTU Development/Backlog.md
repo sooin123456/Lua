@@ -31,3 +31,8 @@ status: active
 
 - [ ] 현지 운영 매뉴얼 다국어 버전
 - [ ] 유지보수 대시보드 요구사항 정리
+
+## Navigation
+
+- [[02_Projects/KIEREMS/RTU Development/Home|Home]]
+- [[02_Projects/Projects Hub|Projects Hub]]

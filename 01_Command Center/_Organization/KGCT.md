@@ -102,3 +102,8 @@ note: |
 - 양 법인 관계: `relationship.md`
 - 커튼월룩 R&D 사례: `02_Projects/CxEMS/past-proposals/2026-기후부-커튼월룩.md`
 - 원본 raw: `04_Resources/business-context-raw/kgct-intro-source.md`
+## Navigation
+
+- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/_Organization/relationship|Organization Relationship]]
+- [[01_Command Center/_Organization/theKIE|theKIE]]

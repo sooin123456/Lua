@@ -42,3 +42,11 @@ ESG 공시 데이터 자동 수집 및 정제 파이프라인.
 ```claw
 /summarize project ESG Data Crawling
 /status-check ESG Data Crawling
+
+## Project Files
+
+- [[02_Projects/Lucia/ESG Data Crawling/Backlog|Backlog]]
+- [[02_Projects/Lucia/ESG Data Crawling/DevLog|DevLog]]
+- [[02_Projects/Lucia/ESG Data Crawling/Metrics|Metrics]]
+- [[02_Projects/Lucia/ESG Data Crawling/Research|Research]]
+- [[02_Projects/Projects Hub|Projects Hub]]

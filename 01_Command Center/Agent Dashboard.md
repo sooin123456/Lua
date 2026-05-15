@@ -13,16 +13,21 @@ area: Command_Center
 ## 🔗 Core Links
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[01_Command Center/Weekly Review|Weekly Review]]
 - [[02_Projects/KIEREMS/RTU Development/Home|RTU Development Home]]
 - [[02_Projects/KIEREMS/RTU Development/Backlog|RTU Backlog]]
 - [[02_Projects/KIEREMS/RTU Development/DevLog|RTU DevLog]]
-- [[00_Inbox/Telegram_Capture_20260427_1122|Latest Telegram Capture]]
+- [[00_Inbox/AI 분류 대기중...|Current Inbox]]
 - [[02_Projects/Projects Hub|Projects Hub]]
 - [[03_Operation/Operation Hub|Operation Hub]]
 - [[03_Operation/Paperclip/Paperclip Home|Paperclip Home]]
 - [[03_Operation/Paperclip/Paperclip Runbook|Paperclip Runbook]]
 - [[04_Resources/Resources Hub|Resources Hub]]
+- [[Lua-v4-operating-architecture|Lua v4 Architecture]]
+- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
+- [[09_Automations/README|Automations]]
 - [[99_Templates/Templates Hub|Templates Hub]]
 
 ---
@@ -38,7 +43,14 @@ area: Command_Center
 
 ## 🎯 Quick Commands
 
+여기에 적힌 `/command`는 Obsidian 안에서 자동 실행되지 않는다. 실행은 Codex, Claude, Pi 중 맞는 도구에서 하고, 결과는 관련 프로젝트 노트와 [[01_Command Center/Work Ledger|Work Ledger]]에 남긴다.
+
 ```claw
+/office-hours neural-ui-business
+/project-sprint neural-ui-mini-app first-demo
+/team-brief floating-solar-research
+/artifact-log neural-ui-experiment
+/work-log actual-vault-sync
 /summarize project RTU Development
 /status-check kierems_rtu_home
 /status-check kgct_green_building_home

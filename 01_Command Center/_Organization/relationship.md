@@ -175,3 +175,8 @@ G. KGCT발주       ✓    ✓    -    ✓     ✓        ✓          -
 - KGCT 정체: `KGCT.md`
 - proposal-drafting (이 컨텍스트 사용): `07_Lua_System/verticals/climate-energy/skills/proposal-drafting/SKILL.md`
 - 사업 라인 × 양식 × 시나리오 매트릭스 상세: `proposal-drafting/references/form-patterns.md`
+## Navigation
+
+- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/_Organization/theKIE|theKIE]]
+- [[01_Command Center/_Organization/KGCT|KGCT]]

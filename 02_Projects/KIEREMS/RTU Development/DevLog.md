@@ -41,3 +41,8 @@ blockers: 부품 공급망 지연, 현지 규격 검증 미완료
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[01_Command Center/Weekly Review|Weekly Review]]
+
+## Navigation
+
+- [[02_Projects/KIEREMS/RTU Development/Home|Home]]
+- [[02_Projects/Projects Hub|Projects Hub]]

@@ -42,3 +42,11 @@ Lucia 플랫폼 핵심 모듈. 탄소 데이터 수집·관리·인증 연동.
 ```claw
 /summarize project AI Carbon Data Management
 /status-check AI Carbon Data Management
+
+## Project Files
+
+- [[02_Projects/Lucia/AI Carbon Data Management/Backlog|Backlog]]
+- [[02_Projects/Lucia/AI Carbon Data Management/DevLog|DevLog]]
+- [[02_Projects/Lucia/AI Carbon Data Management/Metrics|Metrics]]
+- [[02_Projects/Lucia/AI Carbon Data Management/Research|Research]]
+- [[02_Projects/Projects Hub|Projects Hub]]

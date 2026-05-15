@@ -679,7 +679,7 @@ allowed-tools: [Read, Write, Bash]
 
 **기능**:
 1. Orphan note 검출 (다른 노트에서 link 안 된 .md)
-2. Broken wiki-link 검출 (`[[...]]` 가 실제 파일 없음)
+2. Broken wiki-link 검출 (`example-link` 같은 wiki-link가 실제 파일 없음)
 3. Missing frontmatter 검출 (Identity/, SOPs/, Skills/만)
 4. Inconsistent tag 검출 (대소문자 다른 태그)
 5. Stale Inbox 항목 (14일+)

@@ -41,3 +41,11 @@ project: VPP Development
 ```claw
 /summarize project VPP Development
 /status-check VPP Development
+
+## Project Files
+
+- [[02_Projects/KIEREMS/VPP Development/Backlog|Backlog]]
+- [[02_Projects/KIEREMS/VPP Development/DevLog|DevLog]]
+- [[02_Projects/KIEREMS/VPP Development/Metrics|Metrics]]
+- [[02_Projects/KIEREMS/VPP Development/Research|Research]]
+- [[02_Projects/Projects Hub|Projects Hub]]
