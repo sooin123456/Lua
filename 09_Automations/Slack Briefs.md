@@ -1,7 +1,7 @@
 ---
 type: automation-map
 system: slack
-last_updated: 2026-05-15
+last_updated: 2026-05-16
 ---
 
 # Slack Briefs
@@ -56,6 +56,11 @@ Slack 플러그인 직접 전송 도구가 없을 때는 Incoming Webhook으로 
 7. `node scripts/slack_brief.js`로 보낸다.
 
 `.env`는 Git에 올라가지 않는다.
+
+## Connection Status
+
+- 2026-05-16: `#ai-briefings` Incoming Webhook connected.
+- Test message sent successfully from Windows Codex using `scripts/slack_brief.js`.
 
 ## Draft Block
 

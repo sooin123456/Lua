@@ -79,3 +79,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/slack_brief.js --message "[Lua] Slack dry-run test" --channel "#ai-briefings" --dry-run`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: user creates a Slack Incoming Webhook and fills `.env`, then approve/send the first test brief
+
+## 2026-05-16 KST - connect Slack Incoming Webhook
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Slack automation
+- Trigger: user created Slack Incoming Webhook and saved it in `.env`
+- Changed: verified `.env` contains `SLACK_WEBHOOK_AI_BRIEFINGS`, sent first test message to Slack, and confirmed `.env` is ignored by Git
+- Verification: `node scripts/slack_brief.js --message ... --channel "#ai-briefings"`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: convert approved Team Brief Draft blocks into real Slack messages
