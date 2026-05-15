@@ -101,3 +101,14 @@ last_updated: 2026-05-15
 - Verification: Slack send without `--confirm-send` is refused; dry-run works; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: apply the same command mode labels to GitHub push, Notion publish, and future email/web actions
+
+## 2026-05-16 KST - reinterpret online commands as remote Slack control
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: command rules, Slack command inbox
+- Trigger: user clarified that online commands mean commands issued while away from the computer through Slack, not merely external publishing
+- Changed: rewrote Command Modes around offline local commands vs online Slack remote commands; added Slack Command Inbox design for `/lua inbox`, `/lua todo`, `/lua brief`, `/lua ask`, `/lua status`, `/lua approve`
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
+- Commit: pending
+- Next: implement Slack command intake using slash commands, workflow webhooks, or manual queue capture

@@ -18,7 +18,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 - 가벼운 터미널형 실험, 타입별 프리셋, 컨텍스트 실험은 Pi로 분리한다.
 
 무엇을 Obsidian에 써야 하는지 애매하면 [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]를 먼저 본다.
-명령이 외부로 나가는지 애매하면 [[01_Command Center/Command Modes|Command Modes]]를 먼저 본다.
+명령을 컴퓨터 앞에서 내리는지, 밖에서 Slack으로 내리는지 애매하면 [[01_Command Center/Command Modes|Command Modes]]를 먼저 본다.
 
 ## Where To Write
 
@@ -51,10 +51,10 @@ Obsidian에 적는 `/command`는 자동 실행 버튼이 아니라 "AI에게 넘
 
 | 타입 | 뜻 | 예시 | 실행 기준 |
 |---|---|---|---|
-| Offline | 내 vault와 로컬 컴퓨터 안에서만 바뀜 | `/inbox-triage`, `/work-log`, `/artifact-log` | 바로 실행 가능 |
-| Online | Slack, GitHub, Notion, 이메일, 외부 API로 나감 | `/slack-send`, `/github-push`, `/notion-publish` | dry-run 또는 승인 후 실행 |
+| Offline | 컴퓨터 앞에서 Codex/Claude/Obsidian에 직접 내리는 명령 | `/inbox-triage`, `/work-log`, `/project-sprint` | 바로 처리 가능 |
+| Online | 밖에 있을 때 Slack으로 Lua에게 던지는 원격 명령 | `/lua inbox`, `/lua todo`, `/lua brief` | 먼저 Command Inbox에 저장 |
 
-온라인 명령은 사용자가 명시적으로 "보내줘", "올려줘", "publish 해줘"라고 말해야 실행한다.
+Online command는 기본적으로 capture만 한다. Slack/Notion/GitHub로 실제 반영하는 일은 별도 승인 후 실행한다.
 
 ## Daily Flow
 

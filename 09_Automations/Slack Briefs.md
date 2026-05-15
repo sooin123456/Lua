@@ -8,7 +8,12 @@ last_updated: 2026-05-16
 
 Slack is a signal channel, not the system of record.
 
-Slack sending is an online command. Follow [[01_Command Center/Command Modes|Command Modes]] before sending.
+Slack has two roles in Lua.
+
+- Inbound: outside/mobile command input through [[09_Automations/Slack Command Inbox|Slack Command Inbox]].
+- Outbound: approved brief sending through this document.
+
+Slack sending is a remote sync action. Follow [[01_Command Center/Command Modes|Command Modes]] before sending.
 
 ## Channels
 
@@ -92,6 +97,7 @@ Draft first. Human approval before sending until the format is trusted.
 
 - [[09_Automations/README|Automations]]
 - [[01_Command Center/Command Modes|Command Modes]]
+- [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
