@@ -68,3 +68,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
 - Commit: pending
 - Next: build the actual Notion DBs under `Lua_Home` or create a manual setup checklist
+
+## 2026-05-16 KST - add Slack webhook brief sender
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Slack automation, Team Brief Drafts
+- Trigger: user chose Slack integration before Notion because Notion is more complex
+- Changed: added Slack Incoming Webhook sender, `.env.example`, draft block format, and local dry-run flow
+- Verification: `node scripts/slack_brief.js --message "[Lua] Slack dry-run test" --channel "#ai-briefings" --dry-run`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: user creates a Slack Incoming Webhook and fills `.env`, then approve/send the first test brief
