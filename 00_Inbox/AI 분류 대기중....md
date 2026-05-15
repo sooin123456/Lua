@@ -23,8 +23,8 @@ K water 발주 사이즈
 
 | 분류 | 이동/연결 위치 | 다음 행동 |
 |---|---|---|
-| AI 앱/사업 아이디어 | [[06_Personal Studio/AI Studio/Neural UI Business Ideas|Neural UI Business Ideas]] | 작은 AI 앱 후보 3개 도출 |
-| 수상태양광 리서치 | [[03_Operation/Industry Intelligence/Floating Solar Research|Floating Solar Research]] | K-water, 협력사, 경쟁사, 테크인 조사 |
+| AI 앱/사업 아이디어 | [[06_Personal Studio/AI Studio/Neural UI Business Ideas]] | 작은 AI 앱 후보 3개 도출 |
+| 수상태양광 리서치 | [[03_Operation/Industry Intelligence/Floating Solar Research]] | K-water, 협력사, 경쟁사, 테크인 조사 |
 
 ## Command
 
