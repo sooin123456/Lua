@@ -57,3 +57,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
 - Commit: pending
 - Next: define Notion database properties and Slack approval steps before enabling API automation
+
+## 2026-05-16 KST - define Obsidian writing rules and Notion workspace plan
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, Automations
+- Trigger: user asked to classify when to write or not write in Obsidian and what to do after creating `Lua_Home` in Notion
+- Changed: added Obsidian Writing Rules and Notion Workspace Plan; linked them from Lua Usage Guide, Master Dashboard, Notion Sync, and Automations
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
+- Commit: pending
+- Next: build the actual Notion DBs under `Lua_Home` or create a manual setup checklist

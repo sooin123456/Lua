@@ -5,6 +5,11 @@ last_updated: 2026-05-15
 
 # Automations
 
+## Planning
+
+- [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
+ 
+
 This folder tracks recurring jobs and cross-tool syncs.
 
 Automations should be documented here before they are enabled. A good automation has an owner, schedule, input, output, rollback path, and failure alert.

@@ -8,6 +8,8 @@ last_updated: 2026-05-15
 
 Notion is the team-facing mirror. Obsidian remains the source of truth for private thinking and detailed project memory.
 
+The next workspace structure is defined in [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]].
+
 ## Minimum Databases
 
 - Projects
@@ -49,6 +51,7 @@ Notion receives durable team records, not raw thinking.
 ## Navigation
 
 - [[09_Automations/README|Automations]]
+- [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[01_Command Center/Master Dashboard|Master Dashboard]]

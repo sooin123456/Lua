@@ -17,6 +17,8 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 - 긴 글, 관계 정리, Notion/Slack 초안은 Claude에서 다듬는다.
 - 가벼운 터미널형 실험, 타입별 프리셋, 컨텍스트 실험은 Pi로 분리한다.
 
+무엇을 Obsidian에 써야 하는지 애매하면 [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]를 먼저 본다.
+
 ## Where To Write
 
 | 상황 | 쓰는 곳 | 이유 |
@@ -103,6 +105,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 ## Navigation
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
