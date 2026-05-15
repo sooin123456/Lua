@@ -1,0 +1,12 @@
+[host:windows-codex] type: short summary
+
+Origin:
+- host: windows-codex | mac-claude | manual | github-action
+- agent: Codex | Claude | human | automation
+- workspace: 
+
+Verification:
+- 
+
+Notes:
+- 
