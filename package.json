@@ -9,7 +9,7 @@
     "connect:agents": "node scripts/connect_agent_hub.js",
     "fill:scaffolds": "node scripts/fill_empty_scaffolds.js",
     "slack:dry-run": "node scripts/slack_brief.js --dry-run",
-    "slack:send": "node scripts/slack_brief.js",
+    "slack:send": "node scripts/slack_brief.js --confirm-send",
     "sync:skills": "node scripts/sync_skills.js",
     "test": "node scripts/check.js"
   },

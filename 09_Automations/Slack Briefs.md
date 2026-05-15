@@ -8,6 +8,8 @@ last_updated: 2026-05-16
 
 Slack is a signal channel, not the system of record.
 
+Slack sending is an online command. Follow [[01_Command Center/Command Modes|Command Modes]] before sending.
+
 ## Channels
 
 | Channel | Purpose |
@@ -53,7 +55,7 @@ Slack 플러그인 직접 전송 도구가 없을 때는 Incoming Webhook으로 
 4. [[03_Operation/Team Brief Drafts|Team Brief Drafts]]에 `slack-brief` 블록을 만든다.
 5. 먼저 `node scripts/slack_brief.js --dry-run`으로 확인한다.
 6. 사람이 승인하면 `status: approved`로 바꾼다.
-7. `node scripts/slack_brief.js`로 보낸다.
+7. `node scripts/slack_brief.js --confirm-send`로 보낸다.
 
 `.env`는 Git에 올라가지 않는다.
 
@@ -79,7 +81,7 @@ title: Weekly update
 ```bash
 node scripts/slack_brief.js --message "[Lua] Slack dry-run test" --channel "#ai-briefings" --dry-run
 node scripts/slack_brief.js --dry-run
-node scripts/slack_brief.js
+node scripts/slack_brief.js --confirm-send
 ```
 
 ## Rule
@@ -89,6 +91,7 @@ Draft first. Human approval before sending until the format is trusted.
 ## Navigation
 
 - [[09_Automations/README|Automations]]
+- [[01_Command Center/Command Modes|Command Modes]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[01_Command Center/Master Dashboard|Master Dashboard]]

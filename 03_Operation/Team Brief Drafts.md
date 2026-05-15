@@ -8,6 +8,8 @@ last_updated: 2026-05-15
 
 Notion 또는 Slack에 보내기 전, 사람이 확인할 팀 공유 초안을 모은다.
 
+Slack 전송은 온라인 명령이다. 실행 전 [[01_Command Center/Command Modes|Command Modes]]를 따른다.
+
 ## Draft Queue
 
 <!-- slack-brief
@@ -27,7 +29,7 @@ Blocker:
 - Slack Incoming Webhook URL 설정 필요.
 
 Next:
-- 승인되면 `status: approved`로 바꾸고 `node scripts/slack_brief.js`를 실행합니다.
+- 승인되면 `status: approved`로 바꾸고 `node scripts/slack_brief.js --confirm-send`를 실행합니다.
 <!-- /slack-brief -->
 
 ### Template
@@ -58,6 +60,7 @@ Next:
 ## Navigation
 
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[01_Command Center/Command Modes|Command Modes]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[09_Automations/Notion Sync|Notion Sync]]
 - [[01_Command Center/Work Ledger|Work Ledger]]

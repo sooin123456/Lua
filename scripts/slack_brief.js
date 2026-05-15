@@ -9,6 +9,7 @@ function parseArgs(argv) {
   const args = {
     dryRun: false,
     all: false,
+    confirmSend: false,
     file: DEFAULT_DRAFT_FILE,
     message: null,
     channel: null,
@@ -17,6 +18,7 @@ function parseArgs(argv) {
     const arg = argv[i];
     if (arg === '--dry-run') args.dryRun = true;
     else if (arg === '--all') args.all = true;
+    else if (arg === '--confirm-send') args.confirmSend = true;
     else if (arg === '--file') args.file = path.resolve(ROOT, argv[++i]);
     else if (arg === '--message') args.message = argv[++i];
     else if (arg === '--channel') args.channel = argv[++i];
@@ -29,7 +31,7 @@ function usage() {
   console.log(`Usage:
   node scripts/slack_brief.js --dry-run
   node scripts/slack_brief.js --message "hello" --channel "#ai-briefings" --dry-run
-  node scripts/slack_brief.js --message "hello" --channel "#ai-briefings"
+  node scripts/slack_brief.js --message "hello" --channel "#ai-briefings" --confirm-send
 
 Draft block format:
   <!-- slack-brief
@@ -146,6 +148,9 @@ async function main() {
     if (args.dryRun) {
       console.log('\nDry run only. No Slack message sent.');
       continue;
+    }
+    if (!args.confirmSend) {
+      throw new Error('Refusing to send without --confirm-send. Slack is an online command.');
     }
     if (!target) {
       throw new Error(`Missing webhook for ${brief.channel}. Set SLACK_WEBHOOK_${normalizeChannel(brief.channel)} or SLACK_WEBHOOK_URL in .env.`);

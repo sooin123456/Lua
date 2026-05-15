@@ -90,3 +90,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/slack_brief.js --message ... --channel "#ai-briefings"`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: convert approved Team Brief Draft blocks into real Slack messages
+
+## 2026-05-16 KST - separate offline and online commands
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: command rules, Slack automation
+- Trigger: user asked how to distinguish offline and online commands
+- Changed: added Command Modes guide and required `--confirm-send` for Slack sends
+- Verification: Slack send without `--confirm-send` is refused; dry-run works; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: apply the same command mode labels to GitHub push, Notion publish, and future email/web actions

@@ -65,5 +65,6 @@ Obsidian에는 "나중에 다시 써먹을 맥락"만 남긴다.
 ## Navigation
 
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/Command Modes|Command Modes]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]

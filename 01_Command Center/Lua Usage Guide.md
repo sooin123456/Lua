@@ -18,6 +18,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 - 가벼운 터미널형 실험, 타입별 프리셋, 컨텍스트 실험은 Pi로 분리한다.
 
 무엇을 Obsidian에 써야 하는지 애매하면 [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]를 먼저 본다.
+명령이 외부로 나가는지 애매하면 [[01_Command Center/Command Modes|Command Modes]]를 먼저 본다.
 
 ## Where To Write
 
@@ -45,6 +46,15 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 | 가벼운 Pi 실험 | 터미널에서 프로젝트 폴더를 열고 Pi 실행 | `pi` 또는 `pnpx my-pi@latest` |
 
 Obsidian에 적는 `/command`는 자동 실행 버튼이 아니라 "AI에게 넘길 작업 지시서"다. 실제 실행은 Codex, Claude, Pi 중 하나에서 한다.
+
+## Offline vs Online
+
+| 타입 | 뜻 | 예시 | 실행 기준 |
+|---|---|---|---|
+| Offline | 내 vault와 로컬 컴퓨터 안에서만 바뀜 | `/inbox-triage`, `/work-log`, `/artifact-log` | 바로 실행 가능 |
+| Online | Slack, GitHub, Notion, 이메일, 외부 API로 나감 | `/slack-send`, `/github-push`, `/notion-publish` | dry-run 또는 승인 후 실행 |
+
+온라인 명령은 사용자가 명시적으로 "보내줘", "올려줘", "publish 해줘"라고 말해야 실행한다.
 
 ## Daily Flow
 
@@ -106,6 +116,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
+- [[01_Command Center/Command Modes|Command Modes]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
