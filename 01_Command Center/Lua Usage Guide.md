@@ -27,6 +27,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 | 해야 할 일 | 각 프로젝트의 `Backlog.md` 또는 [[01_Command Center/Urgent List|Urgent List]] | 실행 항목만 모으기 |
 | 자료 조사 | 각 프로젝트의 `Research.md` | 출처와 판단 근거 보관 |
 | 팀에게 보낼 글 | [[03_Operation/Operation Hub|Operation Hub]] 아래 관련 문서 | Slack/Notion 전 검토 공간 |
+| Notion/Slack 공유 초안 | [[03_Operation/Team Brief Drafts|Team Brief Drafts]] | 승인 전 초안 보관 |
 | 재사용 가능한 결과물 | [[08_Artifacts/Artifact Ledger|Artifact Ledger]] | 앱, 프롬프트, 템플릿, 자동화 자산화 |
 | 시스템 규칙 변경 | [[01_Command Center/Work Ledger|Work Ledger]] | 어디서 누가 바꿨는지 추적 |
 
@@ -69,6 +70,7 @@ Obsidian에 적는 `/command`는 자동 실행 버튼이 아니라 "AI에게 넘
 | 코드 검토/테스트 | Codex | Pi | DevLog, Work Ledger |
 | 사업 기획/문서 | Claude | Codex | Operation, Notion 초안 |
 | 팀 공유 | Claude | Codex | Slack Briefs, Operation |
+| Notion/Slack 공유 설계 | Codex | Claude | Team Sharing Workflow |
 | 자료 조사 | Claude | Pi | Research |
 | Vault 정리 | Codex | Pi | Work Ledger |
 | 짧은 실험 | Pi | Codex | DevLog 또는 Inbox |
@@ -102,5 +104,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[04_Resources/Tech Stack/Pi Coding Agent|Pi Coding Agent]]
 - [[01_Command Center/Work Ledger|Work Ledger]]

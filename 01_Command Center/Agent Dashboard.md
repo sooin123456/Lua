@@ -28,6 +28,8 @@ area: Command_Center
 - [[01_Command Center/Work Ledger|Work Ledger]]
 - [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
 - [[09_Automations/README|Automations]]
+- [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[99_Templates/Templates Hub|Templates Hub]]
 
 ---

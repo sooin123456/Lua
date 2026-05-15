@@ -13,6 +13,7 @@ area: Templates
 - [[99_Templates/Weekly Review Template|Weekly Review Template]]
 - [[99_Templates/Project Dashboard Template|Project Dashboard Template]]
 - [[99_Templates/Meeting Note Template|Meeting Note Template]]
+- [[99_Templates/Team Brief Template|Team Brief Template]]
 
 ## Agent Prompt Templates
 
@@ -25,4 +26,5 @@ area: Templates
 
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[01_Command Center/Weekly Review|Weekly Review]]
+- [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[04_Resources/Resources Hub|Resources Hub]]

@@ -46,3 +46,14 @@ last_updated: 2026-05-15
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[AGENTS]]
+
+## 2026-05-15 23:xx KST - design Notion and Slack sharing workflow
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Operation, Automations, Templates
+- Trigger: user clarified that sharing architecture should come before business execution
+- Changed: added Team Sharing Workflow, Team Brief Drafts, Team Brief Template, and updated Notion/Slack publishing rules
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
+- Commit: pending
+- Next: define Notion database properties and Slack approval steps before enabling API automation

@@ -22,6 +22,13 @@ area: Operation
 - [[03_Operation/Paperclip/Paperclip Home|Paperclip Home]]
 - [[03_Operation/Paperclip/Paperclip Runbook|Paperclip Runbook]]
 
+## Team Sharing
+
+- [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
+- [[09_Automations/Notion Sync|Notion Sync]]
+- [[09_Automations/Slack Briefs|Slack Briefs]]
+
 ## Control Links
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
