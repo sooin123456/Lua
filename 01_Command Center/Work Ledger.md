@@ -278,3 +278,15 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/atlas_router.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: turn the design note into a build/app prototype command
+
+## 2026-05-16 KST - build Lua Command UI prototype
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Artifacts, Lucia, Lua Command UI
+- Trigger: user said "Lua Command UI 프로토타입 만들어줘"
+- Changed: created a static HTML/CSS/JS prototype for Lua Command UI, added command preview and Obsidian draft row generation, and logged it in Artifact Ledger
+- Verification: `node --test tests/lua_command_ui_prototype.test.js`; `node --test tests/atlas_router.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node --test tests/notion_publish_queue.test.js`; `node --test tests/flow_audit.test.js`; `node --test tests/add_inbox_capture.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Visual check: Playwright/browser screenshot was not available in this environment, so verification used static tests and vault audits
+- Commit: pending
+- Next: connect the prototype to a safe local command queue write flow

@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lua Command UI Prototype</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <section class="composer" aria-label="Lua Command Composer">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Lua Command UI</p>
+          <h1>명령 작성기</h1>
+        </div>
+        <div class="status-pill">draft only</div>
+      </header>
+
+      <section class="panel">
+        <div class="section-label">
+          <span>1</span>
+          <h2>Domain</h2>
+        </div>
+        <div id="domain-options" class="option-grid" aria-label="Domain options"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-label">
+          <span>2</span>
+          <h2>Intent</h2>
+        </div>
+        <div id="intent-options" class="option-grid compact" aria-label="Intent options"></div>
+      </section>
+
+      <section class="panel">
+        <div class="section-label">
+          <span>3</span>
+          <h2>Payload</h2>
+        </div>
+        <textarea id="payload-input" rows="5" aria-label="Payload input"></textarea>
+      </section>
+    </section>
+
+    <aside class="preview" aria-label="Command Preview">
+      <section class="preview-visual" aria-hidden="true">
+        <div class="flow-step active">domain</div>
+        <div class="flow-line"></div>
+        <div class="flow-step active">intent</div>
+        <div class="flow-line"></div>
+        <div class="flow-step active">payload</div>
+        <div class="flow-line"></div>
+        <div class="flow-step">queue</div>
+      </section>
+
+      <section class="panel sticky-panel">
+        <div class="section-label">
+          <span>4</span>
+          <h2>Command Preview</h2>
+        </div>
+        <pre id="command-preview" class="command-preview"></pre>
+
+        <dl class="route-grid">
+          <div>
+            <dt>Agent</dt>
+            <dd id="route-agent"></dd>
+          </div>
+          <div>
+            <dt>Stage</dt>
+            <dd id="route-stage"></dd>
+          </div>
+          <div>
+            <dt>Output</dt>
+            <dd id="route-output"></dd>
+          </div>
+        </dl>
+
+        <div class="draft-box">
+          <p>Obsidian row</p>
+          <code id="draft-row"></code>
+        </div>
+
+        <button id="draft-button" class="primary-button" type="button">Command Queue에 초안으로 넣기</button>
+        <p id="toast" class="toast" hidden></p>
+      </section>
+    </aside>
+  </main>
+  <script src="./app.js"></script>
+</body>
+</html>

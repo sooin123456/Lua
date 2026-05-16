@@ -120,8 +120,14 @@ Command Queue에 초안으로 넣기
 /lua build app :: Lua Command UI 첫 화면 프로토타입 만들기. domain 선택, intent 선택, payload 입력, Command Preview, draft send 흐름까지.
 ```
 
+## Prototype
+
+- [[08_Artifacts/Lua Command UI Prototype/README|Lua Command UI Prototype]]
+- HTML: `08_Artifacts/Lua Command UI Prototype/index.html`
+
 ## Navigation
 
 - [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|Command Run]]
+- [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[02_Projects/Projects Hub|Projects Hub]]
