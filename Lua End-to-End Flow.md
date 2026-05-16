@@ -37,6 +37,17 @@ Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하
 | Slack으로 테스트 메시지 전송 | 가능 |
 | Notion에 자동 저장 | 아직 안 됨 |
 
+## What Is Left
+
+Notion만 남은 것은 아니다. 남은 큰 조각은 두 가지다.
+
+| 남은 조각 | 의미 | 우선순위 |
+|---|---|---|
+| Atlas Router 자동화 | Command Queue를 자동으로 읽고 domain/agent/stage를 처리 | 먼저 |
+| Notion Publishing | Obsidian 결과 중 팀 공유용만 Notion DB에 저장 | 나중 |
+
+지금은 Notion보다 Atlas Router 자동화를 먼저 안정화하는 것이 좋다. Notion은 팀이 보는 정리본이므로, Obsidian에서 결과물이 안정적으로 만들어진 뒤 붙인다.
+
 ## Correct Mental Model
 
 지금은 아래 상태다.

@@ -167,3 +167,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/promote_inbox_to_commands.js --apply`; `node scripts/process_command_queue.js --apply`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: process `cmd-20260516-024544` first through Atlas CEO clarify/design/plan
+
+## 2026-05-16 KST - add timestamped Inbox capture log
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Inbox, Templates, End-to-End Flow
+- Trigger: user asked for dates/timestamps in `00_Inbox` so capture timing is visible
+- Changed: added Capture Log table, Inbox Capture Template, `add_inbox_capture.js`, and clarified that Notion is not the only remaining piece
+- Verification: `node scripts/add_inbox_capture.js --source manual "테스트 캡처: Inbox 날짜 자동 기록 확인"`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: build Atlas Router automation before Notion publishing

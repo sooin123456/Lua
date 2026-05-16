@@ -10,6 +10,7 @@
     "command:process": "node scripts/process_command_queue.js --apply",
     "fill:scaffolds": "node scripts/fill_empty_scaffolds.js",
     "command:queue": "node scripts/obsidian_command_queue.js",
+    "inbox:add": "node scripts/add_inbox_capture.js",
     "inbox:promote": "node scripts/promote_inbox_to_commands.js --apply",
     "slack:queue": "node scripts/slack_command_inbox.js",
     "slack:dry-run": "node scripts/slack_brief.js --dry-run",

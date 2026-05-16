@@ -14,6 +14,7 @@ area: Templates
 - [[99_Templates/Project Dashboard Template|Project Dashboard Template]]
 - [[99_Templates/Meeting Note Template|Meeting Note Template]]
 - [[99_Templates/Team Brief Template|Team Brief Template]]
+- [[99_Templates/Inbox Capture Template|Inbox Capture Template]]
 
 ## Agent Prompt Templates
 

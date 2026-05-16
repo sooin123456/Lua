@@ -25,6 +25,16 @@ last_updated: 2026-05-16
 | 2 | `첫 번째부터 진행해줘` | Atlas CEO 방식으로 clarify/design/plan 진행 |
 | 3 | `이건 보류해줘` | 해당 command run을 paused로 표시 |
 
+## Are We Done Except Notion?
+
+아니다. Notion은 마지막 공유/정리본 단계다.
+
+먼저 해야 할 것은:
+
+1. Obsidian Inbox와 Command Center를 계속 사용한다.
+2. Atlas Router가 Queue를 읽고 자동으로 처리하게 만든다.
+3. 결과물이 안정적으로 쌓이면 Notion DB 저장을 붙인다.
+
 ## Recommended Next Order
 
 내가 보기에는 지금은 아래 순서가 좋다.

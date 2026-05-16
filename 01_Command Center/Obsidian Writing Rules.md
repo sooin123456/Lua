@@ -64,6 +64,18 @@ Obsidian에는 "나중에 다시 써먹을 맥락"만 남긴다.
 다음 행동:
 ```
 
+## Timestamp Rule
+
+Inbox에는 작성 시각이 남아야 한다.
+
+가능하면 아래 스크립트로 추가한다.
+
+```bash
+node scripts/add_inbox_capture.js --source manual "떠오른 생각"
+```
+
+직접 적을 때도 최소한 `Created: YYYY-MM-DD HH:mm KST`를 남긴다.
+
 ## Navigation
 
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]

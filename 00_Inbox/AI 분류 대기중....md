@@ -2,10 +2,18 @@
 type: inbox
 status: triaged
 source: manual
-last_updated: 2026-05-15
+last_updated: 2026-05-16
 ---
 
 # AI 분류 대기중
+
+## Capture Log
+
+| ID | Created | Source | Status | Raw Capture |
+|---|---|---|---|---|
+| cap-20260516121950 | 2026-05-16 12:19:50 KST | manual | test | 테스트 캡처: Inbox 날짜 자동 기록 확인 |
+| cap-20260515-manual-001 | 2026-05-15 KST | manual | promoted | 카파시 인터뷰 기반 신경망 UI/AI 앱 아이디어 |
+| cap-20260515-manual-002 | 2026-05-15 KST | meeting | promoted | 수상태양광 미팅 후 K-water, 협력사, 경쟁사, 테크인 조사 필요 |
 
 ## Original Capture
 
