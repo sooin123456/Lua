@@ -7,15 +7,29 @@ last_updated: 2026-05-16
 
 # TOSS
 
-Toss Apps in Toss 챌린지와 Toss 미니앱 아이디어를 별도로 관리하는 프로젝트 공간이다.
+Toss Apps in Toss 챌린지와 Toss 미니앱 아이디어를 별도 관리하는 프로젝트 공간이다.
 
 ## Current Entry
 
 - [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]]
 
-## Operating Rule
+## Repository Rule
 
-TOSS 프로젝트는 제출 전 단계부터 별도 프로젝트로 관리한다.
+`Lua` repo는 명령 체계, 운영 기록, 기획 문서만 담는다.
+
+실제 앱 구현은 `Lua_template`를 기준으로 새 repo를 만든다. `돈 먹는 먼지`의 앱 repo는 다음 위치다.
+
+```text
+C:\Users\sooin\OneDrive\문서\Lua_money_dust
+```
+
+Planned remote:
+
+```text
+https://github.com/sooin123456/Lua_money_dust
+```
+
+## Operating Rule
 
 아이디어는 먼저 [[06_Personal Studio/Ideas/Home|Ideas]]에 모으고, 제출 후보가 되면 이 프로젝트로 승격한다. 사용자가 결정해야 하는 항목은 [[01_Command Center/Decision Board|Decision Board]]에만 모은다. 나머지 기획, 구현, 검증, 문서화는 [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]] 방식으로 Codex가 이어서 처리한다.
 

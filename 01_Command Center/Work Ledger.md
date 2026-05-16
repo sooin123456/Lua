@@ -385,8 +385,8 @@ last_updated: 2026-05-15
 - Agent: `Codex`
 - Repo/area: Artifacts, Lucia, Money Eating Dust
 - Trigger: user said Codex should orchestrate other agents until the miniapp is complete
-- Changed: spawned product/UX, engineering scout, and challenge/release agents; merged their outputs into [[08_Artifacts/Money Eating Dust Prototype/README|Money Eating Dust Prototype]]; added model tests for dust creation, monthly totals, and sleeping dust; updated Artifact Ledger, command run, and User Action Board
-- Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js` after fixing the HTML path note link
+- Changed: spawned product/UX, engineering scout, and challenge/release agents; created an initial Money Eating Dust prototype; added model tests for dust creation, monthly totals, and sleeping dust; updated Artifact Ledger, command run, and User Action Board
+- Verification: prototype tests; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js` after fixing the HTML path note link
 - Commit: pending
 - Next: visually review the prototype, then migrate the accepted loop into `Lua_template`
 
@@ -397,7 +397,7 @@ last_updated: 2026-05-15
 - Repo/area: Artifacts, Drafts, Money Eating Dust
 - Trigger: user said to do everything except decisions while they were away
 - Changed: added cuter dust character layers, wallet-room styling, visual regression checks, and [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Toss submission draft]]; updated command run and User Action Board to isolate the remaining user decisions
-- Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless mobile/desktop screenshots; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Verification: prototype tests; Chrome headless mobile/desktop screenshots; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: user decides final submission name, demo-data style, representative screenshot, and whether to migrate before submitting
 
@@ -408,7 +408,7 @@ last_updated: 2026-05-15
 - Repo/area: Command Center, Personal Studio, TOSS
 - Trigger: user said the current command style was uncomfortable and asked for separate spaces for ideas, decisions, and autopilot delegation
 - Changed: created [[06_Personal Studio/Ideas/Home|Ideas]], [[01_Command Center/Decision Board|Decision Board]], [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]], and [[02_Projects/TOSS/Home|TOSS]]; moved `돈 먹는 먼지` submission tracking into the TOSS project; applied decisions for app name, generic demo data, and dust-room screenshot
-- Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Verification: prototype tests; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: decide only the remaining submit path: static prototype or Toss/Lua_template migration
 
@@ -418,8 +418,8 @@ last_updated: 2026-05-15
 - Agent: `Codex`
 - Repo/area: TOSS, Artifacts, submission prep
 - Trigger: user said to continue
-- Changed: generated the selected dust-room mobile screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/dust-room-mobile.png`, created [[02_Projects/TOSS/Submission Package|Submission Package]], and linked it from TOSS project docs and the submission draft
-- Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Changed: generated the selected dust-room mobile screenshot, created [[02_Projects/TOSS/Submission Package|Submission Package]], and linked it from TOSS project docs and the submission draft
+- Verification: prototype tests; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: decide submit path: static prototype or Toss/Lua_template migration
 
@@ -430,7 +430,7 @@ last_updated: 2026-05-15
 - Repo/area: TOSS, Money Eating Dust prototype
 - Trigger: user asked for open banking subscription detection, cuter 3D category characters, assisted cancellation, and a wider Toss-like layout
 - Changed: added an open banking preview card, auto-detected subscription list, assisted cancellation panel, wider 760px shell, category-specific 3D-like dust shapes, and wide preview screenshot
-- Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/wide-openbanking-preview.png`
+- Verification: prototype tests; Chrome headless screenshot
 - Commit: pending
 - Next: decide whether real financial integration stays a mock preview for challenge submission or moves into a verified Toss/Lua_template integration phase
 
@@ -441,6 +441,17 @@ last_updated: 2026-05-15
 - Repo/area: TOSS, Money Eating Dust prototype
 - Trigger: user provided a dark card-based miniapp reference and asked to change the UI into that form
 - Changed: rebuilt the prototype shell into a dark app preview with app icon, three vertical cards, a large cute dust mascot card, embedded dust room card, and action/cancellation card
-- Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/reference-style-preview.png`
+- Verification: prototype tests; Chrome headless screenshot
 - Commit: pending
 - Next: user visually reviews the new form before moving it into the Toss/Lua_template structure
+
+## 2026-05-16 KST - correct Money Dust repository boundary
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Lua, TOSS, Lua_money_dust
+- Trigger: user clarified that `Lua` must contain only commands and system records, while real apps should live in new `Lua_template`-based repos
+- Changed: cloned `Lua_template` into local `C:\Users\sooin\OneDrive\문서\Lua_money_dust`, changed its origin to `https://github.com/sooin123456/Lua_money_dust.git`, rebuilt the app as a single-screen miniapp in that repo, removed Money Dust app artifacts/tests from `Lua`, and updated TOSS docs to point to the app repo
+- Verification: `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`; `Lua_money_dust` static route/screen check
+- Commit: `73591dc` in local `Lua_money_dust`; Lua cleanup commit pending
+- Next: user creates the GitHub repo `sooin123456/Lua_money_dust`, then push local app repo
