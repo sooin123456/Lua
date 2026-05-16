@@ -21,16 +21,16 @@ last_updated: 2026-05-16
 
 | 항목 | 내용 |
 |---|---|
-| 처리한 command | [[01_Command Center/Command Runs/easy-ai-helper-20260516-01-build-app|easy-ai-helper-20260516-01]] |
+| 처리한 command | [[01_Command Center/Command Runs/money-dust-20260516-01-build-app|money-dust-20260516-01]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
 | 현재 상태 | routed / plan |
-| 다음 사용자 행동 | `쉬운말 AI 도우미 첫 화면 설계해줘` |
+| 다음 사용자 행동 | `돈먹는 먼지 첫 화면과 먼지 방 UI 설계해줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `쉬운말 AI 도우미 첫 화면 설계해줘` | 60대 이상 사용자 기준 첫 화면과 결과 화면 설계 |
+| 1 | `돈먹는 먼지 첫 화면과 먼지 방 UI 설계해줘` | Toss 챌린지 제출용 첫 화면, 먼지 캐릭터, 절약 루프 설계 |
 | 2 | `Command Center 상태 보여줘` | 남은 queue와 현재 stage를 보여줌 |
 | 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 

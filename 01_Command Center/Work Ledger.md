@@ -367,3 +367,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`
 - Commit: pending
 - Next: replace deterministic artifact output with domain-specific app implementation when the command requires code generation
+
+## 2026-05-16 KST - plan Money Eating Dust miniapp
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Lucia, Command Center, product planning
+- Trigger: user chose `돈먹는 먼지` for the Apps in Toss Vibecoding Challenge
+- Changed: added command `money-dust-20260516-01`, created [[01_Command Center/Command Runs/money-dust-20260516-01-build-app|command run]], wrote [[02_Projects/Lucia/Money Eating Dust Miniapp|돈먹는 먼지 Miniapp]] product spec, and updated Projects Hub/User Action Board
+- Verification: `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: design the first screen, dust room, and cute fixed-cost reduction loop
