@@ -21,17 +21,17 @@ last_updated: 2026-05-16
 
 | 항목 | 내용 |
 |---|---|
-| 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|inbox-20260516-041614-01]] |
+| 처리한 command | [[01_Command Center/Command Runs/lua-ui-20260516-133839-design-screen|lua-ui-20260516-133839]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
-| 현재 상태 | prototype created |
-| 다음 사용자 행동 | `Lua Command UI를 실제 Command Queue 쓰기로 연결해줘` |
+| 현재 상태 | local writer connected |
+| 다음 사용자 행동 | `npm run lua-ui 실행해줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `Lua Command UI를 템플릿 앱으로 옮겨줘` | `Lua_template` 기반 실제 앱 골격으로 이전 |
-| 2 | `Lua Command UI를 실제 Command Queue 쓰기로 연결해줘` | 프로토타입의 draft row를 실제 vault command queue 쓰기로 연결 |
+| 1 | `npm run lua-ui 실행해줘` | 로컬 writer 서버를 켜고 `http://127.0.0.1:8765`로 사용 |
+| 2 | `Lua Command UI를 템플릿 앱으로 옮겨줘` | `Lua_template` 기반 실제 앱 골격으로 이전 |
 | 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 
 ## Current Research Link
@@ -64,7 +64,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-Lua Command UI를 템플릿 앱으로 옮겨줘
+npm run lua-ui 실행해줘
 ```
 
 ## What Codex Does

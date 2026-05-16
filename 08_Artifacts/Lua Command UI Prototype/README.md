@@ -8,7 +8,19 @@ last_updated: 2026-05-16
 
 Static first-screen prototype for [[02_Projects/Lucia/Lua Command UI|Lua Command UI]].
 
-Open `index.html` in a browser to try the command composer.
+Open `index.html` directly to try the command composer in copy-only mode.
+
+Run the local writer server to write directly into Obsidian Command Queue.
+
+```bash
+npm run lua-ui
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8765
+```
 
 ## Scope
 
@@ -17,7 +29,8 @@ Open `index.html` in a browser to try the command composer.
 - payload input
 - `/lua ... :: ...` command preview
 - Obsidian Command Queue row preview
-- copy draft command and row to clipboard
+- copy draft command and row to clipboard in `file://` mode
+- write queued command rows in `localhost` mode
 
 ## Navigation
 

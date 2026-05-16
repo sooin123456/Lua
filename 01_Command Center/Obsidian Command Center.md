@@ -85,6 +85,7 @@ Obsidian에서는 아래 형식을 권장한다.
 | inbox-20260516-031554-01 | build | app | 카파시의 인터뷰를 보면 앞으로는 매 순간 신경망이 그려내는 화면 미리 짜둔 화면이 아니고 코드가 사라지고 신경망이 거의 모든일을 하는 형태 그렇다면 내가 앞으로 새로운 사업 아이템 신규 사업들을 얘기할때는 이런 형태를 염두해두고 하나씩 만들어 보는게 좋을듯 예를 들어서 toss 미니앱 같은 경우 | plan | Forge | routed | [[01_Command Center/Command Runs/inbox-20260516-031554-01-build-app|run]] |
 | inbox-20260516-031554-02 | research | brief | 그리고 수상태양광 관련해서 오늘 미팅을 진행함 K water 발주 사이즈 우리가 협력할수있는 업체들 우리 경쟁사들에 대한 조사가 필요할듯 제일 중요한건 테크인에 대한 조사가 필요할듯 | brief | Lens | briefed | [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|brief]] |
 | inbox-20260516-041614-01 | design | screen | Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토스 미니앱 만들기 주제는 아직 고민중 대신 이번에는 디자인 쪽으로 어제 말한 내용 나의 명령 체계를 ui로 표현해주는 좀 더 쉽게 뭔가 명령할 수 있는 그런 서비스 | plan | Scribe+Forge | routed | [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|run]] |
+| lua-ui-20260516-133839 | design | screen | Lua Command UI 서버 연결 테스트 | plan | Scribe+Forge | routed | [[01_Command Center/Command Runs/lua-ui-20260516-133839-design-screen|run]] |
 
 ## Superpowers Workflow
 

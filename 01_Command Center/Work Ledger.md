@@ -301,3 +301,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js`; `node --test tests/lua_command_ui_prototype.test.js`
 - Commit: pending
 - Next: migrate Lua Command UI from static prototype into a `Lua_template`-based app when approved
+
+## 2026-05-16 KST - connect Lua Command UI to Command Queue
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Lua Command UI, scripts, Command Center
+- Trigger: user said "Lua Command UI를 실제 Command Queue 쓰기로 연결해줘"
+- Changed: added `scripts/lua_command_ui_server.js`, wired `npm run lua-ui`, connected the prototype button to a localhost API, preserved copy fallback for `file://`, and verified a real Queue write with command `lua-ui-20260516-133839`
+- Verification: `node --test tests/lua_command_ui_server.test.js`; `node --test tests/lua_command_ui_prototype.test.js`; `node --test tests/atlas_router.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`; live API write via `http://127.0.0.1:8765/api/commands`
+- Commit: pending
+- Next: run `npm run lua-ui` and use `http://127.0.0.1:8765` instead of `file://` for real writes

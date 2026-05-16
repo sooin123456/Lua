@@ -73,9 +73,15 @@ If Lua Command UI graduates from static prototype to app:
 | Static `index.html` | `app/features/lua-command-ui/screens/home.tsx` |
 | `app.js` command builder | `app/features/lua-command-ui/lib/command-builder.ts` |
 | Domain/intent options | `app/features/lua-command-ui/constants.ts` |
-| Draft row copy | action/API route after approval |
+| Draft row copy | local writer API route |
 | Visual shell | existing `core/layouts/private.layout.tsx` or a focused public route |
 | Tests | `e2e/lua-command-ui/*.spec.ts` |
+
+Current static prototype bridge:
+
+- `npm run lua-ui` starts a local writer server.
+- `http://127.0.0.1:8765` can write queued command rows to Obsidian.
+- `file://` mode remains copy-only.
 
 ## Navigation
 

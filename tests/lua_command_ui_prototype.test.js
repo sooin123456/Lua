@@ -14,10 +14,11 @@ test('prototype files exist and include the required UI regions', () => {
   assert.match(html, /id="payload-input"/);
   assert.match(html, /id="command-preview"/);
   assert.match(html, /id="draft-row"/);
+  assert.match(html, /id="connection-status"/);
 });
 
 test('command builder maps domain and intent into preview and draft row', () => {
-  const { buildCommand, buildDraftRow, routeFor } = require('../08_Artifacts/Lua Command UI Prototype/app');
+  const { buildCommand, buildDraftRow, canWriteToQueue, routeFor } = require('../08_Artifacts/Lua Command UI Prototype/app');
 
   const command = buildCommand({
     domain: 'design',
@@ -35,4 +36,6 @@ test('command builder maps domain and intent into preview and draft row', () => 
     buildDraftRow({ id: 'draft-001', domain: 'design', intent: 'screen', payload: '테스트' }),
     /\| draft-001 \| design \| screen \| 테스트 \| clarify \| Scribe\+Forge \| queued \| from Lua Command UI \|/
   );
+  assert.equal(canWriteToQueue({ protocol: 'file:', hostname: '' }), false);
+  assert.equal(canWriteToQueue({ protocol: 'http:', hostname: '127.0.0.1' }), true);
 });

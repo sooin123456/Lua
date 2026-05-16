@@ -62,6 +62,29 @@ function buildDraftRow({ id, domain, intent, payload }) {
   return `| ${id} | ${domain} | ${intent} | ${safePayload} | ${route.stage} | ${route.agent} | queued | from Lua Command UI |`;
 }
 
+function canWriteToQueue(locationLike = window.location) {
+  return locationLike.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(locationLike.hostname);
+}
+
+async function submitCommand(state, fetchImpl = fetch, locationLike = window.location) {
+  if (!canWriteToQueue(locationLike)) {
+    return { mode: 'copy', ok: false };
+  }
+
+  const response = await fetchImpl('/api/commands', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      domain: state.domain,
+      intent: state.intent,
+      payload: state.payload,
+    }),
+  });
+  const data = await response.json();
+  if (!response.ok) throw new Error(data.error || 'Failed to write command');
+  return { mode: 'write', ok: true, ...data };
+}
+
 function draftId() {
   const now = new Date();
   const stamp = now.toISOString().replace(/[-:]/g, '').replace(/\..+$/, '').replace('T', '-');
@@ -98,6 +121,7 @@ function initApp(doc = document) {
   const routeStage = doc.getElementById('route-stage');
   const routeOutput = doc.getElementById('route-output');
   const draftButton = doc.getElementById('draft-button');
+  const connectionStatus = doc.getElementById('connection-status');
   const toast = doc.getElementById('toast');
 
   function setDomain(domain) {
@@ -117,6 +141,9 @@ function initApp(doc = document) {
     payloadInput.value = state.payload;
     commandPreview.textContent = buildCommand(state);
     draftRow.textContent = buildDraftRow(state);
+    connectionStatus.textContent = canWriteToQueue(window.location)
+      ? 'local writer connected'
+      : 'copy fallback';
 
     const route = routeFor(state.domain);
     routeAgent.textContent = route.agent;
@@ -132,12 +159,22 @@ function initApp(doc = document) {
 
   draftButton.addEventListener('click', async () => {
     const text = `${buildCommand(state)}\n\n${buildDraftRow(state)}`;
-    if (navigator.clipboard) await navigator.clipboard.writeText(text);
-    toast.textContent = 'Command draft copied';
-    toast.hidden = false;
-    window.setTimeout(() => {
-      toast.hidden = true;
-    }, 1800);
+    try {
+      const result = await submitCommand(state);
+      if (result.mode === 'write') {
+        toast.textContent = `Command Queue에 추가됨: ${result.id}`;
+      } else {
+        if (navigator.clipboard) await navigator.clipboard.writeText(text);
+        toast.textContent = '로컬 서버가 없어 command draft를 복사했습니다';
+      }
+      toast.hidden = false;
+      window.setTimeout(() => {
+        toast.hidden = true;
+      }, 2200);
+    } catch (error) {
+      toast.textContent = error.message;
+      toast.hidden = false;
+    }
   });
 
   render();
@@ -150,6 +187,7 @@ if (typeof window !== 'undefined') {
     buildDraftRow,
     initApp,
     routeFor,
+    submitCommand,
   };
   window.addEventListener('DOMContentLoaded', () => initApp());
 }
@@ -159,6 +197,8 @@ if (typeof module !== 'undefined') {
     DOMAINS,
     buildCommand,
     buildDraftRow,
+    canWriteToQueue,
     routeFor,
+    submitCommand,
   };
 }

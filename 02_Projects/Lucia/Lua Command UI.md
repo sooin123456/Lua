@@ -124,6 +124,9 @@ Command Queue에 초안으로 넣기
 
 - [[08_Artifacts/Lua Command UI Prototype/README|Lua Command UI Prototype]]
 - HTML: `08_Artifacts/Lua Command UI Prototype/index.html`
+- Local writer: `npm run lua-ui`, then open `http://127.0.0.1:8765`
+
+`file://` mode is copy-only. Real Command Queue writes require the local writer server.
 
 ## App Template Rule
 
