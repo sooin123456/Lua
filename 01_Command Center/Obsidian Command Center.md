@@ -80,8 +80,10 @@ Obsidian에서는 아래 형식을 권장한다.
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| example-001 | research | compare | 테크인과 경쟁사 비교 | clarify | Lens | queued |  |
-| cmd-20260516-024544 | planning | prioritize | 이번 주 Lua 구축 우선순위 정리 | clarify | Atlas | queued |  |
+| example-001 | research | compare | 테크인과 경쟁사 비교 | clarify | Lens | planned | [[01_Command Center/Command Runs/example-001-research-compare|run]] |
+| cmd-20260516-024544 | planning | prioritize | 이번 주 Lua 구축 우선순위 정리 | clarify | Atlas | planned | [[01_Command Center/Command Runs/cmd-20260516-024544-planning-prioritize|run]] |
+| inbox-20260516-031554-01 | build | app | 카파시의 인터뷰를 보면 앞으로는 매 순간 신경망이 그려내는 화면 미리 짜둔 화면이 아니고 코드가 사라지고 신경망이 거의 모든일을 하는 형태 그렇다면 내가 앞으로 새로운 사업 아이템 신규 사업들을 얘기할때는 이런 형태를 염두해두고 하나씩 만들어 보는게 좋을듯 예를 들어서 toss 미니앱 같은 경우 | clarify | Forge | planned | [[01_Command Center/Command Runs/inbox-20260516-031554-01-build-app|run]] |
+| inbox-20260516-031554-02 | research | brief | 그리고 수상태양광 관련해서 오늘 미팅을 진행함 K water 발주 사이즈 우리가 협력할수있는 업체들 우리 경쟁사들에 대한 조사가 필요할듯 제일 중요한건 테크인에 대한 조사가 필요할듯 | clarify | Lens | planned | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
 
 ## Superpowers Workflow
 
@@ -119,6 +121,28 @@ Obsidian에서는 아래 형식을 권장한다.
 4. 결과물을 각 저장 위치에 반영한다.
 5. Work Ledger에 기록한다.
 
+## Promote Inbox Automatically
+
+Inbox에 막 적은 원문은 아래 스크립트로 Command Queue 후보로 승격할 수 있다.
+
+```bash
+node scripts/promote_inbox_to_commands.js --dry-run
+node scripts/promote_inbox_to_commands.js --apply
+```
+
+Codex에게는 "Inbox 승격해줘"라고 말하면 된다.
+
+## Process Command Queue
+
+Queue에 들어온 명령은 아래 스크립트로 command run note를 만든다.
+
+```bash
+node scripts/process_command_queue.js --dry-run
+node scripts/process_command_queue.js --apply
+```
+
+Codex에게는 "Command Center 처리해줘"라고 말하면 된다.
+
 ## When To Start From Inbox
 
 아래 경우에는 Command Center보다 Inbox에 먼저 쓴다.
@@ -149,6 +173,7 @@ Obsidian에서는 아래 형식을 권장한다.
 ## Navigation
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/User Action Board|User Action Board]]
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[Lua End-to-End Flow|Lua End-to-End Flow]]
 - [[07_Lua_System/agents/README|Lua Agents]]

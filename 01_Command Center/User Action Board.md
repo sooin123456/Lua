@@ -1,0 +1,67 @@
+---
+type: action-board
+status: active
+last_updated: 2026-05-16
+---
+
+# User Action Board
+
+비개발자 기준으로 사용자가 지금 해야 할 일만 모은다.
+
+## Today
+
+| 순서 | 할 일 | 위치 | 완료 기준 |
+|---|---|---|---|
+| 1 | 떠오른 생각은 일단 Inbox에 적는다 | [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]] | 원문이 남아 있음 |
+| 2 | 바로 시킬 일은 Command Center에 명령으로 적는다 | [[01_Command Center/Obsidian Command Center|Obsidian Command Center]] | `/lua domain intent :: 내용` 형태 |
+| 3 | Codex에게 "Inbox 승격해줘" 또는 "Command Center 처리해줘"라고 말한다 | Codex | Queue가 처리됨 |
+| 4 | 결과가 맞는지만 확인한다 | 결과 노트 | 수정 요청 또는 승인 |
+
+## Current Tasks For User
+
+| 우선순위 | 해야 할 말 | Codex가 할 일 |
+|---|---|---|
+| 1 | `Command Center 처리해줘` | queued 명령을 command run note로 만들고 다음 질문을 제시 |
+| 2 | `첫 번째부터 진행해줘` | Atlas CEO 방식으로 clarify/design/plan 진행 |
+| 3 | `이건 보류해줘` | 해당 command run을 paused로 표시 |
+
+## Recommended Next Order
+
+내가 보기에는 지금은 아래 순서가 좋다.
+
+| 순서 | 먼저 할 것 | 이유 | 연결 노트 |
+|---|---|---|---|
+| 1 | Lua 구축 우선순위 정리 | 시스템을 더 만들기 전 방향을 고정해야 함 | [[01_Command Center/Command Runs/cmd-20260516-024544-planning-prioritize|planning/prioritize]] |
+| 2 | Obsidian 명령 라우터 안정화 | 앞으로 모든 일이 이 흐름을 타야 함 | [[01_Command Center/Obsidian Command Center|Obsidian Command Center]] |
+| 3 | Neural UI 앱 아이디어 clarify | 앱 제작 후보지만 아직 질문이 필요함 | [[01_Command Center/Command Runs/inbox-20260516-031554-01-build-app|build/app]] |
+| 4 | 수상태양광 리서치 brief | 실제 사업 리서치는 시스템 안정화 후 진행 | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|research/brief]] |
+
+지금 네가 나에게 말하면 좋은 문장:
+
+```text
+첫 번째부터 진행해줘
+```
+
+## What Codex Does
+
+| 상황 | Codex가 하는 일 |
+|---|---|
+| Inbox가 쌓임 | domain/intent로 분류하고 Command Queue로 승격 |
+| Command Queue가 쌓임 | Atlas CEO처럼 clarify/design/plan 순서로 처리 |
+| 결과물이 생김 | Obsidian에 저장하고 Work Ledger에 기록 |
+| 공유가 필요함 | Team Brief Drafts 또는 Slack draft로 보냄 |
+
+## Current Recommended Commands
+
+```text
+/lua planning prioritize :: 이번 주 Lua 구축 우선순위 정리
+/lua ops inbox :: 00_Inbox 내용을 Command Center로 승격
+/lua build agent :: Obsidian 명령을 처리하는 Atlas Router 만들기
+```
+
+## Navigation
+
+- [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
+- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+- [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
+- [[01_Command Center/Work Ledger|Work Ledger]]

@@ -156,3 +156,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
 - Commit: pending
 - Next: implement a script that promotes selected Inbox captures into Command Center queue rows
+
+## 2026-05-16 KST - implement Inbox promotion and command run workflow
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Inbox, Obsidian Command Center, command runs
+- Trigger: user asked Codex to decide next user actions and apply Superpowers/gstack-style methods directly
+- Changed: added Inbox promotion script, command queue processing script, User Action Board, and generated command run notes with Superpowers stages and gstack roles
+- Verification: `node scripts/promote_inbox_to_commands.js --apply`; `node scripts/process_command_queue.js --apply`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: process `cmd-20260516-024544` first through Atlas CEO clarify/design/plan
