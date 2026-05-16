@@ -1,10 +1,10 @@
 ---
 type: command-run
-status: planned
+status: briefed
 command_id: inbox-20260516-031554-02
 domain: research
 intent: brief
-stage: clarify
+stage: brief
 agent: Lens
 role: Researcher
 last_updated: 2026-05-16
@@ -61,6 +61,66 @@ last_updated: 2026-05-16
 ## Next User Action
 
 Tell Codex: `inbox-20260516-031554-02 처리해줘`
+
+## Atlas CEO Router Update
+
+| Field | Value |
+|---|---|
+| Command ID | inbox-20260516-031554-02 |
+| Domain / Intent | research / brief |
+| Stage | clarify -> research |
+| gstack Role | Researcher |
+| Lua Agent | Lens |
+
+### Clarify
+
+- 목표: "그리고 수상태양광 관련해서 오늘 미팅을 진행함 K water 발주 사이즈 우리가 협력할수있는 업체들 우리 경쟁사들에 대한 조사가 필요할듯 제일 중요한건 테크인에 대한 조사가 필요할듯"를 출처 기반 Research Brief로 만들기 위한 조사 범위와 검증 순서를 정한다.
+- 핵심 질문: K-water 발주 규모와 일정, 협력 가능 업체, 경쟁사, 테크인의 포지션을 각각 어떤 근거로 확인할 것인가?
+- 제약: 지금은 결론을 단정하지 않고, 조사 범위와 출처 기준을 먼저 세운다.
+- 아직 하지 않을 것: 미확인 수치 인용, 출처 없는 경쟁사 비교, 팀 공유용 Notion 정리본 발행.
+
+### Design
+
+- 추천 방향: Lens가 공공 발주/기관 자료 -> 업체 후보 -> 경쟁사 -> 테크인 순서로 조사해 Research Brief를 만든다.
+- 대안 1: K-water 발주 규모만 먼저 본다. 빠르지만 사업 판단에 필요한 협력사/경쟁사 맥락이 부족하다.
+- 대안 2: 경쟁사 비교표부터 만든다. 보기 좋지만 발주 맥락이 약하면 비교 기준이 흔들린다.
+- 대안 3: 테크인 단독 조사부터 한다. 중요하지만 시장/발주/협력사 맥락 없이 보면 해석이 좁아진다.
+
+### Plan
+
+- [x] 첫 처리 대상: [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|inbox-20260516-031554-02]].
+- [x] Lens / Researcher 방식으로 clarify/research/brief 하네스 작성.
+- [x] 조사 범위: K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인.
+- [x] 공공 발주와 K-water 관련 1차 출처를 확인한다.
+- [x] 협력 가능 업체와 경쟁사를 표로 나눈다.
+- [x] 테크인 관련 근거를 따로 모아 Research Brief 초안으로 정리한다.
+
+### Next User Action
+
+다음에는 Codex에게 아래처럼 말하면 된다.
+
+```text
+리서치 실행 승인해줘
+```
+
+## Research Brief
+
+작성한 초안:
+
+- [[04_Resources/Energy Policies/Floating Solar K-water Research Brief|Floating Solar K-water Research Brief]]
+
+## Brief Notes
+
+- K-water는 수상태양광을 2030년 재생에너지 확대 전략의 핵심 축으로 보고 있다.
+- 합천댐 41MW~41.5MW 사례에서 스코트라, 한화 Qcells가 주요 player로 반복 확인된다.
+- ETI E&C, 테크윈에너지는 협력/경쟁 후보로 볼 수 있다.
+- "테크인"은 수상태양광 직접 업체로 아직 검증되지 않았다. 정확 법인명 확인이 필요하다.
+
+## Next User Action After Brief
+
+```text
+테크인 정확 회사명 확인했어
+```
 
 ## Navigation
 

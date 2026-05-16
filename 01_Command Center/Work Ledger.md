@@ -200,3 +200,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: process `inbox-20260516-031554-02` research/brief through Lens
+
+## 2026-05-16 KST - create floating solar research brief
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Energy Policies, Command Runs, User Action Board
+- Trigger: user approved research execution for K-water floating solar brief
+- Changed: created [[04_Resources/Energy Policies/Floating Solar K-water Research Brief]], marked `inbox-20260516-031554-02` as briefed, and updated next user action to verify the exact Techin company name
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: user confirms the exact company name for "테크인" or asks to convert the brief into a meeting-ready one-pager

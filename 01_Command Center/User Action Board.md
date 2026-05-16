@@ -21,17 +21,17 @@ last_updated: 2026-05-16
 
 | 항목 | 내용 |
 |---|---|
-| 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-031554-01-build-app|inbox-20260516-031554-01]] |
-| 처리 방식 | Atlas CEO clarify -> design -> plan |
-| 현재 상태 | routed / plan |
-| 다음 사용자 행동 | `수상태양광 리서치 진행해줘` |
+| 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|inbox-20260516-031554-02]] |
+| 처리 방식 | Lens research -> brief |
+| 현재 상태 | briefed / brief |
+| 다음 사용자 행동 | `테크인 정확 회사명 확인했어` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `수상태양광 리서치 진행해줘` | 다음 planned command run을 clarify/design/plan으로 진행 |
-| 2 | `Command Center 상태 보여줘` | 남은 queue와 현재 stage를 보여줌 |
+| 1 | `테크인 정확 회사명 확인했어` | Research Brief에서 테크인 항목을 확정/수정 |
+| 2 | `수상태양광 brief 보여줘` | 작성된 Research Brief 요약 |
 | 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 
 ## Are We Done Except Notion?
@@ -58,7 +58,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-수상태양광 리서치 진행해줘
+테크인 정확 회사명 확인했어
 ```
 
 ## What Codex Does
