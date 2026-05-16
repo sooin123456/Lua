@@ -51,6 +51,7 @@ https://github.com/sooin123456/Lua_money_dust
 - [x] `Lua_template` 기반 local app repo 생성
 - [x] 실제 앱 UI를 `Lua_money_dust`로 분리
 - [x] `Lua` repo에서 앱 artifact 제거
+- [x] `Lua_money_dust` 로컬 실행 가능 상태 확인
 - [ ] GitHub repo `sooin123456/Lua_money_dust` 생성
 - [ ] `Lua_money_dust` push
 - [ ] 제출용 screenshot 재생성

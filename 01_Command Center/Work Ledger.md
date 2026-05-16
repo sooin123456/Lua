@@ -466,3 +466,15 @@ last_updated: 2026-05-15
 - Verification: pending final checks
 - Commit: pending
 - Next: use `03_Wiki/Repository Registry` as the default lookup before creating or editing app repos
+
+## 2026-05-16 KST - make Lua_money_dust runnable locally
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: `Lua_money_dust`
+- Trigger: user asked to continue through step 3: create/check app repo and make the app runnable
+- Changed: added root React Router/Vite/TypeScript/package config, installed dependencies, reduced active routes to the Money Dust MVP route, removed generated `.react-router` files from git tracking, and documented local run commands
+- Verification: local dev server returned `200 OK` at `http://127.0.0.1:5174/`; `npm run typecheck`; `npm run build`; Chrome headless screenshot check
+- Commit: `657e85d` in local `Lua_money_dust`
+- Blocker: GitHub remote `sooin123456/Lua_money_dust` does not exist yet, so push is still pending
+- Next: user creates the empty GitHub repo, then push `Lua_money_dust`
