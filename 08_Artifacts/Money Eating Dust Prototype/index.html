@@ -22,16 +22,41 @@
         <p id="daily-loss">하루 0원씩 조용히 먹고 있어요</p>
       </section>
 
-      <section class="room-section" aria-labelledby="room-title">
-        <div class="section-heading">
-          <div>
-            <h2 id="room-title">오늘의 먼지방</h2>
-            <p id="status-copy">귀엽지만 꽤 비싼 먼지들이에요.</p>
-          </div>
-          <button id="reset-demo" class="ghost" type="button">샘플로 보기</button>
+      <section id="open-banking-card" class="banking-card" aria-labelledby="banking-title">
+        <div>
+          <p class="eyebrow">연동 미리보기</p>
+          <h2 id="banking-title">오픈뱅킹으로 찾기</h2>
+          <p>계좌와 카드 결제 내역에서 매달 반복되는 구독료를 자동으로 찾아오는 형태예요.</p>
         </div>
-        <div id="dust-room" class="dust-room" aria-live="polite"></div>
+        <button id="detect-button" class="primary" type="button">자동 탐지 보기</button>
       </section>
+
+      <div class="app-grid">
+        <section class="room-section" aria-labelledby="room-title">
+          <div class="section-heading">
+            <div>
+              <h2 id="room-title">오늘의 먼지방</h2>
+              <p id="status-copy">귀엽지만 꽤 비싼 먼지들이에요.</p>
+            </div>
+            <button id="reset-demo" class="ghost" type="button">샘플로 보기</button>
+          </div>
+          <div id="dust-room" class="dust-room" aria-live="polite"></div>
+        </section>
+
+        <aside class="side-panel" aria-label="자동 탐지와 해지 도우미">
+          <section class="detected-section" aria-labelledby="detected-title">
+            <h2 id="detected-title">자동으로 찾은 구독료</h2>
+            <div id="auto-detected-list" class="detected-list"></div>
+          </section>
+
+          <section class="cancel-section" aria-labelledby="cancel-title">
+            <h2 id="cancel-title">해지 도우미</h2>
+            <div id="cancel-assist-panel" class="cancel-assist-panel">
+              <p>먼지를 선택하면 해지하러 가기 버튼이 준비돼요.</p>
+            </div>
+          </section>
+        </aside>
+      </div>
 
       <section class="create-section" aria-labelledby="create-title">
         <h2 id="create-title">첫 먼지 만들기</h2>

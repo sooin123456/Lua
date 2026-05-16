@@ -38,7 +38,7 @@ test('prototype includes cute dust character details and wallet room styling', (
   const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
 
   assert.match(js, /aria-pressed/);
-  assert.match(js, /class="dust-body"/);
+  assert.match(js, /class="dust-body \$\{meta\.shape\}"/);
   assert.match(js, /class="dust-cheek left"/);
   assert.match(js, /class="dust-cheek right"/);
   assert.match(js, /class="dust-bite"/);
@@ -61,6 +61,32 @@ test('prototype form gives mobile-friendly amount guidance', () => {
   assert.match(html, /id="amount-help"/);
   assert.match(html, /aria-describedby="amount-help"/);
   assert.match(html, /pattern="\[0-9,\]\*"/);
+});
+
+test('prototype shows open banking, assisted cancellation, and wider Toss-style sections', () => {
+  const html = fs.readFileSync(path.join(PROTOTYPE_DIR, 'index.html'), 'utf8');
+  const js = fs.readFileSync(path.join(PROTOTYPE_DIR, 'app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
+
+  assert.match(html, /id="open-banking-card"/);
+  assert.match(html, /id="auto-detected-list"/);
+  assert.match(html, /id="cancel-assist-panel"/);
+  assert.match(html, /오픈뱅킹으로 찾기/);
+  assert.match(html, /해지 도우미/);
+  assert.match(js, /detectSubscriptions/);
+  assert.match(js, /cancelAssistCopy/);
+  assert.match(js, /shape:\s*'cube'/);
+  assert.match(js, /shape:\s*'capsule'/);
+  assert.match(js, /shape:\s*'gem'/);
+  assert.match(js, /shape:\s*'star'/);
+  assert.match(js, /shape:\s*'coin'/);
+  assert.match(css, /width:\s*min\(100%,\s*760px\)/);
+  assert.match(css, /\.app-grid/);
+  assert.match(css, /\.dust-body\.cube/);
+  assert.match(css, /\.dust-body\.capsule/);
+  assert.match(css, /\.dust-body\.gem/);
+  assert.match(css, /\.dust-body\.star/);
+  assert.match(css, /\.dust-body\.coin/);
 });
 
 test('submission package includes the selected dust-room screenshot asset', () => {

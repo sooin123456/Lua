@@ -422,3 +422,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: decide submit path: static prototype or Toss/Lua_template migration
+
+## 2026-05-16 KST - add Money Dust open banking preview
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: TOSS, Money Eating Dust prototype
+- Trigger: user asked for open banking subscription detection, cuter 3D category characters, assisted cancellation, and a wider Toss-like layout
+- Changed: added an open banking preview card, auto-detected subscription list, assisted cancellation panel, wider 760px shell, category-specific 3D-like dust shapes, and wide preview screenshot
+- Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/wide-openbanking-preview.png`
+- Commit: pending
+- Next: decide whether real financial integration stays a mock preview for challenge submission or moves into a verified Toss/Lua_template integration phase

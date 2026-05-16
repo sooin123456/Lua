@@ -1,19 +1,25 @@
 const STORAGE_KEY = 'money-eating-dust:v1';
 
 const CATEGORY_META = {
-  ott: { label: 'OTT', color: 'coral' },
-  shopping: { label: 'Shopping', color: 'mint' },
-  mobile: { label: 'Mobile', color: 'blue' },
-  insurance: { label: 'Insurance', color: 'lavender' },
-  app: { label: 'App', color: 'yellow' },
-  membership: { label: 'Membership', color: 'pink' },
-  other: { label: 'Other', color: 'gray' },
+  ott: { label: 'OTT', color: 'coral', shape: 'cube' },
+  shopping: { label: 'Shopping', color: 'mint', shape: 'gem' },
+  mobile: { label: 'Mobile', color: 'blue', shape: 'capsule' },
+  insurance: { label: 'Insurance', color: 'lavender', shape: 'shield' },
+  app: { label: 'App', color: 'yellow', shape: 'star' },
+  membership: { label: 'Membership', color: 'pink', shape: 'coin' },
+  other: { label: 'Other', color: 'gray', shape: 'blob' },
 };
 
 const DEFAULT_DUST = [
   createDust({ id: 'sample-ott', name: '영상 구독', amount: 17000, category: 'ott' }),
   createDust({ id: 'sample-mobile', name: '통신비', amount: 59000, category: 'mobile' }),
   createDust({ id: 'sample-coffee', name: '커피 멤버십', amount: 9900, category: 'membership' }),
+];
+
+const DETECTED_SUBSCRIPTIONS = [
+  { name: '음악 앱', amount: 14900, category: 'app', source: '카드 반복 결제' },
+  { name: '쇼핑 멤버십', amount: 7890, category: 'shopping', source: '계좌 자동이체' },
+  { name: '생활 보험', amount: 32000, category: 'insurance', source: '월 정기 납부' },
 ];
 
 function parseAmount(amount) {
@@ -35,6 +41,7 @@ function createDust({ id, name, amount, category = 'other', status = 'active' })
   const monthlyAmount = parseAmount(amount);
   const cleanName = String(name || '이름 없는').trim() || '이름 없는';
   const label = cleanName.endsWith('먼지') ? cleanName : `${cleanName} 먼지`;
+  const meta = CATEGORY_META[category] || CATEGORY_META.other;
 
   return {
     id: id || `dust-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`,
@@ -43,10 +50,21 @@ function createDust({ id, name, amount, category = 'other', status = 'active' })
     amount: monthlyAmount,
     dailyAmount: Math.round(monthlyAmount / 30),
     category: CATEGORY_META[category] ? category : 'other',
+    shape: meta.shape,
     mood: moodFor(monthlyAmount),
     status,
     createdAt: new Date().toISOString(),
   };
+}
+
+function detectSubscriptions() {
+  return DETECTED_SUBSCRIPTIONS.map((item, index) =>
+    createDust({ id: `detected-${index + 1}`, ...item })
+  );
+}
+
+function cancelAssistCopy(dust) {
+  return `${dust.label} 해지는 실제 가맹점/결제수단 확인이 필요해요. 지금은 해지 화면으로 이동하는 도우미 형태로 보여줘요.`;
 }
 
 function sleepDust(dustList, id) {
@@ -105,7 +123,7 @@ function renderDustShape(dust, selectedId) {
   const selected = dust.id === selectedId;
   return `
     <button class="dust ${dust.mood} ${meta.color} ${dust.status}" data-id="${dust.id}" type="button" aria-label="${dust.label}" aria-pressed="${selected ? 'true' : 'false'}">
-      <span class="dust-body" aria-hidden="true">
+      <span class="dust-body ${meta.shape}" aria-hidden="true">
         <span class="dust-face">${face}</span>
         <span class="dust-cheek left"></span>
         <span class="dust-cheek right"></span>
@@ -131,6 +149,25 @@ function renderApp(doc = document) {
   const sleepPanel = doc.getElementById('sleep-panel');
   const statusCopy = doc.getElementById('status-copy');
   const resetButton = doc.getElementById('reset-demo');
+  const detectButton = doc.getElementById('detect-button');
+  const detectedList = doc.getElementById('auto-detected-list');
+  const cancelAssistPanel = doc.getElementById('cancel-assist-panel');
+
+  function paintDetected() {
+    detectedList.innerHTML = DETECTED_SUBSCRIPTIONS.map((item) => {
+      const meta = CATEGORY_META[item.category] || CATEGORY_META.other;
+      return `
+        <button class="detected-row" type="button" data-detected="${item.name}">
+          <span class="detected-dot ${meta.color}"></span>
+          <span>
+            <strong>${item.name}</strong>
+            <small>${item.source}</small>
+          </span>
+          <b>${formatWon(item.amount)}</b>
+        </button>
+      `;
+    }).join('');
+  }
 
   function paint(selectedId) {
     const totals = calculateDustTotals(dustList);
@@ -153,6 +190,11 @@ function renderApp(doc = document) {
         <p><strong>${selected.label}</strong>는 매달 ${formatWon(selected.amount)}을 먹어요.</p>
         <p>재우면 하루 ${formatWon(selected.dailyAmount)} 정도를 지킬 수 있어요.</p>
         <button class="primary small" type="button" data-sleep="${selected.id}">잠깐 재우기</button>
+      `;
+      cancelAssistPanel.innerHTML = `
+        <p><strong>${selected.label}</strong></p>
+        <p>${cancelAssistCopy(selected)}</p>
+        <button class="primary small" type="button">해지하러 가기</button>
       `;
     }
 
@@ -200,6 +242,26 @@ function renderApp(doc = document) {
     paint();
   });
 
+  detectButton.addEventListener('click', () => {
+    const detected = detectSubscriptions();
+    const existingNames = new Set(dustList.map((dust) => dust.name));
+    dustList = [...detected.filter((dust) => !existingNames.has(dust.name)), ...dustList];
+    saveDust(dustList);
+    paint(detected[0] && detected[0].id);
+  });
+
+  detectedList.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-detected]');
+    if (!button) return;
+    const source = DETECTED_SUBSCRIPTIONS.find((item) => item.name === button.dataset.detected);
+    if (!source) return;
+    const nextDust = createDust(source);
+    dustList = [nextDust, ...dustList];
+    saveDust(dustList);
+    paint(nextDust.id);
+  });
+
+  paintDetected();
   paint();
   return { getDust: () => dustList };
 }
@@ -219,6 +281,8 @@ if (typeof module !== 'undefined') {
     calculateDustTotals,
     createDust,
     formatWon,
+    cancelAssistCopy,
+    detectSubscriptions,
     moodFor,
     sleepDust,
   };
