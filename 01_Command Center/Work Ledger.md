@@ -178,3 +178,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/add_inbox_capture.js --source manual "테스트 캡처: Inbox 날짜 자동 기록 확인"`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: build Atlas Router automation before Notion publishing
+
+## 2026-05-16 KST - add Atlas Router automation
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, Atlas Router, User Action Board
+- Trigger: user asked to process the first command run in non-developer order and build Atlas Router automation
+- Changed: added `scripts/atlas_router.js`, wired npm scripts, routed `cmd-20260516-024544` through Atlas CEO clarify/design/plan, and updated User Action Board
+- Verification: `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: process `inbox-20260516-031554-01` build/app through the next command run

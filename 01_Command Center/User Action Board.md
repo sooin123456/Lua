@@ -17,13 +17,22 @@ last_updated: 2026-05-16
 | 3 | Codex에게 "Inbox 승격해줘" 또는 "Command Center 처리해줘"라고 말한다 | Codex | Queue가 처리됨 |
 | 4 | 결과가 맞는지만 확인한다 | 결과 노트 | 수정 요청 또는 승인 |
 
+## Atlas Router 처리 완료
+
+| 항목 | 내용 |
+|---|---|
+| 처리한 command | [[01_Command Center/Command Runs/cmd-20260516-024544-planning-prioritize|cmd-20260516-024544]] |
+| 처리 방식 | Atlas CEO clarify -> design -> plan |
+| 현재 상태 | routed / plan |
+| 다음 사용자 행동 | `다음 command run 진행해줘` |
+
 ## Current Tasks For User
 
-| 우선순위 | 해야 할 말 | Codex가 할 일 |
+| 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `Command Center 처리해줘` | queued 명령을 command run note로 만들고 다음 질문을 제시 |
-| 2 | `첫 번째부터 진행해줘` | Atlas CEO 방식으로 clarify/design/plan 진행 |
-| 3 | `이건 보류해줘` | 해당 command run을 paused로 표시 |
+| 1 | `다음 command run 진행해줘` | Neural UI build/app command를 clarify/design/plan으로 진행 |
+| 2 | `수상태양광 리서치 진행해줘` | research/brief command를 Lens 방식으로 정리 |
+| 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 
 ## Are We Done Except Notion?
 
@@ -49,7 +58,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-첫 번째부터 진행해줘
+다음 command run 진행해줘
 ```
 
 ## What Codex Does
