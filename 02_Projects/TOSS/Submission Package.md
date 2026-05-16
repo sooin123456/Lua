@@ -28,7 +28,9 @@ https://github.com/sooin123456/Lua_money_dust
 
 | Item | Choice |
 |---|---|
-| App name | 돈 먹는 먼지 |
+| App name KR | 돈 먹는 먼지 |
+| App name EN | Meonji |
+| Toss appName | `money-meonji` |
 | Demo data | 일반 예시 |
 | 대표 스크린샷 | 먼지방 |
 | Project | [[02_Projects/TOSS/Home|TOSS]] |
@@ -57,10 +59,10 @@ https://github.com/sooin123456/Lua_money_dust
 - [x] React Router를 Toss WebView용 CSR 빌드로 전환
 - [x] `.ait` 번들 로컬 생성 확인
 - [x] mock 금융 데이터 고지 문구 반영
-- [ ] GitHub repo `sooin123456/Lua_money_dust` 생성
-- [ ] `Lua_money_dust` push
-- [ ] Apps in Toss 콘솔 workspace/app 등록
-- [ ] 콘솔의 최종 `appName`을 `granite.config.ts`와 일치
+- [x] GitHub repo `sooin123456/Lua_money_dust` 생성
+- [x] `Lua_money_dust` push
+- [x] Apps in Toss 콘솔 가입
+- [x] 콘솔의 최종 `appName`을 `granite.config.ts`와 일치
 - [ ] 최종 icon/logo/thumbnail 등록
 - [ ] TDS 적용/접근 가능성 확인
 - [ ] 제출용 screenshot 재생성
@@ -73,7 +75,7 @@ https://github.com/sooin123456/Lua_money_dust
 Official Apps in Toss docs require a WebView/RN bundle path, not a plain public web URL. For this repo the local path is now:
 
 ```text
-npm run toss:build -> money-dust.ait
+npm run toss:build -> money-meonji.ait
 ```
 
 The current app uses sample financial data only. The UI says it does not query real financial data yet. Real open-banking or cancellation automation should wait until the approved Toss/partner integration path is confirmed.

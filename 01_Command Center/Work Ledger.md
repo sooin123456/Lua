@@ -501,3 +501,14 @@ last_updated: 2026-05-15
 - Commit: `284c1ce` in `Lua_money_dust`; pending in `Lua`
 - Blocker: GitHub repo `sooin123456/Lua_money_dust` and Apps in Toss console app still require account-side creation
 - Next: commit local app prep, update Lua records, then push Lua records; push app repo after GitHub remote exists
+
+## 2026-05-16 KST - set Money Dust console identity
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: `Lua_money_dust`, TOSS records
+- Trigger: user created the GitHub repo, joined Apps in Toss console, and chose Korean/English/appName identity
+- Changed: set Toss `appName` to `money-meonji`, kept display name as `돈 먹는 먼지`, updated service/private test URLs, regenerated the Toss `.ait` bundle as `money-meonji.ait`, and pushed the app repo to GitHub
+- Verification: `npm run typecheck`; clean `npm run toss:build`; `git push -u origin main`
+- Commit: `61d2006` in `Lua_money_dust`; pending in `Lua`
+- Next: create logo/icon/thumbnail, open the console upload path, then test the QR/private scheme flow in Toss app

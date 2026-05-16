@@ -23,7 +23,7 @@ This page maps Lua knowledge/projects to their actual code repositories.
 
 | App | Repo | URL | Local Path | Status | Project |
 |---|---|---|---|---|---|
-| 돈 먹는 먼지 | Lua_money_dust | https://github.com/sooin123456/Lua_money_dust | `C:\Users\sooin\OneDrive\문서\Lua_money_dust` | Toss `.ait` build verified locally, remote pending | [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]] |
+| 돈 먹는 먼지 / Meonji | Lua_money_dust | https://github.com/sooin123456/Lua_money_dust | `C:\Users\sooin\OneDrive\문서\Lua_money_dust` | Toss `.ait` build verified and pushed | [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]] |
 
 ## New App Repo Naming
 
