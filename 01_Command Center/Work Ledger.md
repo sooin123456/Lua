@@ -267,3 +267,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/add_inbox_capture.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node --test tests/notion_publish_queue.test.js`; `node --test tests/flow_audit.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/promote_inbox_to_commands.js --dry-run`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: process `inbox-20260516-041614-01` through design/screen clarify/design/plan
+
+## 2026-05-16 KST - route Lua Command UI design command
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Atlas Router, Lucia, Command Center
+- Trigger: user said "inbox-20260516-041614-01 처리해줘"
+- Changed: added a `design/screen` Atlas Router harness, routed the Toss miniapp Inbox command, fixed BOM frontmatter handling, and created [[02_Projects/Lucia/Lua Command UI|Lua Command UI]] as the first screen design draft
+- Verification: `node --test tests/atlas_router.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: turn the design note into a build/app prototype command

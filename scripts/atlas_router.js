@@ -105,7 +105,7 @@ function runPathFor(root, entry) {
 }
 
 function updateFrontmatter(content, updates) {
-  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  const match = content.match(/^\uFEFF?---\r?\n([\s\S]*?)\r?\n---/);
   if (!match) return content;
 
   let frontmatter = match[1];
@@ -187,9 +187,35 @@ ${content.nextAction}
 }
 
 function routerContent(entry) {
+  if (entry.domain === 'design' && entry.intent === 'screen') return designScreenContent(entry);
   if (entry.domain === 'build' && entry.intent === 'app') return buildAppContent(entry);
   if (entry.domain === 'research' && entry.intent === 'brief') return researchBriefContent(entry);
   return planningContent(entry);
+}
+
+function designScreenContent(entry) {
+  return {
+    clarify: `- 목표: "${entry.payload}"를 Toss 미니앱 스타일의 Lua 명령 UI 첫 화면 설계로 바꾼다.
+- 핵심 문제: 사용자가 \`/lua {domain} {intent} :: {payload}\` 문법을 외우지 않아도, domain 선택 -> intent 선택 -> payload 입력만으로 정확한 명령을 만들 수 있어야 한다.
+- 첫 사용자: 비개발자인 사용자 본인. Obsidian Command Center를 직접 편집하기보다, 더 쉬운 입력 화면에서 명령을 만들고 싶다.
+- 아직 하지 않을 것: 실제 Toss 배포, 로그인/결제/개인정보 연동, 완전한 자동 실행. 지금은 화면 구조와 MVP 입력 흐름을 정의한다.`,
+    design: `- 추천 방향: Lua 명령 UI를 "명령 작성기"로 시작한다. 첫 화면은 domain 선택, intent 선택, payload 입력, Command Preview, 실행 전 확인으로 구성한다.
+- 화면 1: Quick Command. 사용자는 planning/design/build/research 같은 domain을 카드나 세그먼트로 고른다.
+- 화면 2: Intent Preset. 선택한 domain에 맞는 intent 후보를 보여준다. 예: design은 screen/flow/prototype, build는 app/automation/script.
+- 화면 3: Payload Composer. 사용자가 자연어로 원하는 일을 쓰면 아래에 \`/lua design screen :: ...\` Command Preview가 만들어진다.
+- 화면 4: Review & Send. Obsidian Command Queue에 넣기 전, agent와 stage를 보여주고 "초안으로 넣기"만 제공한다.
+- 대안 1: 채팅형 UI. 자유도는 높지만 command grammar가 흐려지고 검증이 어렵다.
+- 대안 2: 대시보드형 UI. 상태 관리는 좋지만 첫 MVP가 무거워진다.
+- 추천 이유: 명령 작성기는 작고, 지금 Lua 시스템의 약점인 "입력 난이도"를 바로 줄인다.`,
+    plan: `- [x] 첫 처리 대상: [[01_Command Center/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+- [x] Toss 미니앱 링크와 Inbox 메모를 기반으로 Lua Command UI 문제를 정의.
+- [x] 첫 MVP를 "명령 작성기" 화면으로 제한.
+- [ ] 화면 설계 노트 생성: \`02_Projects/Lucia/Lua Command UI.md\` 또는 별도 프로젝트 위치를 정한다.
+- [ ] 첫 화면 와이어프레임을 작성한다: domain 선택 / intent 선택 / payload 입력 / Command Preview.
+- [ ] Command Queue로 보내는 동작은 실제 쓰기 전에 draft 상태로 검증한다.
+- [ ] 이후 build/app command로 승격해 HTML 또는 미니앱 프로토타입을 만든다.`,
+    nextAction: 'Lua Command UI 화면 설계 승인해줘',
+  };
 }
 
 function planningContent(entry) {

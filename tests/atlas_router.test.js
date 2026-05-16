@@ -168,6 +168,54 @@ last_updated: 2026-05-16
   return root;
 }
 
+function makeDesignScreenVault() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-design-'));
+  write(
+    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    `# Obsidian Command Center
+
+## Command Queue
+
+| ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
+|---|---|---|---|---|---|---|---|
+| inbox-20260516-041614-01 | design | screen | Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토스 미니앱 만들기 주제는 아직 고민중 대신 이번에는 디자인 쪽으로 나의 명령 체계를 ui로 표현해주는 서비스 | clarify | Scribe+Forge | planned | [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|run]] |
+`
+  );
+  write(
+    path.join(root, '01_Command Center', 'Command Runs', 'inbox-20260516-041614-01-design-screen.md'),
+    `\uFEFF---
+type: command-run
+status: planned
+command_id: inbox-20260516-041614-01
+domain: design
+intent: screen
+stage: clarify
+agent: Scribe+Forge
+role: Designer
+last_updated: 2026-05-16
+---
+
+# inbox-20260516-041614-01 - design screen
+
+## Command
+
+Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토스 미니앱 만들기 주제는 아직 고민중 대신 이번에는 디자인 쪽으로 나의 명령 체계를 ui로 표현해주는 서비스
+`
+  );
+  write(
+    path.join(root, '01_Command Center', 'User Action Board.md'),
+    `# User Action Board
+
+## Today
+
+| 순서 | 할 일 | 위치 | 완료 기준 |
+|---|---|---|---|
+| 1 | 다음 run 처리 | Codex | Queue가 처리됨 |
+`
+  );
+  return root;
+}
+
 test('routes the first real planned command run through Atlas CEO notes', () => {
   const root = makeVault();
 
@@ -278,4 +326,35 @@ test('research brief command gets Lens source-based research harness content', (
     'utf8'
   );
   assert.match(actionBoard, /리서치 실행 승인해줘/);
+});
+
+test('design screen command gets Lua command UI miniapp clarify design and plan content', () => {
+  const root = makeDesignScreenVault();
+
+  const result = runAtlasRouter({ root, apply: true, firstOnly: true });
+
+  assert.equal(result.processed[0].id, 'inbox-20260516-041614-01');
+  assert.equal(result.processed[0].agent, 'Scribe+Forge');
+  assert.equal(result.processed[0].stageAfter, 'plan');
+
+  const runNote = fs.readFileSync(
+    path.join(root, '01_Command Center', 'Command Runs', 'inbox-20260516-041614-01-design-screen.md'),
+    'utf8'
+  );
+  assert.match(runNote, /status: routed/);
+  assert.match(runNote, /stage: plan/);
+  assert.match(runNote, /Lua 명령 UI/);
+  assert.match(runNote, /domain 선택/);
+  assert.match(runNote, /intent 선택/);
+  assert.match(runNote, /payload 입력/);
+  assert.match(runNote, /Command Preview/);
+  assert.match(runNote, /Toss 미니앱/);
+  assert.doesNotMatch(runNote, /Command Center를 먼저 안정화/);
+  assert.doesNotMatch(runNote, /수상태양광/);
+
+  const actionBoard = fs.readFileSync(
+    path.join(root, '01_Command Center', 'User Action Board.md'),
+    'utf8'
+  );
+  assert.match(actionBoard, /Lua Command UI 화면 설계 승인해줘/);
 });

@@ -21,18 +21,18 @@ last_updated: 2026-05-16
 
 | 항목 | 내용 |
 |---|---|
-| 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|inbox-20260516-031554-02]] |
-| 처리 방식 | Lens research -> brief -> Notion publish draft |
-| 현재 상태 | Notion published |
-| 다음 사용자 행동 | `Research Briefs DB부터 만들어줘` |
+| 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|inbox-20260516-041614-01]] |
+| 처리 방식 | Atlas CEO clarify -> design -> plan |
+| 현재 상태 | design draft created |
+| 다음 사용자 행동 | `Lua Command UI 프로토타입 만들어줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `inbox-20260516-041614-01 처리해줘` | Toss 미니앱 명령 UI를 clarify/design/plan으로 진행 |
-| 2 | `Research Briefs DB부터 만들어줘` | Notion 전용 DB 생성 설계를 먼저 진행 |
-| 3 | `테크윈/테크윈에너지 실적 더 찾아줘` | 테크윈 계열의 수상태양광 실적과 K-water 관련성을 추가 조사 |
+| 1 | `Lua Command UI 프로토타입 만들어줘` | 첫 화면 HTML/app 프로토타입 build command로 진행 |
+| 2 | `Lua Command UI 설계 보여줘` | 작성된 화면 설계 노트 요약 |
+| 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 
 ## Current Research Link
 
@@ -64,7 +64,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-inbox-20260516-041614-01 처리해줘
+Lua Command UI 프로토타입 만들어줘
 ```
 
 ## What Codex Does
