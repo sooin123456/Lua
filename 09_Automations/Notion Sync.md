@@ -10,6 +10,8 @@ Notion is the team-facing mirror. Obsidian remains the source of truth for priva
 
 The next workspace structure is defined in [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]].
 
+Notion publishing is Phase 4 in [[Lua End-to-End Flow|Lua End-to-End Flow]]. It is not active by default yet.
+
 ## Minimum Databases
 
 - Projects
@@ -51,6 +53,7 @@ Notion receives durable team records, not raw thinking.
 ## Navigation
 
 - [[09_Automations/README|Automations]]
+- [[Lua End-to-End Flow|Lua End-to-End Flow]]
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]

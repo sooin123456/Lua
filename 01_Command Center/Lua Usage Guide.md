@@ -8,6 +8,8 @@ last_updated: 2026-05-15
 
 이 문서는 Obsidian에서 어디에 글을 쓰고, 어디에 명령을 적고, Codex/Claude/Pi를 언제 쓰는지 정하는 사용자 설명서다.
 
+전체 자동화 흐름은 [[Lua End-to-End Flow|Lua End-to-End Flow]]를 기준으로 본다.
+
 ## One Rule
 
 Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
@@ -115,6 +117,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 ## Navigation
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[Lua End-to-End Flow|Lua End-to-End Flow]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]

@@ -123,3 +123,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/slack_command_inbox.js --source slack-mobile "/lua research brief :: 테크인 수상태양광 실적 조사"`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: choose Slack slash command or workflow webhook as the real intake path
+
+## 2026-05-16 KST - clarify end-to-end Lua flow
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: architecture, Notion/Slack flow
+- Trigger: user asked whether Obsidian commands are automatically routed by CEO agent and saved to Notion
+- Changed: added Lua End-to-End Flow to distinguish target architecture from current implementation; marked Notion publishing as Phase 4, not active by default
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
+- Commit: pending
+- Next: implement Slack `/lua` intake before Notion publishing
