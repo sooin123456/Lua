@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const { inspectLuaTemplate } = require('./lua_template_inspector');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..');
 const COMMAND_CENTER_REL = path.join('01_Command Center', 'Obsidian Command Center.md');
@@ -133,7 +134,34 @@ function updateFrontmatter(content, updates) {
   return `---\n${frontmatter}\n---${content.slice(match[0].length)}`;
 }
 
-function buildOutputNote(entry, artifactRel, verification) {
+function templateCapabilitySection(template) {
+  if (!template || !template.available) {
+    return `## Lua_template Capability Map
+
+- Lua_template was not available locally for inspection during this build run.
+`;
+  }
+
+  return `## Lua_template Capability Map
+
+${template.summary.map((item) => `- ${item}`).join('\n')}
+
+| Area | Capability |
+|---|---|
+| Auth | Supabase server client: ${template.auth.supabaseServerClient ? 'yes' : 'no'} |
+| Auth | Email/password login: ${template.auth.emailPassword ? 'yes' : 'no'} |
+| Auth | Magic link / OTP: ${template.auth.magicLink ? 'yes' : 'no'} |
+| Auth | Social OAuth: ${template.auth.socialOAuth ? 'yes' : 'no'} |
+| Auth | Route guard: ${template.auth.routeGuard ? 'yes' : 'no'} |
+| Database | Drizzle + DATABASE_URL: ${template.database.drizzle ? 'yes' : 'no'} |
+| Database | Supabase RLS migrations: ${template.database.supabaseRls ? 'yes' : 'no'} |
+| Database | Tables: ${template.database.tables.join(', ') || '-'} |
+| Email | Transactional templates: ${template.email.transactionalTemplates ? 'yes' : 'no'} |
+| E2E | Auth e2e: ${template.verification.authE2e ? 'yes' : 'no'} |
+`;
+}
+
+function buildOutputNote(entry, artifactRel, verification, template) {
   return `---
 type: build-output
 status: done
@@ -159,6 +187,8 @@ This build runner output closes the command into a durable artifact record. It c
 - Source command: [[${runRelFor(entry)}|${entry.id}]]
 - Artifact path: \`${artifactRel}.md\`
 - Build domain: \`${entry.domain}/${entry.intent || 'command'}\`
+
+${templateCapabilitySection(template)}
 
 ## Verification
 
@@ -266,6 +296,7 @@ function runBuildRunner(options = {}) {
   const apply = Boolean(options.apply);
   const commandId = options.commandId || null;
   const verification = options.verification || [];
+  const template = inspectLuaTemplate({ templateRoot: options.templateRoot });
   const commandCenterPath = path.join(root, COMMAND_CENTER_REL);
   let commandCenter = fs.readFileSync(commandCenterPath, 'utf8');
   const entries = parseRows(commandCenter)
@@ -288,7 +319,7 @@ function runBuildRunner(options = {}) {
 
     const artifactPath = path.join(root, `${artifactRel}.md`);
     fs.mkdirSync(path.dirname(artifactPath), { recursive: true });
-    fs.writeFileSync(artifactPath, buildOutputNote(entry, artifactRel, verification), 'utf8');
+    fs.writeFileSync(artifactPath, buildOutputNote(entry, artifactRel, verification, template), 'utf8');
 
     const runPath = path.join(root, `${runRelFor(entry)}.md`);
     const runNote = fs.existsSync(runPath) ? fs.readFileSync(runPath, 'utf8') : '';

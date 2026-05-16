@@ -335,6 +335,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: replace the deterministic build output artifact with domain-specific app implementation steps for `Lua_template`-based apps
 
+## 2026-05-16 KST - inspect Lua_template SaaS capabilities
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: App Template Standard, Build Runner
+- Trigger: user said `Lua_template` already answers DB/login concerns
+- Changed: added `scripts/lua_template_inspector.js`, taught Build Runner artifacts to include a Lua_template capability map, documented existing Supabase auth, Drizzle DB, RLS, signup trigger, e2e, and email template support
+- Verification: `node --test tests/lua_template_inspector.test.js`; `node --test tests/build_runner.test.js`; `node --test tests/lua_command_ui_server.test.js`; `node --test tests/lua_command_ui_prototype.test.js`; `node scripts/lua_template_inspector.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: upgrade Build Runner from capability-aware artifact output to actual `Lua_template` app workspace editing
+
 ## 2026-05-16 KST - Build Runner completed lua-ui-20260516-140255
 
 - Host: `windows-codex`

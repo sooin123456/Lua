@@ -45,6 +45,41 @@ The checked repository currently does not expose a root `package.json`, `README.
 
 Before using it as a runnable base, Codex should verify whether those files are intentionally omitted, hidden in another branch, or need to be added in the app bootstrap step.
 
+This caveat does not mean auth or database work is missing. The template already contains the core SaaS implementation surface.
+
+## Template Capabilities
+
+Checked from `Lua_template` commit `99b69005bc52a821e9da58fdbc12f1546e4435b3`.
+
+| Area | Existing template answer |
+|---|---|
+| Auth provider | Supabase SSR client in `app/core/lib/supa-client.server.ts` |
+| Admin auth/client | Supabase service role client in `app/core/lib/supa-admin-client.server.ts` |
+| Login | Email/password login in `app/features/auth/screens/login.tsx` |
+| Signup | Join flow in `app/features/auth/screens/join.tsx` |
+| Magic link / OTP | Auth screens under `app/features/auth/screens/magic-link.tsx` and `otp/` |
+| Social auth | OAuth flow under `app/features/auth/screens/social/` |
+| Route protection | `requireAuthentication` in `app/core/lib/guards.server.ts` |
+| DB client | Drizzle + `DATABASE_URL` in `app/core/db/drizzle-client.server.ts` |
+| User profile table | `profiles` schema in `app/features/users/schema.ts` |
+| Payment table | `payments` schema in `app/features/payments/schema.ts` |
+| RLS | SQL migrations enable row-level security and policies |
+| Signup automation | SQL function/trigger creates profiles from `auth.users` |
+| E2E | Playwright auth/user/settings specs under `e2e/` |
+| Emails | React email templates under `transactional-emails/emails/` |
+
+## Build Runner Rule
+
+Build Runner must not treat DB/login as blank work. For SaaS-style apps, it should reuse the template's existing Supabase + Drizzle + RLS + auth screens and add project-specific feature folders, schemas, migrations, and e2e flows on top.
+
+Use:
+
+```bash
+npm run template:inspect
+```
+
+to inspect the local template capability map before planning a real app build.
+
 ## Build Rule
 
 When the user says:

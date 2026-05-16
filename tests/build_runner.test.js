@@ -73,11 +73,27 @@ last_updated: 2026-05-16
   return root;
 }
 
+function makeTemplate() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-build-runner-template-'));
+  write(path.join(root, 'app', 'core', 'lib', 'supa-client.server.ts'), 'createServerClient SUPABASE_URL SUPABASE_ANON_KEY');
+  write(path.join(root, 'app', 'core', 'lib', 'supa-admin-client.server.ts'), 'SUPABASE_SERVICE_ROLE_KEY');
+  write(path.join(root, 'app', 'core', 'db', 'drizzle-client.server.ts'), 'drizzle DATABASE_URL');
+  write(path.join(root, 'app', 'core', 'lib', 'guards.server.ts'), 'requireAuthentication');
+  write(path.join(root, 'app', 'features', 'auth', 'screens', 'login.tsx'), 'signInWithPassword');
+  write(path.join(root, 'app', 'features', 'auth', 'screens', 'join.tsx'), 'signUp');
+  write(path.join(root, 'app', 'features', 'users', 'schema.ts'), 'pgTable profiles pgPolicy authUsers');
+  write(path.join(root, 'sql', 'migrations', '0000.sql'), 'ENABLE ROW LEVEL SECURITY CREATE POLICY profiles');
+  write(path.join(root, 'e2e', 'auth', 'login.spec.ts'), 'loginUser');
+  return root;
+}
+
 test('build runner turns a planned build command into a done artifact', () => {
   const root = makeVault();
+  const templateRoot = makeTemplate();
 
   const result = runBuildRunner({
     root,
+    templateRoot,
     apply: true,
     commandId: 'build-001',
     verification: ['node scripts/check.js'],
@@ -117,6 +133,10 @@ test('build runner turns a planned build command into a done artifact', () => {
   assert.match(artifact, /type: build-output/);
   assert.match(artifact, /Make a tiny timer app from the Lua template/);
   assert.match(artifact, /node scripts\/check.js/);
+  assert.match(artifact, /## Lua_template Capability Map/);
+  assert.match(artifact, /Supabase auth/);
+  assert.match(artifact, /Drizzle/);
+  assert.match(artifact, /profiles/);
 
   const artifactLedger = fs.readFileSync(
     path.join(root, '08_Artifacts', 'Artifact Ledger.md'),
