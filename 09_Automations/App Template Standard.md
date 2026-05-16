@@ -124,3 +124,13 @@ Current static prototype bridge:
 - [[08_Artifacts/Lua Command UI Prototype/README|Lua Command UI Prototype]]
 - [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
 - [[09_Automations/README|Automations]]
+- [[03_Wiki/LLM Wiki Operating Model|LLM Wiki Operating Model]]
+- [[03_Wiki/Repository Registry|Repository Registry]]
+
+## Vault Boundary
+
+Obsidian/Lua is the LLM Wiki and command system. It stores product specs, decisions, repo links, run notes, and reusable knowledge.
+
+Actual application source code belongs in a separate `Lua_xxx` repository created from `Lua_template`.
+
+Do not put real app implementation files under `08_Artifacts/` once the app has its own repo.

@@ -138,7 +138,15 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[03_Wiki/LLM Wiki Operating Model|LLM Wiki Operating Model]]
+- [[03_Wiki/Repository Registry|Repository Registry]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[04_Resources/Tech Stack/Pi Coding Agent|Pi Coding Agent]]
 - [[01_Command Center/Work Ledger|Work Ledger]]
+
+## LLM Wiki Boundary
+
+Obsidian is the durable memory and LLM Wiki layer. It stores context, decisions, project maps, repo links, and reusable knowledge.
+
+Real app source code belongs in separate `Lua_xxx` repositories created from `Lua_template`.

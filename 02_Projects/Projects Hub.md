@@ -37,6 +37,8 @@ area: Projects
 - [[01_Command Center/Weekly Review|Weekly Review]]
 - [[01_Command Center/Decision Board|Decision Board]]
 - [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]]
+- [[03_Wiki/Home|Wiki]]
+- [[03_Wiki/Repository Registry|Repository Registry]]
 
 ## Project File Index
 

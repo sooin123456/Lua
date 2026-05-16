@@ -8,6 +8,14 @@ last_updated: 2026-05-16
 
 Lua의 기본 명령 하달 장소다. Slack은 보조 입력 채널이고, 기본 운영은 Obsidian에서 한다.
 
+## Obsidian Role
+
+Obsidian is the LLM Wiki and command center for Lua. It stores memory, decisions, project context, repo links, and reusable knowledge.
+
+Actual app source code must live in separate `Lua_xxx` repositories. Before creating or editing a real app, check [[03_Wiki/Repository Registry|Repository Registry]].
+
+See [[03_Wiki/LLM Wiki Operating Model|LLM Wiki Operating Model]] for the full boundary.
+
 ## Inbox vs Command Center
 
 | 위치 | 쓰는 상황 | 다음 단계 |

@@ -83,3 +83,11 @@ node scripts/add_inbox_capture.js --source manual "떠오른 생각"
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
+- [[03_Wiki/LLM Wiki Operating Model|LLM Wiki Operating Model]]
+- [[03_Wiki/Repository Registry|Repository Registry]]
+
+## LLM Wiki Boundary
+
+Obsidian is the memory/wiki layer. It should store source summaries, reusable concept notes, decisions, project context, repo links, run notes, and work ledger entries.
+
+Obsidian should not store real app source code once a `Lua_xxx` repo exists.

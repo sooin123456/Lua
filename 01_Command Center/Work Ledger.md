@@ -455,3 +455,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`; `Lua_money_dust` static route/screen check
 - Commit: `73591dc` in local `Lua_money_dust`; Lua cleanup commit pending
 - Next: user creates the GitHub repo `sooin123456/Lua_money_dust`, then push local app repo
+
+## 2026-05-16 KST - define Obsidian as Lua LLM Wiki
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Wiki, Command Center, Automations
+- Trigger: user shared a Claude Code x Obsidian x Graphify / LLM Wiki reference and asked to rethink Obsidian's role
+- Changed: added `03_Wiki` as the LLM Wiki layer, documented Source -> Wiki workflow, repository registry, and Obsidian's role as memory/command/project context rather than app source storage
+- Verification: pending final checks
+- Commit: pending
+- Next: use `03_Wiki/Repository Registry` as the default lookup before creating or editing app repos
