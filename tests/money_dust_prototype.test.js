@@ -19,6 +19,16 @@ test('money dust prototype files exist and include the required UI regions', () 
   assert.match(html, /id="submission-copy"/);
 });
 
+test('prototype css protects the mobile layout from horizontal clipping', () => {
+  const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
+
+  assert.match(css, /\.section-heading\s*{[^}]*flex-wrap:\s*wrap/s);
+  assert.match(css, /\.section-heading\s*>\s*div\s*{[^}]*min-width:\s*0/s);
+  assert.match(css, /\.dust-room\s*{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
+  assert.match(css, /@media\s*\(max-width:\s*430px\)[\s\S]*\.section-heading\s*{[\s\S]*display:\s*block/);
+  assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
+});
+
 test('dust model creates cute fixed-cost dust and calculates monthly totals', () => {
   const { createDust, calculateDustTotals } = require('../08_Artifacts/Money Eating Dust Prototype/app');
 
