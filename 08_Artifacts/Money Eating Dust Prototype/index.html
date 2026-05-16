@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>돈먹는 먼지</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero" aria-labelledby="app-title">
+        <p class="eyebrow">Apps in Toss Vibecoding Challenge</p>
+        <h1 id="app-title">돈먹는 먼지</h1>
+        <p class="lead">내 돈을 몰래 먹는 고정비 먼지를 찾아보세요.</p>
+      </section>
+
+      <section class="summary" aria-label="이번 달 먼지 요약">
+        <div>
+          <span class="summary-label">이번 달, 먼지들이 먹은 돈</span>
+          <strong id="total-monthly">0원</strong>
+        </div>
+        <p id="daily-loss">하루 0원씩 조용히 먹고 있어요</p>
+      </section>
+
+      <section class="room-section" aria-labelledby="room-title">
+        <div class="section-heading">
+          <div>
+            <h2 id="room-title">오늘의 먼지방</h2>
+            <p id="status-copy">귀엽지만 꽤 비싼 먼지들이에요.</p>
+          </div>
+          <button id="reset-demo" class="ghost" type="button">샘플로 보기</button>
+        </div>
+        <div id="dust-room" class="dust-room" aria-live="polite"></div>
+      </section>
+
+      <section class="create-section" aria-labelledby="create-title">
+        <h2 id="create-title">첫 먼지 만들기</h2>
+        <form id="dust-form" class="dust-form">
+          <label>
+            무엇을 먹는 먼지인가요?
+            <input id="dust-name" name="name" autocomplete="off" placeholder="예: 유튜브 프리미엄" />
+          </label>
+          <label>
+            매달 얼마를 먹나요?
+            <input id="dust-amount" name="amount" inputmode="numeric" placeholder="14900" />
+          </label>
+          <label>
+            먼지 종류
+            <select id="dust-category" name="category">
+              <option value="ott">OTT</option>
+              <option value="shopping">쇼핑</option>
+              <option value="mobile">통신비</option>
+              <option value="insurance">보험</option>
+              <option value="app">앱 구독</option>
+              <option value="membership">멤버십</option>
+              <option value="other">기타</option>
+            </select>
+          </label>
+          <button class="primary" type="submit">방에 들여보내기</button>
+        </form>
+      </section>
+
+      <section class="sleep-section" aria-labelledby="sleep-title">
+        <h2 id="sleep-title">먼지 재우기</h2>
+        <div id="sleep-panel" class="sleep-panel"></div>
+      </section>
+
+      <section class="submission" aria-labelledby="submission-title">
+        <h2 id="submission-title">제출 포지션</h2>
+        <p id="submission-copy">
+          고정비를 귀여운 먼지 캐릭터로 바꿔, 매달 돈이 사라지는 순간을 덜 무섭고 더 챙기고 싶게 만드는 미니앱.
+        </p>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

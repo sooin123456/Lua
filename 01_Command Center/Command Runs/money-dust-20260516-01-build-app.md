@@ -48,10 +48,28 @@ Primary screens:
 
 - [x] Create durable product spec: [[02_Projects/Lucia/Money Eating Dust Miniapp|돈먹는 먼지 Miniapp]]
 - [x] Register command run.
-- [ ] Design the first screen and dust room visual system.
-- [ ] Build Toss-style MVP prototype.
-- [ ] Verify with local UI test and basic calculation cases.
+- [x] Design the first screen and dust room visual system.
+- [x] Build Toss-style MVP prototype: [[08_Artifacts/Money Eating Dust Prototype/README|Money Eating Dust Prototype]]
+- [x] Verify with local UI test and basic calculation cases.
 - [ ] Prepare challenge submission copy.
+
+## Agent Orchestration
+
+Codex acted as lead orchestrator and split the work across three agents:
+
+| Agent role | Output |
+|---|---|
+| Product/UX | First screen, dust room, empty state, creation flow, sleep loop |
+| Engineering scout | Recommended static prototype first, then `Lua_template` migration |
+| Challenge/release | Submission pitch, judging strengths, launch-readiness checks |
+
+The merged implementation is the static prototype under `08_Artifacts/Money Eating Dust Prototype/`.
+
+## Prototype Output
+
+- [[08_Artifacts/Money Eating Dust Prototype/README|Prototype README]]
+- Prototype HTML: `08_Artifacts/Money Eating Dust Prototype/index.html`
+- Test: `tests/money_dust_prototype.test.js`
 
 ## Build Notes
 

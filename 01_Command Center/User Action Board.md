@@ -24,13 +24,13 @@ last_updated: 2026-05-16
 | 처리한 command | [[01_Command Center/Command Runs/money-dust-20260516-01-build-app|money-dust-20260516-01]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
 | 현재 상태 | routed / plan |
-| 다음 사용자 행동 | `돈먹는 먼지 첫 화면과 먼지 방 UI 설계해줘` |
+| 다음 사용자 행동 | `돈먹는 먼지 프로토타입 확인해줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `돈먹는 먼지 첫 화면과 먼지 방 UI 설계해줘` | Toss 챌린지 제출용 첫 화면, 먼지 캐릭터, 절약 루프 설계 |
+| 1 | `돈먹는 먼지 프로토타입 확인해줘` | 정적 MVP 화면을 열어보고 다음 수정/템플릿 이전 판단 |
 | 2 | `Command Center 상태 보여줘` | 남은 queue와 현재 stage를 보여줌 |
 | 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 

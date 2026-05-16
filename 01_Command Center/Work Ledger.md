@@ -378,3 +378,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: design the first screen, dust room, and cute fixed-cost reduction loop
+
+## 2026-05-16 KST - build Money Eating Dust prototype
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Artifacts, Lucia, Money Eating Dust
+- Trigger: user said Codex should orchestrate other agents until the miniapp is complete
+- Changed: spawned product/UX, engineering scout, and challenge/release agents; merged their outputs into [[08_Artifacts/Money Eating Dust Prototype/README|Money Eating Dust Prototype]]; added model tests for dust creation, monthly totals, and sleeping dust; updated Artifact Ledger, command run, and User Action Board
+- Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js` after fixing the HTML path note link
+- Commit: pending
+- Next: visually review the prototype, then migrate the accepted loop into `Lua_template`
