@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const { relativePosix } = require('./lib/files');
 
-const ROOT = path.resolve(__dirname, '..');
-const INBOX = path.join(ROOT, '00_Inbox', 'AI 분류 대기중....md');
+const DEFAULT_ROOT = path.resolve(__dirname, '..');
 
 function usage() {
   console.log(`Usage:
@@ -23,32 +23,80 @@ function parseArgs(argv) {
   return args;
 }
 
-function kstNow() {
-  const now = new Date();
-  const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-  return kst.toISOString().replace('T', ' ').slice(0, 19) + ' KST';
+function kstParts(now = new Date()) {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Seoul',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hourCycle: 'h23',
+  }).formatToParts(now);
+  return Object.fromEntries(parts.map((part) => [part.type, part.value]));
 }
 
-function captureId() {
-  const now = new Date();
-  const kst = new Date(now.getTime() + 9 * 60 * 60 * 1000);
-  return `cap-${kst.toISOString().slice(0, 19).replace(/[-:T]/g, '')}`;
+function timestamp(now = new Date()) {
+  const parts = kstParts(now);
+  return `${parts.year}${parts.month}${parts.day}-${parts.hour}${parts.minute}${parts.second}`;
 }
 
-function ensureCaptureLog(content) {
-  if (content.includes('## Capture Log')) return content;
-  const block = [
-    '',
-    '## Capture Log',
-    '',
-    '| ID | Created | Source | Status | Raw Capture |',
-    '|---|---|---|---|---|',
-  ].join('\n');
-  return `${content.trimEnd()}\n${block}\n`;
+function kstNow(now = new Date()) {
+  const parts = kstParts(now);
+  return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second} KST`;
 }
 
-function escapeCell(value) {
-  return String(value || '').replace(/\r?\n/g, '<br>').replace(/\|/g, '\\|').trim();
+function safeSlug(value) {
+  return String(value || 'manual')
+    .toLowerCase()
+    .normalize('NFC')
+    .replace(/[^\p{L}\p{N}]+/gu, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 40) || 'manual';
+}
+
+function captureTitle(text) {
+  return String(text || '')
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .find(Boolean)
+    ?.slice(0, 80) || 'Inbox Capture';
+}
+
+function noteContent({ source, text, now }) {
+  return `---
+type: inbox-note
+status: captured
+source: ${source}
+created: ${kstNow(now)}
+last_updated: ${kstNow(now).slice(0, 10)}
+---
+
+# ${captureTitle(text)}
+
+${text.trim()}
+
+## Navigation
+
+- [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
+- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+`;
+}
+
+function addInboxCapture(options = {}) {
+  const root = options.root || DEFAULT_ROOT;
+  const source = options.source || 'manual';
+  const text = options.text;
+  const now = options.now || new Date();
+  if (!text || !String(text).trim()) throw new Error('Missing capture text');
+
+  const inboxDir = path.join(root, '00_Inbox');
+  fs.mkdirSync(inboxDir, { recursive: true });
+
+  const file = path.join(inboxDir, `${timestamp(now)}-${safeSlug(source)}.md`);
+  fs.writeFileSync(file, noteContent({ source, text: String(text), now }), 'utf8');
+  return { fileRel: relativePosix(root, file) };
 }
 
 function main() {
@@ -57,13 +105,12 @@ function main() {
     usage();
     process.exit(args.help ? 0 : 1);
   }
-  let content = fs.readFileSync(INBOX, 'utf8');
-  content = ensureCaptureLog(content);
-  const row = `| ${captureId()} | ${kstNow()} | ${escapeCell(args.source)} | captured | ${escapeCell(args.text)} |`;
-  content = content.replace(/(\|---\|---\|---\|---\|---\|\r?\n)/, `$1${row}\n`);
-  content = content.replace(/last_updated:\s*\d{4}-\d{2}-\d{2}/, `last_updated: ${kstNow().slice(0, 10)}`);
-  fs.writeFileSync(INBOX, content, 'utf8');
-  console.log(`Added inbox capture: ${row}`);
+  const result = addInboxCapture({ source: args.source, text: args.text });
+  console.log(`Added inbox capture: ${result.fileRel}`);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = {
+  addInboxCapture,
+};

@@ -13,7 +13,7 @@ last_updated: 2026-05-16
 | 순서 | 할 일 | 위치 | 완료 기준 |
 |---|---|---|---|
 | 1 | 떠오른 생각은 일단 Inbox에 적는다 | [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]] | 원문이 남아 있음 |
-| 2 | 바로 시킬 일은 Command Center에 명령으로 적는다 | [[01_Command Center/Obsidian Command Center|Obsidian Command Center]] | `/lua domain intent :: 내용` 형태 |
+| 2 | 새 아이디어는 개별 Inbox 노트로 적어도 된다 | `00_Inbox/*.md` | Inbox 승격 스크립트가 감지 |
 | 3 | Codex에게 "Inbox 승격해줘" 또는 "Command Center 처리해줘"라고 말한다 | Codex | Queue가 처리됨 |
 | 4 | 결과가 맞는지만 확인한다 | 결과 노트 | 수정 요청 또는 승인 |
 
@@ -30,9 +30,9 @@ last_updated: 2026-05-16
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `Research Briefs DB부터 만들어줘` | Notion 전용 DB 생성 설계를 먼저 진행 |
-| 2 | `테크윈/테크윈에너지 실적 더 찾아줘` | 테크윈 계열의 수상태양광 실적과 K-water 관련성을 추가 조사 |
-| 3 | `Notion 큐 다시 보여줘` | 발행 후보와 상태를 Obsidian에서 요약 |
+| 1 | `inbox-20260516-041614-01 처리해줘` | Toss 미니앱 명령 UI를 clarify/design/plan으로 진행 |
+| 2 | `Research Briefs DB부터 만들어줘` | Notion 전용 DB 생성 설계를 먼저 진행 |
+| 3 | `테크윈/테크윈에너지 실적 더 찾아줘` | 테크윈 계열의 수상태양광 실적과 K-water 관련성을 추가 조사 |
 
 ## Current Research Link
 
@@ -64,7 +64,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-Research Briefs DB부터 만들어줘
+inbox-20260516-041614-01 처리해줘
 ```
 
 ## What Codex Does

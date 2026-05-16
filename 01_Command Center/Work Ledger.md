@@ -256,3 +256,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/notion_publish_queue.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: create a proper `Research Briefs` Notion database or continue deeper Techwin/Techwin Energy research
+
+## 2026-05-16 KST - support file-based Inbox notes
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Inbox, Command Center, scripts
+- Trigger: user added a new Inbox note and asked to develop the missing flow
+- Changed: updated `add_inbox_capture.js` to create file-based Inbox notes, updated `promote_inbox_to_commands.js` to discover `00_Inbox/*.md`, classify file-based notes, mark promoted notes, clean tracking URLs, and promoted [[00_Inbox/Toss 미니앱 만들기|Toss 미니앱 만들기]] into command `inbox-20260516-041614-01`
+- Verification: `node --test tests/add_inbox_capture.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node --test tests/notion_publish_queue.test.js`; `node --test tests/flow_audit.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/promote_inbox_to_commands.js --dry-run`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: process `inbox-20260516-041614-01` through design/screen clarify/design/plan
