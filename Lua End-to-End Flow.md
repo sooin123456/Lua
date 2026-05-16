@@ -11,7 +11,8 @@ Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하
 ## Target Flow
 
 ```text
-Obsidian Command Center에 명령 입력
+00_Inbox 또는 Obsidian Command Center에 입력
+→ Inbox 원문은 triage 후 명령/프로젝트/리서치로 분리
 → Atlas CEO가 자동 분류
 → 역할별 agent app에 하달
 → 결과물을 Obsidian에 저장
@@ -27,6 +28,7 @@ Obsidian Command Center에 명령 입력
 | 단계 | 현재 상태 |
 |---|---|
 | Obsidian에 명령/기록 작성 | 가능 |
+| Inbox에서 Command Center로 승격 | 수동 가능 |
 | Slack에서 원격 명령 설계 | 가능, 보조 경로 |
 | Slack 명령을 로컬 Queue에 넣기 | 가능 |
 | Atlas CEO 자동 분류 | 설계됨, 아직 자동 실행 전 |

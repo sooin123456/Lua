@@ -145,3 +145,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/obsidian_command_queue.js "/lua planning prioritize :: 이번 주 Lua 구축 우선순위 정리"`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: process the first queued planning command through Atlas-style clarify/design/plan workflow
+
+## 2026-05-16 KST - clarify Inbox to Command Center flow
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Inbox, Obsidian Command Center, usage rules
+- Trigger: user asked whether adding to `00_Inbox` connects to the full flow
+- Changed: documented that Inbox is for raw capture and Command Center is for executable commands; added Inbox -> triage -> domain -> Command Queue -> Atlas routing flow
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
+- Commit: pending
+- Next: implement a script that promotes selected Inbox captures into Command Center queue rows

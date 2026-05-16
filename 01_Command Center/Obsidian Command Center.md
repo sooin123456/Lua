@@ -8,6 +8,26 @@ last_updated: 2026-05-16
 
 Lua의 기본 명령 하달 장소다. Slack은 보조 입력 채널이고, 기본 운영은 Obsidian에서 한다.
 
+## Inbox vs Command Center
+
+| 위치 | 쓰는 상황 | 다음 단계 |
+|---|---|---|
+| [[00_Inbox/AI 분류 대기중...|00_Inbox]] | 아직 분류 전인 생각, 회의 메모, 자료, 링크, 감 | Codex가 domain/task로 분류 |
+| Obsidian Command Center | 바로 실행하고 싶은 명령, 이미 목적이 있는 task | Atlas CEO가 agent/stage로 라우팅 |
+
+즉, "생각을 넣는 곳"은 Inbox이고, "명령을 내리는 곳"은 Command Center다.
+
+Inbox에 넣어도 플로우는 이어진다. 다만 한 단계가 추가된다.
+
+```text
+00_Inbox에 원문 추가
+→ /inbox-triage
+→ domain 분류
+→ 필요한 경우 Command Queue로 승격
+→ Atlas CEO 라우팅
+→ agent workflow 실행
+```
+
 ## Command Rule
 
 명령은 먼저 task domain으로 분류하고, 그 다음 agent role과 workflow stage를 정한다.
@@ -98,6 +118,33 @@ Obsidian에서는 아래 형식을 권장한다.
 3. Codex가 domain/stage/agent를 확인한다.
 4. 결과물을 각 저장 위치에 반영한다.
 5. Work Ledger에 기록한다.
+
+## When To Start From Inbox
+
+아래 경우에는 Command Center보다 Inbox에 먼저 쓴다.
+
+- 아직 기획/마케팅/디자인/서비스/프로젝트 중 어디인지 모르겠다.
+- 그냥 생각이 떠올랐다.
+- 회의 내용을 일단 받아 적는다.
+- 링크나 자료를 저장만 해두고 싶다.
+- 나중에 정리할 가능성이 있다.
+
+## When To Start From Command Center
+
+아래 경우에는 바로 Command Center에 쓴다.
+
+- 이미 실행하고 싶은 일이 명확하다.
+- 어떤 domain인지 안다.
+- Codex/Claude/agent에게 하달할 명령이다.
+- 결과물이 필요하다.
+
+예:
+
+```text
+/lua research compare :: 테크인과 경쟁사 비교
+/lua marketing brief :: 오늘 회의 내용을 팀 공유 초안으로 정리
+/lua build app :: 10분 타이머 앱 MVP 만들기
+```
 
 ## Navigation
 

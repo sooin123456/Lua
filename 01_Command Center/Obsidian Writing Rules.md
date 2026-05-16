@@ -45,6 +45,8 @@ Obsidian에는 "나중에 다시 써먹을 맥락"만 남긴다.
 | 지금 상황 | 첫 행동 | 다음 분류 |
 |---|---|---|
 | "이거 나중에 쓸 수도?" | Inbox에 원문 저장 | 나중에 프로젝트/리서치/아카이브 분리 |
+| "뭘 시켜야 할지 아직 모르겠다" | Inbox에 원문 저장 | Codex가 domain/task로 분리 |
+| "이건 바로 시킬 수 있다" | [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]에 명령 작성 | Atlas CEO 라우팅 |
 | "누가 해야 하지?" | Backlog에 task로 작성 | Notion Tasks 후보 |
 | "팀이 알아야 하나?" | Team Brief Drafts에 초안 | Notion Team Briefs 또는 Slack |
 | "근거가 필요하다" | Research에 출처 저장 | Notion Research Briefs 후보 |
@@ -65,6 +67,7 @@ Obsidian에는 "나중에 다시 써먹을 맥락"만 남긴다.
 ## Navigation
 
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
