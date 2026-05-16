@@ -152,6 +152,7 @@ function nextStage(entry) {
 function atlasUpdate(entry) {
   const role = roleFor(entry.domain);
   const stageAfter = nextStage(entry);
+  const content = routerContent(entry);
   return `## Atlas CEO Router Update
 
 | Field | Value |
@@ -164,32 +165,66 @@ function atlasUpdate(entry) {
 
 ### Clarify
 
-- 목표: "${entry.payload}"를 이번 주 실행 가능한 우선순위와 다음 행동으로 바꾼다.
-- 현재 제약: Obsidian이 기본 명령 본부이고, Slack은 보조 입력/알림, Notion은 나중의 팀 공유 정리본으로 둔다.
-- 아직 하지 않을 것: Notion DB 자동 발행, Slack 중심 운영, 큰 범위의 사업 실행을 먼저 시작하는 일.
+${content.clarify}
 
 ### Design
 
-- 추천 방향: Obsidian Command Center를 먼저 안정화하고, planned/queued run을 Atlas Router가 순서대로 처리하게 만든다.
-- 대안 1: Slack 명령 앱을 먼저 키운다. 원격 입력은 좋아지지만 지금의 기본 운영 원칙과 맞지 않는다.
-- 대안 2: Notion 공유 DB를 먼저 만든다. 팀 공유에는 좋지만 아직 개인 command flow가 충분히 안정적이지 않다.
+${content.design}
 
 ### Plan
 
-- [x] 첫 처리 대상: [[01_Command Center/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
-- [x] Atlas CEO 방식으로 clarify/design/plan 작성.
-- [x] User Action Board를 다음 행동 중심으로 갱신.
-- [ ] 다음 run은 \`inbox-20260516-031554-01\` build/app clarify로 진행.
-- [ ] 그 다음 run은 \`inbox-20260516-031554-02\` research/brief로 진행.
+${content.plan}
 
 ### Next User Action
 
 다음에는 Codex에게 아래처럼 말하면 된다.
 
 \`\`\`text
-다음 command run 진행해줘
+${content.nextAction}
 \`\`\`
 `;
+}
+
+function routerContent(entry) {
+  if (entry.domain === 'build' && entry.intent === 'app') return buildAppContent(entry);
+  return planningContent(entry);
+}
+
+function planningContent(entry) {
+  return {
+    clarify: `- 목표: "${entry.payload}"를 이번 주 실행 가능한 우선순위와 다음 행동으로 바꾼다.
+- 현재 제약: Obsidian이 기본 명령 본부이고, Slack은 보조 입력/알림, Notion은 나중의 팀 공유 정리본으로 둔다.
+- 아직 하지 않을 것: Notion DB 자동 발행, Slack 중심 운영, 큰 범위의 사업 실행을 먼저 시작하는 일.`,
+    design: `- 추천 방향: Obsidian Command Center를 먼저 안정화하고, planned/queued run을 Atlas Router가 순서대로 처리하게 만든다.
+- 대안 1: Slack 명령 앱을 먼저 키운다. 원격 입력은 좋아지지만 지금의 기본 운영 원칙과 맞지 않는다.
+- 대안 2: Notion 공유 DB를 먼저 만든다. 팀 공유에는 좋지만 아직 개인 command flow가 충분히 안정적이지 않다.`,
+    plan: `- [x] 첫 처리 대상: [[01_Command Center/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+- [x] Atlas CEO 방식으로 clarify/design/plan 작성.
+- [x] User Action Board를 다음 행동 중심으로 갱신.
+- [ ] 다음 run은 \`inbox-20260516-031554-01\` build/app clarify로 진행.
+- [ ] 그 다음 run은 \`inbox-20260516-031554-02\` research/brief로 진행.`,
+    nextAction: '다음 command run 진행해줘',
+  };
+}
+
+function buildAppContent(entry) {
+  return {
+    clarify: `- 목표: "${entry.payload}"를 Neural UI 사업/제품 후보로 정리하고, 바로 만들 수 있는 최소 MVP 실험을 고른다.
+- 핵심 질문: 미리 짜둔 화면이 아니라 매 순간 신경망이 그리는 UI가 어떤 사용자 문제를 더 잘 풀 수 있는가?
+- 제약: 지금은 앱 전체 구현이 아니라 Toss 미니앱처럼 작고 검증 가능한 첫 사용 장면을 정한다.
+- 아직 하지 않을 것: 대형 플랫폼 설계, 실제 결제/개인정보 연동, Notion 공유본 발행.`,
+    design: `- 추천 방향: "사업 아이디어를 말하면 AI가 즉석에서 화면/흐름/다음 행동을 만들어주는 미니앱"을 첫 실험으로 둔다.
+- 대안 1: Neural UI 개념 설명용 데모를 만든다. 이해는 쉽지만 사업 검증 신호가 약하다.
+- 대안 2: Toss 미니앱 스타일의 특정 업무 도구를 만든다. 범위는 작지만 어떤 업무를 고를지 추가 판단이 필요하다.
+- 대안 3: Lua Command Center 위에 Neural UI 입력 화면을 얹는다. 기존 시스템과 연결되지만 구현 복잡도가 올라간다.`,
+    plan: `- [x] 첫 처리 대상: [[01_Command Center/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+- [x] Neural UI / Toss 미니앱 관점으로 clarify/design/plan 작성.
+- [x] 지금 단계는 MVP 실험 정의로 제한.
+- [ ] 첫 MVP 후보를 하나 고른다: 아이디어 입력 -> 즉석 화면 초안 -> 다음 command run 생성.
+- [ ] 선택한 MVP를 별도 build/spec command로 승격한다.
+- [ ] 다음 command run은 \`inbox-20260516-031554-02\` research/brief로 진행한다.`,
+    nextAction: '수상태양광 리서치 진행해줘',
+  };
 }
 
 function upsertAtlasUpdate(content, entry) {
@@ -233,6 +268,7 @@ function replaceQueueRow(content, entry) {
 }
 
 function actionBoardUpdate(entry) {
+  const content = routerContent(entry);
   return `## Atlas Router 처리 완료
 
 | 항목 | 내용 |
@@ -240,14 +276,14 @@ function actionBoardUpdate(entry) {
 | 처리한 command | [[01_Command Center/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
 | 현재 상태 | routed / plan |
-| 다음 사용자 행동 | \`다음 command run 진행해줘\` |
+| 다음 사용자 행동 | \`${content.nextAction}\` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | \`다음 command run 진행해줘\` | Neural UI build/app command를 clarify/design/plan으로 진행 |
-| 2 | \`수상태양광 리서치 진행해줘\` | research/brief command를 Lens 방식으로 정리 |
+| 1 | \`${content.nextAction}\` | 다음 planned command run을 clarify/design/plan으로 진행 |
+| 2 | \`Command Center 상태 보여줘\` | 남은 queue와 현재 stage를 보여줌 |
 | 3 | \`보류해줘\` | 현재 command run을 paused로 표시 |
 `;
 }

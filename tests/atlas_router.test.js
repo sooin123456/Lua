@@ -71,6 +71,55 @@ last_updated: 2026-05-16
   return root;
 }
 
+function makeBuildVault() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-build-'));
+  write(
+    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    `# Obsidian Command Center
+
+## Command Queue
+
+| ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
+|---|---|---|---|---|---|---|---|
+| inbox-20260516-031554-01 | build | app | 카파시 인터뷰 기반 Neural UI 사업 아이디어. Toss 미니앱 같은 예시. | clarify | Forge | planned | [[01_Command Center/Command Runs/inbox-20260516-031554-01-build-app|run]] |
+| inbox-20260516-031554-02 | research | brief | 수상태양광 리서치 | clarify | Lens | planned | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
+`
+  );
+  write(
+    path.join(root, '01_Command Center', 'Command Runs', 'inbox-20260516-031554-01-build-app.md'),
+    `---
+type: command-run
+status: planned
+command_id: inbox-20260516-031554-01
+domain: build
+intent: app
+stage: clarify
+agent: Forge
+role: Eng Manager
+last_updated: 2026-05-16
+---
+
+# inbox-20260516-031554-01 - build app
+
+## Command
+
+카파시 인터뷰 기반 Neural UI 사업 아이디어. Toss 미니앱 같은 예시.
+`
+  );
+  write(
+    path.join(root, '01_Command Center', 'User Action Board.md'),
+    `# User Action Board
+
+## Today
+
+| 순서 | 할 일 | 위치 | 완료 기준 |
+|---|---|---|---|
+| 1 | 다음 run 처리 | Codex | Queue가 처리됨 |
+`
+  );
+  return root;
+}
+
 test('routes the first real planned command run through Atlas CEO notes', () => {
   const root = makeVault();
 
@@ -128,4 +177,29 @@ test('dry-run reports the target without changing files', () => {
   assert.equal(result.processed.length, 1);
   assert.equal(result.processed[0].id, 'cmd-20260516-024544');
   assert.equal(fs.readFileSync(runPath, 'utf8'), before);
+});
+
+test('build app command gets Neural UI MVP clarify design and plan content', () => {
+  const root = makeBuildVault();
+
+  const result = runAtlasRouter({ root, apply: true, firstOnly: true });
+
+  assert.equal(result.processed[0].id, 'inbox-20260516-031554-01');
+  assert.equal(result.processed[0].agent, 'Forge');
+
+  const runNote = fs.readFileSync(
+    path.join(root, '01_Command Center', 'Command Runs', 'inbox-20260516-031554-01-build-app.md'),
+    'utf8'
+  );
+  assert.match(runNote, /Neural UI/);
+  assert.match(runNote, /Toss 미니앱/);
+  assert.match(runNote, /MVP/);
+  assert.match(runNote, /실험/);
+  assert.doesNotMatch(runNote, /Command Center를 먼저 안정화/);
+
+  const actionBoard = fs.readFileSync(
+    path.join(root, '01_Command Center', 'User Action Board.md'),
+    'utf8'
+  );
+  assert.match(actionBoard, /수상태양광 리서치 진행해줘/);
 });

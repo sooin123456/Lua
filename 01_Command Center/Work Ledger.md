@@ -189,3 +189,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: process `inbox-20260516-031554-01` build/app through the next command run
+
+## 2026-05-16 KST - route Neural UI build app command
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Command Runs, Atlas Router, User Action Board
+- Trigger: user said "다음 command run 진행해줘"
+- Changed: routed `inbox-20260516-031554-01` through Forge/Eng Manager clarify/design/plan and added Neural UI MVP experiment notes
+- Verification: `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: process `inbox-20260516-031554-02` research/brief through Lens
