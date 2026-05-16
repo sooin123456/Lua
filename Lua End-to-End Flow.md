@@ -6,12 +6,12 @@ last_updated: 2026-05-16
 
 # Lua End-to-End Flow
 
-Lua의 전체 흐름은 "Obsidian/Slack에서 명령을 넣고, Atlas CEO가 분류하고, 각 agent app이 결과물을 만들고, 필요한 결과만 Notion/Slack에 공유"하는 구조다.
+Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하고, 각 agent app이 결과물을 만들고, 필요한 결과만 Notion/Slack에 공유"하는 구조다. Slack은 외부에 있을 때 쓰는 보조 입력 채널이다.
 
 ## Target Flow
 
 ```text
-Obsidian 또는 Slack에서 명령 입력
+Obsidian Command Center에 명령 입력
 → Atlas CEO가 자동 분류
 → 역할별 agent app에 하달
 → 결과물을 Obsidian에 저장
@@ -27,7 +27,7 @@ Obsidian 또는 Slack에서 명령 입력
 | 단계 | 현재 상태 |
 |---|---|
 | Obsidian에 명령/기록 작성 | 가능 |
-| Slack에서 원격 명령 설계 | 가능 |
+| Slack에서 원격 명령 설계 | 가능, 보조 경로 |
 | Slack 명령을 로컬 Queue에 넣기 | 가능 |
 | Atlas CEO 자동 분류 | 설계됨, 아직 자동 실행 전 |
 | 각 agent app 하달 | 설계됨, Codex/Claude가 수동 실행 |
@@ -40,7 +40,7 @@ Obsidian 또는 Slack에서 명령 입력
 지금은 아래 상태다.
 
 ```text
-명령 입력
+Obsidian 명령 입력
 → Queue/노트에 저장
 → Codex가 읽고 분류/처리
 → Obsidian에 결과 저장
@@ -50,7 +50,7 @@ Obsidian 또는 Slack에서 명령 입력
 목표는 아래 상태다.
 
 ```text
-명령 입력
+Obsidian 명령 입력
 → Atlas CEO 자동 분류
 → Agent App 자동 실행 또는 초안 생성
 → Obsidian 저장
@@ -99,9 +99,9 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 
 ## Phases
 
-### Phase 1: Manual Command OS
+### Phase 1: Obsidian Command OS
 
-- Obsidian/Slack에 명령을 남긴다.
+- Obsidian Command Center에 명령을 남긴다.
 - Codex가 Queue를 읽고 처리한다.
 - 결과는 Obsidian에 저장한다.
 
@@ -125,16 +125,18 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 
 ## Current Next Step
 
-Notion 자동 저장보다 먼저 해야 할 일은 Slack intake다.
+Notion 자동 저장보다 먼저 해야 할 일은 Obsidian Command Center를 실제로 굴리는 것이다.
 
-1. Slack `/lua` slash command 만들기.
-2. 요청 URL을 받을 작은 endpoint 만들기.
-3. endpoint가 `scripts/slack_command_inbox.js`와 같은 형식으로 Queue에 저장하게 만들기.
-4. Codex가 Queue를 읽고 처리하게 만들기.
+1. [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]에 `/lua {domain} {intent} :: {payload}` 명령을 쓴다.
+2. Atlas CEO 라우팅 규칙으로 domain/agent/stage를 정한다.
+3. Superpowers-style workflow로 clarify/design/plan/execute/verify/brief를 진행한다.
+4. 결과를 Obsidian에 저장한다.
+5. Slack/Notion은 필요한 것만 승인 후 공유한다.
 
 ## Navigation
 
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Notion Sync|Notion Sync]]

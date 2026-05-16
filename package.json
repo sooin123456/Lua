@@ -8,6 +8,7 @@
     "check": "node scripts/check.js",
     "connect:agents": "node scripts/connect_agent_hub.js",
     "fill:scaffolds": "node scripts/fill_empty_scaffolds.js",
+    "command:queue": "node scripts/obsidian_command_queue.js",
     "slack:queue": "node scripts/slack_command_inbox.js",
     "slack:dry-run": "node scripts/slack_brief.js --dry-run",
     "slack:send": "node scripts/slack_brief.js --confirm-send",

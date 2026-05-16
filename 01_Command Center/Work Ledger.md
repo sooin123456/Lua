@@ -134,3 +134,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
 - Commit: pending
 - Next: implement Slack `/lua` intake before Notion publishing
+
+## 2026-05-16 KST - make Obsidian the primary command center
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: command center, domain commands, agent routing
+- Trigger: user said Slack was complicating the flow and wanted to issue commands from Obsidian, categorized by planning/marketing/design/service/project domains while following Superpowers and gstack-style workflows
+- Changed: added Obsidian Command Center, Domain Command Playbook, and local Obsidian command queue script; updated end-to-end flow to make Slack secondary
+- Verification: `node scripts/obsidian_command_queue.js "/lua planning prioritize :: 이번 주 Lua 구축 우선순위 정리"`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: process the first queued planning command through Atlas-style clarify/design/plan workflow

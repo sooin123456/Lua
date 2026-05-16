@@ -8,7 +8,7 @@ last_updated: 2026-05-15
 
 이 문서는 Obsidian에서 어디에 글을 쓰고, 어디에 명령을 적고, Codex/Claude/Pi를 언제 쓰는지 정하는 사용자 설명서다.
 
-전체 자동화 흐름은 [[Lua End-to-End Flow|Lua End-to-End Flow]]를 기준으로 본다.
+전체 자동화 흐름은 [[Lua End-to-End Flow|Lua End-to-End Flow]]를 기준으로 본다. 기본 명령 하달 장소는 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]다.
 
 ## One Rule
 
@@ -43,6 +43,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 | Codex에게 실제 수정 요청 | Codex 채팅창 | `지원사업 검토를 Policy Tracker에 연결해줘` |
 | Claude에게 긴 글/기획 요청 | Claude 채팅창 | `이 사업계획서 목차를 Notion용으로 정리해줘` |
 | Obsidian 안에 다음 실행 예약 | [[01_Command Center/Agent Dashboard|Agent Dashboard]]의 Quick Commands | `/project-sprint time-management-app first-demo` |
+| 업무 도메인별 명령 하달 | [[01_Command Center/Obsidian Command Center|Obsidian Command Center]] | `/lua planning prioritize :: 이번 주 우선순위` |
 | 프로젝트별 실행 큐 작성 | 프로젝트 `Backlog.md` | `/team-brief green-building` |
 | 커밋/출처 기록 | [[01_Command Center/Work Ledger|Work Ledger]] | `/work-log windows-codex cleanup` |
 | 가벼운 Pi 실험 | 터미널에서 프로젝트 폴더를 열고 Pi 실행 | `pi` 또는 `pnpx my-pi@latest` |
@@ -118,6 +119,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[Lua End-to-End Flow|Lua End-to-End Flow]]
+- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]

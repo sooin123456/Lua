@@ -13,6 +13,7 @@ area: Command_Center
 ## 🔗 Core Links
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[01_Command Center/Weekly Review|Weekly Review]]
 - [[02_Projects/KIEREMS/RTU Development/Home|RTU Development Home]]
@@ -46,6 +47,8 @@ area: Command_Center
 ## 🎯 Quick Commands
 
 여기에 적힌 `/command`는 Obsidian 안에서 자동 실행되지 않는다. 실행은 Codex, Claude, Pi 중 맞는 도구에서 하고, 결과는 관련 프로젝트 노트와 [[01_Command Center/Work Ledger|Work Ledger]]에 남긴다.
+
+도메인별 명령은 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]에 `/lua {domain} {intent} :: {payload}` 형식으로 적는다.
 
 ```claw
 /office-hours neural-ui-business

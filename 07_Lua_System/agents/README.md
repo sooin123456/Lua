@@ -41,6 +41,10 @@ Slack에서 호출하는 agent app 명령 체계는 [[09_Automations/Slack Agent
 | Lua Release | Archivist + Vault | `/lua release` |
 | Lua Ops | Vault | `/lua ops` |
 
+## Obsidian Domain Commands
+
+기본 명령 하달은 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]에서 한다. 도메인별 세부 명령은 [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]을 따른다.
+
 ## Skill bundling 패턴
 
 각 agent는 필요한 skill을 `skills/` 아래에 복사해 자기완결 번들을 만든다.
