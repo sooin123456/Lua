@@ -9,6 +9,7 @@ last_updated: 2026-05-15
 
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
+- [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
  
 
 This folder tracks recurring jobs and cross-tool syncs.

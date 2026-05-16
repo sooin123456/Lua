@@ -26,6 +26,21 @@ type: agents-readme
 | Industry Intel Agent | climate-energy | cron weekly |
 | Validation Agent | personal-venture | `/validate {idea}` |
 
+## Slack Agent Apps
+
+Slack에서 호출하는 agent app 명령 체계는 [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]을 따른다.
+
+| Slack App | Base Agent | Command |
+|---|---|---|
+| Lua CEO | Atlas | `/lua ceo` |
+| Lua PM | Atlas + Vault | `/lua pm` |
+| Lua Research | Lens | `/lua research` |
+| Lua Writer | Scribe | `/lua write` |
+| Lua Builder | Forge | `/lua build` |
+| Lua QA | Vault + Forge | `/lua qa` |
+| Lua Release | Archivist + Vault | `/lua release` |
+| Lua Ops | Vault | `/lua ops` |
+
 ## Skill bundling 패턴
 
 각 agent는 필요한 skill을 `skills/` 아래에 복사해 자기완결 번들을 만든다.

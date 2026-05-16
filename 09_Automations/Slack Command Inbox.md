@@ -26,6 +26,21 @@ Slack은 개인/팀 작업 공간이 아니라 모바일 원격 조종석이다.
 | `/lua status` | `/lua status Green Building` | 상태 요약 요청 |
 | `/lua approve` | `/lua approve brief-20260516-001` | 승인 후보 |
 
+## Agent App Commands
+
+자세한 역할별 명령 체계는 [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]을 따른다.
+
+| Command | Agent App | 용도 |
+|---|---|---|
+| `/lua ceo` | Lua CEO | 우선순위/결정 |
+| `/lua pm` | Lua PM | 요구사항/업무 분해 |
+| `/lua research` | Lua Research | 조사/비교 |
+| `/lua write` | Lua Writer | Slack/Notion/제안서 초안 |
+| `/lua build` | Lua Builder | 앱/스크립트/agent app 구현 |
+| `/lua qa` | Lua QA | 검사/리뷰/보안 |
+| `/lua release` | Lua Release | push/배포/요약 |
+| `/lua ops` | Lua Ops | inbox/log/vault 정리 |
+
 ## Initial Implementation
 
 처음에는 Slack API 자동 수신보다 수동-반자동으로 시작한다.
@@ -37,11 +52,21 @@ Slack은 개인/팀 작업 공간이 아니라 모바일 원격 조종석이다.
 
 다음 단계에서는 Slack slash command 또는 workflow webhook을 붙인다.
 
+## Local Queue Test
+
+Slack slash command를 붙이기 전에는 아래 명령으로 Queue 동작을 테스트한다.
+
+```bash
+node scripts/slack_command_inbox.js "/lua research brief :: 테크인 수상태양광 실적 조사"
+node scripts/slack_command_inbox.js --source slack-mobile "/lua inbox 밖에서 떠오른 아이디어"
+```
+
 ## Queue
 
 | ID | Source | Command | Payload | Status | Result |
 |---|---|---|---|---|---|
 | example-001 | Slack | `/lua inbox` | 예시 아이디어 | done | [[00_Inbox/AI 분류 대기중...|Inbox]] |
+| slack-20260516-023413 | slack-mobile | /lua research | 테크인 수상태양광 실적 조사 | queued |  |
 
 ## Routing
 
@@ -62,6 +87,7 @@ Slack은 개인/팀 작업 공간이 아니라 모바일 원격 조종석이다.
 ## Navigation
 
 - [[01_Command Center/Command Modes|Command Modes]]
+- [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]

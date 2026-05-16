@@ -82,6 +82,8 @@ Slack에서 쓰는 온라인 명령은 `/lua`로 시작한다.
 | `/lua status` | 상태 요청 |
 | `/lua approve` | 승인 |
 
+역할별 agent app 명령은 [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]에서 관리한다.
+
 Codex/Claude에서 쓰는 오프라인 명령은 자연어로 말하거나 기존 `/project-sprint`, `/work-log` 같은 명령을 쓴다.
 
 ## Slack Rule
@@ -107,5 +109,6 @@ GitHub push는 online command가 아니라 offline command의 remote sync 단계
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
+- [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[01_Command Center/Work Ledger|Work Ledger]]

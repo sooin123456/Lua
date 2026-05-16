@@ -112,3 +112,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js` orphan notes 0, broken links 0
 - Commit: pending
 - Next: implement Slack command intake using slash commands, workflow webhooks, or manual queue capture
+
+## 2026-05-16 KST - design Superpowers/gstack Slack agent commands
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Slack command inbox, Lua agents
+- Trigger: user asked to use `obra/superpowers` and `garrytan/gstack` patterns for Slack agent app commands
+- Changed: added Slack Agent App Command System, mapped `/lua ceo/pm/research/write/build/qa/release/ops` to Lua agents, and added local Slack command queue parser
+- Verification: `node scripts/slack_command_inbox.js --source slack-mobile "/lua research brief :: 테크인 수상태양광 실적 조사"`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: choose Slack slash command or workflow webhook as the real intake path
