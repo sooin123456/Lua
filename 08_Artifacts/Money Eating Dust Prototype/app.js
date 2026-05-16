@@ -99,14 +99,22 @@ function saveDust(dustList) {
   }
 }
 
-function renderDustShape(dust) {
+function renderDustShape(dust, selectedId) {
   const meta = CATEGORY_META[dust.category] || CATEGORY_META.other;
   const face = dust.status === 'sleeping' ? '-_-' : dust.mood === 'chubby' ? 'o_o' : '._.';
+  const selected = dust.id === selectedId;
   return `
-    <button class="dust ${dust.mood} ${meta.color} ${dust.status}" data-id="${dust.id}" type="button" aria-label="${dust.label}">
-      <span class="dust-face">${face}</span>
+    <button class="dust ${dust.mood} ${meta.color} ${dust.status}" data-id="${dust.id}" type="button" aria-label="${dust.label}" aria-pressed="${selected ? 'true' : 'false'}">
+      <span class="dust-body" aria-hidden="true">
+        <span class="dust-face">${face}</span>
+        <span class="dust-cheek left"></span>
+        <span class="dust-cheek right"></span>
+        <span class="dust-bite"></span>
+        <span class="dust-sleep-mark">Zzz</span>
+      </span>
       <span class="dust-name">${dust.name}</span>
       <span class="dust-money">${formatWon(dust.amount)}</span>
+      <span class="dust-category">${meta.label}</span>
     </button>
   `;
 }
@@ -126,11 +134,16 @@ function renderApp(doc = document) {
 
   function paint(selectedId) {
     const totals = calculateDustTotals(dustList);
+    const selected = dustList.find((dust) => dust.id === selectedId) || dustList.find((dust) => dust.status === 'active');
     totalMonthly.textContent = formatWon(totals.monthlyTotal);
     dailyLoss.textContent = `하루 ${formatWon(totals.dailyTotal)}씩 조용히 먹고 있어요`;
-    room.innerHTML = dustList.map(renderDustShape).join('');
+    room.innerHTML = `
+      <div class="wallet-lip" aria-hidden="true"></div>
+      <div class="room-floor">
+        ${dustList.map((dust) => renderDustShape(dust, selected && selected.id)).join('')}
+      </div>
+    `;
 
-    const selected = dustList.find((dust) => dust.id === selectedId) || dustList.find((dust) => dust.status === 'active');
     if (!selected) {
       sleepPanel.innerHTML = '<p>먼지를 만들면 여기에서 재울 수 있어요.</p>';
     } else if (selected.status === 'sleeping') {

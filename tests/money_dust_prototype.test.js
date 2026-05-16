@@ -22,11 +22,43 @@ test('money dust prototype files exist and include the required UI regions', () 
 test('prototype css protects the mobile layout from horizontal clipping', () => {
   const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
 
-  assert.match(css, /\.section-heading\s*{[^}]*flex-wrap:\s*wrap/s);
+  assert.match(css, /\.summary\s*{[^}]*flex-direction:\s*column/s);
+  assert.match(css, /\.section-heading\s*{[^}]*display:\s*block/s);
   assert.match(css, /\.section-heading\s*>\s*div\s*{[^}]*min-width:\s*0/s);
-  assert.match(css, /\.dust-room\s*{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
-  assert.match(css, /@media\s*\(max-width:\s*430px\)[\s\S]*\.section-heading\s*{[\s\S]*display:\s*block/);
+  assert.match(css, /\.room-floor\s*{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
+  assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*\.summary\s*{[\s\S]*flex-direction:\s*row/);
+  assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*\.section-heading\s*{[\s\S]*display:\s*flex/);
   assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
+});
+
+test('prototype includes cute dust character details and wallet room styling', () => {
+  const js = fs.readFileSync(path.join(PROTOTYPE_DIR, 'app.js'), 'utf8');
+  const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
+
+  assert.match(js, /aria-pressed/);
+  assert.match(js, /class="dust-body"/);
+  assert.match(js, /class="dust-cheek left"/);
+  assert.match(js, /class="dust-cheek right"/);
+  assert.match(js, /class="dust-bite"/);
+  assert.match(js, /class="dust-sleep-mark"/);
+  assert.match(js, /class="dust-category"/);
+  assert.match(css, /\.room-floor/);
+  assert.match(css, /\.wallet-lip/);
+  assert.match(css, /\.dust-bite/);
+  assert.match(css, /\.dust\[aria-pressed="true"\]/);
+  assert.match(css, /\.dust\.sleeping\s+\.dust-sleep-mark/);
+  assert.match(css, /animation:\s*floatDust/);
+  assert.match(css, /font-variant-numeric:\s*tabular-nums/);
+  assert.match(css, /prefers-reduced-motion:\s*reduce/);
+  assert.match(css, /:focus-visible/);
+});
+
+test('prototype form gives mobile-friendly amount guidance', () => {
+  const html = fs.readFileSync(path.join(PROTOTYPE_DIR, 'index.html'), 'utf8');
+
+  assert.match(html, /id="amount-help"/);
+  assert.match(html, /aria-describedby="amount-help"/);
+  assert.match(html, /pattern="\[0-9,\]\*"/);
 });
 
 test('dust model creates cute fixed-cost dust and calculates monthly totals', () => {

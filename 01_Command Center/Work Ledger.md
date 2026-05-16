@@ -389,3 +389,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js` after fixing the HTML path note link
 - Commit: pending
 - Next: visually review the prototype, then migrate the accepted loop into `Lua_template`
+
+## 2026-05-16 KST - polish Money Eating Dust while user away
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Artifacts, Drafts, Money Eating Dust
+- Trigger: user said to do everything except decisions while they were away
+- Changed: added cuter dust character layers, wallet-room styling, visual regression checks, and [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Toss submission draft]]; updated command run and User Action Board to isolate the remaining user decisions
+- Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless mobile/desktop screenshots; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: user decides final submission name, demo-data style, representative screenshot, and whether to migrate before submitting

@@ -42,7 +42,15 @@
           </label>
           <label>
             매달 얼마를 먹나요?
-            <input id="dust-amount" name="amount" inputmode="numeric" placeholder="14900" />
+            <input
+              id="dust-amount"
+              name="amount"
+              inputmode="numeric"
+              pattern="[0-9,]*"
+              placeholder="14,900"
+              aria-describedby="amount-help"
+            />
+            <span id="amount-help" class="field-help">숫자만 입력해도 자동으로 원 단위로 계산돼요.</span>
           </label>
           <label>
             먼지 종류
