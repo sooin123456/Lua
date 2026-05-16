@@ -23,6 +23,7 @@ TOSS 프로젝트는 제출 전 단계부터 별도 프로젝트로 관리한다
 
 - [[02_Projects/TOSS/Backlog|Backlog]]
 - [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]]
+- [[02_Projects/TOSS/Submission Package|Submission Package]]
 - [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Submission Draft]]
 - [[01_Command Center/Decision Board|Decision Board]]
 - [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]]

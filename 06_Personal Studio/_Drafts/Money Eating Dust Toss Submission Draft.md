@@ -46,6 +46,12 @@ last_updated: 2026-05-16
 
 대표 스크린샷은 `먼지방` 화면으로 한다.
 
+생성된 파일:
+
+```text
+08_Artifacts/Money Eating Dust Prototype/screenshots/dust-room-mobile.png
+```
+
 체크할 것:
 
 - 앱 이름 `돈 먹는 먼지`

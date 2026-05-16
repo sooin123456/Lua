@@ -411,3 +411,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: decide only the remaining submit path: static prototype or Toss/Lua_template migration
+
+## 2026-05-16 KST - prepare Money Dust submission package
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: TOSS, Artifacts, submission prep
+- Trigger: user said to continue
+- Changed: generated the selected dust-room mobile screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/dust-room-mobile.png`, created [[02_Projects/TOSS/Submission Package|Submission Package]], and linked it from TOSS project docs and the submission draft
+- Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: decide submit path: static prototype or Toss/Lua_template migration

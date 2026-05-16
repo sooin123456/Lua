@@ -12,6 +12,7 @@ last_updated: 2026-05-16
 | Priority | Item | Status | Link |
 |---|---|---|---|
 | 1 | 돈 먹는 먼지 제출 준비 | in progress | [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]] |
+| 2 | 제출 패키지 점검 | draft | [[02_Projects/TOSS/Submission Package|Submission Package]] |
 
 ## Later
 

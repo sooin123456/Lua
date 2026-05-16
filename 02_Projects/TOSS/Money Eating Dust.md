@@ -30,6 +30,7 @@ last_updated: 2026-05-16
 
 - Prototype: `08_Artifacts/Money Eating Dust Prototype/index.html`
 - README: [[08_Artifacts/Money Eating Dust Prototype/README|Money Eating Dust Prototype]]
+- Submission package: [[02_Projects/TOSS/Submission Package|Submission Package]]
 - Submission draft: [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Money Eating Dust Toss Submission Draft]]
 
 ## Remaining Decisions

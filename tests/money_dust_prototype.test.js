@@ -63,6 +63,19 @@ test('prototype form gives mobile-friendly amount guidance', () => {
   assert.match(html, /pattern="\[0-9,\]\*"/);
 });
 
+test('submission package includes the selected dust-room screenshot asset', () => {
+  const screenshotPath = path.join(PROTOTYPE_DIR, 'screenshots', 'dust-room-mobile.png');
+  const packagePath = path.join(ROOT, '02_Projects', 'TOSS', 'Submission Package.md');
+
+  assert.equal(fs.existsSync(screenshotPath), true);
+  assert.ok(fs.statSync(screenshotPath).size > 50_000);
+
+  const submissionPackage = fs.readFileSync(packagePath, 'utf8');
+  assert.match(submissionPackage, /돈 먹는 먼지/);
+  assert.match(submissionPackage, /dust-room-mobile\.png/);
+  assert.match(submissionPackage, /대표 스크린샷: 먼지방/);
+});
+
 test('dust model creates cute fixed-cost dust and calculates monthly totals', () => {
   const { createDust, calculateDustTotals } = require('../08_Artifacts/Money Eating Dust Prototype/app');
 
