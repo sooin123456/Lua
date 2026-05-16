@@ -20,9 +20,11 @@ area: Projects
 - [[02_Projects/Lucia/Easy AI Helper Miniapp|Easy AI Helper Miniapp]]
 - [[02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 - [[02_Projects/Lucia/Money Eating Dust Miniapp|Money Eating Dust Miniapp]]
+- [[02_Projects/TOSS/Home|TOSS]]
 
 ## Personal Studio Projects
 
+- [[06_Personal Studio/Ideas/Home|Ideas]]
 - [[06_Personal Studio/AI Studio/Home|AI Studio]]
 - [[06_Personal Studio/CS50/Home|CS50]]
 - [[06_Personal Studio/Hacking/Home|Hacking]]
@@ -33,6 +35,8 @@ area: Projects
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[01_Command Center/Weekly Review|Weekly Review]]
+- [[01_Command Center/Decision Board|Decision Board]]
+- [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]]
 
 ## Project File Index
 

@@ -400,3 +400,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless mobile/desktop screenshots; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: user decides final submission name, demo-data style, representative screenshot, and whether to migrate before submitting
+
+## 2026-05-16 KST - create idea and decision operating spaces
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, Personal Studio, TOSS
+- Trigger: user said the current command style was uncomfortable and asked for separate spaces for ideas, decisions, and autopilot delegation
+- Changed: created [[06_Personal Studio/Ideas/Home|Ideas]], [[01_Command Center/Decision Board|Decision Board]], [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]], and [[02_Projects/TOSS/Home|TOSS]]; moved `돈 먹는 먼지` submission tracking into the TOSS project; applied decisions for app name, generic demo data, and dust-room screenshot
+- Verification: `node --test tests/money_dust_prototype.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: decide only the remaining submit path: static prototype or Toss/Lua_template migration

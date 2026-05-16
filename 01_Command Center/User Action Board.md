@@ -24,15 +24,17 @@ last_updated: 2026-05-16
 | 처리한 command | [[01_Command Center/Command Runs/money-dust-20260516-01-build-app|money-dust-20260516-01]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
 | 현재 상태 | routed / plan |
-| 다음 사용자 행동 | `돈먹는 먼지 결정할 것들 보여줘` |
+| 다음 사용자 행동 | `Decision Board 보여줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `돈먹는 먼지 결정할 것들 보여줘` | 제출명, 대표 스크린샷, 데모 데이터, 이전 방식만 사용자 결정으로 정리 |
-| 2 | `Command Center 상태 보여줘` | 남은 queue와 현재 stage를 보여줌 |
-| 3 | `보류해줘` | 현재 command run을 paused로 표시 |
+| 1 | `Decision Board 보여줘` | 사용자 결정이 필요한 항목만 보여줌 |
+| 2 | `아이디어는 Ideas에 넣어줘` | 실행 전 아이디어만 [[06_Personal Studio/Ideas/Home|Ideas]]에 정리 |
+| 3 | `자동으로 맡길게` | [[01_Command Center/Autopilot Delegation Guide|Autopilot]] 방식으로 구현/검증/기록 진행 |
+| 4 | `Command Center 상태 보여줘` | 남은 queue와 현재 stage를 보여줌 |
+| 5 | `보류해줘` | 현재 command run을 paused로 표시 |
 
 ## Current Research Link
 
@@ -88,6 +90,9 @@ npm run lua-ui 실행해줘
 
 - [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/Decision Board|Decision Board]]
+- [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]]
+- [[06_Personal Studio/Ideas/Home|Ideas]]
 - [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
 - [[01_Command Center/Work Ledger|Work Ledger]]

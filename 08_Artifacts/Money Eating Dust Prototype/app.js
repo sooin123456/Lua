@@ -11,9 +11,9 @@ const CATEGORY_META = {
 };
 
 const DEFAULT_DUST = [
-  createDust({ id: 'sample-ott', name: 'Netflix', amount: 17000, category: 'ott' }),
-  createDust({ id: 'sample-mobile', name: 'Phone', amount: 59000, category: 'mobile' }),
-  createDust({ id: 'sample-coffee', name: 'Coffee Pass', amount: 9900, category: 'membership' }),
+  createDust({ id: 'sample-ott', name: '영상 구독', amount: 17000, category: 'ott' }),
+  createDust({ id: 'sample-mobile', name: '통신비', amount: 59000, category: 'mobile' }),
+  createDust({ id: 'sample-coffee', name: '커피 멤버십', amount: 9900, category: 'membership' }),
 ];
 
 function parseAmount(amount) {

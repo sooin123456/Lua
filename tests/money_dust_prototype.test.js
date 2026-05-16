@@ -9,6 +9,8 @@ const PROTOTYPE_DIR = path.join(ROOT, '08_Artifacts', 'Money Eating Dust Prototy
 test('money dust prototype files exist and include the required UI regions', () => {
   const html = fs.readFileSync(path.join(PROTOTYPE_DIR, 'index.html'), 'utf8');
 
+  assert.match(html, /돈 먹는 먼지/);
+  assert.match(html, /예: 영상 구독/);
   assert.match(html, /id="dust-room"/);
   assert.match(html, /id="dust-form"/);
   assert.match(html, /id="dust-name"/);
@@ -65,12 +67,12 @@ test('dust model creates cute fixed-cost dust and calculates monthly totals', ()
   const { createDust, calculateDustTotals } = require('../08_Artifacts/Money Eating Dust Prototype/app');
 
   const dust = [
-    createDust({ name: 'Netflix', amount: '17000', category: 'ott' }),
-    createDust({ name: 'Phone', amount: '59000', category: 'mobile' }),
+    createDust({ name: '영상 구독', amount: '17000', category: 'ott' }),
+    createDust({ name: '통신비', amount: '59000', category: 'mobile' }),
   ];
 
   assert.deepEqual(dust.map((item) => item.mood), ['tiny', 'chubby']);
-  assert.equal(dust[0].label, 'Netflix 먼지');
+  assert.equal(dust[0].label, '영상 구독 먼지');
   assert.equal(dust[1].dailyAmount, 1967);
   assert.deepEqual(calculateDustTotals(dust), {
     activeCount: 2,
@@ -85,14 +87,14 @@ test('sleeping dust removes it from active monthly cost and reports savings', ()
   const { createDust, sleepDust, calculateDustTotals } = require('../08_Artifacts/Money Eating Dust Prototype/app');
 
   const dust = [
-    createDust({ id: 'dust-1', name: 'YouTube', amount: 14900, category: 'ott' }),
-    createDust({ id: 'dust-2', name: 'Coffee', amount: 9900, category: 'membership' }),
+    createDust({ id: 'dust-1', name: '음악 앱', amount: 14900, category: 'app' }),
+    createDust({ id: 'dust-2', name: '커피 멤버십', amount: 9900, category: 'membership' }),
   ];
 
   const next = sleepDust(dust, 'dust-1');
 
   assert.equal(next[0].status, 'sleeping');
-  assert.equal(next[0].sleepCopy, 'YouTube 먼지가 잠들었어요. 이번 달부터 14,900원을 안 먹어요.');
+  assert.equal(next[0].sleepCopy, '음악 앱 먼지가 잠들었어요. 이번 달부터 14,900원을 안 먹어요.');
   assert.deepEqual(calculateDustTotals(next), {
     activeCount: 1,
     sleepingCount: 1,

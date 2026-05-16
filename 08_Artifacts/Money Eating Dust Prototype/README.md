@@ -6,7 +6,7 @@ last_updated: 2026-05-16
 
 # Money Eating Dust Prototype
 
-Static Toss-style MVP prototype for [[02_Projects/Lucia/Money Eating Dust Miniapp|돈먹는 먼지 Miniapp]].
+Static Toss-style MVP prototype for [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]].
 
 ## What It Tests
 

@@ -52,7 +52,11 @@ Primary screens:
 - [x] Build Toss-style MVP prototype: [[08_Artifacts/Money Eating Dust Prototype/README|Money Eating Dust Prototype]]
 - [x] Verify with local UI test and basic calculation cases.
 - [x] Prepare challenge submission copy draft: [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|submission draft]]
-- [ ] Decide final submission name, screenshot, demo data style, and Toss/template migration path.
+- [x] Decide final submission name: `돈 먹는 먼지`.
+- [x] Decide demo data style: 일반 예시.
+- [x] Decide representative screenshot: 먼지방.
+- [x] Create separate TOSS project: [[02_Projects/TOSS/Home|TOSS]].
+- [ ] Decide whether to submit static prototype or migrate into Toss/Lua_template structure first.
 
 ## Agent Orchestration
 
@@ -72,11 +76,17 @@ The merged implementation is the static prototype under `08_Artifacts/Money Eati
 - Prototype HTML: `08_Artifacts/Money Eating Dust Prototype/index.html`
 - Test: `tests/money_dust_prototype.test.js`
 
-## User Decisions Still Needed
+## User Decisions
 
-- Final displayed app name: `돈먹는 먼지` or `돈 먹는 먼지`
-- Demo examples: real brand-like samples or generic categories
-- Representative screenshot for submission
+Resolved:
+
+- App name: `돈 먹는 먼지`
+- Demo examples: generic categories
+- Representative screenshot: dust room
+- Project: [[02_Projects/TOSS/Home|TOSS]]
+
+Still needed:
+
 - Whether to submit from static prototype or migrate first into Toss/Lua_template structure
 
 ## Build Notes
