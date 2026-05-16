@@ -222,3 +222,14 @@ last_updated: 2026-05-15
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: verify links and then investigate Techwin/Techwin Energy project references if requested
+
+## 2026-05-16 KST - add command flow audit
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, scripts, flow verification
+- Trigger: user asked to verify and implement missing pieces before continuing the next flow
+- Changed: added `scripts/flow_audit.js`, test coverage for command result/run note/brief/hub linkage, and documented the Flow Audit step
+- Verification: `node --test tests/flow_audit.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: use Flow Audit after future Atlas Router runs before treating a command result as connected

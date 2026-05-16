@@ -154,6 +154,16 @@ node scripts/atlas_router.js --apply
 
 Codex에게는 "다음 command run 진행해줘"라고 말하면 된다.
 
+## Flow Audit
+
+Command Queue 결과가 run note, brief, hub까지 실제로 이어졌는지 확인하려면 아래 스크립트를 쓴다.
+
+```bash
+node scripts/flow_audit.js
+```
+
+Codex에게는 "다음 플로우 검증해줘"라고 말하면 된다.
+
 ## When To Start From Inbox
 
 아래 경우에는 Command Center보다 Inbox에 먼저 쓴다.

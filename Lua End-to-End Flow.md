@@ -44,9 +44,12 @@ Notion만 남은 것은 아니다. 남은 큰 조각은 두 가지다.
 | 남은 조각 | 의미 | 우선순위 |
 |---|---|---|
 | Atlas Router 자동화 | Command Queue를 자동으로 읽고 domain/agent/stage를 처리 | 먼저 |
+| Flow Audit | Command Queue 결과가 run note, result note, hub까지 연결됐는지 검증 | 먼저 |
 | Notion Publishing | Obsidian 결과 중 팀 공유용만 Notion DB에 저장 | 나중 |
 
 지금은 Notion보다 Atlas Router 자동화를 먼저 안정화하는 것이 좋다. Notion은 팀이 보는 정리본이므로, Obsidian에서 결과물이 안정적으로 만들어진 뒤 붙인다.
+
+Flow Audit는 Atlas Router 이후에 반드시 확인한다. 일반 vault audit이 깨진 링크와 고아 노트를 보더라도, Command Queue의 `Result`가 실제 run note와 결과 허브까지 이어졌는지는 별도 검증이 필요하다.
 
 ## Correct Mental Model
 

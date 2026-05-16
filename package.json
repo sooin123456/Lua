@@ -6,6 +6,7 @@
   "scripts": {
     "audit": "node scripts/vault_audit.js",
     "check": "node scripts/check.js",
+    "flow:audit": "node scripts/flow_audit.js",
     "connect:agents": "node scripts/connect_agent_hub.js",
     "atlas:route": "node scripts/atlas_router.js --apply",
     "atlas:dry-run": "node scripts/atlas_router.js --dry-run",
