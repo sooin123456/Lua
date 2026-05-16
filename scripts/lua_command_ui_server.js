@@ -4,6 +4,7 @@ const http = require('http');
 const path = require('path');
 const { URL } = require('url');
 const { runAtlasRouter } = require('./atlas_router');
+const { runBuildRunner } = require('./build_runner');
 const { runCommandQueue } = require('./process_command_queue');
 
 const ROOT = path.resolve(__dirname, '..');
@@ -118,13 +119,30 @@ function runCommandFromUi(options = {}) {
   const routed = routedResult.processed[0];
   if (!routed) throw new Error(`Failed to route command: ${queued.id}`);
 
-  return {
+  const result = {
     id: queued.id,
     owner: queued.owner,
     status: 'routed',
     stage: routed.stageAfter,
     run: routed.run,
     row: queued.row,
+  };
+
+  if (!options.build) return result;
+
+  const builtResult = runBuildRunner({
+    root,
+    apply: true,
+    commandId: queued.id,
+    verification: options.verification || ['node scripts/check.js'],
+  });
+  const built = builtResult.processed[0];
+  if (!built) throw new Error(`Failed to build command: ${queued.id}`);
+  return {
+    ...result,
+    status: built.statusAfter,
+    stage: built.stageAfter,
+    artifact: built.artifact,
   };
 }
 
@@ -181,6 +199,18 @@ function createServer(options = {}) {
         const body = await readBody(req);
         const parsed = body ? JSON.parse(body) : {};
         const result = runCommandFromUi({ root, command: parsed });
+        return sendJson(res, 201, result);
+      }
+
+      if (req.method === 'POST' && requestUrl.pathname === '/api/commands/build') {
+        const body = await readBody(req);
+        const parsed = body ? JSON.parse(body) : {};
+        const result = runCommandFromUi({
+          root,
+          command: parsed.command || parsed,
+          build: true,
+          verification: parsed.verification,
+        });
         return sendJson(res, 201, result);
       }
 

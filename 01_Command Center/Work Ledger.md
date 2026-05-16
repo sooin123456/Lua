@@ -323,3 +323,25 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/lua_command_ui_server.test.js`; `node --test tests/lua_command_ui_prototype.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/vault_audit.js`; live localhost API run via `POST /api/commands/run` creating `lua-ui-20260516-135233`
 - Commit: pending
 - Next: build runner phase can connect the routed `execute` stage to actual app implementation, verification, brief, commit, and push
+
+## 2026-05-16 KST - add Build Runner completion path
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Build Runner, Lua Command UI, Command Queue, Artifacts
+- Trigger: user asked to make the flow continue from planning/context recovery into a completed deliverable
+- Changed: added `scripts/build_runner.js`, wired `POST /api/commands/build`, added a `완성물 만들기` UI button, added `npm run build:run`, and documented the completion path
+- Verification: `node --test tests/build_runner.test.js`; `node --test tests/lua_command_ui_server.test.js`; `node --test tests/lua_command_ui_prototype.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/flow_audit.js`; `node scripts/vault_audit.js`; live localhost API build via `POST /api/commands/build` creating `lua-ui-20260516-140255`
+- Commit: pending
+- Next: replace the deterministic build output artifact with domain-specific app implementation steps for `Lua_template`-based apps
+
+## 2026-05-16 KST - Build Runner completed lua-ui-20260516-140255
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Build Runner, Command Queue, Artifacts
+- Trigger: command `lua-ui-20260516-140255` reached build runner
+- Changed: created [[08_Artifacts/Build Outputs/lua-ui-20260516-140255-build-app-output|build output]], marked the command `done`, and linked the run note for context recovery
+- Verification: `node scripts/check.js`
+- Commit: pending
+- Next: replace deterministic artifact output with domain-specific app implementation when the command requires code generation

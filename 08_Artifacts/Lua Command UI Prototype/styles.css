@@ -167,7 +167,7 @@ textarea:focus,
 
 .preview-visual {
   display: grid;
-  grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr auto;
+  grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr auto 1fr auto;
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
@@ -294,6 +294,10 @@ dd {
   color: var(--ink);
 }
 
+.wide-button {
+  grid-column: 1 / -1;
+}
+
 .toast {
   margin: 10px 0 0;
   color: var(--green);
@@ -340,6 +344,10 @@ dd {
   }
 
   .route-grid div:last-child {
+    grid-column: auto;
+  }
+
+  .wide-button {
     grid-column: auto;
   }
 }

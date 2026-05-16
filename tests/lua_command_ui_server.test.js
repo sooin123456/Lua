@@ -129,3 +129,33 @@ test('runs a Lua Command UI command end-to-end through queue and Atlas router', 
   assert.match(runNote, /stage: plan/);
   assert.match(runNote, /## Atlas CEO Router Update/);
 });
+
+test('builds a Lua Command UI command into an artifact from one localhost API call', () => {
+  const root = makeVault();
+
+  const result = runCommandFromUi({
+    root,
+    now: new Date('2026-05-16T04:45:30.000Z'),
+    command: {
+      domain: 'build',
+      intent: 'app',
+      payload: 'Make a tiny timer app from the Lua template',
+    },
+    build: true,
+    verification: ['node scripts/check.js'],
+  });
+
+  assert.equal(result.id, 'lua-ui-20260516-134530');
+  assert.equal(result.status, 'done');
+  assert.equal(result.stage, 'brief');
+  assert.equal(
+    result.artifact,
+    '08_Artifacts/Build Outputs/lua-ui-20260516-134530-build-app-output'
+  );
+
+  const artifact = fs.readFileSync(
+    path.join(root, '08_Artifacts', 'Build Outputs', 'lua-ui-20260516-134530-build-app-output.md'),
+    'utf8'
+  );
+  assert.match(artifact, /Make a tiny timer app from the Lua template/);
+});

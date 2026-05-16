@@ -15,6 +15,7 @@ test('prototype files exist and include the required UI regions', () => {
   assert.match(html, /id="command-preview"/);
   assert.match(html, /id="draft-row"/);
   assert.match(html, /id="run-button"/);
+  assert.match(html, /id="build-button"/);
   assert.match(html, /id="connection-status"/);
 });
 
@@ -72,5 +73,39 @@ test('command submitter can run through the localhost end-to-end endpoint', asyn
     status: 'routed',
     stage: 'plan',
     run: '01_Command Center/Command Runs/lua-ui-20260516-134530-build-app',
+  });
+});
+
+test('command submitter can build through the localhost build endpoint', async () => {
+  const { submitCommand } = require('../08_Artifacts/Lua Command UI Prototype/app');
+  const requests = [];
+
+  const result = await submitCommand(
+    { domain: 'build', intent: 'app', payload: 'Make a tiny timer app' },
+    async (url, options) => {
+      requests.push({ url, options });
+      return {
+        ok: true,
+        json: async () => ({
+          id: 'lua-ui-20260516-134530',
+          status: 'done',
+          stage: 'brief',
+          artifact: '08_Artifacts/Build Outputs/lua-ui-20260516-134530-build-app-output',
+        }),
+      };
+    },
+    { protocol: 'http:', hostname: '127.0.0.1' },
+    { build: true }
+  );
+
+  assert.equal(requests[0].url, '/api/commands/build');
+  assert.equal(JSON.parse(requests[0].options.body).payload, 'Make a tiny timer app');
+  assert.deepEqual(result, {
+    mode: 'build',
+    ok: true,
+    id: 'lua-ui-20260516-134530',
+    status: 'done',
+    stage: 'brief',
+    artifact: '08_Artifacts/Build Outputs/lua-ui-20260516-134530-build-app-output',
   });
 });

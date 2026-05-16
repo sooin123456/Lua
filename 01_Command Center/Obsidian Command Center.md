@@ -87,6 +87,7 @@ Obsidian에서는 아래 형식을 권장한다.
 | inbox-20260516-041614-01 | design | screen | Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토스 미니앱 만들기 주제는 아직 고민중 대신 이번에는 디자인 쪽으로 어제 말한 내용 나의 명령 체계를 ui로 표현해주는 좀 더 쉽게 뭔가 명령할 수 있는 그런 서비스 | plan | Scribe+Forge | routed | [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|run]] |
 | lua-ui-20260516-133839 | design | screen | Lua Command UI 서버 연결 테스트 | plan | Scribe+Forge | routed | [[01_Command Center/Command Runs/lua-ui-20260516-133839-design-screen|run]] |
 | lua-ui-20260516-135233 | build | app | Lua Command UI end-to-end run button verification | plan | Forge | routed | [[01_Command Center/Command Runs/lua-ui-20260516-135233-build-app|run]] |
+| lua-ui-20260516-140255 | build | app | Verify Lua build runner creates a durable artifact | brief | Forge | done | [[08_Artifacts/Build Outputs/lua-ui-20260516-140255-build-app-output|artifact]] |
 
 ## Superpowers Workflow
 
@@ -157,6 +158,17 @@ node scripts/atlas_router.js --apply
 ```
 
 Codex에게는 "다음 command run 진행해줘"라고 말하면 된다.
+
+## Build Runner
+
+plan 단계까지 온 build command를 완성물 artifact로 닫으려면 아래 스크립트를 쓴다.
+
+```bash
+node scripts/build_runner.js --dry-run --command-id lua-ui-20260516-135233
+node scripts/build_runner.js --apply --command-id lua-ui-20260516-135233
+```
+
+Lua Command UI의 `완성물 만들기` 버튼은 같은 흐름을 localhost API에서 실행한다.
 
 ## Flow Audit
 

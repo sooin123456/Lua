@@ -18,7 +18,7 @@ Lua Command UI는 Obsidian Command Center의 `/lua {domain} {intent} :: {payload
 domain 선택 -> intent 선택 -> payload 입력 -> Command Preview 확인 -> Queue에 넣기 또는 끝까지 실행
 ```
 
-현재 localhost 버전은 두 가지 모드를 지원한다. `Command Queue에 쓰기`는 `queued` row만 만들고, `끝까지 실행`은 Queue 저장 뒤 `process_command_queue`와 `atlas_router`를 이어서 실행해 run note까지 만든다. `file://`로 열면 여전히 copy fallback만 동작한다.
+현재 localhost 버전은 세 가지 모드를 지원한다. `Command Queue에 쓰기`는 `queued` row만 만들고, `끝까지 실행`은 Queue 저장 뒤 `process_command_queue`와 `atlas_router`를 이어서 실행해 run note까지 만든다. `완성물 만들기`는 build runner까지 이어서 build output artifact를 만들고 command를 `done`으로 닫는다. `file://`로 열면 여전히 copy fallback만 동작한다.
 
 ## First Screen
 
@@ -75,14 +75,15 @@ Preview 아래에는 라우팅 결과를 같이 보여준다.
 
 ### 5. Send / Run
 
-현재 prototype은 버튼을 둘로 나눈다.
+현재 prototype은 버튼을 셋으로 나눈다.
 
 ```text
 Command Queue에 초안으로 넣기
 끝까지 실행
+완성물 만들기
 ```
 
-첫 버튼은 `queued` 상태의 command row를 만드는 역할만 한다. 두 번째 버튼은 localhost writer 서버에서만 동작하며, 새 command id 하나만 대상으로 run note 생성과 Atlas Router 라우팅까지 수행한다.
+첫 버튼은 `queued` 상태의 command row를 만드는 역할만 한다. 두 번째 버튼은 localhost writer 서버에서만 동작하며, 새 command id 하나만 대상으로 run note 생성과 Atlas Router 라우팅까지 수행한다. 세 번째 버튼은 같은 흐름 뒤에 Build Runner를 실행해 artifact를 만들고 Work Ledger와 Artifact Ledger에 기록한다.
 
 ## UX Rules
 
@@ -126,7 +127,7 @@ Command Queue에 초안으로 넣기
 - HTML: `08_Artifacts/Lua Command UI Prototype/index.html`
 - Local writer: `npm run lua-ui`, then open `http://127.0.0.1:8765`
 
-`file://` mode is copy-only. Real Command Queue writes and end-to-end runs require the local writer server.
+`file://` mode is copy-only. Real Command Queue writes, end-to-end runs, and build output generation require the local writer server.
 
 ## App Template Rule
 

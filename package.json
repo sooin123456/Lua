@@ -13,6 +13,7 @@
     "connect:agents": "node scripts/connect_agent_hub.js",
     "atlas:route": "node scripts/atlas_router.js --apply",
     "atlas:dry-run": "node scripts/atlas_router.js --dry-run",
+    "build:run": "node scripts/build_runner.js --apply",
     "command:process": "node scripts/process_command_queue.js --apply",
     "fill:scaffolds": "node scripts/fill_empty_scaffolds.js",
     "command:queue": "node scripts/obsidian_command_queue.js",

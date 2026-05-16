@@ -51,6 +51,12 @@ POST /api/commands/run
 
 Writes the row, processes the Command Queue, routes the new command with Atlas Router, and returns the run note link.
 
+```text
+POST /api/commands/build
+```
+
+Writes the row, routes it, runs the Build Runner, creates a build output artifact, marks the command `done`, and returns the artifact link.
+
 ## Navigation
 
 - [[02_Projects/Lucia/Lua Command UI|Lua Command UI]]

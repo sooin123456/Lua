@@ -71,7 +71,11 @@ async function submitCommand(state, fetchImpl = fetch, locationLike = window.loc
     return { mode: 'copy', ok: false };
   }
 
-  const endpoint = options.run ? '/api/commands/run' : '/api/commands';
+  const endpoint = options.build
+    ? '/api/commands/build'
+    : options.run
+      ? '/api/commands/run'
+      : '/api/commands';
   const response = await fetchImpl(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -83,7 +87,7 @@ async function submitCommand(state, fetchImpl = fetch, locationLike = window.loc
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || 'Failed to write command');
-  return { mode: options.run ? 'run' : 'write', ok: true, ...data };
+  return { mode: options.build ? 'build' : options.run ? 'run' : 'write', ok: true, ...data };
 }
 
 function draftId() {
@@ -123,6 +127,7 @@ function initApp(doc = document) {
   const routeOutput = doc.getElementById('route-output');
   const draftButton = doc.getElementById('draft-button');
   const runButton = doc.getElementById('run-button');
+  const buildButton = doc.getElementById('build-button');
   const connectionStatus = doc.getElementById('connection-status');
   const toast = doc.getElementById('toast');
 
@@ -193,6 +198,26 @@ function initApp(doc = document) {
       window.setTimeout(() => {
         toast.hidden = true;
       }, 3000);
+    } catch (error) {
+      toast.textContent = error.message;
+      toast.hidden = false;
+    }
+  });
+
+  buildButton.addEventListener('click', async () => {
+    const text = `${buildCommand(state)}\n\n${buildDraftRow(state)}`;
+    try {
+      const result = await submitCommand(state, fetch, window.location, { build: true });
+      if (result.mode === 'build') {
+        toast.textContent = `완성물 생성: ${result.id} -> ${result.artifact}`;
+      } else {
+        if (navigator.clipboard) await navigator.clipboard.writeText(text);
+        toast.textContent = '로컬 서버가 없어 command draft를 복사했습니다';
+      }
+      toast.hidden = false;
+      window.setTimeout(() => {
+        toast.hidden = true;
+      }, 3600);
     } catch (error) {
       toast.textContent = error.message;
       toast.hidden = false;

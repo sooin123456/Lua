@@ -21,7 +21,7 @@ last_updated: 2026-05-16
 
 | 항목 | 내용 |
 |---|---|
-| 처리한 command | [[01_Command Center/Command Runs/lua-ui-20260516-135233-build-app|lua-ui-20260516-135233]] |
+| 처리한 command | [[01_Command Center/Command Runs/lua-ui-20260516-140255-build-app|lua-ui-20260516-140255]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
 | 현재 상태 | routed / plan |
 | 다음 사용자 행동 | `수상태양광 리서치 진행해줘` |
