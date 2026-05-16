@@ -433,3 +433,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/wide-openbanking-preview.png`
 - Commit: pending
 - Next: decide whether real financial integration stays a mock preview for challenge submission or moves into a verified Toss/Lua_template integration phase
+
+## 2026-05-16 KST - restyle Money Dust like vertical miniapp cards
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: TOSS, Money Eating Dust prototype
+- Trigger: user provided a dark card-based miniapp reference and asked to change the UI into that form
+- Changed: rebuilt the prototype shell into a dark app preview with app icon, three vertical cards, a large cute dust mascot card, embedded dust room card, and action/cancellation card
+- Verification: `node --test tests/money_dust_prototype.test.js`; Chrome headless screenshot at `08_Artifacts/Money Eating Dust Prototype/screenshots/reference-style-preview.png`
+- Commit: pending
+- Next: user visually reviews the new form before moving it into the Toss/Lua_template structure

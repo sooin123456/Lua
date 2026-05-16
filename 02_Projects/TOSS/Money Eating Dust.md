@@ -34,6 +34,7 @@ last_updated: 2026-05-16
 - Submission package: [[02_Projects/TOSS/Submission Package|Submission Package]]
 - Submission draft: [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Money Eating Dust Toss Submission Draft]]
 - Wide preview: `08_Artifacts/Money Eating Dust Prototype/screenshots/wide-openbanking-preview.png`
+- Reference-style preview: `08_Artifacts/Money Eating Dust Prototype/screenshots/reference-style-preview.png`
 
 ## Product Assumptions
 
@@ -41,6 +42,7 @@ last_updated: 2026-05-16
 - 실제 오픈뱅킹/카드 내역 연동은 사용자 동의, Toss Apps in Toss 제공 API, 금융/전자금융 관련 권한, 보안 검토가 필요하다.
 - 실제 자동 해지는 서비스별 해지 API가 없다면 바로 실행할 수 없다. MVP에서는 `해지하러 가기`, 해지 안내 복사, 해지 체크리스트 같은 assisted cancellation으로 시작한다.
 - 카테고리별 먼지는 서로 다른 3D-like 형태를 가진다: OTT cube, 쇼핑 gem, 통신 capsule, 보험 shield, 앱 star, 멤버십 coin.
+- 최신 UI 방향은 어두운 앱 스토어형 배경 위에 앱 아이콘, 3개의 세로형 preview card, 큰 먼지 캐릭터를 보여주는 감성 미니앱 스타일이다.
 
 ## Remaining Decisions
 

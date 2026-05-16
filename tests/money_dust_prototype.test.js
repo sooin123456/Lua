@@ -25,10 +25,10 @@ test('prototype css protects the mobile layout from horizontal clipping', () => 
   const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
 
   assert.match(css, /\.summary\s*{[^}]*flex-direction:\s*column/s);
-  assert.match(css, /\.section-heading\s*{[^}]*display:\s*block/s);
-  assert.match(css, /\.section-heading\s*>\s*div\s*{[^}]*min-width:\s*0/s);
+  assert.match(css, /\.preview-rail\s*{[^}]*overflow-x:\s*auto/s);
+  assert.match(css, /grid-template-columns:\s*repeat\(3,\s*180px\)/);
+  assert.match(css, /grid-auto-columns:\s*180px/);
   assert.match(css, /\.room-floor\s*{[^}]*grid-template-columns:\s*repeat\(2,\s*minmax\(0,\s*1fr\)\)/s);
-  assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*\.summary\s*{[\s\S]*flex-direction:\s*row/);
   assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*\.section-heading\s*{[\s\S]*display:\s*flex/);
   assert.match(css, /@media\s*\(min-width:\s*520px\)[\s\S]*grid-template-columns:\s*repeat\(3,\s*minmax\(0,\s*1fr\)\)/);
 });
@@ -69,6 +69,10 @@ test('prototype shows open banking, assisted cancellation, and wider Toss-style 
   const css = fs.readFileSync(path.join(PROTOTYPE_DIR, 'styles.css'), 'utf8');
 
   assert.match(html, /id="open-banking-card"/);
+  assert.match(html, /class="preview-rail"/);
+  assert.match(html, /class="poster-card intro-card"/);
+  assert.match(html, /class="phone-card room-card"/);
+  assert.match(html, /class="phone-card action-card"/);
   assert.match(html, /id="auto-detected-list"/);
   assert.match(html, /id="cancel-assist-panel"/);
   assert.match(html, /오픈뱅킹으로 찾기/);
@@ -81,7 +85,11 @@ test('prototype shows open banking, assisted cancellation, and wider Toss-style 
   assert.match(js, /shape:\s*'star'/);
   assert.match(js, /shape:\s*'coin'/);
   assert.match(css, /width:\s*min\(100%,\s*760px\)/);
-  assert.match(css, /\.app-grid/);
+  assert.match(css, /background:\s*#15171b/);
+  assert.match(css, /\.app-icon/);
+  assert.match(css, /\.hero-dust/);
+  assert.match(css, /\.phone-card/);
+  assert.match(css, /\.preview-rail/);
   assert.match(css, /\.dust-body\.cube/);
   assert.match(css, /\.dust-body\.capsule/);
   assert.match(css, /\.dust-body\.gem/);
