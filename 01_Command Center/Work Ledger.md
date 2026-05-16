@@ -244,3 +244,15 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/notion_publish_queue.test.js`; `node --test tests/flow_audit.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/notion_publish_queue.js --dry-run`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: user approves the draft or asks to create the missing `Research Briefs` database first
+
+## 2026-05-16 KST - publish K-water brief to Notion
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Notion sync, Energy Policies, Command Center
+- Trigger: user said "Notion 발행 승인해줘"
+- Changed: published [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]] as a child page under Notion `Lua_Home`, updated the Notion Publish Queue to `published`, and stored the Notion URL in the source note
+- Notion: https://www.notion.so/362eb124ae5f81558d1fced71535012d
+- Verification: `node --test tests/notion_publish_queue.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: create a proper `Research Briefs` Notion database or continue deeper Techwin/Techwin Energy research

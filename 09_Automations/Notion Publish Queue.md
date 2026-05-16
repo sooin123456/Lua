@@ -12,28 +12,30 @@ Obsidian 원본에서 Notion으로 보낼 팀 공유 초안을 모은다.
 
 <!-- notion-publish
 id: k-water-수상태양광-research-brief-2026-05-16
-status: draft
+status: published
 target: Research Briefs
 source: 04_Resources/Energy Policies/K-water 수상태양광 Research Brief.md
+notion_url: https://www.notion.so/362eb124ae5f81558d1fced71535012d
 -->
 ### K-water 수상태양광 Research Brief
 
 | Field | Value |
 |---|---|
-| Status | draft |
+| Status | published |
 | Target | Research Briefs missing; fallback Lua_Home child page |
 | Source | [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|Obsidian source]] |
 | Parent | https://www.notion.so/8cbeb124ae5f839e8c3d010d23a1c7d0 |
+| Notion | https://www.notion.so/362eb124ae5f81558d1fced71535012d |
 | Last updated | 2026-05-16 |
 
 Changed:
 - K-water 수상태양광은 단기 단발 프로젝트가 아니라 2030년 재생에너지 확대 전략의 핵심 축으로 보인다. 2026년 5월 보도 기준 K-water는 2030년까지 재생에너지 10GW, 그중 수상태양광 6.5GW를 목표로 언급했다. 기존 설비는 합천댐, 보령댐, 충주댐, 소양강댐 등 다목적댐 수면을 중심으로 확대되어 왔다.
 
 Decision needed:
-- Notion에 이 초안을 발행할지 승인해야 합니다.
+- Published to Notion after user approval on 2026-05-16.
 
 Blocker:
-- 전용 Notion DB가 아직 없으면 `Lua_Home child page`로 먼저 발행합니다.
+- 전용 `Research Briefs` DB가 아직 없어 `Lua_Home child page`로 발행했습니다.
 
 Next:
 - K-water 사전정보공개 XLSX를 내려받아 설비명, 위치, 용량, 준공시점 표로 정리한다.

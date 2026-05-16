@@ -23,15 +23,15 @@ last_updated: 2026-05-16
 |---|---|
 | 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|inbox-20260516-031554-02]] |
 | 처리 방식 | Lens research -> brief -> Notion publish draft |
-| 현재 상태 | Notion draft queued |
-| 다음 사용자 행동 | `Notion 발행 승인해줘` |
+| 현재 상태 | Notion published |
+| 다음 사용자 행동 | `Research Briefs DB부터 만들어줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `Notion 발행 승인해줘` | draft 상태인 K-water 리서치 브리프를 Lua_Home 하위 Notion 페이지로 발행 |
-| 2 | `Research Briefs DB부터 만들어줘` | Notion 전용 DB 생성 설계를 먼저 진행 |
+| 1 | `Research Briefs DB부터 만들어줘` | Notion 전용 DB 생성 설계를 먼저 진행 |
+| 2 | `테크윈/테크윈에너지 실적 더 찾아줘` | 테크윈 계열의 수상태양광 실적과 K-water 관련성을 추가 조사 |
 | 3 | `Notion 큐 다시 보여줘` | 발행 후보와 상태를 Obsidian에서 요약 |
 
 ## Current Research Link
@@ -64,7 +64,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-Notion 발행 승인해줘
+Research Briefs DB부터 만들어줘
 ```
 
 ## What Codex Does
