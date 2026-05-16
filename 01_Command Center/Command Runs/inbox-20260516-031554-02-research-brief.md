@@ -107,19 +107,19 @@ Tell Codex: `inbox-20260516-031554-02 처리해줘`
 
 작성한 초안:
 
-- [[04_Resources/Energy Policies/Floating Solar K-water Research Brief|Floating Solar K-water Research Brief]]
+- [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
 
 ## Brief Notes
 
 - K-water는 수상태양광을 2030년 재생에너지 확대 전략의 핵심 축으로 보고 있다.
 - 합천댐 41MW~41.5MW 사례에서 스코트라, 한화 Qcells가 주요 player로 반복 확인된다.
-- ETI E&C, 테크윈에너지는 협력/경쟁 후보로 볼 수 있다.
-- "테크인"은 수상태양광 직접 업체로 아직 검증되지 않았다. 정확 법인명 확인이 필요하다.
+- ETI E&C, `(주)테크윈`, 테크윈에너지는 협력/경쟁 후보로 볼 수 있다.
+- 사용자가 확인한 기준으로 기존 "테크인" 메모는 `(주)테크윈` 및 테크윈에너지로 정정한다.
 
 ## Next User Action After Brief
 
 ```text
-테크인 정확 회사명 확인했어
+테크윈/테크윈에너지 실적 더 찾아줘
 ```
 
 ## Navigation

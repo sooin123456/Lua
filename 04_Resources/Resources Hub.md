@@ -6,6 +6,11 @@ area: Resources
 
 # 📚 Resources Hub
 
+## Energy Policies
+
+- [[04_Resources/Energy Policies/Energy Policies Hub|Energy Policies Hub]]
+- [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
+
 ## Tech Stack
 
 - [[04_Resources/Tech Stack/Current Stack|Current Stack]]

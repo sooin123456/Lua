@@ -207,7 +207,18 @@ last_updated: 2026-05-15
 - Agent: `Codex`
 - Repo/area: Energy Policies, Command Runs, User Action Board
 - Trigger: user approved research execution for K-water floating solar brief
-- Changed: created [[04_Resources/Energy Policies/Floating Solar K-water Research Brief]], marked `inbox-20260516-031554-02` as briefed, and updated next user action to verify the exact Techin company name
+- Changed: created [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief]], marked `inbox-20260516-031554-02` as briefed, and updated next user action to verify the exact Techin company name
 - Verification: `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: user confirms the exact company name for "테크인" or asks to convert the brief into a meeting-ready one-pager
+
+## 2026-05-16 KST - connect floating solar brief into Obsidian graph
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Resources, Energy Policies, User Action Board
+- Trigger: user clarified that the company is `(주)테크윈` and 테크윈에너지, and said Obsidian linkage did not feel connected
+- Changed: added Energy Policies Hub, linked it from Resources Hub and Master Dashboard, added Korean aliases to the floating solar brief, and corrected Techin references to Techwin/Techwin Energy
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: verify links and then investigate Techwin/Techwin Energy project references if requested

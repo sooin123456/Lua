@@ -24,15 +24,20 @@ last_updated: 2026-05-16
 | 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|inbox-20260516-031554-02]] |
 | 처리 방식 | Lens research -> brief |
 | 현재 상태 | briefed / brief |
-| 다음 사용자 행동 | `테크인 정확 회사명 확인했어` |
+| 다음 사용자 행동 | `테크윈/테크윈에너지 실적 더 찾아줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `테크인 정확 회사명 확인했어` | Research Brief에서 테크인 항목을 확정/수정 |
+| 1 | `테크윈/테크윈에너지 실적 더 찾아줘` | 테크윈 계열의 수상태양광 실적과 K-water 관련성을 추가 조사 |
 | 2 | `수상태양광 brief 보여줘` | 작성된 Research Brief 요약 |
 | 3 | `보류해줘` | 현재 command run을 paused로 표시 |
+
+## Current Research Link
+
+- [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
+- [[04_Resources/Energy Policies/Energy Policies Hub|Energy Policies Hub]]
 
 ## Are We Done Except Notion?
 
@@ -58,7 +63,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-테크인 정확 회사명 확인했어
+테크윈/테크윈에너지 실적 더 찾아줘
 ```
 
 ## What Codex Does
