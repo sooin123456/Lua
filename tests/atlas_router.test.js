@@ -120,6 +120,54 @@ last_updated: 2026-05-16
   return root;
 }
 
+function makeResearchVault() {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-research-'));
+  write(
+    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    `# Obsidian Command Center
+
+## Command Queue
+
+| ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
+|---|---|---|---|---|---|---|---|
+| inbox-20260516-031554-02 | research | brief | 수상태양광 미팅. K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인 조사가 필요함. | clarify | Lens | planned | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
+`
+  );
+  write(
+    path.join(root, '01_Command Center', 'Command Runs', 'inbox-20260516-031554-02-research-brief.md'),
+    `---
+type: command-run
+status: planned
+command_id: inbox-20260516-031554-02
+domain: research
+intent: brief
+stage: clarify
+agent: Lens
+role: Researcher
+last_updated: 2026-05-16
+---
+
+# inbox-20260516-031554-02 - research brief
+
+## Command
+
+수상태양광 미팅. K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인 조사가 필요함.
+`
+  );
+  write(
+    path.join(root, '01_Command Center', 'User Action Board.md'),
+    `# User Action Board
+
+## Today
+
+| 순서 | 할 일 | 위치 | 완료 기준 |
+|---|---|---|---|
+| 1 | 다음 run 처리 | Codex | Queue가 처리됨 |
+`
+  );
+  return root;
+}
+
 test('routes the first real planned command run through Atlas CEO notes', () => {
   const root = makeVault();
 
@@ -202,4 +250,32 @@ test('build app command gets Neural UI MVP clarify design and plan content', () 
     'utf8'
   );
   assert.match(actionBoard, /수상태양광 리서치 진행해줘/);
+});
+
+test('research brief command gets Lens source-based research harness content', () => {
+  const root = makeResearchVault();
+
+  const result = runAtlasRouter({ root, apply: true, firstOnly: true });
+
+  assert.equal(result.processed[0].id, 'inbox-20260516-031554-02');
+  assert.equal(result.processed[0].agent, 'Lens');
+
+  const runNote = fs.readFileSync(
+    path.join(root, '01_Command Center', 'Command Runs', 'inbox-20260516-031554-02-research-brief.md'),
+    'utf8'
+  );
+  assert.match(runNote, /K-water/);
+  assert.match(runNote, /협력 가능 업체/);
+  assert.match(runNote, /경쟁사/);
+  assert.match(runNote, /테크인/);
+  assert.match(runNote, /출처 기반 Research Brief/);
+  assert.match(runNote, /조사 범위/);
+  assert.doesNotMatch(runNote, /Command Center를 먼저 안정화/);
+  assert.doesNotMatch(runNote, /Neural UI/);
+
+  const actionBoard = fs.readFileSync(
+    path.join(root, '01_Command Center', 'User Action Board.md'),
+    'utf8'
+  );
+  assert.match(actionBoard, /리서치 실행 승인해줘/);
 });

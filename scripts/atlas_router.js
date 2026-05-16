@@ -141,6 +141,7 @@ ${entry.payload}
 }
 
 function nextStage(entry) {
+  if (entry.domain === 'research' && entry.intent === 'brief' && entry.stage === 'clarify') return 'research';
   if (entry.stage === 'clarify') return 'plan';
   if (entry.stage === 'design') return 'plan';
   if (entry.stage === 'plan') return 'execute';
@@ -187,6 +188,7 @@ ${content.nextAction}
 
 function routerContent(entry) {
   if (entry.domain === 'build' && entry.intent === 'app') return buildAppContent(entry);
+  if (entry.domain === 'research' && entry.intent === 'brief') return researchBriefContent(entry);
   return planningContent(entry);
 }
 
@@ -224,6 +226,26 @@ function buildAppContent(entry) {
 - [ ] 선택한 MVP를 별도 build/spec command로 승격한다.
 - [ ] 다음 command run은 \`inbox-20260516-031554-02\` research/brief로 진행한다.`,
     nextAction: '수상태양광 리서치 진행해줘',
+  };
+}
+
+function researchBriefContent(entry) {
+  return {
+    clarify: `- 목표: "${entry.payload}"를 출처 기반 Research Brief로 만들기 위한 조사 범위와 검증 순서를 정한다.
+- 핵심 질문: K-water 발주 규모와 일정, 협력 가능 업체, 경쟁사, 테크인의 포지션을 각각 어떤 근거로 확인할 것인가?
+- 제약: 지금은 결론을 단정하지 않고, 조사 범위와 출처 기준을 먼저 세운다.
+- 아직 하지 않을 것: 미확인 수치 인용, 출처 없는 경쟁사 비교, 팀 공유용 Notion 정리본 발행.`,
+    design: `- 추천 방향: Lens가 공공 발주/기관 자료 -> 업체 후보 -> 경쟁사 -> 테크인 순서로 조사해 Research Brief를 만든다.
+- 대안 1: K-water 발주 규모만 먼저 본다. 빠르지만 사업 판단에 필요한 협력사/경쟁사 맥락이 부족하다.
+- 대안 2: 경쟁사 비교표부터 만든다. 보기 좋지만 발주 맥락이 약하면 비교 기준이 흔들린다.
+- 대안 3: 테크인 단독 조사부터 한다. 중요하지만 시장/발주/협력사 맥락 없이 보면 해석이 좁아진다.`,
+    plan: `- [x] 첫 처리 대상: [[01_Command Center/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+- [x] Lens / Researcher 방식으로 clarify/research/brief 하네스 작성.
+- [x] 조사 범위: K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인.
+- [ ] 공공 발주와 K-water 관련 1차 출처를 확인한다.
+- [ ] 협력 가능 업체와 경쟁사를 표로 나눈다.
+- [ ] 테크인 관련 근거를 따로 모아 Research Brief 초안으로 정리한다.`,
+    nextAction: '리서치 실행 승인해줘',
   };
 }
 
