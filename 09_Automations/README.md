@@ -8,6 +8,7 @@ last_updated: 2026-05-15
 ## Planning
 
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
+- [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
  
@@ -41,6 +42,7 @@ Start manual, then semi-automatic, then automatic. Slack and Notion writes shoul
 
 - [[09_Automations/GitHub Actions|GitHub Actions]]
 - [[09_Automations/Notion Sync|Notion Sync]]
+- [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[09_Automations/Windows Codex Setup|Windows Codex Setup]]
 - [[09_Automations/Cleanup Backlog|Cleanup Backlog]]

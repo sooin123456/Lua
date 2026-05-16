@@ -233,3 +233,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/flow_audit.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
 - Commit: pending
 - Next: use Flow Audit after future Atlas Router runs before treating a command result as connected
+
+## 2026-05-16 KST - add Notion publish queue harness
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Notion sync, Automations, Command Center
+- Trigger: user said "다음은 notion이랑 연동해보자"
+- Changed: checked the real Notion `Lua_Home`, documented existing Notion databases, added `scripts/notion_publish_queue.js`, added tests, and queued the K-water floating solar research brief as a draft Notion publish candidate
+- Verification: `node --test tests/notion_publish_queue.test.js`; `node --test tests/flow_audit.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/notion_publish_queue.js --dry-run`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: user approves the draft or asks to create the missing `Research Briefs` database first

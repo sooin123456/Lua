@@ -22,22 +22,23 @@ last_updated: 2026-05-16
 | 항목 | 내용 |
 |---|---|
 | 처리한 command | [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|inbox-20260516-031554-02]] |
-| 처리 방식 | Lens research -> brief |
-| 현재 상태 | briefed / brief |
-| 다음 사용자 행동 | `테크윈/테크윈에너지 실적 더 찾아줘` |
+| 처리 방식 | Lens research -> brief -> Notion publish draft |
+| 현재 상태 | Notion draft queued |
+| 다음 사용자 행동 | `Notion 발행 승인해줘` |
 
 ## Current Tasks For User
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `테크윈/테크윈에너지 실적 더 찾아줘` | 테크윈 계열의 수상태양광 실적과 K-water 관련성을 추가 조사 |
-| 2 | `수상태양광 brief 보여줘` | 작성된 Research Brief 요약 |
-| 3 | `보류해줘` | 현재 command run을 paused로 표시 |
+| 1 | `Notion 발행 승인해줘` | draft 상태인 K-water 리서치 브리프를 Lua_Home 하위 Notion 페이지로 발행 |
+| 2 | `Research Briefs DB부터 만들어줘` | Notion 전용 DB 생성 설계를 먼저 진행 |
+| 3 | `Notion 큐 다시 보여줘` | 발행 후보와 상태를 Obsidian에서 요약 |
 
 ## Current Research Link
 
 - [[04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
 - [[04_Resources/Energy Policies/Energy Policies Hub|Energy Policies Hub]]
+- [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 
 ## Are We Done Except Notion?
 
@@ -63,7 +64,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-테크윈/테크윈에너지 실적 더 찾아줘
+Notion 발행 승인해줘
 ```
 
 ## What Codex Does
@@ -87,5 +88,6 @@ last_updated: 2026-05-16
 
 - [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+- [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
 - [[01_Command Center/Work Ledger|Work Ledger]]

@@ -164,6 +164,17 @@ node scripts/flow_audit.js
 
 Codex에게는 "다음 플로우 검증해줘"라고 말하면 된다.
 
+## Notion Publish Queue
+
+Notion은 팀 공유용 정리본이다. 승인 전에는 Notion에 직접 쓰지 않고, 먼저 발행 후보를 Obsidian 큐에 만든다.
+
+```bash
+node scripts/notion_publish_queue.js --dry-run
+node scripts/notion_publish_queue.js --apply
+```
+
+Codex에게는 "Notion 발행 큐 만들어줘"라고 말하면 된다.
+
 ## When To Start From Inbox
 
 아래 경우에는 Command Center보다 Inbox에 먼저 쓴다.
@@ -197,5 +208,6 @@ Codex에게는 "다음 플로우 검증해줘"라고 말하면 된다.
 - [[01_Command Center/User Action Board|User Action Board]]
 - [[01_Command Center/Command Modes|Command Modes]]
 - [[Lua End-to-End Flow|Lua End-to-End Flow]]
+- [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[07_Lua_System/agents/README|Lua Agents]]
 - [[01_Command Center/Work Ledger|Work Ledger]]
