@@ -159,14 +159,15 @@ textarea {
 
 textarea:focus,
 .option:focus,
-.primary-button:focus {
+.primary-button:focus,
+.secondary-button:focus {
   outline: 3px solid rgba(29, 78, 216, 0.18);
   outline-offset: 2px;
 }
 
 .preview-visual {
   display: grid;
-  grid-template-columns: auto 1fr auto 1fr auto 1fr auto;
+  grid-template-columns: auto 1fr auto 1fr auto 1fr auto 1fr auto;
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
@@ -267,15 +268,30 @@ dd {
   word-break: break-word;
 }
 
-.primary-button {
-  width: 100%;
+.button-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.primary-button,
+.secondary-button {
   min-height: 46px;
-  border: 0;
   border-radius: 8px;
-  background: var(--blue);
-  color: #fff;
   font-weight: 800;
   cursor: pointer;
+}
+
+.primary-button {
+  border: 0;
+  background: var(--blue);
+  color: #fff;
+}
+
+.secondary-button {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
 }
 
 .toast {
@@ -318,7 +334,8 @@ dd {
 
   .option-grid,
   .option-grid.compact,
-  .route-grid {
+  .route-grid,
+  .button-row {
     grid-template-columns: 1fr;
   }
 

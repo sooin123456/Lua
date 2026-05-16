@@ -15,10 +15,10 @@ Lua Command UI는 Obsidian Command Center의 `/lua {domain} {intent} :: {payload
 사용자는 복잡한 명령 문법을 외우지 않고도 아래 흐름으로 명령을 만들 수 있어야 한다.
 
 ```text
-domain 선택 -> intent 선택 -> payload 입력 -> Command Preview 확인 -> draft로 Queue에 넣기
+domain 선택 -> intent 선택 -> payload 입력 -> Command Preview 확인 -> Queue에 넣기 또는 끝까지 실행
 ```
 
-첫 버전은 실행 자동화가 아니라 "명령 작성기"다. 사용자가 직접 확인한 뒤 Command Queue에 초안으로 넣는 것이 핵심이다.
+현재 localhost 버전은 두 가지 모드를 지원한다. `Command Queue에 쓰기`는 `queued` row만 만들고, `끝까지 실행`은 Queue 저장 뒤 `process_command_queue`와 `atlas_router`를 이어서 실행해 run note까지 만든다. `file://`로 열면 여전히 copy fallback만 동작한다.
 
 ## First Screen
 
@@ -73,15 +73,16 @@ Preview 아래에는 라우팅 결과를 같이 보여준다.
 | Stage | clarify |
 | Output | Screen or service flow draft |
 
-### 5. Draft Send
+### 5. Send / Run
 
-첫 MVP의 버튼은 하나만 둔다.
+현재 prototype은 버튼을 둘로 나눈다.
 
 ```text
 Command Queue에 초안으로 넣기
+끝까지 실행
 ```
 
-이 버튼은 자동 실행이 아니라 `queued` 또는 `planned` 상태의 command row를 만드는 역할만 한다.
+첫 버튼은 `queued` 상태의 command row를 만드는 역할만 한다. 두 번째 버튼은 localhost writer 서버에서만 동작하며, 새 command id 하나만 대상으로 run note 생성과 Atlas Router 라우팅까지 수행한다.
 
 ## UX Rules
 
@@ -89,7 +90,7 @@ Command Queue에 초안으로 넣기
 - domain과 intent는 가능한 적게 보여준다.
 - 사용자가 payload를 쓰기 전에도 예시 문장을 보여준다.
 - Command Preview는 항상 보인다.
-- 실행 버튼은 "초안으로 넣기"처럼 위험이 낮은 표현을 쓴다.
+- 실행 버튼은 Queue 쓰기와 end-to-end 실행을 구분한다.
 - Notion/Slack 발행은 이 화면에서 하지 않는다.
 
 ## MVP Boundary
@@ -110,7 +111,6 @@ Command Queue에 초안으로 넣기
 - 결제
 - 개인정보 연동
 - Slack/Notion 직접 발행
-- 자동 실행
 
 ## Next Build Candidate
 
@@ -126,7 +126,7 @@ Command Queue에 초안으로 넣기
 - HTML: `08_Artifacts/Lua Command UI Prototype/index.html`
 - Local writer: `npm run lua-ui`, then open `http://127.0.0.1:8765`
 
-`file://` mode is copy-only. Real Command Queue writes require the local writer server.
+`file://` mode is copy-only. Real Command Queue writes and end-to-end runs require the local writer server.
 
 ## App Template Rule
 

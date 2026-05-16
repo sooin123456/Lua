@@ -31,6 +31,25 @@ http://127.0.0.1:8765
 - Obsidian Command Queue row preview
 - copy draft command and row to clipboard in `file://` mode
 - write queued command rows in `localhost` mode
+- run a command end-to-end in `localhost` mode:
+  - write queued row
+  - create command run note
+  - route through Atlas Router
+  - return the run note path
+
+## Local API
+
+```text
+POST /api/commands
+```
+
+Writes a `queued` row only.
+
+```text
+POST /api/commands/run
+```
+
+Writes the row, processes the Command Queue, routes the new command with Atlas Router, and returns the run note link.
 
 ## Navigation
 

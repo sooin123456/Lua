@@ -3,6 +3,8 @@ const fs = require('fs');
 const http = require('http');
 const path = require('path');
 const { URL } = require('url');
+const { runAtlasRouter } = require('./atlas_router');
+const { runCommandQueue } = require('./process_command_queue');
 
 const ROOT = path.resolve(__dirname, '..');
 const COMMAND_CENTER_REL = path.join('01_Command Center', 'Obsidian Command Center.md');
@@ -94,6 +96,38 @@ function appendCommandFromUi(options = {}) {
   return { id, owner, row };
 }
 
+function runCommandFromUi(options = {}) {
+  const root = options.root || ROOT;
+  const queued = appendCommandFromUi({
+    root,
+    now: options.now,
+    id: options.id,
+    command: options.command,
+  });
+  const queuedResult = runCommandQueue({ root, apply: true, commandId: queued.id });
+  if (queuedResult.processed.length !== 1) {
+    throw new Error(`Failed to process queued command: ${queued.id}`);
+  }
+
+  const routedResult = runAtlasRouter({
+    root,
+    apply: true,
+    firstOnly: true,
+    commandId: queued.id,
+  });
+  const routed = routedResult.processed[0];
+  if (!routed) throw new Error(`Failed to route command: ${queued.id}`);
+
+  return {
+    id: queued.id,
+    owner: queued.owner,
+    status: 'routed',
+    stage: routed.stageAfter,
+    run: routed.run,
+    row: queued.row,
+  };
+}
+
 function contentType(filePath) {
   if (filePath.endsWith('.html')) return 'text/html; charset=utf-8';
   if (filePath.endsWith('.css')) return 'text/css; charset=utf-8';
@@ -143,6 +177,13 @@ function createServer(options = {}) {
         return sendJson(res, 201, result);
       }
 
+      if (req.method === 'POST' && requestUrl.pathname === '/api/commands/run') {
+        const body = await readBody(req);
+        const parsed = body ? JSON.parse(body) : {};
+        const result = runCommandFromUi({ root, command: parsed });
+        return sendJson(res, 201, result);
+      }
+
       if (req.method !== 'GET') {
         return sendJson(res, 405, { error: 'Method not allowed' });
       }
@@ -182,5 +223,6 @@ module.exports = {
   appendCommandFromUi,
   createCommandId,
   createServer,
+  runCommandFromUi,
   validateCommand,
 };

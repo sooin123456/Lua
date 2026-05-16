@@ -312,3 +312,14 @@ last_updated: 2026-05-15
 - Verification: `node --test tests/lua_command_ui_server.test.js`; `node --test tests/lua_command_ui_prototype.test.js`; `node --test tests/atlas_router.test.js`; `node --test tests/promote_inbox_to_commands.test.js`; `node scripts/flow_audit.js`; `node scripts/check.js`; `node scripts/vault_audit.js`; live API write via `http://127.0.0.1:8765/api/commands`
 - Commit: pending
 - Next: run `npm run lua-ui` and use `http://127.0.0.1:8765` instead of `file://` for real writes
+
+## 2026-05-16 KST - add Lua Command UI end-to-end run
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Lua Command UI, local writer server, Command Queue, Atlas Router
+- Trigger: user asked to add an end-to-end execution button from UI input through Queue, run note creation, and Atlas Router routing
+- Changed: added `POST /api/commands/run`, exported targeted queue processing, added targeted Atlas routing by command id, added an `끝까지 실행` button in the prototype, documented the two local modes, and verified real command `lua-ui-20260516-135233`
+- Verification: `node --test tests/lua_command_ui_server.test.js`; `node --test tests/lua_command_ui_prototype.test.js`; `node --test tests/atlas_router.test.js`; `node scripts/check.js`; `node scripts/vault_audit.js`; live localhost API run via `POST /api/commands/run` creating `lua-ui-20260516-135233`
+- Commit: pending
+- Next: build runner phase can connect the routed `execute` stage to actual app implementation, verification, brief, commit, and push

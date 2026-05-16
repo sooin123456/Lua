@@ -14,11 +14,12 @@ test('prototype files exist and include the required UI regions', () => {
   assert.match(html, /id="payload-input"/);
   assert.match(html, /id="command-preview"/);
   assert.match(html, /id="draft-row"/);
+  assert.match(html, /id="run-button"/);
   assert.match(html, /id="connection-status"/);
 });
 
 test('command builder maps domain and intent into preview and draft row', () => {
-  const { buildCommand, buildDraftRow, canWriteToQueue, routeFor } = require('../08_Artifacts/Lua Command UI Prototype/app');
+  const { buildCommand, buildDraftRow, canWriteToQueue, routeFor, submitCommand } = require('../08_Artifacts/Lua Command UI Prototype/app');
 
   const command = buildCommand({
     domain: 'design',
@@ -38,4 +39,38 @@ test('command builder maps domain and intent into preview and draft row', () => 
   );
   assert.equal(canWriteToQueue({ protocol: 'file:', hostname: '' }), false);
   assert.equal(canWriteToQueue({ protocol: 'http:', hostname: '127.0.0.1' }), true);
+});
+
+test('command submitter can run through the localhost end-to-end endpoint', async () => {
+  const { submitCommand } = require('../08_Artifacts/Lua Command UI Prototype/app');
+  const requests = [];
+
+  const result = await submitCommand(
+    { domain: 'build', intent: 'app', payload: 'Lua_template 기반 앱 실행' },
+    async (url, options) => {
+      requests.push({ url, options });
+      return {
+        ok: true,
+        json: async () => ({
+          id: 'lua-ui-20260516-134530',
+          status: 'routed',
+          stage: 'plan',
+          run: '01_Command Center/Command Runs/lua-ui-20260516-134530-build-app',
+        }),
+      };
+    },
+    { protocol: 'http:', hostname: '127.0.0.1' },
+    { run: true }
+  );
+
+  assert.equal(requests[0].url, '/api/commands/run');
+  assert.equal(JSON.parse(requests[0].options.body).domain, 'build');
+  assert.deepEqual(result, {
+    mode: 'run',
+    ok: true,
+    id: 'lua-ui-20260516-134530',
+    status: 'routed',
+    stage: 'plan',
+    run: '01_Command Center/Command Runs/lua-ui-20260516-134530-build-app',
+  });
 });

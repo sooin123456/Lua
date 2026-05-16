@@ -3,8 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const COMMAND_CENTER = path.join(ROOT, '01_Command Center', 'Obsidian Command Center.md');
-const RUNS_DIR = path.join(ROOT, '01_Command Center', 'Command Runs');
+const COMMAND_CENTER_REL = path.join('01_Command Center', 'Obsidian Command Center.md');
+const RUNS_DIR_REL = path.join('01_Command Center', 'Command Runs');
 
 const ROLE_MAP = {
   planning: { role: 'CEO', agent: 'Atlas' },
@@ -21,13 +21,16 @@ function usage() {
   console.log(`Usage:
   node scripts/process_command_queue.js --dry-run
   node scripts/process_command_queue.js --apply
+  node scripts/process_command_queue.js --apply --command-id lua-ui-20260516-135233
 `);
 }
 
 function parseArgs(argv) {
+  const commandIndex = argv.indexOf('--command-id');
   return {
     dryRun: argv.includes('--dry-run') || !argv.includes('--apply'),
     apply: argv.includes('--apply'),
+    commandId: commandIndex >= 0 ? argv[commandIndex + 1] : null,
     help: argv.includes('--help') || argv.includes('-h'),
   };
 }
@@ -69,6 +72,11 @@ function slugify(value) {
     .replace(/[^a-z0-9가-힣]+/g, '-')
     .replace(/^-+|-+$/g, '')
     .slice(0, 60) || 'command';
+}
+
+function runRelFor(entry) {
+  return path.join(RUNS_DIR_REL, `${entry.id}-${slugify(entry.domain + '-' + entry.intent)}`)
+    .replace(/\\/g, '/');
 }
 
 function runNote(entry) {
@@ -146,11 +154,12 @@ Tell Codex: \`${entry.id} 처리해줘\`
 `;
 }
 
-function createRun(entry) {
-  fs.mkdirSync(RUNS_DIR, { recursive: true });
-  const file = path.join(RUNS_DIR, `${entry.id}-${slugify(entry.domain + '-' + entry.intent)}.md`);
+function createRun(root, entry) {
+  const runsDir = path.join(root, RUNS_DIR_REL);
+  fs.mkdirSync(runsDir, { recursive: true });
+  const file = path.join(runsDir, `${entry.id}-${slugify(entry.domain + '-' + entry.intent)}.md`);
   if (!fs.existsSync(file)) fs.writeFileSync(file, runNote(entry), 'utf8');
-  return path.relative(ROOT, file).replace(/\\/g, '/').replace(/\.md$/, '');
+  return runRelFor(entry);
 }
 
 function replaceRow(content, entry, resultLink) {
@@ -161,19 +170,46 @@ function replaceRow(content, entry, resultLink) {
   return content;
 }
 
+function runCommandQueue(options = {}) {
+  const root = options.root || ROOT;
+  const apply = Boolean(options.apply);
+  const commandId = options.commandId || null;
+  const commandCenterPath = path.join(root, COMMAND_CENTER_REL);
+  let content = fs.readFileSync(commandCenterPath, 'utf8');
+  const entries = parseRows(content)
+    .filter((entry) => entry.status === 'queued')
+    .filter((entry) => !commandId || entry.id === commandId);
+  const processed = [];
+
+  for (const entry of entries) {
+    const link = apply ? createRun(root, entry) : runRelFor(entry);
+    if (apply) content = replaceRow(content, entry, link);
+    processed.push({
+      id: entry.id,
+      domain: entry.domain,
+      intent: entry.intent,
+      agent: roleFor(entry.domain).agent,
+      run: link,
+    });
+  }
+
+  if (apply && processed.length > 0) fs.writeFileSync(commandCenterPath, content, 'utf8');
+  return { processed };
+}
+
 function main() {
   const args = parseArgs(process.argv.slice(2));
   if (args.help) {
     usage();
     return;
   }
-  let content = fs.readFileSync(COMMAND_CENTER, 'utf8');
-  const entries = parseRows(content).filter((entry) => entry.status === 'queued');
-  if (entries.length === 0) {
+
+  const result = runCommandQueue({ apply: args.apply, commandId: args.commandId });
+  if (result.processed.length === 0) {
     console.log('No queued commands found.');
     return;
   }
-  for (const entry of entries) {
+  for (const entry of result.processed) {
     const role = roleFor(entry.domain);
     console.log(`${entry.id}: ${entry.domain}/${entry.intent || '-'} -> ${role.role} (${role.agent})`);
   }
@@ -181,12 +217,12 @@ function main() {
     console.log('Dry run only. Use --apply to create run notes.');
     return;
   }
-  for (const entry of entries) {
-    const link = createRun(entry);
-    content = replaceRow(content, entry, link);
-  }
-  fs.writeFileSync(COMMAND_CENTER, content, 'utf8');
-  console.log(`Created/updated ${entries.length} command run note(s).`);
+  console.log(`Created/updated ${result.processed.length} command run note(s).`);
 }
 
-main();
+if (require.main === module) main();
+
+module.exports = {
+  parseRows,
+  runCommandQueue,
+};

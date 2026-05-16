@@ -66,12 +66,13 @@ function canWriteToQueue(locationLike = window.location) {
   return locationLike.protocol === 'http:' && ['127.0.0.1', 'localhost'].includes(locationLike.hostname);
 }
 
-async function submitCommand(state, fetchImpl = fetch, locationLike = window.location) {
+async function submitCommand(state, fetchImpl = fetch, locationLike = window.location, options = {}) {
   if (!canWriteToQueue(locationLike)) {
     return { mode: 'copy', ok: false };
   }
 
-  const response = await fetchImpl('/api/commands', {
+  const endpoint = options.run ? '/api/commands/run' : '/api/commands';
+  const response = await fetchImpl(endpoint, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
@@ -82,7 +83,7 @@ async function submitCommand(state, fetchImpl = fetch, locationLike = window.loc
   });
   const data = await response.json();
   if (!response.ok) throw new Error(data.error || 'Failed to write command');
-  return { mode: 'write', ok: true, ...data };
+  return { mode: options.run ? 'run' : 'write', ok: true, ...data };
 }
 
 function draftId() {
@@ -121,6 +122,7 @@ function initApp(doc = document) {
   const routeStage = doc.getElementById('route-stage');
   const routeOutput = doc.getElementById('route-output');
   const draftButton = doc.getElementById('draft-button');
+  const runButton = doc.getElementById('run-button');
   const connectionStatus = doc.getElementById('connection-status');
   const toast = doc.getElementById('toast');
 
@@ -171,6 +173,26 @@ function initApp(doc = document) {
       window.setTimeout(() => {
         toast.hidden = true;
       }, 2200);
+    } catch (error) {
+      toast.textContent = error.message;
+      toast.hidden = false;
+    }
+  });
+
+  runButton.addEventListener('click', async () => {
+    const text = `${buildCommand(state)}\n\n${buildDraftRow(state)}`;
+    try {
+      const result = await submitCommand(state, fetch, window.location, { run: true });
+      if (result.mode === 'run') {
+        toast.textContent = `실행 완료: ${result.id} -> ${result.run}`;
+      } else {
+        if (navigator.clipboard) await navigator.clipboard.writeText(text);
+        toast.textContent = '로컬 서버가 없어 command draft를 복사했습니다';
+      }
+      toast.hidden = false;
+      window.setTimeout(() => {
+        toast.hidden = true;
+      }, 3000);
     } catch (error) {
       toast.textContent = error.message;
       toast.hidden = false;

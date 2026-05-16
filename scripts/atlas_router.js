@@ -36,14 +36,17 @@ function usage() {
   node scripts/atlas_router.js --dry-run
   node scripts/atlas_router.js --apply
   node scripts/atlas_router.js --apply --all
+  node scripts/atlas_router.js --apply --command-id lua-ui-20260516-135233
 `);
 }
 
 function parseArgs(argv) {
+  const commandIndex = argv.indexOf('--command-id');
   return {
     apply: argv.includes('--apply'),
     dryRun: argv.includes('--dry-run') || !argv.includes('--apply'),
     all: argv.includes('--all'),
+    commandId: commandIndex >= 0 ? argv[commandIndex + 1] : null,
     help: argv.includes('--help') || argv.includes('-h'),
   };
 }
@@ -375,9 +378,12 @@ function runAtlasRouter(options = {}) {
   const root = options.root || DEFAULT_ROOT;
   const apply = Boolean(options.apply);
   const firstOnly = options.firstOnly !== false;
+  const commandId = options.commandId || null;
   const commandCenterPath = path.join(root, COMMAND_CENTER_REL);
   let commandCenter = fs.readFileSync(commandCenterPath, 'utf8');
-  const entries = parseRows(commandCenter).filter(isActionable);
+  const entries = parseRows(commandCenter)
+    .filter(isActionable)
+    .filter((entry) => !commandId || entry.id === commandId);
   const targets = firstOnly ? entries.slice(0, 1) : entries;
   const processed = [];
 
@@ -412,7 +418,7 @@ function main() {
     return;
   }
 
-  const result = runAtlasRouter({ apply: args.apply, firstOnly: !args.all });
+  const result = runAtlasRouter({ apply: args.apply, firstOnly: !args.all, commandId: args.commandId });
   if (result.processed.length === 0) {
     console.log('No planned or queued command runs found.');
     return;

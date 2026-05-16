@@ -51,6 +51,8 @@
         <div class="flow-step active">payload</div>
         <div class="flow-line"></div>
         <div class="flow-step">queue</div>
+        <div class="flow-line"></div>
+        <div class="flow-step">run</div>
       </section>
 
       <section class="panel sticky-panel">
@@ -80,7 +82,10 @@
           <code id="draft-row"></code>
         </div>
 
-        <button id="draft-button" class="primary-button" type="button">Command Queue에 쓰기</button>
+        <div class="button-row">
+          <button id="draft-button" class="secondary-button" type="button">Command Queue에 쓰기</button>
+          <button id="run-button" class="primary-button" type="button">끝까지 실행</button>
+        </div>
         <p id="toast" class="toast" hidden></p>
       </section>
     </aside>
