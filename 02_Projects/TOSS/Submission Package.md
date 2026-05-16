@@ -52,10 +52,37 @@ https://github.com/sooin123456/Lua_money_dust
 - [x] 실제 앱 UI를 `Lua_money_dust`로 분리
 - [x] `Lua` repo에서 앱 artifact 제거
 - [x] `Lua_money_dust` 로컬 실행 가능 상태 확인
+- [x] Apps in Toss WebView SDK 설치
+- [x] `granite.config.ts` 추가
+- [x] React Router를 Toss WebView용 CSR 빌드로 전환
+- [x] `.ait` 번들 로컬 생성 확인
+- [x] mock 금융 데이터 고지 문구 반영
 - [ ] GitHub repo `sooin123456/Lua_money_dust` 생성
 - [ ] `Lua_money_dust` push
+- [ ] Apps in Toss 콘솔 workspace/app 등록
+- [ ] 콘솔의 최종 `appName`을 `granite.config.ts`와 일치
+- [ ] 최종 icon/logo/thumbnail 등록
+- [ ] TDS 적용/접근 가능성 확인
 - [ ] 제출용 screenshot 재생성
 - [ ] 실제 금융 연동/해지 자동화 가능 범위 확인
+- [ ] Toss app QR/private scheme 테스트 1회 이상 완료
+- [ ] 검토 요청
+
+## Launch Readiness Notes
+
+Official Apps in Toss docs require a WebView/RN bundle path, not a plain public web URL. For this repo the local path is now:
+
+```text
+npm run toss:build -> money-dust.ait
+```
+
+The current app uses sample financial data only. The UI says it does not query real financial data yet. Real open-banking or cancellation automation should wait until the approved Toss/partner integration path is confirmed.
+
+Official docs reviewed:
+
+- https://developers-apps-in-toss.toss.im/tutorials/webview.html
+- https://developers-apps-in-toss.toss.im/development/deploy.html
+- https://developers-apps-in-toss.toss.im/checklist/app-nongame.html
 
 ## Links
 

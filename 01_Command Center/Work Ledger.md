@@ -478,3 +478,26 @@ last_updated: 2026-05-15
 - Commit: `657e85d` in local `Lua_money_dust`
 - Blocker: GitHub remote `sooin123456/Lua_money_dust` does not exist yet, so push is still pending
 - Next: user creates the empty GitHub repo, then push `Lua_money_dust`
+
+## 2026-05-16 KST - research Apps in Toss launch requirements
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: TOSS, Apps in Toss
+- Trigger: user asked for official requirements to actually deploy/launch a Toss Apps in Toss miniapp
+- Changed: researched official Apps in Toss developer docs for deployment, QR testing, SDK, console registration, review, and web app constraints
+- Verification: official documentation URLs reviewed
+- Commit: pending
+- Next: convert findings into an actionable launch checklist
+
+## 2026-05-16 KST - prepare Money Dust for Apps in Toss build
+
+- Host: `windows-codex`
+- Agent: `Codex` with subagent review
+- Repo/area: `Lua_money_dust`, TOSS, repository registry
+- Trigger: user asked to do everything needed for Toss deployment while delegating review to agents
+- Changed: installed `@apps-in-toss/web-framework`, added `granite.config.ts`, switched React Router to CSR for Toss WebView, removed server loader routes from the active MVP route map, added static robots/sitemap files, documented the Toss launch checklist, and changed the UI copy to mark financial data as sample/demo only
+- Verification: `npm run typecheck`; clean `npm run toss:build` produced `money-dust.ait`; dev server returned `200`; browser screenshot verified updated sample-data copy
+- Commit: `284c1ce` in `Lua_money_dust`; pending in `Lua`
+- Blocker: GitHub repo `sooin123456/Lua_money_dust` and Apps in Toss console app still require account-side creation
+- Next: commit local app prep, update Lua records, then push Lua records; push app repo after GitHub remote exists
