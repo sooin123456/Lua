@@ -125,9 +125,16 @@ Command Queue에 초안으로 넣기
 - [[08_Artifacts/Lua Command UI Prototype/README|Lua Command UI Prototype]]
 - HTML: `08_Artifacts/Lua Command UI Prototype/index.html`
 
+## App Template Rule
+
+실제 앱으로 발전시키는 단계에서는 [[09_Automations/App Template Standard|App Template Standard]]를 따른다.
+
+즉, 현재 정적 prototype은 화면/흐름 검증용이고, 다음 실제 앱은 `https://github.com/sooin123456/Lua_template` 구조를 변형해서 만든다.
+
 ## Navigation
 
 - [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|Command Run]]
 - [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
+- [[09_Automations/App Template Standard|App Template Standard]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[02_Projects/Projects Hub|Projects Hub]]

@@ -30,8 +30,8 @@ last_updated: 2026-05-16
 
 | 우선순위 | 해야 할 말 | Codex가 하는 일 |
 |---|---|---|
-| 1 | `Lua Command UI를 실제 Command Queue 쓰기로 연결해줘` | 프로토타입의 draft row를 실제 vault command queue 쓰기로 연결 |
-| 2 | `Lua Command UI 열어줘` | 정적 HTML 프로토타입 경로 안내 |
+| 1 | `Lua Command UI를 템플릿 앱으로 옮겨줘` | `Lua_template` 기반 실제 앱 골격으로 이전 |
+| 2 | `Lua Command UI를 실제 Command Queue 쓰기로 연결해줘` | 프로토타입의 draft row를 실제 vault command queue 쓰기로 연결 |
 | 3 | `보류해줘` | 현재 command run을 paused로 표시 |
 
 ## Current Research Link
@@ -64,7 +64,7 @@ last_updated: 2026-05-16
 지금 네가 나에게 말하면 좋은 문장:
 
 ```text
-Lua Command UI를 실제 Command Queue 쓰기로 연결해줘
+Lua Command UI를 템플릿 앱으로 옮겨줘
 ```
 
 ## What Codex Does

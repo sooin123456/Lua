@@ -290,3 +290,14 @@ last_updated: 2026-05-15
 - Visual check: Playwright/browser screenshot was not available in this environment, so verification used static tests and vault audits
 - Commit: pending
 - Next: connect the prototype to a safe local command queue write flow
+
+## 2026-05-16 KST - register Lua app template standard
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Automations, Build standards, Lua Command UI
+- Trigger: user said every application should reference and modify `https://github.com/sooin123456/Lua_template`
+- Changed: inspected `Lua_template` at commit `99b69005bc52a821e9da58fdbc12f1546e4435b3`, documented it as the default app baseline, and linked the rule from Lua Command UI, Domain Command Playbook, Automations, and User Action Board
+- Verification: `node scripts/check.js`; `node scripts/vault_audit.js`; `node --test tests/lua_command_ui_prototype.test.js`
+- Commit: pending
+- Next: migrate Lua Command UI from static prototype into a `Lua_template`-based app when approved

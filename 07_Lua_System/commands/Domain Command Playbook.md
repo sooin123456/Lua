@@ -64,6 +64,8 @@ last_updated: 2026-05-16
 | `/lua build script` | clarify -> plan -> execute -> verify | 자동화 스크립트 |
 | `/lua build agent` | clarify -> design -> plan | agent app spec |
 
+Build app rule: 실제 앱은 [[09_Automations/App Template Standard|App Template Standard]]를 기준으로 `Lua_template`를 변형해서 시작한다. 정적 HTML prototype은 화면 검증용으로만 둔다.
+
 ## Ops
 
 | Command | Workflow | Output |
