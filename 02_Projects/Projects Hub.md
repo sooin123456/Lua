@@ -17,6 +17,7 @@ area: Projects
 - [[02_Projects/Lucia/AI Carbon Data Management/Home|Lucia AI Carbon Data Management]]
 - [[02_Projects/Lucia/Blockchain/Home|Lucia Blockchain]]
 - [[02_Projects/Lucia/ESG Data Crawling/Home|Lucia ESG Data Crawling]]
+- [[02_Projects/Lucia/Easy AI Helper Miniapp|Easy AI Helper Miniapp]]
 - [[02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 
 ## Personal Studio Projects

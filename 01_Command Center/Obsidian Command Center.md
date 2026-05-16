@@ -88,6 +88,7 @@ Obsidian에서는 아래 형식을 권장한다.
 | lua-ui-20260516-133839 | design | screen | Lua Command UI 서버 연결 테스트 | plan | Scribe+Forge | routed | [[01_Command Center/Command Runs/lua-ui-20260516-133839-design-screen|run]] |
 | lua-ui-20260516-135233 | build | app | Lua Command UI end-to-end run button verification | plan | Forge | routed | [[01_Command Center/Command Runs/lua-ui-20260516-135233-build-app|run]] |
 | lua-ui-20260516-140255 | build | app | Verify Lua build runner creates a durable artifact | brief | Forge | done | [[08_Artifacts/Build Outputs/lua-ui-20260516-140255-build-app-output|artifact]] |
+| easy-ai-helper-20260516-01 | build | app | 60대 이상 사용자를 위한 쉬운말 AI 도우미 미니앱을 만든다. 사용자가 문자, 카톡, 병원 안내문, 고지서 내용을 붙여넣으면 AI가 쉬운 말로 요약하고, 해야 할 일과 사기/위험 여부를 큰 글씨로 알려준다. 첫 MVP는 사기 문자 확인, 안내문 쉽게 설명, 안전 답장 만들기 3가지 기능으로 제한한다. | plan | Forge | routed | [[01_Command Center/Command Runs/easy-ai-helper-20260516-01-build-app|run]] |
 
 ## Superpowers Workflow
 
