@@ -33,6 +33,7 @@ https://github.com/sooin123456/Lua_money_dust
 | Toss appName | `money-meonji` |
 | Demo data | 일반 예시 |
 | 대표 스크린샷 | 먼지방 |
+| Visual direction | Toss dark navy background + fluffy beige Meonji mascot |
 | Project | [[02_Projects/TOSS/Home|TOSS]] |
 | App repo | `Lua_money_dust` |
 
@@ -63,6 +64,7 @@ https://github.com/sooin123456/Lua_money_dust
 - [x] `Lua_money_dust` push
 - [x] Apps in Toss 콘솔 가입
 - [x] 콘솔의 최종 `appName`을 `granite.config.ts`와 일치
+- [x] 털먼지형 Meonji visual direction 반영
 - [ ] 최종 icon/logo/thumbnail 등록
 - [ ] TDS 적용/접근 가능성 확인
 - [ ] 제출용 screenshot 재생성
@@ -79,6 +81,8 @@ npm run toss:build -> money-meonji.ait
 ```
 
 The current app uses sample financial data only. The UI says it does not query real financial data yet. Real open-banking or cancellation automation should wait until the approved Toss/partner integration path is confirmed.
+
+Visual direction is now locked around a soft beige-gray fluffy mascot on Toss-like dark navy/blue surfaces. The app currently uses `public/assets/meonji-concept.png` as a concept asset and crops it into the header icon, total card, dust room, and selected dust preview. Final console upload still needs separated icon/logo/thumbnail files.
 
 Official docs reviewed:
 

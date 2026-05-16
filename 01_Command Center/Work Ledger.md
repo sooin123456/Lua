@@ -512,3 +512,24 @@ last_updated: 2026-05-15
 - Verification: `npm run typecheck`; clean `npm run toss:build`; `git push -u origin main`
 - Commit: `61d2006` in `Lua_money_dust`; pending in `Lua`
 - Next: create logo/icon/thumbnail, open the console upload path, then test the QR/private scheme flow in Toss app
+
+## 2026-05-16 KST - apply fluffy Meonji visual direction
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: `Lua_money_dust`, TOSS records
+- Trigger: user approved the B-style fluffy mascot direction and asked for a Toss-compatible background
+- Changed: added the generated Meonji concept image to `public/assets`, replaced the flat CSS dust shapes with cropped furry mascot imagery across the header, total card, dust room, and selected dust preview, and documented the visual direction in the submission package
+- Verification: `npm run typecheck`; clean `npm run toss:build`; browser screenshot check at `http://127.0.0.1:5174/`
+- Commit: `6d97496` in `Lua_money_dust`; pending in `Lua`
+- Next: split the concept image into final console icon/logo/thumbnail assets and upload `money-meonji.ait` through Apps in Toss console
+
+## 2026-05-16 KST - draft 2026-2028 certification roadmap
+
+- Host: `windows-codex`
+- Agent: `Codex`
+- Repo/area: Personal Studio, career planning
+- Trigger: user shared a 2026-2028 certification plan and asked to verify exact schedules and rebuild the plan
+- Changed: created [[06_Personal Studio/_Drafts/2026-2028 자격증 로드맵]] with corrected 2026 exam dates, priority rules, and a 2026 execution checklist
+- Verification: `node scripts/check.js`
+- Next: user confirms whether 2026 산업안전지도사 1차 was already passed; then lock either the 2026 2차 route or the 2027 route
