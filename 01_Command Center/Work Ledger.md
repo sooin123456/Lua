@@ -85,6 +85,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: review the new dashboard shape in Obsidian and choose the first runtime task to execute
 
+## 2026-05-27 KST - complete first Toss research task
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Python runtime, Toss use case docs, Obsidian project export
+- Trigger: user asked Lua to keep building the system unless a decision is required
+- Changed: added `lua task status`, researched official Apps in Toss WebView/config/deploy requirements, recorded the findings in `docs/use-cases/toss-miniapp-to-app.md`, closed `TASK-001`, and exported the updated Toss project note
+- Verification: `uv run pytest tests/test_task_status_cli.py`; `npm run test:all`; `uv run lua --db .lua_agent/lua.db heartbeat`; `node scripts/vault_audit.js` reported 2 orphan notes and 1 existing broken link to review separately
+- Commit: pending
+- Next: start `TASK-002` and draft Toss target user, core use case, and MVP acceptance criteria
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

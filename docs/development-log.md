@@ -95,3 +95,17 @@ The runtime now seeds 15 planned tasks on a fresh database, giving Lua enough st
 Next action:
 
 - Add Notion dashboard sync stubs or export the seeded projects into the real Obsidian vault for the first operating run.
+
+## 2026-05-27 Task Status And First Toss Research Run
+
+Added `lua task status` so Lua can close, review, block, or fail tasks after recording checkpoints.
+
+Completed the first operating task:
+
+- `TASK-001`: Research Toss mini app requirements
+
+Captured Toss WebView, configuration, testing, release, bundle size, and production verification constraints in `docs/use-cases/toss-miniapp-to-app.md`, then exported the updated project note into Obsidian.
+
+Next action:
+
+- Start `TASK-002`: define the target user, core use case, and MVP acceptance criteria for the Toss mini app.

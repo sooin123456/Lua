@@ -12,10 +12,14 @@ Initial validation project for product planning, MVP scoping, and app expansion.
 
 ## Tasks
 
-- [planned] TASK-001: Research Toss mini app requirements
+- [done] TASK-001: Research Toss mini app requirements
   - Owner: lua_Research_Agent
   - Goal: Identify Toss mini app requirements, constraints, and launch assumptions.
-  - Next action: Research Toss mini app requirements and constraints.
+  - Next action: Start TASK-002: Define Toss target user, core use case, and MVP acceptance criteria.
+  - Checkpoints:
+    - Toss mini app requirements researched.
+      - Done: Reviewed official Apps in Toss WebView, common config, and deploy docs. Key constraints: use Apps in Toss WebView SDK for web-based MVP; do not rely on iframe/external URL as the app shell; frontend bundle must deploy through Toss infrastructure; granite.config.ts must match console appName/displayName/icon/permissions; intoss deep links use appName; device testing needs Sandbox app and accessible dev host; release requires Toss app test, .ait bundle upload, review approval, bundle size under 100MB uncompressed, and production checks for CORS, permissions, session, auth/payment behavior, monitoring. Sources captured in docs/use-cases/toss-miniapp-to-app.md.
+      - Next: Start TASK-002: Define Toss target user, core use case, and MVP acceptance criteria.
 
 - [planned] TASK-002: Define Toss mini app MVP scope
   - Owner: lua_Product_Agent

@@ -142,6 +142,28 @@ def create_task(
     typer.echo(f"{task.id} {task.title}")
 
 
+@task_app.command("status")
+def update_task_status(
+    ctx: typer.Context,
+    task_id: str,
+    status: str,
+    next_action: str | None = typer.Option(None, "--next-action"),
+) -> None:
+    store = _store(ctx.obj["db"])
+    task = store.get_task(task_id)
+    if task is None:
+        raise typer.BadParameter(f"Unknown task: {task_id}")
+    try:
+        task.status = TaskStatus(status)
+    except ValueError as exc:
+        allowed = ", ".join(status.value for status in TaskStatus)
+        raise typer.BadParameter(f"Unknown status: {status}. Allowed: {allowed}") from exc
+    if next_action is not None:
+        task.next_action = next_action
+    store.save_task(task)
+    typer.echo(f"{task.id} {task.status.value} next: {task.next_action}")
+
+
 @checkpoint_app.command("add")
 def add_checkpoint(
     ctx: typer.Context,
