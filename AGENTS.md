@@ -62,6 +62,18 @@ Run this after structural changes:
 node scripts/check.js
 ```
 
+Run this after Python runtime changes:
+
+```bash
+uv run --extra dev pytest -v
+```
+
+Run this when both the vault and runtime changed:
+
+```bash
+npm run test:all
+```
+
 Run this before bulk vault cleanup:
 
 ```bash

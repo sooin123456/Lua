@@ -8,6 +8,17 @@ last_updated: 2026-05-15
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-05-27 KST - restructure Lua as vault plus runtime
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: GitHub repo `sooin123456/Lua`, Obsidian vault, Python runtime
+- Trigger: user clarified that Lua should restart from the existing Obsidian-origin GitHub repo and may be freely restructured
+- Changed: re-based the work on `origin/main`, added the `lua_agent` Python runtime, added development specs/plans, rewrote README around Lua as a customizable Agent OS, documented the runtime layer, and added Python validation commands
+- Verification: `npm run check`; `npm run test:node`; `uv run --extra dev pytest -v`; `npm run test:all`
+- Commit: pending
+- Next: run Node vault check and Python runtime tests, then commit the restructured baseline
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

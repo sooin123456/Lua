@@ -24,7 +24,10 @@
     "slack:dry-run": "node scripts/slack_brief.js --dry-run",
     "slack:send": "node scripts/slack_brief.js --confirm-send",
     "sync:skills": "node scripts/sync_skills.js",
-    "test": "node scripts/check.js"
+    "test": "node scripts/check.js",
+    "test:node": "node --test tests/*.test.js",
+    "test:python": "uv run --extra dev pytest -v",
+    "test:all": "npm run check && npm run test:node && npm run test:python"
   },
   "keywords": [],
   "author": "",

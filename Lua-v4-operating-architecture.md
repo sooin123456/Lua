@@ -26,11 +26,15 @@ Lua는 개인 지식, 팀 운영, 앱 제작을 하나의 연결 머리로 묶�
 flowchart LR
   Inbox["00_Inbox capture"] --> Vault["Obsidian vault"]
   Vault --> Atlas["Atlas router"]
+  Atlas --> Runtime["lua_agent runtime"]
   Atlas --> Lens["Lens research"]
   Atlas --> Scribe["Scribe writing"]
   Atlas --> Forge["Forge/Codex build"]
   Atlas --> VaultAgent["Vault hygiene"]
   Atlas --> Archivist["Archivist Notion"]
+  Runtime --> State["SQLite project/task/checkpoint state"]
+  Runtime --> Goals["Codex /goal instructions"]
+  Runtime --> Notes["Obsidian project notes"]
   Forge --> GitHub["GitHub repos and Actions"]
   Scribe --> Drafts["06_Personal Studio/_Drafts"]
   Lens --> Research["00_Inbox research notes"]
@@ -51,6 +55,24 @@ flowchart LR
 | Slack | Delivery channel for briefs, blockers, decision requests | Become the canonical project database |
 | Claude on Mac | Planning, synthesis, writing, Notion curation | Final deterministic code verification |
 | Codex on Windows | Code edits, scripts, tests, local app verification | Send external messages without approval |
+| `lua_agent` runtime | Durable project/task/checkpoint state and repeatable local commands | Replace Obsidian as the human-readable memory graph |
+
+## Runtime Layer
+
+Lua now has two coordinated layers:
+
+- **Vault layer:** Obsidian markdown for context, identity, command center, project memory, agent prompts, and operating documentation.
+- **Runtime layer:** Python package `lua_agent/` for durable project/task/checkpoint state, Codex `/goal` generation, and future command execution.
+
+The runtime should stay small and boring. It should not become a second memory graph. Its job is to make work resumable and testable:
+
+1. Store projects and tasks.
+2. Preserve each task's `next_action`.
+3. Write checkpoints after work sessions.
+4. Generate tool-specific instructions.
+5. Export Obsidian-readable notes.
+
+Runtime documentation lives in `07_Lua_System/runtime/README.md`. Development specs and plans live in `docs/`.
 
 ## Core Loops
 
@@ -194,6 +216,7 @@ Until then, `08_Artifacts/Artifact Ledger.md` plus GitHub releases or repo paths
 5. Pick one app project and run a full loop from Office Hours to local demo.
 6. Mirror only the project dashboard and decision log to Notion.
 7. Send Slack briefs manually first, then automate once the wording is trusted.
+8. Keep `lua_agent/` tests green as the executable project runtime grows.
 
 ## Definition of Done
 
