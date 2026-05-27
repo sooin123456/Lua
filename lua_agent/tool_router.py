@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from lua_agent.approvals import render_approval_boundary
 from lua_agent.codex import render_codex_goal
 from lua_agent.models import Project, Task, ToolInstruction
 
@@ -67,7 +68,7 @@ def _template_reference(project: Project, task: Task) -> str:
 
 
 def _render_codex_instruction(project: Project, task: Task, tool: str) -> str:
-    return render_codex_goal(project, task) + _template_reference(project, task)
+    return render_codex_goal(project, task) + render_approval_boundary(project, task) + _template_reference(project, task)
 
 
 def _render_claude_instruction(project: Project, task: Task, tool: str) -> str:
@@ -79,6 +80,7 @@ def _render_claude_instruction(project: Project, task: Task, tool: str) -> str:
         f"Next action: {task.next_action}\n\n"
         "Use Claude for planning, critique, requirements, roadmap, or long-context review.\n"
         "Return a concise plan, risks, open questions, and a recommended next action.\n"
+        f"{render_approval_boundary(project, task)}"
         f"{_template_reference(project, task)}"
     )
 
@@ -91,6 +93,7 @@ def _render_research_instruction(project: Project, task: Task, tool: str) -> str
         f"Next action: {task.next_action}\n\n"
         f"Use {tool} to gather an independent research perspective.\n"
         "Return findings as: summary, sources or assumptions, comparison table, risks, and next recommended action.\n"
+        f"{render_approval_boundary(project, task)}"
     )
 
 
@@ -103,6 +106,7 @@ def _render_manus_instruction(project: Project, task: Task, tool: str) -> str:
         "Use Manus for longer web or vendor research.\n"
         "Collect candidate organizations, product evidence, pricing or capability signals when available, selection criteria, and unresolved questions.\n"
         "Do not submit forms, create accounts, or contact vendors without approval.\n"
+        f"{render_approval_boundary(project, task)}"
     )
 
 
@@ -115,4 +119,5 @@ def _render_canva_instruction(project: Project, task: Task, tool: str) -> str:
         "Use Canva for design drafts, proposal visuals, pitch assets, or social content.\n"
         "Create a design brief first: audience, format, key message, sections, visual references, and approval checkpoint.\n"
         "Do not publish or share externally without approval.\n"
+        f"{render_approval_boundary(project, task)}"
     )

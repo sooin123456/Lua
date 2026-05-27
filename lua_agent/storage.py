@@ -86,6 +86,11 @@ class SQLiteStore:
             ).fetchall()
         return [Task.model_validate_json(row["data"]) for row in rows]
 
+    def list_all_tasks(self) -> list[Task]:
+        with self._connect() as connection:
+            rows = connection.execute("SELECT data FROM tasks ORDER BY id").fetchall()
+        return [Task.model_validate_json(row["data"]) for row in rows]
+
     def list_active_tasks(self) -> list[Task]:
         active = (
             TaskStatus.INBOX,

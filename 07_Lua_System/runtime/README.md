@@ -31,6 +31,7 @@ Current responsibilities:
 - heartbeat command for resumable active tasks
 - tool routing and tool-specific instruction generation
 - `Lua_template` reference injection for app-like implementation tasks
+- approval policy classification for safe continuation
 
 ## Why This Exists
 
@@ -57,6 +58,7 @@ uv run lua obsidian export PROJ-001 --vault .
 uv run lua codex goal PROJ-001 TASK-001
 uv run lua tool route PROJ-001 TASK-001
 uv run lua tool instruction PROJ-001 TASK-001
+uv run lua approval check PROJ-002 TASK-004
 ```
 
 For app-like implementation tasks, `tool instruction` references:

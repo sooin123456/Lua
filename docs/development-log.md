@@ -63,3 +63,19 @@ When Lua generates a Codex instruction for app/dashboard/prototype work, it now 
 Next action:
 
 - Add approval policy profiles so trading, public posting, paid API calls, deployment, and external communications are classified consistently.
+
+## 2026-05-27 Approval Policy Profiles
+
+Added `lua_Risk_Agent` runtime behavior through approval policy classification.
+
+Levels:
+
+- `auto`
+- `ask_first`
+- `explicit_approval`
+
+The runtime can now classify trading, external communication, deployment, git remote actions, paid API usage, secrets, payments, account changes, public posting, and destructive actions.
+
+Next action:
+
+- Add workflow templates for the three initial projects so `seed projects` can generate milestones, not just one first task.

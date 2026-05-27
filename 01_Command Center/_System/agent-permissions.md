@@ -34,3 +34,15 @@ last_updated: 2026-05-13
 - `_meta/` (legacy, Phase 1 bootstrap 잔재) — 어떤 agent도 접근하지 않는다.
 - `_System/` — 어떤 agent도 접근하지 않는다.
 - `Identity/{any}.md` — 읽기는 가능하고, 쓰기는 항상 사람 확인이 파일마다 필요하다.
+
+## Runtime approval levels
+
+Lua runtime 작업은 `07_Lua_System/runtime/Approval Policy Profiles.md` 기준으로 분류한다.
+
+| Level | 의미 | 예시 |
+|---|---|---|
+| `auto` | 로컬/비공개 경계 안에서 진행 가능 | 조사, 초안, 요약, 비교표, 테스트, Obsidian 개인 기록 |
+| `ask_first` | 실행 전 사용자에게 먼저 확인 | 외부 연락, Slack/Telegram 전송, 배포, git push/PR, 유료 API, Canva/Notion 공유 |
+| `explicit_approval` | 정확한 액션에 대한 명시 승인 전까지 금지 | 실거래, 자동매매, 결제/구독 변경, 계정 설정 변경, 비밀키 노출, 공개 게시, 대량 삭제 |
+
+기본 원칙: Lua는 멈추지 않고 계속 진행하되, 위험 액션은 다음 안전한 준비 작업까지만 수행하고 승인 요청으로 전환한다.

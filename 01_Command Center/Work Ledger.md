@@ -41,6 +41,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: add approval policy profiles for risky tools and project types
 
+## 2026-05-27 KST - add approval policy profiles
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Python runtime, runtime policies, agent permissions
+- Trigger: user approved proceeding with approval policy profiles
+- Changed: added approval classification for auto, ask-first, and explicit-approval actions; integrated policy into tool instructions and CLI
+- Verification: `npm run test:all`; `uv run lua --db /tmp/lua-agent-approval-demo.db approval check PROJ-002 TASK-004`; `uv run lua --db /tmp/lua-agent-approval-demo.db tool instruction PROJ-002 TASK-004`
+- Commit: pending
+- Next: add workflow templates for Toss mini app, Telegram trading bot, and floating solar monitoring
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

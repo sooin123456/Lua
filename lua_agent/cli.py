@@ -4,6 +4,7 @@ from pathlib import Path
 
 import typer
 
+from lua_agent.approvals import classify_approval
 from lua_agent.codex import render_codex_goal
 from lua_agent.files import safe_markdown_filename
 from lua_agent.models import Checkpoint, Project, Task, TaskStatus
@@ -20,6 +21,7 @@ seed_app = typer.Typer(help="Seed initial Lua projects.")
 checkpoint_app = typer.Typer(help="Checkpoint commands.")
 obsidian_app = typer.Typer(help="Obsidian export commands.")
 tool_app = typer.Typer(help="Tool routing commands.")
+approval_app = typer.Typer(help="Approval policy commands.")
 app.add_typer(project_app, name="project")
 app.add_typer(task_app, name="task")
 app.add_typer(codex_app, name="codex")
@@ -27,6 +29,7 @@ app.add_typer(seed_app, name="seed")
 app.add_typer(checkpoint_app, name="checkpoint")
 app.add_typer(obsidian_app, name="obsidian")
 app.add_typer(tool_app, name="tool")
+app.add_typer(approval_app, name="approval")
 
 
 def _store(db: Path) -> SQLiteStore:
@@ -123,7 +126,7 @@ def create_task(
     approval_required: bool = typer.Option(False, "--approval-required"),
 ) -> None:
     store = _store(ctx.obj["db"])
-    task_id = _next_id("TASK", len(store.list_tasks(project_id)))
+    task_id = _next_id("TASK", len(store.list_all_tasks()))
     task = Task(
         id=task_id,
         project_id=project_id,
@@ -223,6 +226,16 @@ def tool_instruction(
     typer.echo(f"Title: {instruction.title}")
     typer.echo("")
     typer.echo(instruction.body)
+
+
+@approval_app.command("check")
+def approval_check(ctx: typer.Context, project_id: str, task_id: str) -> None:
+    store = _store(ctx.obj["db"])
+    project, task = _project_and_task(store, project_id, task_id)
+    policy = classify_approval(project, task)
+    typer.echo(f"Level: {policy.level.value}")
+    typer.echo(f"Reason: {policy.reason}")
+    typer.echo(f"Matched terms: {', '.join(policy.matched_terms) if policy.matched_terms else 'none'}")
 
 
 @codex_app.command("goal")
