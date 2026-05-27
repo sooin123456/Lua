@@ -30,6 +30,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: add tool-instruction routing for Claude, Codex, Gemini, Kimi, Grok, Manus, and Canva
 
+## 2026-05-27 KST - add tool routing and Lua_template reference
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Python runtime, tech stack references, docs
+- Trigger: user asked to continue and make future implementation reference `sooin123456/Lua_template`
+- Changed: added runtime tool routing for Codex, Claude, Gemini, Kimi, Grok, Manus, and Canva; added CLI commands for route/instruction; documented `Lua_template` as the app implementation baseline
+- Verification: `npm run test:all`; `uv run lua --db /tmp/lua-agent-tool-demo.db tool instruction PROJ-001 TASK-001`
+- Commit: pending
+- Next: add approval policy profiles for risky tools and project types
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

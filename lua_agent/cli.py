@@ -10,6 +10,7 @@ from lua_agent.models import Checkpoint, Project, Task, TaskStatus
 from lua_agent.obsidian import render_project_note
 from lua_agent.seeds import INITIAL_PROJECTS
 from lua_agent.storage import SQLiteStore
+from lua_agent.tool_router import render_tool_instruction, select_tool
 
 app = typer.Typer(help="lua_Agent local project operator.")
 project_app = typer.Typer(help="Project commands.")
@@ -18,12 +19,14 @@ codex_app = typer.Typer(help="Codex helper commands.")
 seed_app = typer.Typer(help="Seed initial Lua projects.")
 checkpoint_app = typer.Typer(help="Checkpoint commands.")
 obsidian_app = typer.Typer(help="Obsidian export commands.")
+tool_app = typer.Typer(help="Tool routing commands.")
 app.add_typer(project_app, name="project")
 app.add_typer(task_app, name="task")
 app.add_typer(codex_app, name="codex")
 app.add_typer(seed_app, name="seed")
 app.add_typer(checkpoint_app, name="checkpoint")
 app.add_typer(obsidian_app, name="obsidian")
+app.add_typer(tool_app, name="tool")
 
 
 def _store(db: Path) -> SQLiteStore:
@@ -185,6 +188,41 @@ def export_obsidian_project(
     target_path = target_dir / safe_markdown_filename(project.name)
     target_path.write_text(note)
     typer.echo(str(target_path))
+
+
+def _project_and_task(store: SQLiteStore, project_id: str, task_id: str) -> tuple[Project, Task]:
+    project = store.get_project(project_id)
+    if project is None:
+        raise typer.BadParameter(f"Unknown project: {project_id}")
+    task = store.get_task(task_id)
+    if task is None:
+        raise typer.BadParameter(f"Unknown task: {task_id}")
+    if task.project_id != project_id:
+        raise typer.BadParameter(f"Task {task_id} does not belong to project {project_id}")
+    return project, task
+
+
+@tool_app.command("route")
+def route_tool(ctx: typer.Context, project_id: str, task_id: str) -> None:
+    store = _store(ctx.obj["db"])
+    project, task = _project_and_task(store, project_id, task_id)
+    typer.echo(select_tool(project, task))
+
+
+@tool_app.command("instruction")
+def tool_instruction(
+    ctx: typer.Context,
+    project_id: str,
+    task_id: str,
+    tool: str | None = typer.Option(None, "--tool"),
+) -> None:
+    store = _store(ctx.obj["db"])
+    project, task = _project_and_task(store, project_id, task_id)
+    instruction = render_tool_instruction(project, task, tool=tool)
+    typer.echo(f"Tool: {instruction.tool}")
+    typer.echo(f"Title: {instruction.title}")
+    typer.echo("")
+    typer.echo(instruction.body)
 
 
 @codex_app.command("goal")

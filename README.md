@@ -84,6 +84,17 @@ uv run lua --db .lua_agent/lua.db seed projects
 uv run lua --db .lua_agent/lua.db heartbeat
 ```
 
+Generate a tool-specific work order:
+
+```bash
+uv run lua --db .lua_agent/lua.db tool route PROJ-001 TASK-001
+uv run lua --db .lua_agent/lua.db tool instruction PROJ-001 TASK-001
+```
+
+For app-like implementation tasks, Lua references `Lua_template` as the app baseline:
+
+- https://github.com/sooin123456/Lua_template
+
 ## Initial Validation Projects
 
 Lua is being shaped around three real projects:
@@ -132,5 +143,6 @@ Important design records:
 - `docs/superpowers/plans/2026-05-27-lua-project-agent-mvp.md`
 - `docs/vision.md`
 - `Lua-v4-operating-architecture.md`
+- `04_Resources/Tech Stack/Lua Template.md`
 
 Meaningful sessions should also be recorded in `01_Command Center/Work Ledger.md`.

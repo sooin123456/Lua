@@ -29,6 +29,8 @@ Current responsibilities:
 - checkpoint commands that update task `next_action`
 - Obsidian export command
 - heartbeat command for resumable active tasks
+- tool routing and tool-specific instruction generation
+- `Lua_template` reference injection for app-like implementation tasks
 
 ## Why This Exists
 
@@ -53,7 +55,15 @@ uv run lua heartbeat
 uv run lua checkpoint add TASK-001 --summary "..." --done "..." --next-action "..."
 uv run lua obsidian export PROJ-001 --vault .
 uv run lua codex goal PROJ-001 TASK-001
+uv run lua tool route PROJ-001 TASK-001
+uv run lua tool instruction PROJ-001 TASK-001
 ```
+
+For app-like implementation tasks, `tool instruction` references:
+
+- https://github.com/sooin123456/Lua_template
+
+The template is a reference baseline for React Router, Supabase, Drizzle, SQL migrations, e2e tests, and transactional email patterns.
 
 ## Next Runtime Direction
 

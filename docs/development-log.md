@@ -49,3 +49,17 @@ These commands let Lua seed the first three validation projects, record progress
 Next action:
 
 - Add tool-instruction routing for Claude, Codex, Gemini, Kimi, Grok, Manus, and Canva.
+
+## 2026-05-27 Tool Routing And Lua_template Reference
+
+Added runtime tool routing for Codex, Claude, Gemini, Kimi, Grok, Manus, and Canva.
+
+Added `Lua_template` as the reference baseline for app-like implementation tasks:
+
+- https://github.com/sooin123456/Lua_template
+
+When Lua generates a Codex instruction for app/dashboard/prototype work, it now points to `Lua_template` and names the relevant reusable patterns: React Router, Supabase, Drizzle, SQL migrations, e2e tests, and transactional email structure.
+
+Next action:
+
+- Add approval policy profiles so trading, public posting, paid API calls, deployment, and external communications are classified consistently.
