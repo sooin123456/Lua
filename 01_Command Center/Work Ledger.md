@@ -63,6 +63,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: start the first real operating run by exporting seeded projects into Obsidian or add Notion dashboard sync stubs
 
+## 2026-05-27 KST - start first Lua runtime operating run
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: `.lua_agent` runtime DB, `02_Projects/Lua`, dashboards
+- Trigger: user chose to start actual Obsidian operation instead of Notion sync stubs
+- Changed: seeded the runtime database with three projects and 15 workflow tasks, exported the three projects into Obsidian markdown, and linked them from Projects Hub and Master Dashboard
+- Verification: `npm run test:all`; `uv run lua --db .lua_agent/lua.db heartbeat`
+- Commit: pending
+- Next: run checks, commit the exported operating baseline, then choose the first task to execute
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

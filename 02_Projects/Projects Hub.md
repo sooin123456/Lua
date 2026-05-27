@@ -20,6 +20,9 @@ area: Projects
 - [[02_Projects/Lucia/Easy AI Helper Miniapp|Easy AI Helper Miniapp]]
 - [[02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 - [[02_Projects/Lucia/Money Eating Dust Miniapp|Money Eating Dust Miniapp]]
+- [[02_Projects/Lua/Toss Mini App To App|Lua - Toss Mini App To App]]
+- [[02_Projects/Lua/Telegram Trading Bot To App|Lua - Telegram Trading Bot To App]]
+- [[02_Projects/Lua/Floating Solar Monitoring System|Lua - Floating Solar Monitoring System]]
 - [[02_Projects/TOSS/Home|TOSS]]
 
 ## Personal Studio Projects
@@ -104,3 +107,8 @@ area: Projects
 - [[02_Projects/Lucia/ESG Data Crawling/DevLog|DevLog]]
 - [[02_Projects/Lucia/ESG Data Crawling/Metrics|Metrics]]
 - [[02_Projects/Lucia/ESG Data Crawling/Research|Research]]
+
+### Lua Runtime Projects
+- [[02_Projects/Lua/Toss Mini App To App|Toss Mini App To App]]
+- [[02_Projects/Lua/Telegram Trading Bot To App|Telegram Trading Bot To App]]
+- [[02_Projects/Lua/Floating Solar Monitoring System|Floating Solar Monitoring System]]

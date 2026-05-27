@@ -54,6 +54,9 @@ CTO 중앙 관제탑. 모든 프로젝트 현황과 AI 명령을 한눈에 본�
 | **Lucia**   | [[02_Projects/Lucia/Blockchain/Home\|Home]]                | 🟡  | `/status-check lucia_blockchain_home`    |
 | **Lucia**   | [[02_Projects/Lucia/ESG Data Crawling/Home\|Home]]         | 🟡  | `/status-check lucia_esg_crawling_home`  |
 | **KGCT**    | [[02_Projects/KGCT/THEKIE Homepage/Home\|Home]]            | 🟡  | `/status-check kgct_THEKIE Homepage`     |
+| **Lua**     | [[02_Projects/Lua/Toss Mini App To App\|Toss Mini App To App]] | 🟡 | `uv run lua heartbeat` |
+| **Lua**     | [[02_Projects/Lua/Telegram Trading Bot To App\|Telegram Trading Bot To App]] | 🟡 | `uv run lua approval check` |
+| **Lua**     | [[02_Projects/Lua/Floating Solar Monitoring System\|Floating Solar Monitoring System]] | 🟡 | `uv run lua tool instruction` |
 
 > 🟡 = 진행중 / 🟢 = 정상 / 🔴 = 블로커 있음 / ⚪ = 대기
 
@@ -121,6 +124,7 @@ Obsidian에 적는 명령은 자동 실행 버튼이 아니라 AI에게 넘길 �
 - Codex 진입점: [[AGENTS]]
 - 현재 운영 루프: [[01_Command Center/Harness Loop|Harness Loop]]
 - 작업 출처 관리: [[01_Command Center/Work Ledger|Work Ledger]]
+- Lua runtime projects: [[02_Projects/Lua/Toss Mini App To App|Toss]], [[02_Projects/Lua/Telegram Trading Bot To App|Trading Bot]], [[02_Projects/Lua/Floating Solar Monitoring System|Floating Solar]]
 
 ---
 
