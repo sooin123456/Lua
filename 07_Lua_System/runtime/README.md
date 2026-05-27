@@ -25,6 +25,10 @@ Current responsibilities:
 - Obsidian markdown rendering
 - Codex `/goal` prompt generation
 - CLI smoke path
+- seed commands for the first three validation projects
+- checkpoint commands that update task `next_action`
+- Obsidian export command
+- heartbeat command for resumable active tasks
 
 ## Why This Exists
 
@@ -41,12 +45,20 @@ The original Lua system began as an Obsidian-first vault. That is still useful f
 uv run --extra dev pytest -v
 ```
 
+## Current Commands
+
+```bash
+uv run lua seed projects
+uv run lua heartbeat
+uv run lua checkpoint add TASK-001 --summary "..." --done "..." --next-action "..."
+uv run lua obsidian export PROJ-001 --vault .
+uv run lua codex goal PROJ-001 TASK-001
+```
+
 ## Next Runtime Direction
 
 The next runtime slice should add:
 
-- project seeding for the three initial validation projects
-- checkpoint creation from the CLI
-- Obsidian file export command
-- heartbeat command that lists resumable tasks
 - tool-instruction routing for Claude, Codex, Gemini, Kimi, Grok, Manus, and Canva
+- approval policy profiles by project type
+- Notion dashboard sync stubs

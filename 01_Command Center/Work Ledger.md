@@ -19,6 +19,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: run Node vault check and Python runtime tests, then commit the restructured baseline
 
+## 2026-05-27 KST - add runtime continuity commands
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Python runtime, docs, CLI
+- Trigger: user asked to continue after the vault plus runtime restructure
+- Changed: added seed, checkpoint, Obsidian export, and heartbeat CLI commands so the first three projects can be started and resumed locally
+- Verification: `uv run --extra dev pytest -v`; `npm run check`; `npm run test:all`
+- Commit: pending
+- Next: add tool-instruction routing for Claude, Codex, Gemini, Kimi, Grok, Manus, and Canva
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

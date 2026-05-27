@@ -5,16 +5,25 @@ from pathlib import Path
 import typer
 
 from lua_agent.codex import render_codex_goal
-from lua_agent.models import Project, Task, TaskStatus
+from lua_agent.files import safe_markdown_filename
+from lua_agent.models import Checkpoint, Project, Task, TaskStatus
+from lua_agent.obsidian import render_project_note
+from lua_agent.seeds import INITIAL_PROJECTS
 from lua_agent.storage import SQLiteStore
 
 app = typer.Typer(help="lua_Agent local project operator.")
 project_app = typer.Typer(help="Project commands.")
 task_app = typer.Typer(help="Task commands.")
 codex_app = typer.Typer(help="Codex helper commands.")
+seed_app = typer.Typer(help="Seed initial Lua projects.")
+checkpoint_app = typer.Typer(help="Checkpoint commands.")
+obsidian_app = typer.Typer(help="Obsidian export commands.")
 app.add_typer(project_app, name="project")
 app.add_typer(task_app, name="task")
 app.add_typer(codex_app, name="codex")
+app.add_typer(seed_app, name="seed")
+app.add_typer(checkpoint_app, name="checkpoint")
+app.add_typer(obsidian_app, name="obsidian")
 
 
 def _store(db: Path) -> SQLiteStore:
@@ -31,6 +40,20 @@ def main(
     db: Path = typer.Option(Path(".lua_agent/lua.db"), "--db", help="SQLite database path."),
 ) -> None:
     ctx.obj = {"db": db}
+
+
+@app.command("heartbeat")
+def heartbeat(ctx: typer.Context) -> None:
+    store = _store(ctx.obj["db"])
+    active_tasks = store.list_active_tasks()
+    if not active_tasks:
+        typer.echo("No active tasks.")
+        return
+    for task in active_tasks:
+        typer.echo(
+            f"{task.id} | {task.project_id} | {task.status.value} | "
+            f"{task.owner_agent} | next: {task.next_action}"
+        )
 
 
 @project_app.command("create")
@@ -52,6 +75,38 @@ def list_projects(ctx: typer.Context) -> None:
     store = _store(ctx.obj["db"])
     for project in store.list_projects():
         typer.echo(f"{project.id} {project.name}")
+
+
+@seed_app.command("projects")
+def seed_projects(ctx: typer.Context) -> None:
+    store = _store(ctx.obj["db"])
+    created = 0
+    for seed in INITIAL_PROJECTS:
+        if store.get_project(seed.id) is None:
+            store.save_project(
+                Project(
+                    id=seed.id,
+                    name=seed.name,
+                    goal=seed.goal,
+                    description=seed.description,
+                )
+            )
+            created += 1
+        if not store.list_tasks(seed.id):
+            task_number = int(seed.id.split("-")[1])
+            store.save_task(
+                Task(
+                    id=f"TASK-{task_number:03d}",
+                    project_id=seed.id,
+                    title=seed.first_task_title,
+                    goal=seed.first_task_goal,
+                    status=TaskStatus.PLANNED,
+                    owner_agent=seed.first_task_owner,
+                    next_action=seed.first_task_next_action,
+                    approval_required="Trading" in seed.name,
+                )
+            )
+    typer.echo(f"Seeded {len(INITIAL_PROJECTS)} project(s); created {created} new project(s).")
 
 
 @task_app.command("create")
@@ -78,6 +133,58 @@ def create_task(
     )
     store.save_task(task)
     typer.echo(f"{task.id} {task.title}")
+
+
+@checkpoint_app.command("add")
+def add_checkpoint(
+    ctx: typer.Context,
+    task_id: str,
+    summary: str = typer.Option(..., "--summary"),
+    done: str = typer.Option(..., "--done"),
+    next_action: str = typer.Option(..., "--next-action"),
+    blocked_reason: str = typer.Option("", "--blocked-reason"),
+) -> None:
+    store = _store(ctx.obj["db"])
+    task = store.get_task(task_id)
+    if task is None:
+        raise typer.BadParameter(f"Unknown task: {task_id}")
+    checkpoint_id = _next_id("CHK", len(store.list_checkpoints(task_id)))
+    checkpoint = Checkpoint(
+        id=checkpoint_id,
+        task_id=task_id,
+        summary=summary,
+        done=done,
+        next_action=next_action,
+        blocked_reason=blocked_reason,
+    )
+    store.save_checkpoint(checkpoint)
+    task.next_action = next_action
+    if blocked_reason:
+        task.status = TaskStatus.BLOCKED
+    else:
+        task.status = TaskStatus.RUNNING
+    store.save_task(task)
+    typer.echo(f"{checkpoint.id} {task.id} next: {task.next_action}")
+
+
+@obsidian_app.command("export")
+def export_obsidian_project(
+    ctx: typer.Context,
+    project_id: str,
+    vault: Path = typer.Option(Path("."), "--vault", help="Obsidian vault root."),
+) -> None:
+    store = _store(ctx.obj["db"])
+    project = store.get_project(project_id)
+    if project is None:
+        raise typer.BadParameter(f"Unknown project: {project_id}")
+    tasks = store.list_tasks(project_id)
+    checkpoints_by_task = {task.id: store.list_checkpoints(task.id) for task in tasks}
+    note = render_project_note(project, tasks, checkpoints_by_task)
+    target_dir = vault / "02_Projects" / "Lua"
+    target_dir.mkdir(parents=True, exist_ok=True)
+    target_path = target_dir / safe_markdown_filename(project.name)
+    target_path.write_text(note)
+    typer.echo(str(target_path))
 
 
 @codex_app.command("goal")

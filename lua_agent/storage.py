@@ -74,6 +74,10 @@ class SQLiteStore:
                 (task.id, task.project_id, task.status.value, json.dumps(data)),
             )
 
+    def get_task(self, task_id: str) -> Task | None:
+        row = self._get_row("tasks", task_id)
+        return Task.model_validate_json(row["data"]) if row else None
+
     def list_tasks(self, project_id: str) -> list[Task]:
         with self._connect() as connection:
             rows = connection.execute(

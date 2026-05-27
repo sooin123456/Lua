@@ -58,7 +58,10 @@ The Python runtime currently supports:
 - active task lookup
 - Obsidian-ready project note rendering
 - Codex `/goal` generation
-- a Typer CLI smoke path
+- seed commands for the first three validation projects
+- checkpoint logging that updates task `next_action`
+- Obsidian markdown export
+- heartbeat listing for resumable active tasks
 
 Example:
 
@@ -72,6 +75,13 @@ uv run lua --db .lua_agent/lua.db task create PROJ-001 "Implement first prototyp
   --owner-agent lua_Dev_Agent
 
 uv run lua --db .lua_agent/lua.db codex goal PROJ-001 TASK-001
+```
+
+Start the three validation projects:
+
+```bash
+uv run lua --db .lua_agent/lua.db seed projects
+uv run lua --db .lua_agent/lua.db heartbeat
 ```
 
 ## Initial Validation Projects
