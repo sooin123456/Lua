@@ -79,3 +79,19 @@ The runtime can now classify trading, external communication, deployment, git re
 Next action:
 
 - Add workflow templates for the three initial projects so `seed projects` can generate milestones, not just one first task.
+
+## 2026-05-27 Workflow Templates
+
+Expanded `lua seed projects` from one first task per project to five workflow tasks per project.
+
+Projects:
+
+- Toss mini app to app
+- Telegram trading bot to app
+- Floating solar monitoring system
+
+The runtime now seeds 15 planned tasks on a fresh database, giving Lua enough structure to start heartbeat-driven continuation.
+
+Next action:
+
+- Add Notion dashboard sync stubs or export the seeded projects into the real Obsidian vault for the first operating run.

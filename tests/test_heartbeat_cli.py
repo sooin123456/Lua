@@ -13,7 +13,7 @@ def test_heartbeat_lists_active_tasks_with_next_actions(tmp_path):
     assert result.exit_code == 0
     assert "TASK-001" in result.stdout
     assert "PROJ-001" in result.stdout
-    assert "lua_Project_Agent" in result.stdout
+    assert "lua_Research_Agent" in result.stdout
     assert "Research Toss mini app requirements and constraints." in result.stdout
-    assert "TASK-002" in result.stdout
-    assert "TASK-003" in result.stdout
+    assert "TASK-010" in result.stdout
+    assert "TASK-015" in result.stdout

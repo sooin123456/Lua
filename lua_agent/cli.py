@@ -99,19 +99,20 @@ def seed_projects(ctx: typer.Context) -> None:
             )
             created += 1
         if not store.list_tasks(seed.id):
-            task_number = int(seed.id.split("-")[1])
-            store.save_task(
-                Task(
-                    id=f"TASK-{task_number:03d}",
-                    project_id=seed.id,
-                    title=seed.first_task_title,
-                    goal=seed.first_task_goal,
-                    status=TaskStatus.PLANNED,
-                    owner_agent=seed.first_task_owner,
-                    next_action=seed.first_task_next_action,
-                    approval_required="Trading" in seed.name,
+            for workflow_task in seed.tasks:
+                task_id = _next_id("TASK", len(store.list_all_tasks()))
+                store.save_task(
+                    Task(
+                        id=task_id,
+                        project_id=seed.id,
+                        title=workflow_task.title,
+                        goal=workflow_task.goal,
+                        status=TaskStatus.PLANNED,
+                        owner_agent=workflow_task.owner_agent,
+                        next_action=workflow_task.next_action,
+                        approval_required=workflow_task.approval_required,
+                    )
                 )
-            )
     typer.echo(f"Seeded {len(INITIAL_PROJECTS)} project(s); created {created} new project(s).")
 
 

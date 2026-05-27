@@ -84,6 +84,8 @@ uv run lua --db .lua_agent/lua.db seed projects
 uv run lua --db .lua_agent/lua.db heartbeat
 ```
 
+On a fresh database this creates 15 workflow tasks: five for Toss, five for Telegram trading bot, and five for floating solar monitoring.
+
 Generate a tool-specific work order:
 
 ```bash

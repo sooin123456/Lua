@@ -52,6 +52,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: add workflow templates for Toss mini app, Telegram trading bot, and floating solar monitoring
 
+## 2026-05-27 KST - add workflow templates
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Python runtime, seed data, workflow docs
+- Trigger: user approved continuing after approval policy profiles
+- Changed: expanded `lua seed projects` to create five workflow tasks each for Toss mini app, Telegram trading bot, and floating solar monitoring
+- Verification: `uv run --extra dev pytest -v`; `npm run test:all`; `uv run lua --db /tmp/lua-agent-workflow-demo.db seed projects`; `uv run lua --db /tmp/lua-agent-workflow-demo.db heartbeat`
+- Commit: pending
+- Next: start the first real operating run by exporting seeded projects into Obsidian or add Notion dashboard sync stubs
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

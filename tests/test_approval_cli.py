@@ -23,7 +23,7 @@ def test_approval_check_reports_explicit_trading_boundary(tmp_path):
         ],
     )
 
-    result = runner.invoke(app, ["--db", str(db_path), "approval", "check", "PROJ-002", "TASK-004"])
+    result = runner.invoke(app, ["--db", str(db_path), "approval", "check", "PROJ-002", "TASK-016"])
 
     assert result.exit_code == 0
     assert "explicit_approval" in result.stdout

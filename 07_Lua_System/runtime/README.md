@@ -26,6 +26,7 @@ Current responsibilities:
 - Codex `/goal` prompt generation
 - CLI smoke path
 - seed commands for the first three validation projects
+- workflow templates that seed five tasks per validation project
 - checkpoint commands that update task `next_action`
 - Obsidian export command
 - heartbeat command for resumable active tasks
@@ -71,6 +72,5 @@ The template is a reference baseline for React Router, Supabase, Drizzle, SQL mi
 
 The next runtime slice should add:
 
-- tool-instruction routing for Claude, Codex, Gemini, Kimi, Grok, Manus, and Canva
 - approval policy profiles by project type
 - Notion dashboard sync stubs
