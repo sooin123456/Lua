@@ -1,136 +1,57 @@
 ---
 ai-index: true
 type: dashboard
+status: active
+last_updated: 2026-05-27
 ---
 
-# 🎯 Master Dashboard
+# Master Dashboard
 
-CTO 중앙 관제탑. 모든 프로젝트 현황과 AI 명령을 한눈에 본다.
+Daily operating view for Lua. Keep this page small. Use [[01_Command Center/Lua System Map|Lua System Map]] for full navigation.
 
-## 🔗 Navigation
+## Navigation
 
-- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
-- [[01_Command Center/User Action Board|User Action Board]]
-- [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
-- [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
-- [[01_Command Center/Command Modes|Command Modes]]
-- [[01_Command Center/Weekly Review|Weekly Review]]
-- [[02_Projects/Projects Hub|Projects Hub]]
-- [[03_Operation/Operation Hub|Operation Hub]]
-- [[03_Operation/Paperclip/Paperclip Home|Paperclip Home]]
-- [[04_Resources/Resources Hub|Resources Hub]]
-- [[04_Resources/Energy Policies/Energy Policies Hub|Energy Policies Hub]]
-- [[Lua-v4-operating-architecture|Lua v4 Architecture]]
-- [[Lua End-to-End Flow|Lua End-to-End Flow]]
-- [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
+- [[02_Projects/Projects Hub|Projects]]
+- [[01_Command Center/Obsidian Command Center|Command Center]]
+- [[01_Command Center/User Action Board|Actions]]
 - [[01_Command Center/Work Ledger|Work Ledger]]
-- [[03_Wiki/Home|Wiki]]
-- [[03_Wiki/Repository Registry|Repository Registry]]
-- [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
-- [[09_Automations/README|Automations]]
-- [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
-- [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[99_Templates/Templates Hub|Templates Hub]]
-- [[01_Command Center/Vibe CEO Journal|Vibe CEO Journal]]
-- [[01_Command Center/_Organization/relationship|Organization Relationship]]
-- [[01_Command Center/_Organization/theKIE|theKIE]]
-- [[01_Command Center/_Organization/KGCT|KGCT]]
-- [[환영합니다!|Welcome]]
+- [[07_Lua_System/runtime/README|Lua Runtime]]
+- [[01_Command Center/Lua System Map|System Map]]
 
----
+## Active Lua Runtime Projects
 
-## 🏢 Company Projects
+| Project | Status | Next operating command |
+|---|---|---|
+| [[02_Projects/Lua/Toss Mini App To App|Toss Mini App -> App]] | planned | `uv run lua --db .lua_agent/lua.db tool instruction PROJ-001 TASK-001` |
+| [[02_Projects/Lua/Telegram Trading Bot To App|Telegram Trading Bot -> App]] | planned | `uv run lua --db .lua_agent/lua.db approval check PROJ-002 TASK-008` |
+| [[02_Projects/Lua/Floating Solar Monitoring System|Floating Solar Monitoring]] | planned | `uv run lua --db .lua_agent/lua.db tool instruction PROJ-003 TASK-011` |
 
-| 프로젝트        | 하위프로젝트                                                     | 상태  | AI 명령                                    |
-| ----------- | ---------------------------------------------------------- | --- | ---------------------------------------- |
-| **CxEMS**   | [[02_Projects/CxEMS/CxEMS SaaS/Home\|Home]]                | 🟡  | `/status-check cxems_saas_home`          |
-| **CxEMS**   | [[02_Projects/CxEMS/Smart Meter/Home\|Home]]               | 🟡  | `/status-check cxems_smart_meter_home`   |
-| **KGCT**    | [[02_Projects/KGCT/Green Building/Home\|Home]]             | 🟡  | `/status-check kgct_green_building_home` |
-| **KIEREMS** | [[02_Projects/KIEREMS/RTU Development/Home\|Home]]         | 🟡  | `/status-check kierems_rtu_home`         |
-| **KIEREMS** | [[02_Projects/KIEREMS/VPP Development/Home\|Home]]         | 🟡  | `/status-check kierems_vpp_home`         |
-| **Lucia**   | [[02_Projects/Lucia/AI Carbon Data Management/Home\|Home]] | 🟡  | `/status-check lucia_ai_carbon_home`     |
-| **Lucia**   | [[02_Projects/Lucia/Blockchain/Home\|Home]]                | 🟡  | `/status-check lucia_blockchain_home`    |
-| **Lucia**   | [[02_Projects/Lucia/ESG Data Crawling/Home\|Home]]         | 🟡  | `/status-check lucia_esg_crawling_home`  |
-| **KGCT**    | [[02_Projects/KGCT/THEKIE Homepage/Home\|Home]]            | 🟡  | `/status-check kgct_THEKIE Homepage`     |
-| **Lua**     | [[02_Projects/Lua/Toss Mini App To App\|Toss Mini App To App]] | 🟡 | `uv run lua heartbeat` |
-| **Lua**     | [[02_Projects/Lua/Telegram Trading Bot To App\|Telegram Trading Bot To App]] | 🟡 | `uv run lua approval check` |
-| **Lua**     | [[02_Projects/Lua/Floating Solar Monitoring System\|Floating Solar Monitoring System]] | 🟡 | `uv run lua tool instruction` |
+## Current Runtime Queue
 
-> 🟡 = 진행중 / 🟢 = 정상 / 🔴 = 블로커 있음 / ⚪ = 대기
-
----
-
-## 👤 Personal Projects
-
-| 프로젝트 | 상태 | AI 명령 |
-|----------|------|---------|
-| **AI Studio** | 🟡 | `/status-check AI Studio` |
-| **CS50** | 🟡 | `/status-check CS50` |
-| **Hacking** | 🟡 | `/status-check Hacking` |
-| **Multi-Agent Trading** | 🟡 | `/status-check Multi-Agent Trading` |
-
-
----
-
-## 📥 Inbox 처리 큐
-
-<!-- AUTO-INBOX-START -->
-- [x] [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]] - `triaged`
-<!-- AUTO-INBOX-END -->
-
----
-
-## 🚨 Urgent List
-
-| 우선순위 | 내용  | 프로젝트 | Blocker | Deadline   |
-| ---- | --- | ---- | ------- | ---------- |
-| P0   | KOLAS 시험장비 구매 확정 | KGCT / Green Building | 장비 미구매로 인증 일정 리스크 | 2026-05-15 |
-| P0   | RTU 핵심 부품 조달 플랜 확정 | KIEREMS / RTU Development | 부품 공급망 지연 | 2026-05-20 |
-| P1   | GX-PASS 인력편성 완료 | KGCT / Green Building | 인력편성 미완료 | 2026-05-30 |
-| P1   | CBAM 대응 검인증 포맷 동결 | KGCT / Green Building | 포맷 확정 지연 | 2026-06-15 |
-
----
-
-## 🤖 AI Claw Command Terminal
-
-Obsidian에 적는 명령은 자동 실행 버튼이 아니라 AI에게 넘길 작업 지시서다. 자세한 사용법은 [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]를 따른다.
-
-이 구역에 명령을 적고 저장 → Codex/Claude/Pi 중 맞는 도구에서 실행 → 결과를 DevLog/Work Ledger에 반영
-
-```claw
-/status-check lucia_ai_carbon_home
-/summarize project cxems_saas_home
-/status-check kgct_green_building_home
-/status-check kierems_rtu_home
+```bash
+uv run lua --db .lua_agent/lua.db heartbeat
 ```
 
-### 실행 대기열 (Urgent 연동)
+Expected current shape: 15 planned tasks across the three Lua runtime projects.
 
-- [ ] `/status-check kgct_green_building_home` (KOLAS 장비 구매 리스크 재확인)
-- [ ] `/status-check kierems_rtu_home` (RTU 부품 공급망 지연 추적)
-- [ ] `/search GX-PASS 인력편성` (인력편성 완료 근거 수집)
-- [ ] `/summarize project Green Building` (CBAM 검인증 포맷 동결 이슈 요약)
+## Approval Needed
 
----
+| Item | Why | Command |
+|---|---|---|
+| Telegram live trading / API keys | explicit approval required before any live trading or credential handling | `uv run lua --db .lua_agent/lua.db approval check PROJ-002 TASK-008` |
+| External vendor contact | ask first before contacting vendors | pending after research task output |
+| Deployment / git push / PR | ask first before external publication | pending after implementation task output |
 
-## ⚙️ 시스템 상태
+## Today
 
-- Vault 마지막 점검: 2026-04-27
-- MCP 연결 상태: obsidian 서버 등록 완료 (API 키 반영)
-- Git 상태: 수동 커밋 대기
-- Urgent List 반영 상태: 최신 동기화 완료
-- Codex 진입점: [[AGENTS]]
-- 현재 운영 루프: [[01_Command Center/Harness Loop|Harness Loop]]
-- 작업 출처 관리: [[01_Command Center/Work Ledger|Work Ledger]]
-- Lua runtime projects: [[02_Projects/Lua/Toss Mini App To App|Toss]], [[02_Projects/Lua/Telegram Trading Bot To App|Trading Bot]], [[02_Projects/Lua/Floating Solar Monitoring System|Floating Solar]]
+- [ ] Pick one runtime task to execute.
+- [ ] Write a checkpoint after execution.
+- [ ] Export the updated project note back to Obsidian.
+- [ ] Record meaningful changes in [[01_Command Center/Work Ledger|Work Ledger]].
 
----
+## System Status
 
-## 📝 Today Log
-
-- [x] Master Dashboard 표/코드블록 문법 정리
-- [x] Urgent List를 프로젝트 Home 기준으로 업데이트
-- [x] AI Claw 실행 대기열을 Urgent 연동으로 재구성
-- [x] 오늘 변경분 커밋 및 푸시
+- Codex entry point: [[AGENTS]]
+- Operating loop: [[01_Command Center/Harness Loop|Harness Loop]]
+- Runtime docs: [[07_Lua_System/runtime/README|Lua Runtime]]
+- Full map: [[01_Command Center/Lua System Map|Lua System Map]]

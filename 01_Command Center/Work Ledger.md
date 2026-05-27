@@ -74,6 +74,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: run checks, commit the exported operating baseline, then choose the first task to execute
 
+## 2026-05-27 KST - simplify vault navigation
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, Projects Hub, Lua System Map
+- Trigger: user noticed navigation was too broad and asked whether the shape was right
+- Changed: split broad navigation into [[01_Command Center/Lua System Map]], reduced [[01_Command Center/Master Dashboard]] to a daily operating view, and simplified [[02_Projects/Projects Hub]] into a compact project index
+- Verification: `npm run test:all`; `node scripts/vault_audit.js`
+- Commit: pending
+- Next: review the new dashboard shape in Obsidian and choose the first runtime task to execute
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

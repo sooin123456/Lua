@@ -2,28 +2,44 @@
 ai-index: true
 type: hub
 area: Projects
+status: active
+last_updated: 2026-05-27
 ---
 
-# 🗂️ Projects Hub
+# Projects Hub
+
+Project index. Use [[01_Command Center/Master Dashboard|Master Dashboard]] for daily operation and [[01_Command Center/Lua System Map|Lua System Map]] for system navigation.
+
+## Active Lua Runtime Projects
+
+These are the first projects managed by the `lua_agent` runtime.
+
+| Project | Runtime ID | Current focus |
+|---|---|---|
+| [[02_Projects/Lua/Toss Mini App To App|Toss Mini App -> App]] | `PROJ-001` | Toss mini app requirements and MVP scope |
+| [[02_Projects/Lua/Telegram Trading Bot To App|Telegram Trading Bot -> App]] | `PROJ-002` | trading bot boundaries, approval policy, bot skeleton |
+| [[02_Projects/Lua/Floating Solar Monitoring System|Floating Solar Monitoring]] | `PROJ-003` | use cases, vendors, selection criteria, system architecture |
 
 ## Company Projects
 
-- [[02_Projects/CxEMS/CxEMS SaaS/Home|CxEMS SaaS]]
-- [[02_Projects/CxEMS/Smart Meter/Home|CxEMS Smart Meter]]
-- [[02_Projects/KGCT/Green Building/Home|KGCT Green Building]]
-- [[02_Projects/KGCT/THEKIE Homepage/Home|KGCT THEKIE Homepage]]
-- [[02_Projects/KIEREMS/RTU Development/Home|KIEREMS RTU Development]]
-- [[02_Projects/KIEREMS/VPP Development/Home|KIEREMS VPP Development]]
-- [[02_Projects/Lucia/AI Carbon Data Management/Home|Lucia AI Carbon Data Management]]
-- [[02_Projects/Lucia/Blockchain/Home|Lucia Blockchain]]
-- [[02_Projects/Lucia/ESG Data Crawling/Home|Lucia ESG Data Crawling]]
+| Group | Project |
+|---|---|
+| CxEMS | [[02_Projects/CxEMS/CxEMS SaaS/Home|CxEMS SaaS]] |
+| CxEMS | [[02_Projects/CxEMS/Smart Meter/Home|CxEMS Smart Meter]] |
+| KGCT | [[02_Projects/KGCT/Green Building/Home|Green Building]] |
+| KGCT | [[02_Projects/KGCT/THEKIE Homepage/Home|THEKIE Homepage]] |
+| KIEREMS | [[02_Projects/KIEREMS/RTU Development/Home|RTU Development]] |
+| KIEREMS | [[02_Projects/KIEREMS/VPP Development/Home|VPP Development]] |
+| Lucia | [[02_Projects/Lucia/AI Carbon Data Management/Home|AI Carbon Data Management]] |
+| Lucia | [[02_Projects/Lucia/Blockchain/Home|Blockchain]] |
+| Lucia | [[02_Projects/Lucia/ESG Data Crawling/Home|ESG Data Crawling]] |
+| TOSS | [[02_Projects/TOSS/Home|TOSS]] |
+
+## Product Experiments
+
 - [[02_Projects/Lucia/Easy AI Helper Miniapp|Easy AI Helper Miniapp]]
 - [[02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 - [[02_Projects/Lucia/Money Eating Dust Miniapp|Money Eating Dust Miniapp]]
-- [[02_Projects/Lua/Toss Mini App To App|Lua - Toss Mini App To App]]
-- [[02_Projects/Lua/Telegram Trading Bot To App|Lua - Telegram Trading Bot To App]]
-- [[02_Projects/Lua/Floating Solar Monitoring System|Lua - Floating Solar Monitoring System]]
-- [[02_Projects/TOSS/Home|TOSS]]
 
 ## Personal Studio Projects
 
@@ -33,82 +49,18 @@ area: Projects
 - [[06_Personal Studio/Hacking/Home|Hacking]]
 - [[06_Personal Studio/Multi-Agent Trading/Home|Multi-Agent Trading]]
 
-## Command Center Links
+## When You Need Detail
 
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
-- [[01_Command Center/Weekly Review|Weekly Review]]
-- [[01_Command Center/Decision Board|Decision Board]]
-- [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]]
-- [[03_Wiki/Home|Wiki]]
-- [[03_Wiki/Repository Registry|Repository Registry]]
+Each standard project folder uses:
 
-## Project File Index
+- `Home.md`
+- `Backlog.md`
+- `Research.md`
+- `DevLog.md`
+- `Metrics.md`
 
-### CxEMS / CxEMS SaaS
-- [[02_Projects/CxEMS/CxEMS SaaS/Home|Home]]
-- [[02_Projects/CxEMS/CxEMS SaaS/Backlog|Backlog]]
-- [[02_Projects/CxEMS/CxEMS SaaS/DevLog|DevLog]]
-- [[02_Projects/CxEMS/CxEMS SaaS/Metrics|Metrics]]
-- [[02_Projects/CxEMS/CxEMS SaaS/Research|Research]]
+Lua runtime project notes are generated from `.lua_agent/lua.db` and exported with:
 
-### CxEMS / Smart Meter
-- [[02_Projects/CxEMS/Smart Meter/Home|Home]]
-- [[02_Projects/CxEMS/Smart Meter/Backlog|Backlog]]
-- [[02_Projects/CxEMS/Smart Meter/DevLog|DevLog]]
-- [[02_Projects/CxEMS/Smart Meter/Metrics|Metrics]]
-- [[02_Projects/CxEMS/Smart Meter/Research|Research]]
-
-### KGCT / Green Building
-- [[02_Projects/KGCT/Green Building/Home|Home]]
-- [[02_Projects/KGCT/Green Building/Backlog|Backlog]]
-- [[02_Projects/KGCT/Green Building/DevLog|DevLog]]
-- [[02_Projects/KGCT/Green Building/Metrics|Metrics]]
-- [[02_Projects/KGCT/Green Building/Research|Research]]
-
-### KGCT / THEKIE Homepage
-- [[02_Projects/KGCT/THEKIE Homepage/Home|Home]]
-- [[02_Projects/KGCT/THEKIE Homepage/Backlog|Backlog]]
-- [[02_Projects/KGCT/THEKIE Homepage/DevLog|DevLog]]
-- [[02_Projects/KGCT/THEKIE Homepage/Metrics|Metrics]]
-- [[02_Projects/KGCT/THEKIE Homepage/Research|Research]]
-
-### KIEREMS / RTU Development
-- [[02_Projects/KIEREMS/RTU Development/Home|Home]]
-- [[02_Projects/KIEREMS/RTU Development/Backlog|Backlog]]
-- [[02_Projects/KIEREMS/RTU Development/DevLog|DevLog]]
-- [[02_Projects/KIEREMS/RTU Development/Metrics|Metrics]]
-- [[02_Projects/KIEREMS/RTU Development/Research|Research]]
-
-### KIEREMS / VPP Development
-- [[02_Projects/KIEREMS/VPP Development/Home|Home]]
-- [[02_Projects/KIEREMS/VPP Development/Backlog|Backlog]]
-- [[02_Projects/KIEREMS/VPP Development/DevLog|DevLog]]
-- [[02_Projects/KIEREMS/VPP Development/Metrics|Metrics]]
-- [[02_Projects/KIEREMS/VPP Development/Research|Research]]
-
-### Lucia / AI Carbon Data Management
-- [[02_Projects/Lucia/AI Carbon Data Management/Home|Home]]
-- [[02_Projects/Lucia/AI Carbon Data Management/Backlog|Backlog]]
-- [[02_Projects/Lucia/AI Carbon Data Management/DevLog|DevLog]]
-- [[02_Projects/Lucia/AI Carbon Data Management/Metrics|Metrics]]
-- [[02_Projects/Lucia/AI Carbon Data Management/Research|Research]]
-
-### Lucia / Blockchain
-- [[02_Projects/Lucia/Blockchain/Home|Home]]
-- [[02_Projects/Lucia/Blockchain/Backlog|Backlog]]
-- [[02_Projects/Lucia/Blockchain/DevLog|DevLog]]
-- [[02_Projects/Lucia/Blockchain/Metrics|Metrics]]
-- [[02_Projects/Lucia/Blockchain/Research|Research]]
-
-### Lucia / ESG Data Crawling
-- [[02_Projects/Lucia/ESG Data Crawling/Home|Home]]
-- [[02_Projects/Lucia/ESG Data Crawling/Backlog|Backlog]]
-- [[02_Projects/Lucia/ESG Data Crawling/DevLog|DevLog]]
-- [[02_Projects/Lucia/ESG Data Crawling/Metrics|Metrics]]
-- [[02_Projects/Lucia/ESG Data Crawling/Research|Research]]
-
-### Lua Runtime Projects
-- [[02_Projects/Lua/Toss Mini App To App|Toss Mini App To App]]
-- [[02_Projects/Lua/Telegram Trading Bot To App|Telegram Trading Bot To App]]
-- [[02_Projects/Lua/Floating Solar Monitoring System|Floating Solar Monitoring System]]
+```bash
+uv run lua --db .lua_agent/lua.db obsidian export PROJ-001 --vault .
+```
