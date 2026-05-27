@@ -16,15 +16,15 @@ Initial validation project for product planning, MVP scoping, and app expansion.
   - Owner: lua_Research_Agent
   - Goal: Identify Toss mini app requirements, constraints, and launch assumptions.
   - Next action: Start TASK-002: Define Toss target user, core use case, and MVP acceptance criteria.
-  - Checkpoints:
-    - Toss mini app requirements researched.
-      - Done: Reviewed official Apps in Toss WebView, common config, and deploy docs. Key constraints: use Apps in Toss WebView SDK for web-based MVP; do not rely on iframe/external URL as the app shell; frontend bundle must deploy through Toss infrastructure; granite.config.ts must match console appName/displayName/icon/permissions; intoss deep links use appName; device testing needs Sandbox app and accessible dev host; release requires Toss app test, .ait bundle upload, review approval, bundle size under 100MB uncompressed, and production checks for CORS, permissions, session, auth/payment behavior, monitoring. Sources captured in docs/use-cases/toss-miniapp-to-app.md.
-      - Next: Start TASK-002: Define Toss target user, core use case, and MVP acceptance criteria.
 
-- [planned] TASK-002: Define Toss mini app MVP scope
+- [done] TASK-002: Define Toss mini app MVP scope
   - Owner: lua_Product_Agent
   - Goal: Turn research into a narrow MVP with user scenario, core flow, and refusal list.
-  - Next action: Draft MVP user scenario and acceptance criteria.
+  - Next action: Start TASK-003: Map Lua_testproject screens, data flows, and hardening tasks to the Lua_template implementation standards.
+  - Checkpoints:
+    - Existing Toss mini app follow-up scoped.
+      - Done: Found existing app at /Users/sooin/Documents/Lua_testproject. It is not a greenfield Toss mini app; it is a feature-rich Apps in Toss WebView MVP named 누가 잘못 AI with appName lua-nooga-ai. Verified current baseline separately: tests, lint, vercel build, and ait build pass. Created docs/lua-follow-up.md in the project and updated docs/toss-submission.md with latest local build status. User decisions remain parked for IAP naming, Hot Battle public policy, result retention, and review-version scope.
+      - Next: Start TASK-003: Map Lua_testproject screens, data flows, and hardening tasks to the Lua_template implementation standards.
 
 - [planned] TASK-003: Generate Toss implementation plan
   - Owner: lua_Dev_Agent

@@ -96,6 +96,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: start `TASK-002` and draft Toss target user, core use case, and MVP acceptance criteria
 
+## 2026-05-27 KST - connect Lua_testproject follow-up
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: `/Users/sooin/Documents/Lua_testproject`, Lua runtime project notes
+- Trigger: user said they had already progressed a Toss mini app in `Lua_testproject` and wanted follow-up/hardening
+- Changed: inspected the existing app, ran local checks, created `docs/lua-follow-up.md`, updated `docs/toss-submission.md`, recorded a Lua checkpoint for `TASK-002`, and exported the updated Toss project note
+- Verification: `npm test -- --run`; `npm run lint`; `npm run vercel-build`; `npm run build`
+- Commit: pending
+- Next: map current app screens and data flows against `Lua_template` standards, then create a hardening backlog
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

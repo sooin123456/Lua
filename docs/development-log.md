@@ -109,3 +109,20 @@ Captured Toss WebView, configuration, testing, release, bundle size, and product
 Next action:
 
 - Start `TASK-002`: define the target user, core use case, and MVP acceptance criteria for the Toss mini app.
+
+## 2026-05-27 Lua_testproject Follow-Up
+
+Connected the Toss project plan to the existing local app at `/Users/sooin/Documents/Lua_testproject`.
+
+Findings:
+
+- The app already exists as `누가 잘못 AI`.
+- The Toss appName is `lua-nooga-ai`.
+- It is a feature-rich Apps in Toss WebView MVP, not a greenfield prototype.
+- Local validation passed with tests, lint, Vercel build, and AIT build.
+
+Added a follow-up work plan inside the app project and updated the Toss submission draft with the latest local build status.
+
+Next action:
+
+- Start `TASK-003`: map the existing app against `Lua_template` standards and produce the hardening backlog.

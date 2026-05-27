@@ -49,3 +49,33 @@ Product implication:
 Next action:
 
 - Draft the target user, one core use case, and MVP acceptance criteria before creating the implementation project from `Lua_template`.
+
+## TASK-002 Follow-Up Scope
+
+Lua found an existing Toss mini app project instead of starting from zero:
+
+- Local project: `/Users/sooin/Documents/Lua_testproject`
+- App name: `누가 잘못 AI`
+- Toss appName: `lua-nooga-ai`
+- Current state: feature-rich Apps in Toss WebView MVP with free AI judgment, OCR-assisted evidence intake, audio/manual intake, realtime judgment rooms, shared Hot Battle results, reward recommendations, and precedent judgment scaffolding.
+
+Verification snapshot from the follow-up project:
+
+- `npm test -- --run`: 24 files, 161 tests passed.
+- `npm run lint`: passed.
+- `npm run vercel-build`: passed.
+- `npm run build`: passed and generated `lua-nooga-ai.ait`.
+
+Follow-up files created or updated in the project:
+
+- `/Users/sooin/Documents/Lua_testproject/docs/lua-follow-up.md`
+- `/Users/sooin/Documents/Lua_testproject/docs/toss-submission.md`
+
+Product implication:
+
+- The work is now a hardening and review-readiness project, not an MVP discovery project.
+- Lua should pause before deployment, Toss console writes, Supabase production writes, payment verification changes, or public posting.
+
+Next action:
+
+- Map the current app screens, data flows, and hardening tasks to the `Lua_template` implementation standards.
