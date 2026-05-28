@@ -1,6 +1,6 @@
 ---
 type: cleanup-backlog
-last_updated: 2026-05-15
+last_updated: 2026-05-28
 ---
 
 # Cleanup Backlog
@@ -40,7 +40,17 @@ These are useful historical drafts but make the root noisy:
 - `Lua-v3-phase2.md`
 - `Lua-v3-phase3.md`
 
-Status: moved to `05_Archives/Lua Specs/`.
+Status: root copies removed; canonical copies live in `05_Archives/Lua Specs/`.
+
+## P1: Root Note Cleanup
+
+Root should contain only repo entrypoints, package/config files, and current top-level architecture docs.
+
+Moved:
+
+- `_PATCH-notes.md` -> `05_Archives/Patch Notes.md`
+- `지원사업 검토.md` -> `03_Operation/Government Support/지원사업 검토.md`
+- `환영합니다!.md` -> `05_Archives/Welcome.md`
 
 ## P1: Odd Agent Path
 

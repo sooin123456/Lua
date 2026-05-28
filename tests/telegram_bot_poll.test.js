@@ -6,6 +6,7 @@ const test = require('node:test');
 
 const {
   extractCommandUpdate,
+  loadDotEnv,
   parseAllowedChatIds,
   pollTelegramCommands,
 } = require('../scripts/telegram_bot_poll');
@@ -59,6 +60,33 @@ test('ignores non-/lua Telegram messages', () => {
 
 test('parses allowed chat ids', () => {
   assert.deepEqual([...parseAllowedChatIds('123, 456 ,,')], ['123', '456']);
+});
+
+test('loads .env without printing secret values', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-telegram-env-'));
+  const envFile = path.join(root, '.env');
+  write(
+    envFile,
+    `# comment
+TELEGRAM_BOT_TOKEN="secret-token"
+TELEGRAM_ALLOWED_CHAT_IDS=123,456
+`,
+  );
+  const oldToken = process.env.TELEGRAM_BOT_TOKEN;
+  const oldChatIds = process.env.TELEGRAM_ALLOWED_CHAT_IDS;
+  delete process.env.TELEGRAM_BOT_TOKEN;
+  delete process.env.TELEGRAM_ALLOWED_CHAT_IDS;
+
+  try {
+    loadDotEnv(envFile);
+    assert.equal(process.env.TELEGRAM_BOT_TOKEN, 'secret-token');
+    assert.equal(process.env.TELEGRAM_ALLOWED_CHAT_IDS, '123,456');
+  } finally {
+    if (oldToken === undefined) delete process.env.TELEGRAM_BOT_TOKEN;
+    else process.env.TELEGRAM_BOT_TOKEN = oldToken;
+    if (oldChatIds === undefined) delete process.env.TELEGRAM_ALLOWED_CHAT_IDS;
+    else process.env.TELEGRAM_ALLOWED_CHAT_IDS = oldChatIds;
+  }
 });
 
 test('polls Telegram updates into the command inbox and stores offset', async () => {

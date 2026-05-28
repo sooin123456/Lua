@@ -5,6 +5,7 @@ const { queueTelegramCommand } = require('./telegram_command_inbox');
 
 const ROOT = path.resolve(__dirname, '..');
 const DEFAULT_OFFSET_FILE = path.join(ROOT, '.lua_agent', 'telegram_offset.txt');
+const DEFAULT_ENV_FILE = path.join(ROOT, '.env');
 const API_BASE = 'https://api.telegram.org';
 
 function usage() {
@@ -25,14 +26,33 @@ function parseArgs(argv) {
     limit: 50,
     root: ROOT,
     offsetFile: DEFAULT_OFFSET_FILE,
+    envFile: DEFAULT_ENV_FILE,
   };
   for (let i = 0; i < argv.length; i += 1) {
     if (argv[i] === '--timeout') args.timeout = Number(argv[++i] || 0);
     else if (argv[i] === '--limit') args.limit = Number(argv[++i] || 50);
     else if (argv[i] === '--offset-file') args.offsetFile = path.resolve(argv[++i]);
+    else if (argv[i] === '--env-file') args.envFile = path.resolve(argv[++i]);
     else if (argv[i] === '--root') args.root = path.resolve(argv[++i]);
   }
   return args;
+}
+
+function loadDotEnv(envFile = DEFAULT_ENV_FILE) {
+  if (!fs.existsSync(envFile)) return;
+  const content = fs.readFileSync(envFile, 'utf8');
+  for (const line of content.split(/\r?\n/)) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const index = trimmed.indexOf('=');
+    if (index <= 0) continue;
+    const key = trimmed.slice(0, index).trim();
+    let value = trimmed.slice(index + 1).trim();
+    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
+      value = value.slice(1, -1);
+    }
+    if (!process.env[key]) process.env[key] = value;
+  }
 }
 
 function parseAllowedChatIds(value) {
@@ -136,6 +156,7 @@ async function main() {
     usage();
     return;
   }
+  loadDotEnv(args.envFile);
 
   const options = {
     ...args,
@@ -159,6 +180,7 @@ if (require.main === module) {
 
 module.exports = {
   extractCommandUpdate,
+  loadDotEnv,
   parseAllowedChatIds,
   pollTelegramCommands,
   readOffset,

@@ -140,6 +140,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: create a real Telegram bot token and run `npm run telegram:poll`
 
+## 2026-05-28 KST - clean vault root and verify Telegram env loading
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: vault root, Archives, Government Support, Telegram bot bridge
+- Trigger: user added Telegram keys and noticed the folder/file structure needed cleanup
+- Changed: removed root legacy Lua v3 spec copies, moved patch notes and welcome note into Archives, moved support-program note into Government Support, added Vault Folder Structure guide, fixed archive/government-support links, fixed a broken Work Ledger wiki link, and taught Telegram poller to load `.env` without printing secrets
+- Verification: `node --test tests/telegram_bot_poll.test.js tests/telegram_command_inbox.test.js`; `npm run telegram:poll`; `node scripts/vault_audit.js` reported 0 orphan notes and 0 broken links; `npm run test:all`
+- Commit: pending
+- Next: send a real `/lua status Lua` message to the Telegram bot and rerun `npm run telegram:poll`
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`
@@ -662,6 +673,6 @@ last_updated: 2026-05-15
 - Agent: `Codex`
 - Repo/area: Personal Studio, career planning
 - Trigger: user shared a 2026-2028 certification plan and asked to verify exact schedules and rebuild the plan
-- Changed: created [[06_Personal Studio/_Drafts/2026-2028 자격증 로드맵]] with corrected 2026 exam dates, priority rules, and a 2026 execution checklist
+- Changed: created `06_Personal Studio/_Drafts/2026-2028 자격증 로드맵` with corrected 2026 exam dates, priority rules, and a 2026 execution checklist
 - Verification: `node scripts/check.js`
 - Next: user confirms whether 2026 산업안전지도사 1차 was already passed; then lock either the 2026 2차 route or the 2027 route

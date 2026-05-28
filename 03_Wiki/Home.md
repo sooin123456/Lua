@@ -6,6 +6,8 @@ last_updated: 2026-05-16
 
 # Wiki
 
+- [[03_Wiki/Vault Folder Structure|Vault Folder Structure]]
+
 This is the LLM Wiki layer of the vault.
 
 Obsidian is not the place where app source code lives. Obsidian is the durable thinking layer: raw sources come in, Codex/Claude compile them into linked knowledge notes, and projects/repos point back to those notes.

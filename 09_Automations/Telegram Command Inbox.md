@@ -56,7 +56,7 @@ npm run telegram:queue -- "/lua status Lua"
 
 ## Bot Polling
 
-Create a Telegram bot with BotFather, then add these values to `.env` or the shell environment:
+Create a Telegram bot with BotFather, then add these values to `.env` or the shell environment. The poller reads `.env` automatically and never prints the token value.
 
 ```bash
 TELEGRAM_BOT_TOKEN=...

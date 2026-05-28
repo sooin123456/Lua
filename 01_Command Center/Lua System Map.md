@@ -12,6 +12,7 @@ This is the system navigation map. The [[01_Command Center/Master Dashboard|Mast
 ## Daily Operation
 
 - [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/Vibe CEO Journal|Vibe CEO Journal]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/User Action Board|User Action Board]]
 - [[01_Command Center/Weekly Review|Weekly Review]]

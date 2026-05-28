@@ -1,7 +1,7 @@
 ---
 type: hub
 area: Archives
-last_updated: 2026-05-15
+last_updated: 2026-05-28
 ---
 
 # Archives Hub
@@ -10,9 +10,6 @@ last_updated: 2026-05-15
 
 ## Lua Specs
 
-- [[Lua-v3-spec.md|Lua v3 Spec - root copy]]
-- [[Lua-v3-phase2.md|Lua v3 Phase 2 - root copy]]
-- [[Lua-v3-phase3.md|Lua v3 Phase 3 - root copy]]
 - [[05_Archives/Lua Specs/Lua-v3-spec|Lua v3 Spec]]
 - [[05_Archives/Lua Specs/Lua-v3-phase2|Lua v3 Phase 2]]
 - [[05_Archives/Lua Specs/Lua-v3-phase3|Lua v3 Phase 3]]
@@ -27,4 +24,5 @@ last_updated: 2026-05-15
 
 Archive files are read-only by default. Use them for historical context, not as the current operating source.
 
-- [[_PATCH-notes|Patch Notes]]
+- [[05_Archives/Patch Notes|Patch Notes]]
+- [[05_Archives/Welcome|Original Welcome Note]]

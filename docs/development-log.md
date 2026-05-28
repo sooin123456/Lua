@@ -174,8 +174,27 @@ Added:
 - `.env.example` entries for `TELEGRAM_BOT_TOKEN` and `TELEGRAM_ALLOWED_CHAT_IDS`
 - tests for update extraction, chat allowlisting, offset persistence, queue writing, and acknowledgement sending
 
-The poller reads Telegram `getUpdates`, captures `/lua ...` messages into `09_Automations/Telegram Command Inbox.md`, and stores the next update offset in `.lua_agent/telegram_offset.txt`.
+The poller reads `.env`, calls Telegram `getUpdates`, captures `/lua ...` messages into `09_Automations/Telegram Command Inbox.md`, and stores the next update offset in `.lua_agent/telegram_offset.txt`.
 
 Next action:
 
 - Create the real Telegram bot with BotFather, set `TELEGRAM_BOT_TOKEN`, send `/lua status Lua`, and run `npm run telegram:poll`.
+
+## 2026-05-28 Vault Root Cleanup And Secret-Friendly Polling
+
+Cleaned the vault root so it only contains repo entrypoints, current top-level architecture docs, and package/config files.
+
+Moved or removed:
+
+- Removed root `Lua-v3-*` legacy spec copies; canonical versions remain under `05_Archives/Lua Specs/`.
+- Moved `_PATCH-notes.md` to `05_Archives/Patch Notes.md`.
+- Moved `지원사업 검토.md` to `03_Operation/Government Support/지원사업 검토.md`.
+- Moved `환영합니다!.md` to `05_Archives/Welcome.md`.
+- Added `03_Wiki/Vault Folder Structure.md`.
+
+Also updated Telegram polling so it reads `.env` automatically without printing secret values.
+
+Result:
+
+- `node scripts/vault_audit.js` reports 0 orphan notes and 0 broken links.
+- `npm run telegram:poll` reads `.env` and found no pending `/lua` commands.
