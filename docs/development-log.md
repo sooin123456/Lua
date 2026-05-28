@@ -161,3 +161,21 @@ Updated operating docs so Slack is treated as a secondary/team-sharing channel, 
 Next action:
 
 - Wire the local Telegram queue to a Telegram Bot API capture path when credentials and hosting are ready.
+
+## 2026-05-28 Telegram Bot Polling Bridge
+
+Added the actual Telegram Bot API polling bridge for Lua's main command channel.
+
+Added:
+
+- `scripts/telegram_bot_poll.js`
+- `npm run telegram:poll`
+- `npm run telegram:watch`
+- `.env.example` entries for `TELEGRAM_BOT_TOKEN` and `TELEGRAM_ALLOWED_CHAT_IDS`
+- tests for update extraction, chat allowlisting, offset persistence, queue writing, and acknowledgement sending
+
+The poller reads Telegram `getUpdates`, captures `/lua ...` messages into `09_Automations/Telegram Command Inbox.md`, and stores the next update offset in `.lua_agent/telegram_offset.txt`.
+
+Next action:
+
+- Create the real Telegram bot with BotFather, set `TELEGRAM_BOT_TOKEN`, send `/lua status Lua`, and run `npm run telegram:poll`.

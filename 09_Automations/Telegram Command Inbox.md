@@ -41,7 +41,7 @@ Slack remains useful for team sharing and notifications, but Telegram is the pri
 
 ## Local Queue Test
 
-Before wiring the Telegram Bot API, use the local queue script:
+Use the local queue script when testing command parsing without a live bot:
 
 ```bash
 node scripts/telegram_command_inbox.js "/lua research brief :: 테크인 수상태양광 실적 조사"
@@ -52,6 +52,35 @@ Or:
 
 ```bash
 npm run telegram:queue -- "/lua status Lua"
+```
+
+## Bot Polling
+
+Create a Telegram bot with BotFather, then add these values to `.env` or the shell environment:
+
+```bash
+TELEGRAM_BOT_TOKEN=...
+TELEGRAM_ALLOWED_CHAT_IDS=123456789
+```
+
+Poll once:
+
+```bash
+npm run telegram:poll
+```
+
+Run as a local long-polling process:
+
+```bash
+npm run telegram:watch
+```
+
+The poller uses Telegram Bot API `getUpdates`, writes `/lua ...` messages into this queue, and stores the next offset in `.lua_agent/telegram_offset.txt`.
+
+Optional acknowledgement:
+
+```bash
+TELEGRAM_BOT_TOKEN=... node scripts/telegram_bot_poll.js --once --ack
 ```
 
 ## Queue

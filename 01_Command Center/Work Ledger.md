@@ -129,6 +129,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: wire Telegram Bot API capture after local queue behavior is stable
 
+## 2026-05-28 KST - add Telegram bot polling bridge
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Telegram bot bridge, automation scripts, env docs
+- Trigger: user clarified that a real Telegram bot must exist as the command window
+- Changed: added `scripts/telegram_bot_poll.js`, `npm run telegram:poll`, `npm run telegram:watch`, Telegram env vars, and tests for polling, allowlisting, queue writes, offset persistence, and ack sending
+- Verification: `node --test tests/telegram_bot_poll.test.js tests/telegram_command_inbox.test.js`; `node scripts/telegram_bot_poll.js --once` without token fails safely with `TELEGRAM_BOT_TOKEN is required.`; `npm run test:all`
+- Commit: pending
+- Next: create a real Telegram bot token and run `npm run telegram:poll`
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

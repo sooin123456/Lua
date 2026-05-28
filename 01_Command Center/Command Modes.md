@@ -95,6 +95,7 @@ Telegram은 Lua의 main command ingress다.
 
 - Telegram으로 들어온 명령은 먼저 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]에 저장한다.
 - 현재 로컬 테스트는 `node scripts/telegram_command_inbox.js` 또는 `npm run telegram:queue -- "/lua status Lua"`로 한다.
+- 실제 Bot API polling은 `TELEGRAM_BOT_TOKEN=... npm run telegram:poll` 또는 `npm run telegram:watch`로 한다.
 - Telegram 명령은 기본적으로 capture-first이며, S3 이상 행동은 승인 없이는 실행하지 않는다.
 
 ## Slack Rule

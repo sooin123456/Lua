@@ -17,7 +17,7 @@ Use one command channel for each kind of input, then record every meaningful res
 
 | Channel | Use When | Current Status | Next Processor |
 |---|---|---|---|
-| Telegram Command Inbox | You are giving Lua a personal remote command from phone or desktop Telegram | main command channel, local queue ready | `telegram_command_inbox.js`, then Codex/Lua |
+| Telegram Command Inbox | You are giving Lua a personal remote command from phone or desktop Telegram | main command channel, bot polling ready | `telegram_bot_poll.js`, then Codex/Lua |
 | Codex chat | You want code, file edits, tests, repo inspection, or local automation now | active | Codex |
 | Obsidian Command Center | You want to write a structured `/lua {domain} {intent} :: {payload}` command for later processing | active | `process_command_queue.js`, `atlas_router.js` |
 | Inbox notes | You have an idea, link, meeting note, or unclassified thought | active | `promote_inbox_to_commands.js` |
@@ -51,6 +51,7 @@ User request
 
 ```bash
 node scripts/telegram_command_inbox.js --source telegram-mobile "/lua status Lua"
+npm run telegram:poll
 uv run lua --db .lua_agent/lua.db heartbeat
 uv run lua --db .lua_agent/lua.db tool instruction PROJ-001 TASK-003
 uv run lua --db .lua_agent/lua.db checkpoint add TASK-003 --summary "..." --done "..." --next-action "..."
@@ -65,6 +66,7 @@ Run these when the command/record system feels uncertain:
 ```bash
 uv run lua --db .lua_agent/lua.db heartbeat
 node scripts/telegram_command_inbox.js --source telegram-mobile "/lua status Lua"
+npm run telegram:poll
 node scripts/process_command_queue.js --dry-run
 node scripts/promote_inbox_to_commands.js --dry-run
 node scripts/flow_audit.js
