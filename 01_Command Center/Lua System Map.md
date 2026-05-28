@@ -2,7 +2,7 @@
 ai-index: true
 type: system-map
 status: active
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 ---
 
 # Lua System Map
@@ -16,6 +16,7 @@ This is the system navigation map. The [[01_Command Center/Master Dashboard|Mast
 - [[01_Command Center/User Action Board|User Action Board]]
 - [[01_Command Center/Weekly Review|Weekly Review]]
 - [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/Lua Command And Record Channels|Command/Record Channels]]
 
 ## Projects
 

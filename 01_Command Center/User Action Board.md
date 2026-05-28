@@ -1,7 +1,7 @@
 ---
 type: action-board
 status: active
-last_updated: 2026-05-16
+last_updated: 2026-05-28
 ---
 
 # User Action Board
@@ -16,6 +16,14 @@ last_updated: 2026-05-16
 | 2 | 새 아이디어는 개별 Inbox 노트로 적어도 된다 | `00_Inbox/*.md` | Inbox 승격 스크립트가 감지 |
 | 3 | Codex에게 "Inbox 승격해줘" 또는 "Command Center 처리해줘"라고 말한다 | Codex | Queue가 처리됨 |
 | 4 | 결과가 맞는지만 확인한다 | 결과 노트 | 수정 요청 또는 승인 |
+
+## Current Lua Operating Entry
+
+| 내가 하고 싶은 것 | 말하면 되는 문장 | Lua가 확인하는 곳 |
+|---|---|---|
+| 지금 이어서 할 일 보기 | `Lua 현재 상태 보여줘` | `uv run lua --db .lua_agent/lua.db heartbeat` |
+| Toss 미니앱 follow-up 계속 | `Toss TASK-003 진행해줘` | [[02_Projects/Lua/Toss Mini App To App|Toss project note]] |
+| 명령/기록 창구 점검 | `명령 창구랑 기록 창구 점검해줘` | [[01_Command Center/Lua Command And Record Channels|Command/Record Channels]] |
 
 ## Atlas Router 처리 완료
 

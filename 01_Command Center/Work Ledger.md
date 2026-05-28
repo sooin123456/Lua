@@ -107,6 +107,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: map current app screens and data flows against `Lua_template` standards, then create a hardening backlog
 
+## 2026-05-28 KST - audit command and record channels
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, runtime docs, operating guides
+- Trigger: user asked whether command entry windows and record windows were properly set up
+- Changed: checked Command Center, Slack Inbox design, Markdown queue scripts, runtime heartbeat, Work Ledger, and project-note export path; added a single-page Command/Record Channels map; updated stale dashboard guidance from `TASK-001` to `TASK-003`
+- Verification: `node scripts/flow_audit.js`; `node scripts/process_command_queue.js --dry-run`; `node scripts/promote_inbox_to_commands.js --dry-run`; `uv run lua --db .lua_agent/lua.db heartbeat`; `npm run check`; `npm run test:all`
+- Commit: pending
+- Next: consider a runtime `status/report` command that generates this health check automatically
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

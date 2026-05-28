@@ -1,7 +1,7 @@
 ---
 type: runtime-readme
 status: active
-last_updated: 2026-05-27
+last_updated: 2026-05-28
 ---
 
 # Lua Runtime
@@ -28,6 +28,7 @@ Current responsibilities:
 - seed commands for the first three validation projects
 - workflow templates that seed five tasks per validation project
 - checkpoint commands that update task `next_action`
+- task status commands that close, review, block, or fail tasks
 - Obsidian export command
 - heartbeat command for resumable active tasks
 - tool routing and tool-specific instruction generation
@@ -55,6 +56,7 @@ uv run --extra dev pytest -v
 uv run lua seed projects
 uv run lua heartbeat
 uv run lua checkpoint add TASK-001 --summary "..." --done "..." --next-action "..."
+uv run lua task status TASK-001 done --next-action "..."
 uv run lua obsidian export PROJ-001 --vault .
 uv run lua codex goal PROJ-001 TASK-001
 uv run lua tool route PROJ-001 TASK-001
@@ -72,5 +74,5 @@ The template is a reference baseline for React Router, Supabase, Drizzle, SQL mi
 
 The next runtime slice should add:
 
-- approval policy profiles by project type
-- Notion dashboard sync stubs
+- a status/report command that summarizes command channels, runtime queue, and stale exports
+- Notion dashboard sync stubs after the local loop stays stable

@@ -126,3 +126,21 @@ Added a follow-up work plan inside the app project and updated the Toss submissi
 Next action:
 
 - Start `TASK-003`: map the existing app against `Lua_template` standards and produce the hardening backlog.
+
+## 2026-05-28 Command And Record Channels Audit
+
+Audited Lua's command intake and durable record channels.
+
+Findings:
+
+- Markdown Command Queue flow is healthy: `node scripts/flow_audit.js` passed.
+- No queued Markdown commands were waiting.
+- No promotable Inbox signals were waiting.
+- Runtime queue is active and currently starts at `TASK-003` for the Toss follow-up.
+- Master Dashboard had stale `TASK-001` guidance and needed to point to `TASK-003`.
+
+Added `01_Command Center/Lua Command And Record Channels.md` as the single-page map for command intake and record destinations.
+
+Next action:
+
+- Add a runtime `status/report` command later so this audit can be generated automatically.

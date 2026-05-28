@@ -1,12 +1,14 @@
 ﻿---
 type: command-center
 status: active
-last_updated: 2026-05-16
+last_updated: 2026-05-28
 ---
 
 # Obsidian Command Center
 
 Lua의 기본 명령 하달 장소다. Slack은 보조 입력 채널이고, 기본 운영은 Obsidian에서 한다.
+
+For the complete command and record map, see [[01_Command Center/Lua Command And Record Channels|Lua Command And Record Channels]].
 
 ## Obsidian Role
 
@@ -134,6 +136,22 @@ Obsidian에서는 아래 형식을 권장한다.
 3. Codex가 domain/stage/agent를 확인한다.
 4. 결과물을 각 저장 위치에 반영한다.
 5. Work Ledger에 기록한다.
+
+## Runtime Project Tasks
+
+Lua runtime projects are tracked in SQLite and exported back to project notes.
+
+Use this path when a task already has a `PROJ-*` and `TASK-*` id:
+
+```bash
+uv run lua --db .lua_agent/lua.db heartbeat
+uv run lua --db .lua_agent/lua.db tool instruction PROJ-001 TASK-003
+uv run lua --db .lua_agent/lua.db checkpoint add TASK-003 --summary "..." --done "..." --next-action "..."
+uv run lua --db .lua_agent/lua.db task status TASK-003 done --next-action "..."
+uv run lua --db .lua_agent/lua.db obsidian export PROJ-001 --vault .
+```
+
+Runtime task status is canonical in the SQLite DB. Project notes under `02_Projects/Lua` are readable exports.
 
 ## Promote Inbox Automatically
 
