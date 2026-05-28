@@ -43,7 +43,7 @@ Slack에서 호출하는 agent app 명령 체계는 [[09_Automations/Slack Agent
 
 ## Obsidian Domain Commands
 
-기본 명령 하달은 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]에서 한다. 도메인별 세부 명령은 [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]을 따른다.
+기본 명령 하달은 [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]에서 한다. 도메인별 세부 명령은 [[07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]을 따른다.
 
 ## Skill bundling 패턴
 

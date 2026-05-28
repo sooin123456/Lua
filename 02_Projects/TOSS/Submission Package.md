@@ -94,4 +94,4 @@ Official docs reviewed:
 
 - Product spec: [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]]
 - Submission draft: [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Money Eating Dust Toss Submission Draft]]
-- Decision Board: [[01_Command Center/Decision Board|Decision Board]]
+- Decision Board: [[01_Command Center/01_Commands/Decision Board|Decision Board]]

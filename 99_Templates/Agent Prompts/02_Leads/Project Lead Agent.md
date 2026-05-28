@@ -10,7 +10,7 @@ harness_level: 4
 읽을 파일:
 1. `02_Projects/[메인]/[메인] Home.md` - 메인 현황
 2. 각 서브 `Home.md` - 서브 현황
-3. `01_Command Center/OKR 2026.md` - 해당 프로젝트 부분
+3. `01_Command Center/02_Memory/OKR 2026.md` - 해당 프로젝트 부분
 
 ## 오늘의 임무
 

@@ -28,7 +28,7 @@ area: Templates
 
 ## Connected Areas
 
-- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
-- [[01_Command Center/Weekly Review|Weekly Review]]
+- [[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
+- [[01_Command Center/03_Summaries/Weekly Review|Weekly Review]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[04_Resources/Resources Hub|Resources Hub]]

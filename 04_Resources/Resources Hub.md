@@ -19,6 +19,6 @@ area: Resources
 
 ## Connected Areas
 
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
 - [[03_Operation/Operation Hub|Operation Hub]]
 - [[99_Templates/Templates Hub|Templates Hub]]

@@ -139,7 +139,7 @@ Findings:
 - Runtime queue is active and currently starts at `TASK-003` for the Toss follow-up.
 - Master Dashboard had stale `TASK-001` guidance and needed to point to `TASK-003`.
 
-Added `01_Command Center/Lua Command And Record Channels.md` as the single-page map for command intake and record destinations.
+Added `01_Command Center/01_Commands/Lua Command And Record Channels.md` as the single-page map for command intake and record destinations.
 
 Next action:
 
@@ -210,3 +210,15 @@ Added three operating layers:
 - activity summary: what happened, what changed, and what is next
 
 Added guides and templates so future Obsidian organization can follow these layers without moving every existing folder at once.
+
+## 2026-05-28 Command Center Folder Restructure
+
+Changed `01_Command Center` from a flat collection of notes into operating folders:
+
+- `00_Dashboard`
+- `01_Commands`
+- `02_Memory`
+- `03_Summaries`
+- `04_Policies`
+
+Updated all command scripts, tests, and vault links to use the new paths. This makes Telegram and Obsidian command intake land under `01_Commands`, long-term context under `02_Memory`, and session/provenance records under `03_Summaries`.

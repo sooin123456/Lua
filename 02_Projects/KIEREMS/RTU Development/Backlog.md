@@ -12,8 +12,8 @@ status: active
 
 - [[02_Projects/KIEREMS/RTU Development/Home|Home]]
 - [[02_Projects/KIEREMS/RTU Development/DevLog|DevLog]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
 
 ## P0 (이번 주 필수)
 

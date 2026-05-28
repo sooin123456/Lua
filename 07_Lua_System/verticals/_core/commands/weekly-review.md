@@ -40,7 +40,7 @@ schedule: "Sunday 21:00 KST"
 
 ## 출력
 
-`01_Command Center/Weekly Review/{YYYY}-W{NN}.md` (또는 기존 Weekly Review 페이지에 append):
+`01_Command Center/03_Summaries/Weekly Review/{YYYY}-W{NN}.md` (또는 기존 Weekly Review 페이지에 append):
 
 - 정리된 항목 요약
 - 사람이 결정해야 할 것 (체크박스)

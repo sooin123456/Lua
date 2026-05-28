@@ -17,4 +17,4 @@ last_updated: 2026-05-15
 ## Navigation
 
 - [[03_Operation/Operation Hub|Operation Hub]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]

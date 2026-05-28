@@ -31,7 +31,7 @@ https://github.com/sooin123456/Lua_money_dust
 
 ## Operating Rule
 
-아이디어는 먼저 [[06_Personal Studio/Ideas/Home|Ideas]]에 모으고, 제출 후보가 되면 이 프로젝트로 승격한다. 사용자가 결정해야 하는 항목은 [[01_Command Center/Decision Board|Decision Board]]에만 모은다. 나머지 기획, 구현, 검증, 문서화는 [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]] 방식으로 Codex가 이어서 처리한다.
+아이디어는 먼저 [[06_Personal Studio/Ideas/Home|Ideas]]에 모으고, 제출 후보가 되면 이 프로젝트로 승격한다. 사용자가 결정해야 하는 항목은 [[01_Command Center/01_Commands/Decision Board|Decision Board]]에만 모은다. 나머지 기획, 구현, 검증, 문서화는 [[01_Command Center/01_Commands/Autopilot Delegation Guide|Autopilot Delegation Guide]] 방식으로 Codex가 이어서 처리한다.
 
 ## Navigation
 
@@ -39,5 +39,5 @@ https://github.com/sooin123456/Lua_money_dust
 - [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]]
 - [[02_Projects/TOSS/Submission Package|Submission Package]]
 - [[06_Personal Studio/_Drafts/Money Eating Dust Toss Submission Draft|Submission Draft]]
-- [[01_Command Center/Decision Board|Decision Board]]
-- [[01_Command Center/Autopilot Delegation Guide|Autopilot Delegation Guide]]
+- [[01_Command Center/01_Commands/Decision Board|Decision Board]]
+- [[01_Command Center/01_Commands/Autopilot Delegation Guide|Autopilot Delegation Guide]]

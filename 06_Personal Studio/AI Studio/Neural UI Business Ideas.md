@@ -32,5 +32,5 @@ Karpathy 인터뷰에서 말한 방향처럼, 앞으로는 미리 짜둔 화면�
 ## Links
 
 - [[06_Personal Studio/AI Studio/Home|AI Studio]]
-- [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
 - [[08_Artifacts/Artifact Ledger|Artifact Ledger]]

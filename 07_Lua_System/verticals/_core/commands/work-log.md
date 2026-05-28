@@ -32,7 +32,7 @@ applies_to: [atlas, vault, forge, archivist]
 Append to:
 
 ```text
-01_Command Center/Work Ledger.md
+01_Command Center/03_Summaries/Work Ledger.md
 ```
 
 ## Commit Message Rule
@@ -55,4 +55,4 @@ Use a host prefix:
 
 - [[07_Lua_System/verticals/_core/README|_core vertical]]
 - [[07_Lua_System/agents/README|Lua Agents]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

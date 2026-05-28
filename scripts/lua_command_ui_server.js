@@ -8,7 +8,11 @@ const { runBuildRunner } = require('./build_runner');
 const { runCommandQueue } = require('./process_command_queue');
 
 const ROOT = path.resolve(__dirname, '..');
-const COMMAND_CENTER_REL = path.join('01_Command Center', 'Obsidian Command Center.md');
+const COMMAND_CENTER_REL = path.join(
+  '01_Command Center',
+  '01_Commands',
+  'Obsidian Command Center.md'
+);
 const PROTOTYPE_DIR = path.join(ROOT, '08_Artifacts', 'Lua Command UI Prototype');
 const DEFAULT_PORT = 8765;
 

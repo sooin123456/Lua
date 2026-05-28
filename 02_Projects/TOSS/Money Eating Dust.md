@@ -62,7 +62,7 @@ https://github.com/sooin123456/Lua_money_dust
 
 ## Remaining Decisions
 
-남은 결정은 [[01_Command Center/Decision Board|Decision Board]]에서만 관리한다.
+남은 결정은 [[01_Command Center/01_Commands/Decision Board|Decision Board]]에서만 관리한다.
 
 ## Next Build Work
 

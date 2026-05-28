@@ -18,5 +18,5 @@ last_updated: 2026-05-16
 ## Navigation
 
 - [[04_Resources/Resources Hub|Resources Hub]]
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
-- [[01_Command Center/User Action Board|User Action Board]]
+- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/00_Dashboard/User Action Board|User Action Board]]

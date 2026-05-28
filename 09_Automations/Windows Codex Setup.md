@@ -53,7 +53,7 @@ Recommended commit prefix:
 [host:windows-codex]
 ```
 
-After meaningful sessions, append an entry to `01_Command Center/Work Ledger.md`.
+After meaningful sessions, append an entry to `01_Command Center/03_Summaries/Work Ledger.md`.
 
 ## Required Later
 
@@ -69,5 +69,5 @@ Do not keep rebuilding the PC from scratch. Add missing setup here, then continu
 ## Navigation
 
 - [[09_Automations/README|Automations]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

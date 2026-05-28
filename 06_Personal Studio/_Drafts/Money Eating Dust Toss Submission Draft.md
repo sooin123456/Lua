@@ -64,4 +64,4 @@ https://github.com/sooin123456/Lua_money_dust
 ## Links
 
 - Product spec: [[02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]]
-- Command run: [[01_Command Center/Command Runs/money-dust-20260516-01-build-app|money-dust-20260516-01]]
+- Command run: [[01_Command Center/01_Commands/Command Runs/money-dust-20260516-01-build-app|money-dust-20260516-01]]

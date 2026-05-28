@@ -38,7 +38,7 @@ Start manual, then semi-automatic, then automatic. Slack and Notion writes shoul
 
 - [[09_Automations/Windows Codex Setup|Windows Codex Setup]]
 - [[09_Automations/Cleanup Backlog|Cleanup Backlog]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
 
 ## Automation Index
 

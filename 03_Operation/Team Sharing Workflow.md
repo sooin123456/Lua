@@ -84,4 +84,4 @@ Next:
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[09_Automations/Notion Sync|Notion Sync]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
-- [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]

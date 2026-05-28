@@ -57,4 +57,4 @@ Next:
 - [[09_Automations/Notion Sync|Notion Sync]]
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

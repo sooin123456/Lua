@@ -3,7 +3,12 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..');
-const COMMAND_CENTER = path.join(ROOT, '01_Command Center', 'Obsidian Command Center.md');
+const COMMAND_CENTER = path.join(
+  ROOT,
+  '01_Command Center',
+  '01_Commands',
+  'Obsidian Command Center.md'
+);
 const VALID_DOMAINS = new Set(['planning', 'marketing', 'design', 'service', 'project', 'research', 'build', 'ops']);
 
 function usage() {

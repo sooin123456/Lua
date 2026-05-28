@@ -27,9 +27,9 @@ project: RTU Development
 - DevLog: [[02_Projects/KIEREMS/RTU Development/DevLog|DevLog]]
 - Metrics: [[02_Projects/KIEREMS/RTU Development/Metrics|Metrics]]
 - Research: [[02_Projects/KIEREMS/RTU Development/Research|Research]]
-- Master Dashboard: [[01_Command Center/Master Dashboard|Master Dashboard]]
-- Agent Dashboard: [[01_Command Center/Agent Dashboard|Agent Dashboard]]
-- Weekly Review: [[01_Command Center/Weekly Review|Weekly Review]]
+- Master Dashboard: [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- Agent Dashboard: [[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
+- Weekly Review: [[01_Command Center/03_Summaries/Weekly Review|Weekly Review]]
 
 ---
 

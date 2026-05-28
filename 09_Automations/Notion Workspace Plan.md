@@ -135,4 +135,4 @@ npm run notion:queue
 - [[09_Automations/Notion Sync|Notion Sync]]
 - [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
+- [[01_Command Center/04_Policies/Obsidian Writing Rules|Obsidian Writing Rules]]

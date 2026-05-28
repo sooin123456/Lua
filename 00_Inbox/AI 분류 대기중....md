@@ -31,6 +31,6 @@ node scripts/promote_inbox_to_commands.js --apply
 
 ## Navigation
 
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
-- [[01_Command Center/User Action Board|User Action Board]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/00_Dashboard/User Action Board|User Action Board]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

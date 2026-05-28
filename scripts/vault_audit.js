@@ -58,8 +58,8 @@ function resolveWikiTarget(innerRaw, { filesSet, byBasename }) {
 }
 
 function orphanExceptionReason(relPosix) {
-  if (relPosix.includes('01_Command Center/Identity/')) return 'identity';
-  if (relPosix.includes('01_Command Center/_System/')) return 'system';
+  if (relPosix.includes('01_Command Center/02_Memory/Identity/')) return 'identity';
+  if (relPosix.includes('01_Command Center/04_Policies/_System/')) return 'system';
   if (relPosix.startsWith('00_Inbox/')) return 'inbox-queue';
   if (relPosix.startsWith('05_Archives/')) return 'archive';
   if (relPosix.startsWith('06_Personal Studio/_Drafts/')) return 'draft';
@@ -81,7 +81,7 @@ async function detectMissingFrontmatter() {
   const hits = findFiles(ROOT, (fullPath) => {
     const rel = relativePosix(ROOT, fullPath);
     if (!rel.endsWith('.md')) return false;
-    if (rel.startsWith('01_Command Center/Identity/')) return true;
+    if (rel.startsWith('01_Command Center/02_Memory/Identity/')) return true;
     if (rel.startsWith('07_Lua_System/verticals/') && rel.endsWith('/SKILL.md')) return true;
     if (rel.startsWith('03_Operation/') && rel.includes('/_SOPs/')) return true;
     return false;

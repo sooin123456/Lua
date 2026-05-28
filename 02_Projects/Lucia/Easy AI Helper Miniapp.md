@@ -139,7 +139,7 @@ last_updated: 2026-05-16
 
 ## Navigation
 
-- [[01_Command Center/Command Runs/easy-ai-helper-20260516-01-build-app|Command Run]]
+- [[01_Command Center/01_Commands/Command Runs/easy-ai-helper-20260516-01-build-app|Command Run]]
 - [[09_Automations/App Template Standard|App Template Standard]]
 - [[02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 - [[02_Projects/Projects Hub|Projects Hub]]

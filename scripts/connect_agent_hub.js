@@ -55,7 +55,7 @@ last_updated: ${TODAY}
 
 # Lua Agents
 
-Lua의 agent 허브다. 실제 작업 출처는 [[01_Command Center/Work Ledger|Work Ledger]]에 기록하고, 공통 실행 규칙은 [[AGENTS]]와 [[CLAUDE]]를 따른다.
+Lua의 agent 허브다. 실제 작업 출처는 [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]에 기록하고, 공통 실행 규칙은 [[AGENTS]]와 [[CLAUDE]]를 따른다.
 
 ## Generic Agents
 
@@ -95,7 +95,7 @@ ${bundledSkillRows()}
 
 - Codex/Windows 작업은 \`[host:windows-codex]\` 커밋 prefix를 쓴다.
 - Claude/Mac 작업은 \`[host:mac-claude]\` 커밋 prefix를 쓴다.
-- 의미 있는 작업은 [[01_Command Center/Work Ledger|Work Ledger]]에 남긴다.
+- 의미 있는 작업은 [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]에 남긴다.
 `);
 }
 
@@ -113,7 +113,7 @@ function updateAgentPrompts() {
 - Hub: [[07_Lua_System/agents/README|Lua Agents]]
 - Runtime rules: [[AGENTS]]
 - Shared root: [[CLAUDE]]
-- Work provenance: [[01_Command Center/Work Ledger|Work Ledger]]
+- Work provenance: [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
 `;
 
     const commitIndex = content.indexOf('\n## Commits');
@@ -141,9 +141,9 @@ function updateRoots() {
   if (!agentsMd.includes('`07_Lua_System/agents/README.md`')) {
     agentsMd = agentsMd
       .replace('1. `CLAUDE.md`', '1. `CLAUDE.md`\n2. `07_Lua_System/agents/README.md`')
-      .replace('2. `01_Command Center/Harness Loop.md`', '3. `01_Command Center/Harness Loop.md`')
-      .replace('3. `01_Command Center/Identity/context.md`', '4. `01_Command Center/Identity/context.md`')
-      .replace('4. `01_Command Center/_System/agent-permissions.md`', '5. `01_Command Center/_System/agent-permissions.md`');
+      .replace('2. `01_Command Center/01_Commands/Harness Loop.md`', '3. `01_Command Center/01_Commands/Harness Loop.md`')
+      .replace('3. `01_Command Center/02_Memory/Identity/context.md`', '4. `01_Command Center/02_Memory/Identity/context.md`')
+      .replace('4. `01_Command Center/04_Policies/_System/agent-permissions.md`', '5. `01_Command Center/04_Policies/_System/agent-permissions.md`');
     write('AGENTS.md', agentsMd);
   }
 
@@ -153,8 +153,8 @@ function updateRoots() {
     write('CLAUDE.md', claude);
   }
 
-  appendOrInsertDashboardLink('01_Command Center/Master Dashboard.md');
-  appendOrInsertDashboardLink('01_Command Center/Agent Dashboard.md');
+  appendOrInsertDashboardLink('01_Command Center/00_Dashboard/Master Dashboard.md');
+  appendOrInsertDashboardLink('01_Command Center/00_Dashboard/Agent Dashboard.md');
 }
 
 function main() {

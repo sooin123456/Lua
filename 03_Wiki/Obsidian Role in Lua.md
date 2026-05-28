@@ -24,8 +24,8 @@ It should not answer by containing the whole application codebase.
 | Question | Answer lives in |
 |---|---|
 | What is the product idea? | `02_Projects/` and `03_Wiki/` |
-| What did the user decide? | `01_Command Center/Decision Board.md` |
-| What happened in a session? | `01_Command Center/Work Ledger.md` |
+| What did the user decide? | `01_Command Center/01_Commands/Decision Board.md` |
+| What happened in a session? | `01_Command Center/03_Summaries/Work Ledger.md` |
 | Where is the code? | `03_Wiki/Repository Registry.md` |
 | What is the reusable concept? | `03_Wiki/` |
 | What is the actual app implementation? | separate Git repo |

@@ -74,4 +74,4 @@ Mirror to Notion only if team members need to retrieve it.
 
 - [[07_Lua_System/verticals/_core/README|_core vertical]]
 - [[07_Lua_System/agents/README|Lua Agents]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

@@ -8,7 +8,7 @@ last_updated: 2026-05-27
 
 # Projects Hub
 
-Project index. Use [[01_Command Center/Master Dashboard|Master Dashboard]] for daily operation and [[01_Command Center/Lua System Map|Lua System Map]] for system navigation.
+Project index. Use [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]] for daily operation and [[01_Command Center/00_Dashboard/Lua System Map|Lua System Map]] for system navigation.
 
 ## Active Lua Runtime Projects
 

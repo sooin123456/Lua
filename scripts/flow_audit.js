@@ -4,8 +4,12 @@ const path = require('path');
 const { findFiles, relativePosix } = require('./lib/files');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..');
-const COMMAND_CENTER_REL = path.join('01_Command Center', 'Obsidian Command Center.md');
-const RUNS_DIR_REL = path.join('01_Command Center', 'Command Runs');
+const COMMAND_CENTER_REL = path.join(
+  '01_Command Center',
+  '01_Commands',
+  'Obsidian Command Center.md'
+);
+const RUNS_DIR_REL = path.join('01_Command Center', '01_Commands', 'Command Runs');
 const COMPLETED_STATUSES = new Set(['routed', 'briefed', 'done']);
 
 function parseRows(content) {

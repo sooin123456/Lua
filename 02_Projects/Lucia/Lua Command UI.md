@@ -137,8 +137,8 @@ Command Queue에 초안으로 넣기
 
 ## Navigation
 
-- [[01_Command Center/Command Runs/inbox-20260516-041614-01-design-screen|Command Run]]
+- [[01_Command Center/01_Commands/Command Runs/inbox-20260516-041614-01-design-screen|Command Run]]
 - [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
 - [[09_Automations/App Template Standard|App Template Standard]]
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
 - [[02_Projects/Projects Hub|Projects Hub]]

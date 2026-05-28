@@ -98,7 +98,7 @@ TELEGRAM_BOT_TOKEN=... node scripts/telegram_bot_poll.js --once --ack
 
 ## Navigation
 
-- [[01_Command Center/Lua Command And Record Channels|Command/Record Channels]]
-- [[01_Command Center/Command Modes|Command Modes]]
+- [[01_Command Center/01_Commands/Lua Command And Record Channels|Command/Record Channels]]
+- [[01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

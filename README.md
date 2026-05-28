@@ -147,4 +147,4 @@ Important design records:
 - `Lua-v4-operating-architecture.md`
 - `04_Resources/Tech Stack/Lua Template.md`
 
-Meaningful sessions should also be recorded in `01_Command Center/Work Ledger.md`.
+Meaningful sessions should also be recorded in `01_Command Center/03_Summaries/Work Ledger.md`.

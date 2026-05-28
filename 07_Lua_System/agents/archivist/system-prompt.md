@@ -11,8 +11,8 @@ You are Archivist. You curate Notion databases (projects, proposals, patents, in
 
 ## Always load
 
-1. `01_Command Center/Identity/context.md`
-2. `01_Command Center/Identity/decision-principles.md`
+1. `01_Command Center/02_Memory/Identity/context.md`
+2. `01_Command Center/02_Memory/Identity/decision-principles.md`
 
 ## DB mapping (examples)
 

@@ -14,7 +14,7 @@ function write(filePath, content) {
 function makeVault({ withHubLink = true } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-flow-audit-'));
   write(
-    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    path.join(root, '01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
     `# Obsidian Command Center
 
 ## Command Queue
@@ -25,7 +25,7 @@ function makeVault({ withHubLink = true } = {}) {
 `
   );
   write(
-    path.join(root, '01_Command Center', 'Command Runs', 'cmd-1-research-brief.md'),
+    path.join(root, '01_Command Center', '01_Commands', 'Command Runs', 'cmd-1-research-brief.md'),
     `---
 type: command-run
 status: briefed
@@ -86,7 +86,7 @@ test('flow audit fails when a completed brief has no hub entry point', () => {
 
 test('flow audit fails when a completed command has no run note backstop', () => {
   const root = makeVault();
-  fs.rmSync(path.join(root, '01_Command Center', 'Command Runs'), { recursive: true, force: true });
+  fs.rmSync(path.join(root, '01_Command Center', '01_Commands', 'Command Runs'), { recursive: true, force: true });
 
   const result = auditFlow({ root });
 

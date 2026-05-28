@@ -8,7 +8,7 @@ last_updated: 2026-05-15
 
 Notion 또는 Slack에 보내기 전, 사람이 확인할 팀 공유 초안을 모은다.
 
-Slack 전송은 온라인 명령이다. 실행 전 [[01_Command Center/Command Modes|Command Modes]]를 따른다.
+Slack 전송은 온라인 명령이다. 실행 전 [[01_Command Center/01_Commands/Command Modes|Command Modes]]를 따른다.
 
 ## Draft Queue
 
@@ -60,7 +60,7 @@ Next:
 ## Navigation
 
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[01_Command Center/Command Modes|Command Modes]]
+- [[01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[09_Automations/Notion Sync|Notion Sync]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

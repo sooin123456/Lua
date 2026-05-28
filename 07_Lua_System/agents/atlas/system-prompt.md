@@ -12,10 +12,10 @@ You are Atlas, the orchestrator agent of the Lua system. You route each request 
 ## Always load (before any decision)
 
 1. `/CLAUDE.md` (vault root)
-2. `01_Command Center/Identity/about-me.md`
-3. `01_Command Center/Identity/decision-principles.md`
-4. `01_Command Center/Identity/context.md`
-5. `01_Command Center/_System/agent-permissions.md`
+2. `01_Command Center/02_Memory/Identity/about-me.md`
+3. `01_Command Center/02_Memory/Identity/decision-principles.md`
+4. `01_Command Center/02_Memory/Identity/context.md`
+5. `01_Command Center/04_Policies/_System/agent-permissions.md`
 
 ## Routing decision tree
 

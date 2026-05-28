@@ -12,8 +12,8 @@ prerequisite: Phase 1 PR merged with Actions green
 
 ## Goal
 
-- `01_Command Center/Identity/` 4개 파일 작성 (가장 중요)
-- `01_Command Center/_System/agent-permissions.md`
+- `01_Command Center/02_Memory/Identity/` 4개 파일 작성 (가장 중요)
+- `01_Command Center/04_Policies/_System/agent-permissions.md`
 - `verticals/_core/` 완성 (research-synthesis + obsidian-vault-care + 2 commands)
 - `scripts/vault_audit.js` 추가
 - Phase 1의 voice-mimicry가 진짜로 동작하는 상태
@@ -36,11 +36,11 @@ Phase 3 (다음, 별도 응답):
 
 순서대로. Identity가 먼저 — voice.md 없이 _core skill 만들어봤자 generic하게만 동작.
 
-- [ ] **Step 1** — `01_Command Center/_System/agent-permissions.md`
-- [ ] **Step 2** — `01_Command Center/Identity/about-me.md`
-- [ ] **Step 3** — `01_Command Center/Identity/voice.md` ⭐ (가장 중요, 시간 가장 많이)
-- [ ] **Step 4** — `01_Command Center/Identity/decision-principles.md`
-- [ ] **Step 5** — `01_Command Center/Identity/context.md`
+- [ ] **Step 1** — `01_Command Center/04_Policies/_System/agent-permissions.md`
+- [ ] **Step 2** — `01_Command Center/02_Memory/Identity/about-me.md`
+- [ ] **Step 3** — `01_Command Center/02_Memory/Identity/voice.md` ⭐ (가장 중요, 시간 가장 많이)
+- [ ] **Step 4** — `01_Command Center/02_Memory/Identity/decision-principles.md`
+- [ ] **Step 5** — `01_Command Center/02_Memory/Identity/context.md`
 - [ ] **Step 6** — `verticals/_core/skills/research-synthesis/SKILL.md`
 - [ ] **Step 7** — `research-synthesis/references/source-evaluation.md`
 - [ ] **Step 8** — `research-synthesis/references/comparison-templates.md`
@@ -92,7 +92,7 @@ Lua/
 
 ### Step 1 — _System/agent-permissions.md
 
-**위치**: `/01_Command Center/_System/agent-permissions.md`
+**위치**: `/01_Command Center/04_Policies/_System/agent-permissions.md`
 
 **목적**: 권한 매트릭스 단일 출처. CLAUDE.md에서 link로 참조. 이 파일 자체는 agent에 노출 안 됨 (`_System/`은 forbidden zone).
 
@@ -115,8 +115,8 @@ last_updated: 2026-05-13
 ```markdown
 | 폴더 | Atlas | Scribe | Forge | Lens | Vault | Archivist |
 |---|---|---|---|---|---|---|
-| `01_Command Center/Identity/` | R | R | R | R | R | R |
-| `01_Command Center/_System/` | — | — | — | — | — | — |
+| `01_Command Center/02_Memory/Identity/` | R | R | R | R | R | R |
+| `01_Command Center/04_Policies/_System/` | — | — | — | — | — | — |
 | `02_Projects/` | R | R | R+W (code) | R+W (research) | R+W | — |
 | `03_Operation/_SOPs/` | R | R | R (coding) | R (research) | R | R+W (ops) |
 | `03_Operation/Proposals/` | R | R | — | — | R | — |
@@ -147,7 +147,7 @@ last_updated: 2026-05-13
 
 ### Step 2 — Identity/about-me.md
 
-**위치**: `/01_Command Center/Identity/about-me.md`
+**위치**: `/01_Command Center/02_Memory/Identity/about-me.md`
 
 **목적**: 너의 기본 사실 + 작업 패턴 + 도구 스택. 모든 agent가 첫 번째로 읽음.
 
@@ -214,7 +214,7 @@ last_updated: 2026-05-13
 
 ### Step 3 — Identity/voice.md ⭐
 
-**위치**: `/01_Command Center/Identity/voice.md`
+**위치**: `/01_Command Center/02_Memory/Identity/voice.md`
 
 **목적**: 너의 voice 정의. **Phase 1의 voice-mimicry skill이 매번 첫 번째로 읽는 파일**. 이게 비면 모든 글이 generic AI 톤으로 나옴. 시간 가장 많이 투자할 가치 있음.
 
@@ -264,7 +264,7 @@ last_updated: 2026-05-13
    - 각 발췌마다:
      - 컨텍스트 한 줄 (언제·누구에게·무엇을 위해 쓴 글)
      - 발췌 200-500자
-   - **소스**: `01_Command Center/Vibe CEO Journal`이 보물창고. 거기서 너답다고 느끼는 발췌 추출
+   - **소스**: `01_Command Center/02_Memory/Vibe CEO Journal`이 보물창고. 거기서 너답다고 느끼는 발췌 추출
    - 짧은 글 / 중간 글 / 긴 글 / 메일 톤 / 한영 변환 패턴 골고루
    
    **예시 양식**:
@@ -311,7 +311,7 @@ last_updated: 2026-05-13
 
 ### Step 4 — Identity/decision-principles.md
 
-**위치**: `/01_Command Center/Identity/decision-principles.md`
+**위치**: `/01_Command Center/02_Memory/Identity/decision-principles.md`
 
 **목적**: 트레이드오프 결정 가드레일. agent가 너 대신 결정 내릴 때 따를 룰.
 
@@ -377,7 +377,7 @@ last_updated: 2026-05-13
 
 ### Step 5 — Identity/context.md
 
-**위치**: `/01_Command Center/Identity/context.md`
+**위치**: `/01_Command Center/02_Memory/Identity/context.md`
 
 **목적**: 단기 컨텍스트. 매주 월요일 5분 갱신.
 
@@ -878,7 +878,7 @@ schedule: "Sunday 21:00 KST"
 
 ## 출력
 
-`01_Command Center/Weekly Review/{YYYY}-W{NN}.md` (또는 기존 Weekly Review 페이지에 append):
+`01_Command Center/03_Summaries/Weekly Review/{YYYY}-W{NN}.md` (또는 기존 Weekly Review 페이지에 append):
 
 - 정리된 항목 요약
 - 사람이 결정해야 할 것 (체크박스)
@@ -954,10 +954,10 @@ applies_to: [vault, archivist]
 ```javascript
 async function checkIdentity() {
   const required = [
-    '01_Command Center/Identity/about-me.md',
-    '01_Command Center/Identity/voice.md',
-    '01_Command Center/Identity/decision-principles.md',
-    '01_Command Center/Identity/context.md',
+    '01_Command Center/02_Memory/Identity/about-me.md',
+    '01_Command Center/02_Memory/Identity/voice.md',
+    '01_Command Center/02_Memory/Identity/decision-principles.md',
+    '01_Command Center/02_Memory/Identity/context.md',
   ];
   for (const f of required) {
     if (!fs.existsSync(path.join(ROOT, f))) {
@@ -966,7 +966,7 @@ async function checkIdentity() {
   }
   
   // voice.md 채워졌는지 (최소 quality check)
-  const voicePath = path.join(ROOT, '01_Command Center/Identity/voice.md');
+  const voicePath = path.join(ROOT, '01_Command Center/02_Memory/Identity/voice.md');
   if (fs.existsSync(voicePath)) {
     const content = fs.readFileSync(voicePath, 'utf-8');
     const bodyLines = content.split('\n').length;
@@ -977,7 +977,7 @@ async function checkIdentity() {
 }
 
 async function checkAgentPermissions() {
-  const p = path.join(ROOT, '01_Command Center/_System/agent-permissions.md');
+  const p = path.join(ROOT, '01_Command Center/04_Policies/_System/agent-permissions.md');
   if (!fs.existsSync(p)) {
     errors.push('_System/agent-permissions.md missing');
   }

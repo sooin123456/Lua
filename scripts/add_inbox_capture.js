@@ -80,7 +80,7 @@ ${text.trim()}
 ## Navigation
 
 - [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
 `;
 }
 

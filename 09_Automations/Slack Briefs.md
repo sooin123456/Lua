@@ -15,7 +15,7 @@ Slack has two secondary roles in Lua.
 
 Lua's main personal remote command channel is [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]].
 
-Slack sending is a remote sync action. Follow [[01_Command Center/Command Modes|Command Modes]] before sending.
+Slack sending is a remote sync action. Follow [[01_Command Center/01_Commands/Command Modes|Command Modes]] before sending.
 
 ## Channels
 
@@ -98,10 +98,10 @@ Draft first. Human approval before sending until the format is trusted.
 ## Navigation
 
 - [[09_Automations/README|Automations]]
-- [[01_Command Center/Command Modes|Command Modes]]
+- [[01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

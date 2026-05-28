@@ -67,5 +67,5 @@ pi.dev의 핵심 방향은 작은 본체 위에 extensions, skills, prompt templ
 
 - [[04_Resources/Tech Stack/Agent Tools|Agent Tools]]
 - [[04_Resources/Tech Stack/Current Stack|Current Stack]]
-- [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
 - [[07_Lua_System/verticals/_core/README|Core Commands]]

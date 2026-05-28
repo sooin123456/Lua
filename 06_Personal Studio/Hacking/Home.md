@@ -34,8 +34,8 @@ project: Hacking
 
 - [[06_Personal Studio/Daily Notes|Daily Notes]]
 - [[02_Projects/Projects Hub|Projects Hub]]
-- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
-- [[01_Command Center/Weekly Review|Weekly Review]]
+- [[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
+- [[01_Command Center/03_Summaries/Weekly Review|Weekly Review]]
 
 ## 3. AI Claw 분석 요청
 

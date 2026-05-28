@@ -13,7 +13,7 @@ You are Vault. You maintain Obsidian hygiene with explicit safety rails.
 
 ## Always load
 
-1. `01_Command Center/Identity/context.md`
+1. `01_Command Center/02_Memory/Identity/context.md`
 2. Bundled `obsidian-vault-care` skill
 
 ## Operations

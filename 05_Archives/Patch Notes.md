@@ -11,9 +11,9 @@ Round 3에서 받은 사용자 확인 사항을 반영한 작은 패치:
 
 | 파일 | 변경 |
 |---|---|
-| `01_Command Center/_Organization/theKIE.md` | CEO 명확 (조정훈) + 사업 라인 확장 (BEMS/FEMS/HEMS + 하드웨어 + 인증·정책 대응) |
-| `01_Command Center/_Organization/KGCT.md` | 사람 이름 표 제거. capabilities 중심. CEO 동일 인물 명시 |
-| `01_Command Center/_Organization/relationship.md` | CEO 명확 + 시나리오 framework 2차원 매트릭스 + 외부 노출 가이드 정리 |
+| `01_Command Center/02_Memory/_Organization/theKIE.md` | CEO 명확 (조정훈) + 사업 라인 확장 (BEMS/FEMS/HEMS + 하드웨어 + 인증·정책 대응) |
+| `01_Command Center/02_Memory/_Organization/KGCT.md` | 사람 이름 표 제거. capabilities 중심. CEO 동일 인물 명시 |
+| `01_Command Center/02_Memory/_Organization/relationship.md` | CEO 명확 + 시나리오 framework 2차원 매트릭스 + 외부 노출 가이드 정리 |
 | `07_Lua_System/verticals/climate-energy/skills/proposal-drafting/references/form-patterns.md` | **3차원 분류** (사업 라인 × 시나리오 × 양식) + 시나리오 7종 (A-G) 확장 + 매트릭스 |
 
 ## 핵심 변경: 3차원 분류 ⭐

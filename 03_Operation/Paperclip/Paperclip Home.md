@@ -20,8 +20,8 @@ Paperclip 운영 진입점. 에이전트 오케스트레이션과 루틴 실행 
 ## 빠른 링크
 
 - [[03_Operation/Paperclip/Paperclip Runbook|Paperclip Runbook]]
-- [[01_Command Center/Agent Dashboard|Agent Dashboard]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
 - [[02_Projects/Projects Hub|Projects Hub]]
 - [[03_Operation/Operation Hub|Operation Hub]]
 

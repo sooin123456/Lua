@@ -32,14 +32,14 @@ NOT for:
 
 ## Step 1: Load voice profile
 
-Read `01_Command Center/Identity/voice.md` first, every single time. Pay attention to:
+Read `01_Command Center/02_Memory/Identity/voice.md` first, every single time. Pay attention to:
 
 - Banned words and phrases
 - Anti-examples (writing patterns to never produce)
 - Tone defaults
 - Structural preferences
 
-Also load `01_Command Center/Identity/about-me.md` for context on who's writing.
+Also load `01_Command Center/02_Memory/Identity/about-me.md` for context on who's writing.
 
 ## Step 2: Match structural preferences
 

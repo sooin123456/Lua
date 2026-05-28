@@ -73,10 +73,10 @@ node scripts/slack_command_inbox.js --source slack-mobile "/lua inbox 밖에서 
 | Command | Destination |
 |---|---|
 | `/lua inbox` | [[00_Inbox/AI 분류 대기중...|AI 분류 대기중]] |
-| `/lua todo` | Project Backlog or [[01_Command Center/Urgent List|Urgent List]] |
+| `/lua todo` | Project Backlog or [[01_Command Center/01_Commands/Urgent List|Urgent List]] |
 | `/lua brief` | [[03_Operation/Team Brief Drafts|Team Brief Drafts]] |
 | `/lua ask` | Project Research or Industry Intelligence |
-| `/lua status` | [[01_Command Center/Agent Dashboard|Agent Dashboard]] command queue |
+| `/lua status` | [[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]] command queue |
 
 ## Safety
 
@@ -86,9 +86,9 @@ node scripts/slack_command_inbox.js --source slack-mobile "/lua inbox 밖에서 
 
 ## Navigation
 
-- [[01_Command Center/Command Modes|Command Modes]]
+- [[01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
+- [[01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]

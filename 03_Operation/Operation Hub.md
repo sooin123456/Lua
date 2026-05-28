@@ -31,5 +31,5 @@ area: Operation
 
 ## Control Links
 
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
 - [[02_Projects/Projects Hub|Projects Hub]]

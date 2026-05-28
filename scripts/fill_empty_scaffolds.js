@@ -400,7 +400,7 @@ last_updated: ${TODAY}
 
 ## Links
 
-- [[01_Command Center/Work Ledger]]
+- [[01_Command Center/03_Summaries/Work Ledger]]
 `;
   }
 

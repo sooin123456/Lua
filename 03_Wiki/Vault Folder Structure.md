@@ -44,15 +44,27 @@ Do not keep old specs, temporary patch notes, project notes, or inbox items at r
 | `scripts` | Node automation scripts |
 | `tests` | Node and Python tests |
 
+## Command Center Structure
+
+`01_Command Center` is organized by operating responsibility:
+
+| Folder | Purpose |
+|---|---|
+| `00_Dashboard` | daily navigation, system map, action board |
+| `01_Commands` | command intake, command runs, command modes, decisions, urgent tasks |
+| `02_Memory` | identity, organization memory, durable user/business context |
+| `03_Summaries` | Work Ledger, weekly review, activity summary rules |
+| `04_Policies` | usage guide, operating layers, writing rules, system permissions |
+
 ## Practical Operating View
 
 For daily use, think in three layers:
 
 | Layer | Question | Guide |
 |---|---|---|
-| Memory | What should Lua remember later? | [[01_Command Center/Lua Memory Classification|Memory Classification]] |
-| Command | What kind of instruction is this? | [[01_Command Center/Lua Command Taxonomy|Command Taxonomy]] |
-| Summary | What happened and what is next? | [[01_Command Center/Lua Activity Summary System|Activity Summary System]] |
+| Memory | What should Lua remember later? | [[01_Command Center/02_Memory/Lua Memory Classification|Memory Classification]] |
+| Command | What kind of instruction is this? | [[01_Command Center/01_Commands/Lua Command Taxonomy|Command Taxonomy]] |
+| Summary | What happened and what is next? | [[01_Command Center/03_Summaries/Lua Activity Summary System|Activity Summary System]] |
 
 ## Secret Rule
 
@@ -60,7 +72,7 @@ For daily use, think in three layers:
 
 ## Navigation
 
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Lua Command And Record Channels|Command/Record Channels]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/01_Commands/Lua Command And Record Channels|Command/Record Channels]]
 - [[05_Archives/Archives Hub|Archives Hub]]
 - [[03_Wiki/Home|Wiki Home]]

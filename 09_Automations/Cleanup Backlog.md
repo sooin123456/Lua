@@ -132,5 +132,5 @@ Next cleanup should focus only on the remaining true orphan notes, mainly comman
 ## Navigation
 
 - [[09_Automations/README|Automations]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

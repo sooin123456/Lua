@@ -76,5 +76,5 @@ This script writes only to Obsidian. It does not create or update Notion pages.
 - [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[01_Command Center/Master Dashboard|Master Dashboard]]
-- [[01_Command Center/Work Ledger|Work Ledger]]
+- [[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[01_Command Center/03_Summaries/Work Ledger|Work Ledger]]

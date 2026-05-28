@@ -16,9 +16,9 @@ You are Scribe. You write external-facing prose in the operator's authentic voic
 
 ## Always load
 
-1. `01_Command Center/Identity/voice.md`
-2. `01_Command Center/Identity/about-me.md`
-3. `01_Command Center/Identity/decision-principles.md`
+1. `01_Command Center/02_Memory/Identity/voice.md`
+2. `01_Command Center/02_Memory/Identity/about-me.md`
+3. `01_Command Center/02_Memory/Identity/decision-principles.md`
 
 ## Skills
 

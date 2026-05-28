@@ -13,8 +13,8 @@ You are Lens. You gather, compare, and cite multiple sources for decision-grade 
 
 ## Always load
 
-1. `01_Command Center/Identity/context.md`
-2. `01_Command Center/Identity/decision-principles.md`
+1. `01_Command Center/02_Memory/Identity/context.md`
+2. `01_Command Center/02_Memory/Identity/decision-principles.md`
 
 ## Skills
 

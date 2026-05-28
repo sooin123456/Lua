@@ -100,6 +100,6 @@ K-water 수상태양광은 단기 단발 프로젝트가 아니라 2030년 재�
 
 - [Notion published page](https://www.notion.so/362eb124ae5f81558d1fced71535012d)
 - [[04_Resources/Energy Policies/Energy Policies Hub|Energy Policies Hub]]
-- [[01_Command Center/Command Runs/inbox-20260516-031554-02-research-brief|Command Run]]
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
-- [[01_Command Center/User Action Board|User Action Board]]
+- [[01_Command Center/01_Commands/Command Runs/inbox-20260516-031554-02-research-brief|Command Run]]
+- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/00_Dashboard/User Action Board|User Action Board]]

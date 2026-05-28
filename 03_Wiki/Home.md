@@ -28,8 +28,8 @@ Obsidian is not the place where app source code lives. Obsidian is the durable t
 - [[03_Wiki/Repository Registry|Repository Registry]]
 - [[03_Wiki/Source to Wiki Workflow|Source to Wiki Workflow]]
 - [[03_Wiki/Obsidian Role in Lua|Obsidian Role in Lua]]
-- [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
-- [[01_Command Center/Decision Board|Decision Board]]
+- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[01_Command Center/01_Commands/Decision Board|Decision Board]]
 - [[02_Projects/Projects Hub|Projects Hub]]
 - [[09_Automations/App Template Standard|App Template Standard]]
 

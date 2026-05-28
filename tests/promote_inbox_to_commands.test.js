@@ -14,7 +14,7 @@ function write(filePath, content) {
 function makeVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-inbox-promote-'));
   write(
-    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    path.join(root, '01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
     `---
 type: command-center
 ---
@@ -25,7 +25,7 @@ type: command-center
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| example-001 | research | compare | sample | clarify | Lens | planned | [[01_Command Center/Command Runs/example-001-research-compare|run]] |
+| example-001 | research | compare | sample | clarify | Lens | planned | [[01_Command Center/01_Commands/Command Runs/example-001-research-compare|run]] |
 `
   );
   write(
@@ -53,7 +53,7 @@ test('promotes file-based Inbox notes into the Command Queue', () => {
   assert.doesNotMatch(result.entries[0].payload, /utm_source|fbclid/);
 
   const commandCenter = fs.readFileSync(
-    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    path.join(root, '01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
     'utf8'
   );
   assert.match(commandCenter, /\| inbox-\d{8}-\d{6}-01 \| design \| screen \|/);
@@ -76,7 +76,7 @@ test('does not promote already promoted file notes again', () => {
 test('does not promote the central Inbox index note', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-inbox-index-'));
   write(
-    path.join(root, '01_Command Center', 'Obsidian Command Center.md'),
+    path.join(root, '01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
     `# Obsidian Command Center
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |

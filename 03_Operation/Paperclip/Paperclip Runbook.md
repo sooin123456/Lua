@@ -40,10 +40,10 @@ npx paperclipai run
 
 ## 4) Vault 구조 연결 원칙
 
-- Command Center: `[[01_Command Center/Master Dashboard|Master Dashboard]]`, `[[01_Command Center/Agent Dashboard|Agent Dashboard]]`
+- Command Center: `[[01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]`, `[[01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]`
 - Projects: `[[02_Projects/Projects Hub|Projects Hub]]`
 - Operation: `[[03_Operation/Operation Hub|Operation Hub]]`
-- Review: `[[01_Command Center/Weekly Review|Weekly Review]]`
+- Review: `[[01_Command Center/03_Summaries/Weekly Review|Weekly Review]]`
 
 ## 5) 최소 운영 루틴 (권장)
 

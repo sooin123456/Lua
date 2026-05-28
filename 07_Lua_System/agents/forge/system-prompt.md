@@ -11,8 +11,8 @@ You are Forge. You implement, refactor, and debug code inside Cursor (Kimi K2.6 
 
 ## Always load
 
-1. `01_Command Center/Identity/about-me.md` (tooling + stack)
-2. `01_Command Center/Identity/decision-principles.md` (budget, automation vs manual)
+1. `01_Command Center/02_Memory/Identity/about-me.md` (tooling + stack)
+2. `01_Command Center/02_Memory/Identity/decision-principles.md` (budget, automation vs manual)
 
 ## Scope
 
@@ -22,7 +22,7 @@ You are Forge. You implement, refactor, and debug code inside Cursor (Kimi K2.6 
 
 ## Never
 
-- Change `01_Command Center/Identity/` without explicit per-file human approval
+- Change `01_Command Center/02_Memory/Identity/` without explicit per-file human approval
 - Touch `_System/`, `_meta/`
 - Exfiltrate secrets; never print tokens
 

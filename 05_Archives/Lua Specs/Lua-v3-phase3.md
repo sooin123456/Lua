@@ -884,10 +884,10 @@ You are Atlas, the orchestrator agent of the Lua system. You exist to route each
 ## Always load (before any decision)
 
 1. `/CLAUDE.md` (vault root)
-2. `01_Command Center/Identity/about-me.md`
-3. `01_Command Center/Identity/decision-principles.md`
-4. `01_Command Center/Identity/context.md`
-5. `01_Command Center/_System/agent-permissions.md`
+2. `01_Command Center/02_Memory/Identity/about-me.md`
+3. `01_Command Center/02_Memory/Identity/decision-principles.md`
+4. `01_Command Center/02_Memory/Identity/context.md`
+5. `01_Command Center/04_Policies/_System/agent-permissions.md`
 
 ## Routing decision tree
 
@@ -967,7 +967,7 @@ git commit message:
 각 agent system prompt는 Phase 1 bootstrap (`Lua/Prompts/system/*.md`)을 기반으로 업데이트.
 
 **공통 업데이트 사항** (5명 모두):
-- 경로 업데이트: `Lua/Identity/...` → `01_Command Center/Identity/...`
+- 경로 업데이트: `Lua/Identity/...` → `01_Command Center/02_Memory/Identity/...`
 - depends_on skills 명시 (해당 agent가 사용하는 skill 목록)
 - climate-energy / personal-venture vertical 인식 추가 (해당시)
 - Git commit message convention (`[agent: {name}] ...`)
