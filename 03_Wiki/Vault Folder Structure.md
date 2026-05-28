@@ -44,6 +44,16 @@ Do not keep old specs, temporary patch notes, project notes, or inbox items at r
 | `scripts` | Node automation scripts |
 | `tests` | Node and Python tests |
 
+## Practical Operating View
+
+For daily use, think in three layers:
+
+| Layer | Question | Guide |
+|---|---|---|
+| Memory | What should Lua remember later? | [[01_Command Center/Lua Memory Classification|Memory Classification]] |
+| Command | What kind of instruction is this? | [[01_Command Center/Lua Command Taxonomy|Command Taxonomy]] |
+| Summary | What happened and what is next? | [[01_Command Center/Lua Activity Summary System|Activity Summary System]] |
+
 ## Secret Rule
 
 `.env` and `.lua_agent/` stay local and ignored by Git. Scripts may use secrets from environment variables, but documentation and command output must never print secret values.

@@ -15,6 +15,9 @@ area: Templates
 - [[99_Templates/Meeting Note Template|Meeting Note Template]]
 - [[99_Templates/Team Brief Template|Team Brief Template]]
 - [[99_Templates/Inbox Capture Template|Inbox Capture Template]]
+- [[99_Templates/Memory Classification Template|Memory Classification Template]]
+- [[99_Templates/Command Classification Template|Command Classification Template]]
+- [[99_Templates/Activity Summary Template|Activity Summary Template]]
 
 ## Agent Prompt Templates
 

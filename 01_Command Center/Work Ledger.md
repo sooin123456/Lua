@@ -151,6 +151,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: send a real `/lua status Lua` message to the Telegram bot and rerun `npm run telegram:poll`
 
+## 2026-05-28 KST - add practical operating layers
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Command Center, Wiki, Templates, development docs
+- Trigger: user clarified practical usage should be organized around memory classification, command classification, and activity summaries
+- Changed: added Lua Operating Layers, Memory Classification, Command Taxonomy, Activity Summary System, and matching templates; linked them from Master Dashboard, Lua System Map, Vault Folder Structure, Lua Usage Guide, and Templates Hub
+- Verification: `npm run check`; `node scripts/vault_audit.js`; `node scripts/flow_audit.js`; `npm run test:all`
+- Commit: pending
+- Next: optionally add a runtime/report command that produces daily activity summaries from checkpoints, Telegram queue, and Work Ledger
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

@@ -18,6 +18,10 @@ This is the system navigation map. The [[01_Command Center/Master Dashboard|Mast
 - [[01_Command Center/Weekly Review|Weekly Review]]
 - [[01_Command Center/Work Ledger|Work Ledger]]
 - [[01_Command Center/Lua Command And Record Channels|Command/Record Channels]]
+- [[01_Command Center/Lua Operating Layers|Lua Operating Layers]]
+- [[01_Command Center/Lua Memory Classification|Memory Classification]]
+- [[01_Command Center/Lua Command Taxonomy|Command Taxonomy]]
+- [[01_Command Center/Lua Activity Summary System|Activity Summary System]]
 
 ## Projects
 

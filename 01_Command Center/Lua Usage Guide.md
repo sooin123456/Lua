@@ -22,6 +22,12 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 무엇을 Obsidian에 써야 하는지 애매하면 [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]를 먼저 본다.
 명령을 컴퓨터 앞에서 내리는지, 밖에서 Telegram으로 내리는지 애매하면 [[01_Command Center/Command Modes|Command Modes]]를 먼저 본다.
 
+실사용 기준은 [[01_Command Center/Lua Operating Layers|Lua Operating Layers]]를 따른다:
+
+- 기억할 것은 [[01_Command Center/Lua Memory Classification|Memory Classification]]
+- 실행할 것은 [[01_Command Center/Lua Command Taxonomy|Command Taxonomy]]
+- 끝난 일은 [[01_Command Center/Lua Activity Summary System|Activity Summary System]]
+
 ## Where To Write
 
 | 상황 | 쓰는 곳 | 이유 |
@@ -138,6 +144,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Command Modes|Command Modes]]
+- [[01_Command Center/Lua Operating Layers|Lua Operating Layers]]
 - [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[03_Wiki/LLM Wiki Operating Model|LLM Wiki Operating Model]]

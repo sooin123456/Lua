@@ -198,3 +198,15 @@ Result:
 
 - `node scripts/vault_audit.js` reports 0 orphan notes and 0 broken links.
 - `npm run telegram:poll` reads `.env` and found no pending `/lua` commands.
+
+## 2026-05-28 Practical Operating Layers
+
+Reframed the vault around real usage instead of only folder hygiene.
+
+Added three operating layers:
+
+- memory classification: what Lua should remember later
+- command taxonomy: what kind of instruction the user gave and how AI should behave
+- activity summary: what happened, what changed, and what is next
+
+Added guides and templates so future Obsidian organization can follow these layers without moving every existing folder at once.
