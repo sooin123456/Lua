@@ -56,7 +56,7 @@ test('command submitter can run through the localhost end-to-end endpoint', asyn
           id: 'lua-ui-20260516-134530',
           status: 'routed',
           stage: 'plan',
-          run: '00_Lua/01_Command Center/01_Commands/Command Runs/lua-ui-20260516-134530-build-app',
+          run: '90_System/80_Lua_Details/Command Runs/lua-ui-20260516-134530-build-app',
         }),
       };
     },
@@ -72,7 +72,7 @@ test('command submitter can run through the localhost end-to-end endpoint', asyn
     id: 'lua-ui-20260516-134530',
     status: 'routed',
     stage: 'plan',
-    run: '00_Lua/01_Command Center/01_Commands/Command Runs/lua-ui-20260516-134530-build-app',
+    run: '90_System/80_Lua_Details/Command Runs/lua-ui-20260516-134530-build-app',
   });
 });
 

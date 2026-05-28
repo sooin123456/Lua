@@ -20,7 +20,7 @@ This build runner output closes the command into a durable artifact record. It c
 
 ## Implementation Target
 
-- Source command: [[00_Lua/01_Command Center/01_Commands/Command Runs/lua-ui-20260516-140255-build-app|lua-ui-20260516-140255]]
+- Source command: [[90_System/80_Lua_Details/Command Runs/lua-ui-20260516-140255-build-app|lua-ui-20260516-140255]]
 - Artifact path: `90_System/08_Artifacts/Build Outputs/lua-ui-20260516-140255-build-app-output.md`
 - Build domain: `build/app`
 

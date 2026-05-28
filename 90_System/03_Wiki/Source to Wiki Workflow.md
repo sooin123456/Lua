@@ -12,9 +12,9 @@ This workflow turns raw material into reusable Lua knowledge.
 
 Put raw material in the lightest possible place:
 
-- `00_Lua/00_Inbox/` for quick thoughts, links, and rough notes.
+- `90_System/80_Lua_Details/00_Inbox/` for quick thoughts, links, and rough notes.
 - project notes for project-specific decisions.
-- `00_Lua/04_Resources/` for stable external references.
+- `90_System/80_Lua_Details/04_Resources/` for stable external references.
 - drafts for external-facing writing.
 
 Raw captures should preserve origin and date. They do not need to be polished.

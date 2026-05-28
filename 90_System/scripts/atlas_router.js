@@ -3,12 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..', '..');
-const COMMAND_CENTER_REL = path.join(
-  '00_Lua/01_Command Center',
-  '01_Commands',
-  'Obsidian Command Center.md'
-);
-const ACTION_BOARD_REL = path.join('00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md');
+const COMMAND_CENTER_REL = path.join('00_Lua', '01_Commands', 'Command Inbox.md');
+const ACTION_BOARD_REL = path.join('00_Lua', '01_Commands', 'Action Board.md');
 const TODAY = todayKst();
 
 const ROLE_MAP = {
@@ -101,8 +97,8 @@ function runRelFor(entry) {
   const existing = extractLinkTarget(entry.result);
   if (existing) return existing;
   return path.posix.join(
-    '00_Lua/01_Command Center',
-    '01_Commands',
+    '90_System',
+    '80_Lua_Details',
     'Command Runs',
     `${entry.id}-${slugify(`${entry.domain}-${entry.intent || 'command'}`)}`
   );
@@ -215,10 +211,10 @@ function designScreenContent(entry) {
 - 대안 1: 채팅형 UI. 자유도는 높지만 command grammar가 흐려지고 검증이 어렵다.
 - 대안 2: 대시보드형 UI. 상태 관리는 좋지만 첫 MVP가 무거워진다.
 - 추천 이유: 명령 작성기는 작고, 지금 Lua 시스템의 약점인 "입력 난이도"를 바로 줄인다.`,
-    plan: `- [x] 첫 처리 대상: [[00_Lua/01_Command Center/01_Commands/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+    plan: `- [x] 첫 처리 대상: [[90_System/80_Lua_Details/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
 - [x] Toss 미니앱 링크와 Inbox 메모를 기반으로 Lua Command UI 문제를 정의.
 - [x] 첫 MVP를 "명령 작성기" 화면으로 제한.
-- [ ] 화면 설계 노트 생성: \`00_Lua/02_Projects/Lucia/Lua Command UI.md\` 또는 별도 프로젝트 위치를 정한다.
+- [ ] 화면 설계 노트 생성: \`90_System/80_Lua_Details/02_Projects/Lucia/Lua Command UI.md\` 또는 별도 프로젝트 위치를 정한다.
 - [ ] 첫 화면 와이어프레임을 작성한다: domain 선택 / intent 선택 / payload 입력 / Command Preview.
 - [ ] Command Queue로 보내는 동작은 실제 쓰기 전에 draft 상태로 검증한다.
 - [ ] 이후 build/app command로 승격해 HTML 또는 미니앱 프로토타입을 만든다.`,
@@ -234,7 +230,7 @@ function planningContent(entry) {
     design: `- 추천 방향: Obsidian Command Center를 먼저 안정화하고, planned/queued run을 Atlas Router가 순서대로 처리하게 만든다.
 - 대안 1: Slack 명령 앱을 먼저 키운다. 원격 입력은 좋아지지만 지금의 기본 운영 원칙과 맞지 않는다.
 - 대안 2: Notion 공유 DB를 먼저 만든다. 팀 공유에는 좋지만 아직 개인 command flow가 충분히 안정적이지 않다.`,
-    plan: `- [x] 첫 처리 대상: [[00_Lua/01_Command Center/01_Commands/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+    plan: `- [x] 첫 처리 대상: [[90_System/80_Lua_Details/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
 - [x] Atlas CEO 방식으로 clarify/design/plan 작성.
 - [x] User Action Board를 다음 행동 중심으로 갱신.
 - [ ] 다음 run은 \`inbox-20260516-031554-01\` build/app clarify로 진행.
@@ -253,7 +249,7 @@ function buildAppContent(entry) {
 - 대안 1: Neural UI 개념 설명용 데모를 만든다. 이해는 쉽지만 사업 검증 신호가 약하다.
 - 대안 2: Toss 미니앱 스타일의 특정 업무 도구를 만든다. 범위는 작지만 어떤 업무를 고를지 추가 판단이 필요하다.
 - 대안 3: Lua Command Center 위에 Neural UI 입력 화면을 얹는다. 기존 시스템과 연결되지만 구현 복잡도가 올라간다.`,
-    plan: `- [x] 첫 처리 대상: [[00_Lua/01_Command Center/01_Commands/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+    plan: `- [x] 첫 처리 대상: [[90_System/80_Lua_Details/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
 - [x] Neural UI / Toss 미니앱 관점으로 clarify/design/plan 작성.
 - [x] 지금 단계는 MVP 실험 정의로 제한.
 - [ ] 첫 MVP 후보를 하나 고른다: 아이디어 입력 -> 즉석 화면 초안 -> 다음 command run 생성.
@@ -273,7 +269,7 @@ function researchBriefContent(entry) {
 - 대안 1: K-water 발주 규모만 먼저 본다. 빠르지만 사업 판단에 필요한 협력사/경쟁사 맥락이 부족하다.
 - 대안 2: 경쟁사 비교표부터 만든다. 보기 좋지만 발주 맥락이 약하면 비교 기준이 흔들린다.
 - 대안 3: 테크인 단독 조사부터 한다. 중요하지만 시장/발주/협력사 맥락 없이 보면 해석이 좁아진다.`,
-    plan: `- [x] 첫 처리 대상: [[00_Lua/01_Command Center/01_Commands/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
+    plan: `- [x] 첫 처리 대상: [[90_System/80_Lua_Details/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
 - [x] Lens / Researcher 방식으로 clarify/research/brief 하네스 작성.
 - [x] 조사 범위: K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인.
 - [ ] 공공 발주와 K-water 관련 1차 출처를 확인한다.
@@ -329,7 +325,7 @@ function actionBoardUpdate(entry) {
 
 | 항목 | 내용 |
 |---|---|
-| 처리한 command | [[00_Lua/01_Command Center/01_Commands/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]] |
+| 처리한 command | [[90_System/80_Lua_Details/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]] |
 | 처리 방식 | Atlas CEO clarify -> design -> plan |
 | 현재 상태 | routed / plan |
 | 다음 사용자 행동 | \`${content.nextAction}\` |

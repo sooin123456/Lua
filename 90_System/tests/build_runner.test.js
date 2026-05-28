@@ -14,18 +14,18 @@ function write(filePath, content) {
 function makeVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-build-runner-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| build-001 | build | app | Make a tiny timer app from the Lua template | plan | Forge | routed | [[00_Lua/01_Command Center/01_Commands/Command Runs/build-001-build-app|run]] |
+| build-001 | build | app | Make a tiny timer app from the Lua template | plan | Forge | routed | [[90_System/80_Lua_Details/Command Runs/build-001-build-app|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'build-001-build-app.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'build-001-build-app.md'),
     `---
 type: command-run
 status: routed
@@ -66,7 +66,7 @@ last_updated: 2026-05-16
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '03_Summaries', 'Work Ledger.md'),
+    path.join(root, '00_Lua', '03_Records', 'Work Ledger.md'),
     `# Work Ledger
 `
   );
@@ -109,7 +109,7 @@ test('build runner turns a planned build command into a done artifact', () => {
   );
 
   const commandCenter = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     'utf8'
   );
   assert.match(
@@ -118,7 +118,7 @@ test('build runner turns a planned build command into a done artifact', () => {
   );
 
   const runNote = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'build-001-build-app.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'build-001-build-app.md'),
     'utf8'
   );
   assert.match(runNote, /status: done/);
@@ -145,7 +145,7 @@ test('build runner turns a planned build command into a done artifact', () => {
   assert.match(artifactLedger, /build-001-build-app-output/);
 
   const workLedger = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '03_Summaries', 'Work Ledger.md'),
+    path.join(root, '00_Lua', '03_Records', 'Work Ledger.md'),
     'utf8'
   );
   assert.match(workLedger, /build-001/);

@@ -139,7 +139,7 @@ Findings:
 - Runtime queue is active and currently starts at `TASK-003` for the Toss follow-up.
 - Master Dashboard had stale `TASK-001` guidance and needed to point to `TASK-003`.
 
-Added `00_Lua/01_Command Center/01_Commands/Lua Command And Record Channels.md` as the single-page map for command intake and record destinations.
+Added `00_Lua/01_Commands/Command And Record Channels.md` as the single-page map for command intake and record destinations.
 
 Next action:
 
@@ -188,7 +188,7 @@ Moved or removed:
 
 - Removed root `Lua-v3-*` legacy spec copies; canonical versions remain under `90_System/05_Archives/Lua Specs/`.
 - Moved `_PATCH-notes.md` to `90_System/05_Archives/Patch Notes.md`.
-- Moved `지원사업 검토.md` to `00_Lua/03_Operation/Government Support/지원사업 검토.md`.
+- Moved `지원사업 검토.md` to `90_System/80_Lua_Details/03_Operation/Government Support/지원사업 검토.md`.
 - Moved `환영합니다!.md` to `90_System/05_Archives/Welcome.md`.
 - Added `90_System/03_Wiki/Vault Folder Structure.md`.
 

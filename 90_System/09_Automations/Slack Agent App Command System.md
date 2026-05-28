@@ -175,6 +175,6 @@ Slack 명령은 기본적으로 Stage 1 또는 Stage 2까지만 자동 처리한
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[Lua End-to-End Flow|Lua End-to-End Flow]]
-- [[00_Lua/01_Command Center/01_Commands/Command Modes|Command Modes]]
+- [[90_System/80_Lua_Details/01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[90_System/07_Lua_System/agents/README|Lua Agents]]
-- [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]
+- [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]

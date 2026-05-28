@@ -49,7 +49,7 @@ Root should contain only repo entrypoints, package/config files, and current top
 Moved:
 
 - `_PATCH-notes.md` -> `90_System/05_Archives/Patch Notes.md`
-- `지원사업 검토.md` -> `00_Lua/03_Operation/Government Support/지원사업 검토.md`
+- `지원사업 검토.md` -> `90_System/80_Lua_Details/03_Operation/Government Support/지원사업 검토.md`
 - `환영합니다!.md` -> `90_System/05_Archives/Welcome.md`
 
 ## P1: Odd Agent Path
@@ -88,7 +88,7 @@ Empty file cleanup candidates:
 Recommended next cleanup:
 
 1. [x] Fill `90_System/99_Templates/Project Dashboard Template.md`.
-2. [x] Apply the template to empty `00_Lua/02_Projects/**/Home.md` files.
+2. [x] Apply the template to empty `90_System/80_Lua_Details/02_Projects/**/Home.md` files.
 3. [x] Add one-line status to empty `Backlog.md`, `DevLog.md`, `Metrics.md`, and `Research.md` instead of deleting them.
 4. [x] Re-run `node 90_System/scripts/vault_audit.js`.
 
@@ -100,7 +100,7 @@ Result:
 
 Next cleanup:
 
-1. Update `00_Lua/02_Projects/Projects Hub.md` to link every project Home.
+1. Update `90_System/80_Lua_Details/02_Projects/Projects Hub.md` to link every project Home.
 2. Update each project `Home.md` to link to parent company/domain notes.
 3. Fix two broken links reported by `vault_audit.js`.
 
@@ -132,5 +132,5 @@ Next cleanup should focus only on the remaining true orphan notes, mainly comman
 ## Navigation
 
 - [[90_System/09_Automations/README|Automations]]
-- [[00_Lua/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

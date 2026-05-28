@@ -23,9 +23,9 @@ It should not answer by containing the whole application codebase.
 
 | Question | Answer lives in |
 |---|---|
-| What is the product idea? | `00_Lua/02_Projects/` and `90_System/03_Wiki/` |
-| What did the user decide? | `00_Lua/01_Command Center/01_Commands/Decision Board.md` |
-| What happened in a session? | `00_Lua/01_Command Center/03_Summaries/Work Ledger.md` |
+| What is the product idea? | `90_System/80_Lua_Details/02_Projects/` and `90_System/03_Wiki/` |
+| What did the user decide? | `90_System/80_Lua_Details/01_Command Center/01_Commands/Decision Board.md` |
+| What happened in a session? | `00_Lua/03_Records/Work Ledger.md` |
 | Where is the code? | `90_System/03_Wiki/Repository Registry.md` |
 | What is the reusable concept? | `90_System/03_Wiki/` |
 | What is the actual app implementation? | separate Git repo |

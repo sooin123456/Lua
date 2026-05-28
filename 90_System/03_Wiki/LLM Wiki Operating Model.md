@@ -40,12 +40,12 @@ The vault should behave like a personal knowledge wiki:
 
 | Layer | Folder | Rule |
 |---|---|---|
-| Inbox | `00_Lua/00_Inbox/` | Raw capture only. Do not over-organize at capture time. |
-| Command Center | `00_Lua/01_Command Center/` | Active commands, decisions, user actions, work ledger. |
-| Projects | `00_Lua/02_Projects/` | Project home, product specs, repo links, status. |
+| Inbox | `90_System/80_Lua_Details/00_Inbox/` | Raw capture only. Do not over-organize at capture time. |
+| Command Center | `90_System/80_Lua_Details/01_Command Center/` | Active commands, decisions, user actions, work ledger. |
+| Projects | `90_System/80_Lua_Details/02_Projects/` | Project home, product specs, repo links, status. |
 | Wiki | `90_System/03_Wiki/` | Concept pages compiled from raw sources and work. |
-| Operation | `00_Lua/03_Operation/` | Company operations, CRM, proposals, industry intelligence. |
-| Resources | `00_Lua/04_Resources/` | Reference libraries and domain resources. |
+| Operation | `90_System/80_Lua_Details/03_Operation/` | Company operations, CRM, proposals, industry intelligence. |
+| Resources | `90_System/80_Lua_Details/04_Resources/` | Reference libraries and domain resources. |
 | Artifacts | `90_System/08_Artifacts/` | Small non-app outputs, screenshots, reports, generated 90_System/docs. |
 | Automations | `90_System/09_Automations/` | Rules and scripts for repeatable workflows. |
 | App Repos | outside vault | Real product code. Use `Lua_template` as baseline. |

@@ -4,7 +4,7 @@ const path = require('path');
 const { toPosix } = require('./lib/files');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..', '..');
-const DEFAULT_SOURCE_REL = path.join('00_Lua/04_Resources', 'Energy Policies', 'K-water 수상태양광 Research Brief.md');
+const DEFAULT_SOURCE_REL = path.join('90_System/80_Lua_Details/04_Resources', 'Energy Policies', 'K-water 수상태양광 Research Brief.md');
 const QUEUE_REL = path.join('90_System/09_Automations', 'Notion Publish Queue.md');
 const TODAY = todayKst();
 
@@ -60,7 +60,7 @@ function usage() {
   console.log(`Usage:
   node 90_System/scripts/notion_publish_queue.js --dry-run
   node 90_System/scripts/notion_publish_queue.js --apply
-  node 90_System/scripts/notion_publish_queue.js --apply --source "00_Lua/04_Resources/Energy Policies/K-water 수상태양광 Research Brief.md"
+  node 90_System/scripts/notion_publish_queue.js --apply --source "90_System/80_Lua_Details/04_Resources/Energy Policies/K-water 수상태양광 Research Brief.md"
 `);
 }
 
@@ -232,8 +232,8 @@ Obsidian 원본에서 Notion으로 보낼 팀 공유 초안을 모은다.
 
 - [[90_System/09_Automations/Notion Sync|Notion Sync]]
 - [[90_System/09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
-- [[00_Lua/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[90_System/80_Lua_Details/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]
 `;
 }
 

@@ -16,7 +16,7 @@ applies_to: [vault, archivist]
 
 ### 1. 검출
 
-- `00_Lua/00_Inbox/*.md` 중 mtime이 N일 이상 된 항목
+- `90_System/80_Lua_Details/00_Inbox/*.md` 중 mtime이 N일 이상 된 항목
 - Lens 결과물 (`type: research`) 분류
 - 기타
 
@@ -24,9 +24,9 @@ applies_to: [vault, archivist]
 
 각 항목에 대해 1개 추천:
 
-- → `00_Lua/02_Projects/{project}/` — 특정 프로젝트 관련
-- → `00_Lua/04_Resources/` — 일반 참고
-- → `00_Lua/03_Operation/Industry Intelligence/` — 산업 동향
+- → `90_System/80_Lua_Details/02_Projects/{project}/` — 특정 프로젝트 관련
+- → `90_System/80_Lua_Details/04_Resources/` — 일반 참고
+- → `90_System/80_Lua_Details/03_Operation/Industry Intelligence/` — 산업 동향
 - → `90_System/05_Archives/` — 더 이상 필요 없음
 - → 삭제 후보 (반드시 사람 컨펌)
 

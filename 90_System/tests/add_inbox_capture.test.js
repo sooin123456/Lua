@@ -16,7 +16,7 @@ test('creates a file-based Inbox note for a new capture', () => {
     now: new Date('2026-05-16T04:30:00.000Z'),
   });
 
-  assert.match(result.fileRel, /^00_Lua\/00_Inbox\/\d{8}-\d{6}-manual\.md$/);
+  assert.match(result.fileRel, /^90_System\/80_Lua_Details\/00_Inbox\/\d{8}-\d{6}-manual\.md$/);
   const note = fs.readFileSync(path.join(root, result.fileRel), 'utf8');
   assert.match(note, /type: inbox-note/);
   assert.match(note, /status: captured/);

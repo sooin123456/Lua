@@ -4,13 +4,9 @@ const path = require('path');
 const { findFiles, relativePosix } = require('./lib/files');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..', '..');
-const LEGACY_INBOX_REL = path.join('00_Lua/00_Inbox', 'AI 분류 대기중....md');
-const COMMAND_CENTER_REL = path.join(
-  '00_Lua/01_Command Center',
-  '01_Commands',
-  'Obsidian Command Center.md'
-);
-const INBOX_DIR_REL = '00_Lua/00_Inbox';
+const LEGACY_INBOX_REL = path.join('90_System', '80_Lua_Details', '00_Inbox', 'AI 분류 대기중....md');
+const COMMAND_CENTER_REL = path.join('00_Lua', '01_Commands', 'Command Inbox.md');
+const INBOX_DIR_REL = path.join('90_System', '80_Lua_Details', '00_Inbox');
 
 const RULES = [
   {

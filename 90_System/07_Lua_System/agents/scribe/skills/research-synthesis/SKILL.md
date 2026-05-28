@@ -45,7 +45,7 @@ Markdown 표를 기본 형식으로 쓴다. 셀에는 **숫자 + 단위 + 검증
 
 ## Step 5: Output and save
 
-`00_Lua/00_Inbox/{YYYY-MM-DD}-research-{topic}.md`에 저장한다.
+`90_System/80_Lua_Details/00_Inbox/{YYYY-MM-DD}-research-{topic}.md`에 저장한다.
 
 Frontmatter 예시 필드: `type: research`, `sources_count`, `confidence`, `last_verified`.
 

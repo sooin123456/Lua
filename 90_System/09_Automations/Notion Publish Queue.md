@@ -14,7 +14,7 @@ Obsidian 원본에서 Notion으로 보낼 팀 공유 초안을 모은다.
 id: k-water-수상태양광-research-brief-2026-05-16
 status: published
 target: Research Briefs
-source: 00_Lua/04_Resources/Energy Policies/K-water 수상태양광 Research Brief.md
+source: 90_System/80_Lua_Details/04_Resources/Energy Policies/K-water 수상태양광 Research Brief.md
 notion_url: https://www.notion.so/362eb124ae5f81558d1fced71535012d
 -->
 ### K-water 수상태양광 Research Brief
@@ -23,7 +23,7 @@ notion_url: https://www.notion.so/362eb124ae5f81558d1fced71535012d
 |---|---|
 | Status | published |
 | Target | Research Briefs missing; fallback Lua_Home child page |
-| Source | [[00_Lua/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|Obsidian source]] |
+| Source | [[90_System/80_Lua_Details/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|Obsidian source]] |
 | Parent | https://www.notion.so/8cbeb124ae5f839e8c3d010d23a1c7d0 |
 | Notion | https://www.notion.so/362eb124ae5f81558d1fced71535012d |
 | Last updated | 2026-05-16 |
@@ -56,5 +56,5 @@ Next:
 
 - [[90_System/09_Automations/Notion Sync|Notion Sync]]
 - [[90_System/09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
-- [[00_Lua/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[90_System/80_Lua_Details/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

@@ -14,20 +14,20 @@ function write(filePath, content) {
 function makeVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| example-001 | research | compare | 테크인과 경쟁사 비교 | clarify | Lens | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/example-001-research-compare|run]] |
-| cmd-20260516-024544 | planning | prioritize | 이번 주 Lua 구축 우선순위 정리 | clarify | Atlas | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/cmd-20260516-024544-planning-prioritize|run]] |
-| inbox-20260516-031554-01 | build | app | Neural UI 사업 아이디어 | clarify | Forge | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/inbox-20260516-031554-01-build-app|run]] |
+| example-001 | research | compare | 테크인과 경쟁사 비교 | clarify | Lens | planned | [[90_System/80_Lua_Details/Command Runs/example-001-research-compare|run]] |
+| cmd-20260516-024544 | planning | prioritize | 이번 주 Lua 구축 우선순위 정리 | clarify | Atlas | planned | [[90_System/80_Lua_Details/Command Runs/cmd-20260516-024544-planning-prioritize|run]] |
+| inbox-20260516-031554-01 | build | app | Neural UI 사업 아이디어 | clarify | Forge | planned | [[90_System/80_Lua_Details/Command Runs/inbox-20260516-031554-01-build-app|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'cmd-20260516-024544-planning-prioritize.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'cmd-20260516-024544-planning-prioritize.md'),
     `---
 type: command-run
 status: planned
@@ -48,7 +48,7 @@ last_updated: 2026-05-16
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     `---
 type: action-board
 status: active
@@ -74,19 +74,19 @@ last_updated: 2026-05-16
 function makeBuildVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-build-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| inbox-20260516-031554-01 | build | app | 카파시 인터뷰 기반 Neural UI 사업 아이디어. Toss 미니앱 같은 예시. | clarify | Forge | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/inbox-20260516-031554-01-build-app|run]] |
-| inbox-20260516-031554-02 | research | brief | 수상태양광 리서치 | clarify | Lens | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
+| inbox-20260516-031554-01 | build | app | 카파시 인터뷰 기반 Neural UI 사업 아이디어. Toss 미니앱 같은 예시. | clarify | Forge | planned | [[90_System/80_Lua_Details/Command Runs/inbox-20260516-031554-01-build-app|run]] |
+| inbox-20260516-031554-02 | research | brief | 수상태양광 리서치 | clarify | Lens | planned | [[90_System/80_Lua_Details/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'inbox-20260516-031554-01-build-app.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'inbox-20260516-031554-01-build-app.md'),
     `---
 type: command-run
 status: planned
@@ -107,7 +107,7 @@ last_updated: 2026-05-16
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     `# User Action Board
 
 ## Today
@@ -123,18 +123,18 @@ last_updated: 2026-05-16
 function makeResearchVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-research-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| inbox-20260516-031554-02 | research | brief | 수상태양광 미팅. K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인 조사가 필요함. | clarify | Lens | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
+| inbox-20260516-031554-02 | research | brief | 수상태양광 미팅. K-water 발주 사이즈, 협력 가능 업체, 경쟁사, 테크인 조사가 필요함. | clarify | Lens | planned | [[90_System/80_Lua_Details/Command Runs/inbox-20260516-031554-02-research-brief|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'inbox-20260516-031554-02-research-brief.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'inbox-20260516-031554-02-research-brief.md'),
     `---
 type: command-run
 status: planned
@@ -155,7 +155,7 @@ last_updated: 2026-05-16
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     `# User Action Board
 
 ## Today
@@ -171,18 +171,18 @@ last_updated: 2026-05-16
 function makeDesignScreenVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-atlas-router-design-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| inbox-20260516-041614-01 | design | screen | Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토스 미니앱 만들기 주제는 아직 고민중 대신 이번에는 디자인 쪽으로 나의 명령 체계를 ui로 표현해주는 서비스 | clarify | Scribe+Forge | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/inbox-20260516-041614-01-design-screen|run]] |
+| inbox-20260516-041614-01 | design | screen | Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토스 미니앱 만들기 주제는 아직 고민중 대신 이번에는 디자인 쪽으로 나의 명령 체계를 ui로 표현해주는 서비스 | clarify | Scribe+Forge | planned | [[90_System/80_Lua_Details/Command Runs/inbox-20260516-041614-01-design-screen|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'inbox-20260516-041614-01-design-screen.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'inbox-20260516-041614-01-design-screen.md'),
     `\uFEFF---
 type: command-run
 status: planned
@@ -203,7 +203,7 @@ Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토�
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     `# User Action Board
 
 ## Today
@@ -227,7 +227,7 @@ test('routes the first real planned command run through Atlas CEO notes', () => 
   assert.equal(result.processed[0].stageAfter, 'plan');
 
   const commandCenter = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     'utf8'
   );
   assert.match(
@@ -236,7 +236,7 @@ test('routes the first real planned command run through Atlas CEO notes', () => 
   );
 
   const runNote = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'cmd-20260516-024544-planning-prioritize.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'cmd-20260516-024544-planning-prioritize.md'),
     'utf8'
   );
   assert.match(runNote, /status: routed/);
@@ -248,7 +248,7 @@ test('routes the first real planned command run through Atlas CEO notes', () => 
   assert.match(runNote, /### Plan/);
 
   const actionBoard = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     'utf8'
   );
   assert.match(actionBoard, /Atlas Router 처리 완료/);
@@ -262,8 +262,8 @@ test('dry-run reports the target without changing files', () => {
   const root = makeVault();
   const runPath = path.join(
     root,
-    '00_Lua/01_Command Center',
-    '01_Commands',
+    '90_System',
+    '80_Lua_Details',
     'Command Runs',
     'cmd-20260516-024544-planning-prioritize.md'
   );
@@ -285,7 +285,7 @@ test('build app command gets Neural UI MVP clarify design and plan content', () 
   assert.equal(result.processed[0].agent, 'Forge');
 
   const runNote = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'inbox-20260516-031554-01-build-app.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'inbox-20260516-031554-01-build-app.md'),
     'utf8'
   );
   assert.match(runNote, /Neural UI/);
@@ -295,7 +295,7 @@ test('build app command gets Neural UI MVP clarify design and plan content', () 
   assert.doesNotMatch(runNote, /Command Center를 먼저 안정화/);
 
   const actionBoard = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     'utf8'
   );
   assert.match(actionBoard, /수상태양광 리서치 진행해줘/);
@@ -310,7 +310,7 @@ test('research brief command gets Lens source-based research harness content', (
   assert.equal(result.processed[0].agent, 'Lens');
 
   const runNote = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'inbox-20260516-031554-02-research-brief.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'inbox-20260516-031554-02-research-brief.md'),
     'utf8'
   );
   assert.match(runNote, /K-water/);
@@ -323,7 +323,7 @@ test('research brief command gets Lens source-based research harness content', (
   assert.doesNotMatch(runNote, /Neural UI/);
 
   const actionBoard = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     'utf8'
   );
   assert.match(actionBoard, /리서치 실행 승인해줘/);
@@ -339,7 +339,7 @@ test('design screen command gets Lua command UI miniapp clarify design and plan 
   assert.equal(result.processed[0].stageAfter, 'plan');
 
   const runNote = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'inbox-20260516-041614-01-design-screen.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'inbox-20260516-041614-01-design-screen.md'),
     'utf8'
   );
   assert.match(runNote, /status: routed/);
@@ -354,7 +354,7 @@ test('design screen command gets Lua command UI miniapp clarify design and plan 
   assert.doesNotMatch(runNote, /수상태양광/);
 
   const actionBoard = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     'utf8'
   );
   assert.match(actionBoard, /Lua Command UI 화면 설계 승인해줘/);

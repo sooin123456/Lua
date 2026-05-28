@@ -62,9 +62,9 @@ For daily use, think in three layers:
 
 | Layer | Question | Guide |
 |---|---|---|
-| Memory | What should Lua remember later? | [[00_Lua/01_Command Center/02_Memory/Lua Memory Classification|Memory Classification]] |
-| Command | What kind of instruction is this? | [[00_Lua/01_Command Center/01_Commands/Lua Command Taxonomy|Command Taxonomy]] |
-| Summary | What happened and what is next? | [[00_Lua/01_Command Center/03_Summaries/Lua Activity Summary System|Activity Summary System]] |
+| Memory | What should Lua remember later? | [[00_Lua/02_Memory/Memory Classification|Memory Classification]] |
+| Command | What kind of instruction is this? | [[00_Lua/01_Commands/Command Types|Command Taxonomy]] |
+| Summary | What happened and what is next? | [[00_Lua/03_Records/Activity Summary System|Activity Summary System]] |
 
 ## Secret Rule
 
@@ -72,7 +72,7 @@ For daily use, think in three layers:
 
 ## Navigation
 
-- [[00_Lua/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
-- [[00_Lua/01_Command Center/01_Commands/Lua Command And Record Channels|Command/Record Channels]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[00_Lua/01_Commands/Command And Record Channels|Command/Record Channels]]
 - [[90_System/05_Archives/Archives Hub|Archives Hub]]
 - [[90_System/03_Wiki/Home|Wiki Home]]

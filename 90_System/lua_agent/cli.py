@@ -209,7 +209,7 @@ def export_obsidian_project(
     tasks = store.list_tasks(project_id)
     checkpoints_by_task = {task.id: store.list_checkpoints(task.id) for task in tasks}
     note = render_project_note(project, tasks, checkpoints_by_task)
-    target_dir = vault / "00_Lua/02_Projects" / "Lua"
+    target_dir = vault / "90_System" / "80_Lua_Details" / "02_Projects" / "Lua"
     target_dir.mkdir(parents=True, exist_ok=True)
     target_path = target_dir / safe_markdown_filename(project.name)
     target_path.write_text(note)

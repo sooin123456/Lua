@@ -259,7 +259,7 @@ last_updated: ${TODAY}
 }
 
 const explicitTemplates = new Map([
-  ['00_Lua/00_Inbox/AI 분류 대기중....md', `---
+  ['90_System/80_Lua_Details/00_Inbox/AI 분류 대기중....md', `---
 type: inbox
 status: triage
 source: manual
@@ -369,7 +369,7 @@ last_updated: ${TODAY}
 function scaffoldFor(rel) {
   if (explicitTemplates.has(rel)) return explicitTemplates.get(rel);
 
-  if (rel.startsWith('00_Lua/02_Projects/')) {
+  if (rel.startsWith('90_System/80_Lua_Details/02_Projects/')) {
     const meta = projectMeta(rel);
     if (meta.file === 'Home') return projectHome(meta);
     if (meta.file === 'Backlog') return backlog(meta);
@@ -378,10 +378,10 @@ function scaffoldFor(rel) {
     if (meta.file === 'Research') return research(meta);
   }
 
-  if (rel.startsWith('00_Lua/03_Operation/')) return operationNote(rel);
-  if (rel.startsWith('00_Lua/04_Resources/Tech Stack/')) return resourceNote(rel);
+  if (rel.startsWith('90_System/80_Lua_Details/03_Operation/')) return operationNote(rel);
+  if (rel.startsWith('90_System/80_Lua_Details/04_Resources/Tech Stack/')) return resourceNote(rel);
 
-  if (rel === '00_Lua/05_Personal Studio/Daily Notes.md') {
+  if (rel === '90_System/80_Lua_Details/05_Personal Studio/Daily Notes.md') {
     return `---
 type: daily-notes
 status: active
@@ -400,7 +400,7 @@ last_updated: ${TODAY}
 
 ## Links
 
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger]]
+- [[00_Lua/03_Records/Work Ledger]]
 `;
   }
 

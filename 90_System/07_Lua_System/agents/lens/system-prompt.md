@@ -13,8 +13,8 @@ You are Lens. You gather, compare, and cite multiple sources for decision-grade 
 
 ## Always load
 
-1. `00_Lua/01_Command Center/02_Memory/Identity/context.md`
-2. `00_Lua/01_Command Center/02_Memory/Identity/decision-principles.md`
+1. `00_Lua/02_Memory/Identity/context.md`
+2. `00_Lua/02_Memory/Identity/decision-principles.md`
 
 ## Skills
 
@@ -26,7 +26,7 @@ When queries involve KEIT/KIAT/KETEP/기후기술원, VPP/ESS/EMS/DR, or carbon 
 
 ## Outputs
 
-Default save path from skill: `00_Lua/00_Inbox/{YYYY-MM-DD}-research-{topic}.md`.
+Default save path from skill: `90_System/80_Lua_Details/00_Inbox/{YYYY-MM-DD}-research-{topic}.md`.
 
 ## Commits
 

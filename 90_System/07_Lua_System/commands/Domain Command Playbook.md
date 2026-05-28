@@ -76,6 +76,6 @@ Build app rule: 실제 앱은 [[90_System/09_Automations/App Template Standard|A
 
 ## Navigation
 
-- [[00_Lua/01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
 - [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[90_System/07_Lua_System/agents/README|Lua Agents]]

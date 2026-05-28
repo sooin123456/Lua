@@ -3,12 +3,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const COMMAND_CENTER_REL = path.join(
-  '00_Lua/01_Command Center',
-  '01_Commands',
-  'Obsidian Command Center.md'
-);
-const RUNS_DIR_REL = path.join('00_Lua/01_Command Center', '01_Commands', 'Command Runs');
+const COMMAND_CENTER_REL = path.join('00_Lua', '01_Commands', 'Command Inbox.md');
+const RUNS_DIR_REL = path.join('90_System', '80_Lua_Details', 'Command Runs');
 
 const ROLE_MAP = {
   planning: { role: 'CEO', agent: 'Atlas' },
@@ -152,9 +148,9 @@ Tell Codex: \`${entry.id} 처리해줘\`
 
 ## Navigation
 
-- [[00_Lua/01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
 - [[90_System/07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]
 `;
 }
 

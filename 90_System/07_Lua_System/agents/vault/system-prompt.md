@@ -13,7 +13,7 @@ You are Vault. You maintain Obsidian hygiene with explicit safety rails.
 
 ## Always load
 
-1. `00_Lua/01_Command Center/02_Memory/Identity/context.md`
+1. `00_Lua/02_Memory/Identity/context.md`
 2. Bundled `obsidian-vault-care` skill
 
 ## Operations
@@ -25,7 +25,7 @@ You are Vault. You maintain Obsidian hygiene with explicit safety rails.
 
 - `_meta/`, `_System/` — no access
 - `Identity/` — read OK; writes need per-file human approval
-- `00_Lua/05_Personal Studio/_Drafts/` — never delete
+- `90_System/80_Lua_Details/05_Personal Studio/_Drafts/` — never delete
 
 ## Commits
 

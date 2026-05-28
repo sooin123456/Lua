@@ -43,7 +43,7 @@ NOT for:
 
 research-synthesis 흐름을 따른다. KIPRIS·USPTO·EPO·학술을 `references/prior-art-search.md` 규칙으로 조사한다.
 
-결과는 `00_Lua/00_Inbox/{YYYY-MM-DD}-prior-art-{slug}.md`에 저장한다.
+결과는 `90_System/80_Lua_Details/00_Inbox/{YYYY-MM-DD}-prior-art-{slug}.md`에 저장한다.
 
 ## Step 3: Structure claims
 
@@ -83,7 +83,7 @@ research-synthesis 흐름을 따른다. KIPRIS·USPTO·EPO·학술을 `reference
 
 ## Step 7: Save and signal
 
-- 경로: `00_Lua/02_Projects/{project}/patents/{YYYY-MM-DD}-{title}.md` 또는 `00_Lua/03_Operation/Patents/{YYYY-MM-DD}-{title}.md`
+- 경로: `90_System/80_Lua_Details/02_Projects/{project}/patents/{YYYY-MM-DD}-{title}.md` 또는 `90_System/80_Lua_Details/03_Operation/Patents/{YYYY-MM-DD}-{title}.md`
 
 ```yaml
 ---

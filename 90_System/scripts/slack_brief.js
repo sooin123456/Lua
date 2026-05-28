@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const DEFAULT_DRAFT_FILE = path.join(ROOT, '00_Lua/03_Operation', 'Team Brief Drafts.md');
+const DEFAULT_DRAFT_FILE = path.join(ROOT, '90_System', '80_Lua_Details', '03_Operation', 'Team Brief Drafts.md');
 
 function parseArgs(argv) {
   const args = {

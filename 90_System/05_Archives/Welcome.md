@@ -12,10 +12,10 @@ last_updated: 2026-05-15
 
 ## Start Here
 
-- [[00_Lua/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
-- [[00_Lua/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
-- [[00_Lua/01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
-- [[00_Lua/02_Projects/Projects Hub|Projects Hub]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[90_System/80_Lua_Details/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
+- [[90_System/80_Lua_Details/02_Projects/Projects Hub|Projects Hub]]
 - [[90_System/07_Lua_System/agents/README|Lua Agents]]
 - [[90_System/09_Automations/README|Automations]]
 

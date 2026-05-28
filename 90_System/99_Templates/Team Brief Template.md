@@ -28,4 +28,4 @@ Source:
 ## Navigation
 
 - [[90_System/99_Templates/Templates Hub|Templates Hub]]
-- [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]
+- [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]

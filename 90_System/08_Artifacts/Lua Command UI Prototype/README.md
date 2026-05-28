@@ -6,7 +6,7 @@ last_updated: 2026-05-16
 
 # Lua Command UI Prototype
 
-Static first-screen prototype for [[00_Lua/02_Projects/Lucia/Lua Command UI|Lua Command UI]].
+Static first-screen prototype for [[90_System/80_Lua_Details/02_Projects/Lucia/Lua Command UI|Lua Command UI]].
 
 Open `index.html` directly to try the command composer in copy-only mode.
 
@@ -59,5 +59,5 @@ Writes the row, routes it, runs the Build Runner, creates a build output artifac
 
 ## Navigation
 
-- [[00_Lua/02_Projects/Lucia/Lua Command UI|Lua Command UI]]
+- [[90_System/80_Lua_Details/02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 - [[90_System/08_Artifacts/Artifact Ledger|Artifact Ledger]]

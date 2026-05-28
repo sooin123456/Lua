@@ -28,7 +28,7 @@ def test_obsidian_export_writes_project_note(tmp_path):
     result = runner.invoke(app, ["--db", str(db_path), "obsidian", "export", "PROJ-001", "--vault", str(vault_path)])
 
     assert result.exit_code == 0
-    exported = vault_path / "00_Lua/02_Projects" / "Lua" / "Toss Mini App To App.md"
+    exported = vault_path / "90_System" / "80_Lua_Details" / "02_Projects" / "Lua" / "Toss Mini App To App.md"
     assert str(exported) in result.stdout
     assert exported.exists()
     content = exported.read_text()

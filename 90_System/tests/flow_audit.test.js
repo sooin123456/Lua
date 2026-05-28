@@ -14,18 +14,18 @@ function write(filePath, content) {
 function makeVault({ withHubLink = true } = {}) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-flow-audit-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| cmd-1 | research | brief | K-water 수상태양광 조사 | brief | Lens | briefed | [[00_Lua/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|brief]] |
+| cmd-1 | research | brief | K-water 수상태양광 조사 | brief | Lens | briefed | [[90_System/80_Lua_Details/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|brief]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'cmd-1-research-brief.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'cmd-1-research-brief.md'),
     `---
 type: command-run
 status: briefed
@@ -41,11 +41,11 @@ role: Researcher
 
 ## Research Brief
 
-- [[00_Lua/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
+- [[90_System/80_Lua_Details/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
 `
   );
   write(
-    path.join(root, '00_Lua/04_Resources', 'Energy Policies', 'K-water 수상태양광 Research Brief.md'),
+    path.join(root, '90_System', '80_Lua_Details', '04_Resources', 'Energy Policies', 'K-water 수상태양광 Research Brief.md'),
     `---
 type: research-brief
 status: draft
@@ -58,14 +58,14 @@ aliases:
   );
   if (withHubLink) {
     write(
-      path.join(root, '00_Lua/04_Resources', 'Energy Policies', 'Energy Policies Hub.md'),
+      path.join(root, '90_System', '80_Lua_Details', '04_Resources', 'Energy Policies', 'Energy Policies Hub.md'),
       `---
 type: hub
 ---
 
 # Energy Policies Hub
 
-- [[00_Lua/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
+- [[90_System/80_Lua_Details/04_Resources/Energy Policies/K-water 수상태양광 Research Brief|K-water 수상태양광 Research Brief]]
 `
     );
   }
@@ -86,7 +86,7 @@ test('flow audit fails when a completed brief has no hub entry point', () => {
 
 test('flow audit fails when a completed command has no run note backstop', () => {
   const root = makeVault();
-  fs.rmSync(path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs'), { recursive: true, force: true });
+  fs.rmSync(path.join(root, '90_System', '80_Lua_Details', 'Command Runs'), { recursive: true, force: true });
 
   const result = auditFlow({ root });
 

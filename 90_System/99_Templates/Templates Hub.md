@@ -28,7 +28,7 @@ area: Templates
 
 ## Connected Areas
 
-- [[00_Lua/01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
-- [[00_Lua/01_Command Center/03_Summaries/Weekly Review|Weekly Review]]
-- [[00_Lua/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[00_Lua/04_Resources/Resources Hub|Resources Hub]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]]
+- [[00_Lua/03_Records/Weekly Review|Weekly Review]]
+- [[90_System/80_Lua_Details/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[90_System/80_Lua_Details/04_Resources/Resources Hub|Resources Hub]]

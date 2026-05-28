@@ -79,8 +79,8 @@ ${text.trim()}
 
 ## Navigation
 
-- [[00_Lua/00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
-- [[00_Lua/01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
+- [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
 `;
 }
 
@@ -91,7 +91,7 @@ function addInboxCapture(options = {}) {
   const now = options.now || new Date();
   if (!text || !String(text).trim()) throw new Error('Missing capture text');
 
-  const inboxDir = path.join(root, '00_Lua/00_Inbox');
+  const inboxDir = path.join(root, '90_System', '80_Lua_Details', '00_Inbox');
   fs.mkdirSync(inboxDir, { recursive: true });
 
   const file = path.join(inboxDir, `${timestamp(now)}-${safeSlug(source)}.md`);

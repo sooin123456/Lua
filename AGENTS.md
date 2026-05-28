@@ -14,9 +14,9 @@ This is the Codex entry point for the Lua system. Treat `CLAUDE.md` as the share
 
 1. `CLAUDE.md`
 2. `90_System/07_Lua_System/agents/README.md`
-3. `00_Lua/01_Command Center/01_Commands/Harness Loop.md`
-4. `00_Lua/01_Command Center/02_Memory/Identity/context.md`
-5. `00_Lua/01_Command Center/04_Policies/_System/agent-permissions.md`
+3. `90_System/80_Lua_Details/01_Command Center/01_Commands/Harness Loop.md`
+4. `00_Lua/02_Memory/Identity/context.md`
+5. `90_System/80_Lua_Details/01_Command Center/04_Policies/_System/agent-permissions.md`
 
 ## Windows Codex Role
 
@@ -41,11 +41,11 @@ Pi is the lightweight terminal harness for typed experiments.
 - Use Pi for small prompt presets, context experiments, eval runs, and package experiments.
 - Keep Pi optional until `.pi/` presets are explicitly added to this repo.
 - Review third-party Pi packages before installing them because packages can execute code and influence agent behavior.
-- Store Pi decisions in `00_Lua/04_Resources/Tech Stack/Pi Coding Agent.md` and user-facing usage rules in `00_Lua/01_Command Center/04_Policies/Lua Usage Guide.md`.
+- Store Pi decisions in `90_System/80_Lua_Details/04_Resources/Tech Stack/Pi Coding Agent.md` and user-facing usage rules in `90_System/80_Lua_Details/01_Command Center/04_Policies/Lua Usage Guide.md`.
 
 ## Default Build Loop
 
-Use the loop in `00_Lua/01_Command Center/01_Commands/Harness Loop.md`:
+Use the loop in `90_System/80_Lua_Details/01_Command Center/01_Commands/Harness Loop.md`:
 
 1. Capture the request.
 2. Load the smallest useful context.
@@ -84,7 +84,7 @@ node 90_System/scripts/vault_audit.js
 
 Every meaningful session needs an origin record.
 
-- Append to `00_Lua/01_Command Center/03_Summaries/Work Ledger.md`.
+- Append to `00_Lua/03_Records/Work Ledger.md`.
 - Use `/work-log {short title}` when the work crosses tools or hosts.
 - Commit messages should start with a host prefix, for example `[host:windows-codex]`.
 - Mac Claude work should use `[host:mac-claude]`.
@@ -92,7 +92,7 @@ Every meaningful session needs an origin record.
 
 ## Safety
 
-- `00_Lua/01_Command Center/02_Memory/Identity/` is read-only unless the user approves the exact file edit.
-- `00_Lua/01_Command Center/04_Policies/_System/` is read-only unless the user asks for permission changes.
+- `00_Lua/02_Memory/Identity/` is read-only unless the user approves the exact file edit.
+- `90_System/80_Lua_Details/01_Command Center/04_Policies/_System/` is read-only unless the user asks for permission changes.
 - Never commit secrets, API keys, Slack tokens, Notion tokens, or Obsidian Local REST API keys.
 - Stage external communications in drafts first.

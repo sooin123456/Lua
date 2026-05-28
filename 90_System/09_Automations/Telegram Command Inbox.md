@@ -87,7 +87,7 @@ TELEGRAM_BOT_TOKEN=... node 90_System/scripts/telegram_bot_poll.js --once --ack
 
 | ID | Source | Command | Payload | Status | Result |
 |---|---|---|---|---|---|
-| example-001 | Telegram | `/lua inbox` | 예시 아이디어 | done | [[00_Lua/00_Inbox/AI 분류 대기중...|Inbox]] |
+| example-001 | Telegram | `/lua inbox` | 예시 아이디어 | done | [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|Inbox]] |
 
 ## Safety
 
@@ -98,7 +98,7 @@ TELEGRAM_BOT_TOKEN=... node 90_System/scripts/telegram_bot_poll.js --once --ack
 
 ## Navigation
 
-- [[00_Lua/01_Command Center/01_Commands/Lua Command And Record Channels|Command/Record Channels]]
-- [[00_Lua/01_Command Center/01_Commands/Command Modes|Command Modes]]
+- [[00_Lua/01_Commands/Command And Record Channels|Command/Record Channels]]
+- [[90_System/80_Lua_Details/01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

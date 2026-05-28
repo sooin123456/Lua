@@ -58,15 +58,15 @@ async function checkCLAUDEmd() {
 
 async function checkIdentity() {
   const required = [
-    '00_Lua/01_Command Center/02_Memory/Identity/about-me.md',
-    '00_Lua/01_Command Center/02_Memory/Identity/voice.md',
-    '00_Lua/01_Command Center/02_Memory/Identity/decision-principles.md',
-    '00_Lua/01_Command Center/02_Memory/Identity/context.md',
+    '00_Lua/02_Memory/Identity/about-me.md',
+    '00_Lua/02_Memory/Identity/voice.md',
+    '00_Lua/02_Memory/Identity/decision-principles.md',
+    '00_Lua/02_Memory/Identity/context.md',
   ];
   for (const f of required) {
     if (!fs.existsSync(path.join(ROOT, f))) errors.push(`Identity file missing: ${f}`);
   }
-  const voicePath = path.join(ROOT, '00_Lua/01_Command Center/02_Memory/Identity/voice.md');
+  const voicePath = path.join(ROOT, '00_Lua/02_Memory/Identity/voice.md');
   if (fs.existsSync(voicePath)) {
     const bodyLines = fs.readFileSync(voicePath, 'utf-8').split('\n').length;
     if (bodyLines < 30) warnings.push('voice.md too short (< 30 lines).');
@@ -74,7 +74,7 @@ async function checkIdentity() {
 }
 
 async function checkAgentPermissions() {
-  const p = path.join(ROOT, '00_Lua/01_Command Center/04_Policies/_System/agent-permissions.md');
+  const p = path.join(ROOT, '90_System/80_Lua_Details/01_Command Center/04_Policies/_System/agent-permissions.md');
   if (!fs.existsSync(p)) errors.push('_System/agent-permissions.md missing');
 }
 

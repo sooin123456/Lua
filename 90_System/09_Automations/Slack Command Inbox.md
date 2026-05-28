@@ -65,18 +65,18 @@ node 90_System/scripts/slack_command_inbox.js --source slack-mobile "/lua inbox 
 
 | ID | Source | Command | Payload | Status | Result |
 |---|---|---|---|---|---|
-| example-001 | Slack | `/lua inbox` | 예시 아이디어 | done | [[00_Lua/00_Inbox/AI 분류 대기중...|Inbox]] |
+| example-001 | Slack | `/lua inbox` | 예시 아이디어 | done | [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|Inbox]] |
 | slack-20260516-023413 | slack-mobile | /lua research | 테크인 수상태양광 실적 조사 | queued |  |
 
 ## Routing
 
 | Command | Destination |
 |---|---|
-| `/lua inbox` | [[00_Lua/00_Inbox/AI 분류 대기중...|AI 분류 대기중]] |
-| `/lua todo` | Project Backlog or [[00_Lua/01_Command Center/01_Commands/Urgent List|Urgent List]] |
-| `/lua brief` | [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]] |
+| `/lua inbox` | [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|AI 분류 대기중]] |
+| `/lua todo` | Project Backlog or [[90_System/80_Lua_Details/01_Command Center/01_Commands/Urgent List|Urgent List]] |
+| `/lua brief` | [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]] |
 | `/lua ask` | Project Research or Industry Intelligence |
-| `/lua status` | [[00_Lua/01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]] command queue |
+| `/lua status` | [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Agent Dashboard|Agent Dashboard]] command queue |
 
 ## Safety
 
@@ -86,9 +86,9 @@ node 90_System/scripts/slack_command_inbox.js --source slack-mobile "/lua inbox 
 
 ## Navigation
 
-- [[00_Lua/01_Command Center/01_Commands/Command Modes|Command Modes]]
+- [[90_System/80_Lua_Details/01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[90_System/09_Automations/Slack Briefs|Slack Briefs]]
-- [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[00_Lua/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
+- [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]
+- [[90_System/80_Lua_Details/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]

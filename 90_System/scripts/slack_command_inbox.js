@@ -53,7 +53,7 @@ function escapeCell(value) {
 function appendQueue(entry) {
   let content = fs.readFileSync(INBOX, 'utf8');
   const row = `| ${entry.id} | ${escapeCell(entry.source)} | ${escapeCell(entry.command)} | ${escapeCell(entry.payload)} | queued |  |`;
-  const marker = '| example-001 | Slack | `/lua inbox` | 예시 아이디어 | done | [[00_Lua/00_Inbox/AI 분류 대기중...|Inbox]] |';
+  const marker = '| example-001 | Slack | `/lua inbox` | 예시 아이디어 | done | [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|Inbox]] |';
   if (content.includes(marker)) {
     content = content.replace(marker, `${marker}\n${row}`);
   } else {

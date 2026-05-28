@@ -11,7 +11,7 @@ function write(filePath, content) {
   fs.writeFileSync(filePath, content, 'utf8');
 }
 
-function makeVault(sourceRel = path.join('00_Lua/04_Resources', 'Energy Policies', 'Floating Solar Research Brief.md')) {
+function makeVault(sourceRel = path.join('90_System/80_Lua_Details/04_Resources', 'Energy Policies', 'Floating Solar Research Brief.md')) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-notion-queue-'));
   write(
     path.join(root, sourceRel),
@@ -63,11 +63,11 @@ test('writes a draft entry to the local Notion Publish Queue', () => {
   assert.match(queue, /<!-- notion-publish/);
   assert.match(queue, /status: draft/);
   assert.match(queue, /Target \| Research Briefs missing; fallback Lua_Home child page/);
-  assert.match(queue, /\[\[00_Lua\/04_Resources\/Energy Policies\/Floating Solar Research Brief\|Obsidian source\]\]/);
+  assert.match(queue, /\[\[90_System\/80_Lua_Details\/04_Resources\/Energy Policies\/Floating Solar Research Brief\|Obsidian source\]\]/);
 });
 
 test('refuses notes that look like secrets', () => {
-  const { root, sourceRel } = makeVault(path.join('00_Lua/04_Resources', 'Secret.md'));
+  const { root, sourceRel } = makeVault(path.join('90_System/80_Lua_Details/04_Resources', 'Secret.md'));
   fs.appendFileSync(path.join(root, sourceRel), '\napi_key: abc123\n', 'utf8');
 
   assert.throws(

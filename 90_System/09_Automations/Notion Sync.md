@@ -44,12 +44,12 @@ Notion receives durable team records, not raw thinking.
 
 | Obsidian source | Notion target | Publish condition |
 |---|---|---|
-| `00_Lua/02_Projects/**/Home.md` | Projects | project is active |
+| `90_System/80_Lua_Details/02_Projects/**/Home.md` | Projects | project is active |
 | `Backlog.md` / `Urgent List.md` | Tasks | owner or deadline exists |
 | `DevLog.md` | Decisions | decision or milestone exists |
 | `Research.md` / Industry notes | Research Briefs | summary is useful to team |
 | `90_System/08_Artifacts/Artifact Ledger.md` | Artifacts | asset can be reused |
-| `00_Lua/03_Operation/Team Brief Drafts.md` | Team Briefs | user approved |
+| `90_System/80_Lua_Details/03_Operation/Team Brief Drafts.md` | Team Briefs | user approved |
 
 ## Safety
 
@@ -74,7 +74,7 @@ This script writes only to Obsidian. It does not create or update Notion pages.
 - [[Lua End-to-End Flow|Lua End-to-End Flow]]
 - [[90_System/09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
 - [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
-- [[00_Lua/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[00_Lua/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[90_System/80_Lua_Details/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

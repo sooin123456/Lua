@@ -36,7 +36,7 @@ flowchart LR
   Runtime --> Goals["Codex /goal instructions"]
   Runtime --> Notes["Obsidian project notes"]
   Forge --> GitHub["GitHub repos and Actions"]
-  Scribe --> Drafts["00_Lua/05_Personal Studio/_Drafts"]
+  Scribe --> Drafts["90_System/80_Lua_Details/05_Personal Studio/_Drafts"]
   Lens --> Research["00_Lua/00_Inbox research notes"]
   VaultAgent --> Vault
   Archivist --> Notion["Notion team databases"]
@@ -78,7 +78,7 @@ Runtime documentation lives in `90_System/07_Lua_System/runtime/README.md`. Deve
 
 ### 1. Capture Loop
 
-Telegram, Slack, meeting notes, browser research, and spontaneous ideas enter `00_Lua/00_Inbox/`. Vault or Atlas classifies each item into a project, resource, operation, or archive destination.
+Telegram, Slack, meeting notes, browser research, and spontaneous ideas enter `90_System/80_Lua_Details/00_Inbox/`. Vault or Atlas classifies each item into a project, resource, operation, or archive destination.
 
 Command: `/inbox-triage`
 
@@ -177,11 +177,11 @@ Minimum useful Notion setup:
 
 | Database | Mirrors from Obsidian | Key fields |
 |---|---|---|
-| Projects | `00_Lua/02_Projects/**/Home.md` | Status, owner, next action, deadline, Slack channel |
+| Projects | `90_System/80_Lua_Details/02_Projects/**/Home.md` | Status, owner, next action, deadline, Slack channel |
 | Decisions | Command Center and project DevLogs | Decision, date, context, reversible, owner |
 | Artifacts | `90_System/08_Artifacts/Artifact Ledger.md` | Type, project, path/url, status, reviewer |
-| Proposals | `00_Lua/03_Operation/Proposals/` | Grant, deadline, stage, blocker |
-| Patents | `00_Lua/03_Operation/Patents/` | Title, stage, attorney review, prior art status |
+| Proposals | `90_System/80_Lua_Details/03_Operation/Proposals/` | Grant, deadline, stage, blocker |
+| Patents | `90_System/80_Lua_Details/03_Operation/Patents/` | Title, stage, attorney review, prior art status |
 
 ## Slack Channels
 

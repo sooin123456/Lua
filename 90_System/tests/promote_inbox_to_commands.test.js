@@ -14,7 +14,7 @@ function write(filePath, content) {
 function makeVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-inbox-promote-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `---
 type: command-center
 ---
@@ -25,11 +25,11 @@ type: command-center
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| example-001 | research | compare | sample | clarify | Lens | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/example-001-research-compare|run]] |
+| example-001 | research | compare | sample | clarify | Lens | planned | [[90_System/80_Lua_Details/Command Runs/example-001-research-compare|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/00_Inbox', 'Toss 미니앱 만들기.md'),
+    path.join(root, '90_System', '80_Lua_Details', '00_Inbox', 'Toss 미니앱 만들기.md'),
     `https://toss.im/apps-in-toss/blog/making-miniapps?utm_source=meta&fbclid=abc
 
 토스 미니앱 만들기
@@ -53,13 +53,13 @@ test('promotes file-based Inbox notes into the Command Queue', () => {
   assert.doesNotMatch(result.entries[0].payload, /utm_source|fbclid/);
 
   const commandCenter = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     'utf8'
   );
   assert.match(commandCenter, /\| inbox-\d{8}-\d{6}-01 \| design \| screen \|/);
   assert.match(commandCenter, /Toss 미니앱 만들기/);
 
-  const inboxNote = fs.readFileSync(path.join(root, '00_Lua/00_Inbox', 'Toss 미니앱 만들기.md'), 'utf8');
+  const inboxNote = fs.readFileSync(path.join(root, '90_System', '80_Lua_Details', '00_Inbox', 'Toss 미니앱 만들기.md'), 'utf8');
   assert.match(inboxNote, /status: promoted/);
   assert.match(inboxNote, /promoted_to:/);
 });
@@ -76,7 +76,7 @@ test('does not promote already promoted file notes again', () => {
 test('does not promote the central Inbox index note', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-inbox-index-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
@@ -84,7 +84,7 @@ test('does not promote the central Inbox index note', () => {
 `
   );
   write(
-    path.join(root, '00_Lua/00_Inbox', 'AI 분류 대기중....md'),
+    path.join(root, '90_System', '80_Lua_Details', '00_Inbox', 'AI 분류 대기중....md'),
     `---
 type: inbox-index
 status: active

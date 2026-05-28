@@ -23,7 +23,7 @@ This page maps Lua knowledge/projects to their actual code repositories.
 
 | App | Repo | URL | Local Path | Status | Project |
 |---|---|---|---|---|---|
-| 돈 먹는 먼지 / Meonji | Lua_money_dust | https://github.com/sooin123456/Lua_money_dust | `C:\Users\sooin\OneDrive\문서\Lua_money_dust` | Toss `.ait` build verified and pushed | [[00_Lua/02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]] |
+| 돈 먹는 먼지 / Meonji | Lua_money_dust | https://github.com/sooin123456/Lua_money_dust | `C:\Users\sooin\OneDrive\문서\Lua_money_dust` | Toss `.ait` build verified and pushed | [[90_System/80_Lua_Details/02_Projects/TOSS/Money Eating Dust|돈 먹는 먼지]] |
 
 ## New App Repo Naming
 
@@ -45,6 +45,6 @@ Examples:
 - [ ] Set remote to the project repo, not `Lua_template`.
 - [ ] Add README with project purpose and vault link.
 - [ ] Add project entry in this registry.
-- [ ] Add project spec under `00_Lua/02_Projects/`.
+- [ ] Add project spec under `90_System/80_Lua_Details/02_Projects/`.
 - [ ] Add Work Ledger entry.
 - [ ] Push only after remote exists.

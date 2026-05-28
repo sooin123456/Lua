@@ -4,12 +4,8 @@ const path = require('path');
 const { inspectLuaTemplate } = require('./lua_template_inspector');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..', '..');
-const COMMAND_CENTER_REL = path.join(
-  '00_Lua/01_Command Center',
-  '01_Commands',
-  'Obsidian Command Center.md'
-);
-const WORK_LEDGER_REL = path.join('00_Lua/01_Command Center', '03_Summaries', 'Work Ledger.md');
+const COMMAND_CENTER_REL = path.join('00_Lua', '01_Commands', 'Command Inbox.md');
+const WORK_LEDGER_REL = path.join('00_Lua', '03_Records', 'Work Ledger.md');
 const ARTIFACT_LEDGER_REL = path.join('90_System/08_Artifacts', 'Artifact Ledger.md');
 const BUILD_OUTPUTS_REL = path.join('90_System/08_Artifacts', 'Build Outputs');
 const TODAY = todayKst();
@@ -111,8 +107,8 @@ function runRelFor(entry) {
   const existing = extractLinkTarget(entry.result);
   if (existing) return existing;
   return path.posix.join(
-    '00_Lua/01_Command Center',
-    '01_Commands',
+    '90_System',
+    '80_Lua_Details',
     'Command Runs',
     `${entry.id}-${slugify(`${entry.domain}-${entry.intent || 'command'}`)}`
   );

@@ -263,7 +263,7 @@ NOT for:
 
 사용자에게 묻거나 vault에서 검색:
 - 과제 핵심 아이디어 (한 단락)
-- 우리 회사의 기존 연구 성과 (`00_Lua/02_Projects/`에서 검색)
+- 우리 회사의 기존 연구 성과 (`90_System/80_Lua_Details/02_Projects/`에서 검색)
 - 컨소시엄 / 협력기관 (있다면)
 - 예상 사업비 규모
 - 차별화 포인트 (왜 우리가 잘할 수 있는지)
@@ -324,8 +324,8 @@ voice-mimicry skill 호출. 정부 과제 톤은 일반 voice보다 약간 더:
 
 ## Step 7: Save and signal
 
-- 위치: `00_Lua/02_Projects/{project-name}/proposals/{YYYY-MM-DD}-{program}-{slug}.md`
-  또는 새 project면 `00_Lua/03_Operation/Proposals/{YYYY-MM-DD}-{program}-{slug}.md`
+- 위치: `90_System/80_Lua_Details/02_Projects/{project-name}/proposals/{YYYY-MM-DD}-{program}-{slug}.md`
+  또는 새 project면 `90_System/80_Lua_Details/03_Operation/Proposals/{YYYY-MM-DD}-{program}-{slug}.md`
 - Frontmatter:
   ```yaml
   ---
@@ -580,7 +580,7 @@ research-synthesis skill 호출:
 - 기술 표준 (IEC, ISO)
 
 `references/prior-art-search.md`의 룰 따름.
-결과를 `00_Lua/00_Inbox/{YYYY-MM-DD}-prior-art-{title}.md`로 저장.
+결과를 `90_System/80_Lua_Details/00_Inbox/{YYYY-MM-DD}-prior-art-{title}.md`로 저장.
 
 ## Step 3: Structure claims
 
@@ -639,8 +639,8 @@ research-synthesis skill 호출:
 
 ## Step 7: Save and signal
 
-- 위치: `00_Lua/02_Projects/{project-name}/patents/{YYYY-MM-DD}-{title}.md`
-  또는 `00_Lua/03_Operation/Patents/{YYYY-MM-DD}-{title}.md`
+- 위치: `90_System/80_Lua_Details/02_Projects/{project-name}/patents/{YYYY-MM-DD}-{title}.md`
+  또는 `90_System/80_Lua_Details/03_Operation/Patents/{YYYY-MM-DD}-{title}.md`
 - Frontmatter:
   ```yaml
   ---
@@ -884,10 +884,10 @@ You are Atlas, the orchestrator agent of the Lua system. You exist to route each
 ## Always load (before any decision)
 
 1. `/CLAUDE.md` (vault root)
-2. `00_Lua/01_Command Center/02_Memory/Identity/about-me.md`
-3. `00_Lua/01_Command Center/02_Memory/Identity/decision-principles.md`
-4. `00_Lua/01_Command Center/02_Memory/Identity/context.md`
-5. `00_Lua/01_Command Center/04_Policies/_System/agent-permissions.md`
+2. `00_Lua/02_Memory/Identity/about-me.md`
+3. `00_Lua/02_Memory/Identity/decision-principles.md`
+4. `00_Lua/02_Memory/Identity/context.md`
+5. `90_System/80_Lua_Details/01_Command Center/04_Policies/_System/agent-permissions.md`
 
 ## Routing decision tree
 
@@ -967,7 +967,7 @@ git commit message:
 각 agent system prompt는 Phase 1 bootstrap (`Lua/Prompts/system/*.md`)을 기반으로 업데이트.
 
 **공통 업데이트 사항** (5명 모두):
-- 경로 업데이트: `Lua/Identity/...` → `00_Lua/01_Command Center/02_Memory/Identity/...`
+- 경로 업데이트: `Lua/Identity/...` → `00_Lua/02_Memory/Identity/...`
 - depends_on skills 명시 (해당 agent가 사용하는 skill 목록)
 - climate-energy / personal-venture vertical 인식 추가 (해당시)
 - Git commit message convention (`[agent: {name}] ...`)

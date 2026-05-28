@@ -27,7 +27,7 @@ function makeVault() {
 
 | ID | Source | Command | Payload | Status | Result |
 |---|---|---|---|---|---|
-| example-001 | Telegram | \`/lua inbox\` | 예시 아이디어 | done | [[00_Lua/00_Inbox/AI 분류 대기중...|Inbox]] |
+| example-001 | Telegram | \`/lua inbox\` | 예시 아이디어 | done | [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|Inbox]] |
 `,
   );
   return root;

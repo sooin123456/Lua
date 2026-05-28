@@ -75,4 +75,4 @@ Slack 전송은 사람 승인 후에만 한다. 처음 2주 동안은 자동 전
 
 - [[90_System/07_Lua_System/verticals/_core/README|_core vertical]]
 - [[90_System/07_Lua_System/agents/README|Lua Agents]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

@@ -58,11 +58,11 @@ function resolveWikiTarget(innerRaw, { filesSet, byBasename }) {
 }
 
 function orphanExceptionReason(relPosix) {
-  if (relPosix.includes('00_Lua/01_Command Center/02_Memory/Identity/')) return 'identity';
-  if (relPosix.includes('00_Lua/01_Command Center/04_Policies/_System/')) return 'system';
-  if (relPosix.startsWith('00_Lua/00_Inbox/')) return 'inbox-queue';
+  if (relPosix.includes('00_Lua/02_Memory/Identity/')) return 'identity';
+  if (relPosix.includes('90_System/80_Lua_Details/01_Command Center/04_Policies/_System/')) return 'system';
+  if (relPosix.startsWith('90_System/80_Lua_Details/00_Inbox/')) return 'inbox-queue';
   if (relPosix.startsWith('90_System/05_Archives/')) return 'archive';
-  if (relPosix.startsWith('00_Lua/05_Personal Studio/_Drafts/')) return 'draft';
+  if (relPosix.startsWith('90_System/80_Lua_Details/05_Personal Studio/_Drafts/')) return 'draft';
   if (relPosix.includes('/references/')) return 'skill-reference';
   if (relPosix.includes('/assets/')) return 'skill-asset';
   if (relPosix.endsWith('/SKILL.md')) return 'skill-entrypoint';
@@ -81,9 +81,9 @@ async function detectMissingFrontmatter() {
   const hits = findFiles(ROOT, (fullPath) => {
     const rel = relativePosix(ROOT, fullPath);
     if (!rel.endsWith('.md')) return false;
-    if (rel.startsWith('00_Lua/01_Command Center/02_Memory/Identity/')) return true;
+    if (rel.startsWith('00_Lua/02_Memory/Identity/')) return true;
     if (rel.startsWith('90_System/07_Lua_System/verticals/') && rel.endsWith('/SKILL.md')) return true;
-    if (rel.startsWith('00_Lua/03_Operation/') && rel.includes('/_SOPs/')) return true;
+    if (rel.startsWith('90_System/80_Lua_Details/03_Operation/') && rel.includes('/_SOPs/')) return true;
     return false;
   }, { skipDirs: ['.obsidian', '_meta', 'XX_System', '.trash'] });
 
@@ -124,7 +124,7 @@ async function detectBrokenLinks(allFiles, indexes) {
 }
 
 async function detectStaleInbox() {
-  const inboxFiles = findFiles(path.join(ROOT, '00_Lua/00_Inbox'), (fullPath) => fullPath.endsWith('.md'))
+  const inboxFiles = findFiles(path.join(ROOT, '90_System', '80_Lua_Details', '00_Inbox'), (fullPath) => fullPath.endsWith('.md'))
     .map((file) => relativePosix(ROOT, file));
   const cutoff = Date.now() - STALE_DAYS * 24 * 60 * 60 * 1000;
   for (const f of inboxFiles) {

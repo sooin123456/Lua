@@ -152,8 +152,8 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 
 ## Navigation
 
-- [[00_Lua/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
-- [[00_Lua/01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[90_System/80_Lua_Details/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
+- [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]

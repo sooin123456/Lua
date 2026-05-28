@@ -14,18 +14,18 @@ function write(filePath, content) {
 function makeVault() {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-command-ui-server-'));
   write(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     `# Obsidian Command Center
 
 ## Command Queue
 
 | ID | Domain | Intent | Payload | Stage | Owner | Status | Result |
 |---|---|---|---|---|---|---|---|
-| example-001 | research | compare | sample | clarify | Lens | planned | [[00_Lua/01_Command Center/01_Commands/Command Runs/example-001-research-compare|run]] |
+| example-001 | research | compare | sample | clarify | Lens | planned | [[90_System/80_Lua_Details/Command Runs/example-001-research-compare|run]] |
 `
   );
   write(
-    path.join(root, '00_Lua/01_Command Center', '00_Dashboard', 'User Action Board.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Action Board.md'),
     `# User Action Board
 
 ## Today
@@ -77,7 +77,7 @@ test('appends a queued command row from Lua Command UI', () => {
   assert.equal(result.owner, 'Scribe+Forge');
 
   const commandCenter = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     'utf8'
   );
   assert.match(
@@ -105,16 +105,16 @@ test('runs a Lua Command UI command end-to-end through queue and Atlas router', 
   assert.equal(result.stage, 'plan');
   assert.equal(
     result.run,
-    '00_Lua/01_Command Center/01_Commands/Command Runs/lua-ui-20260516-134530-build-app'
+    '90_System/80_Lua_Details/Command Runs/lua-ui-20260516-134530-build-app'
   );
 
   const commandCenter = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Obsidian Command Center.md'),
+    path.join(root, '00_Lua', '01_Commands', 'Command Inbox.md'),
     'utf8'
   );
   assert.match(
     commandCenter,
-    /\| lua-ui-20260516-134530 \| build \| app \| Lua_template 기반 첫 실제 앱 실행 흐름을 잡아줘 \| plan \| Forge \| routed \| \[\[00_Lua\/01_Command Center\/01_Commands\/Command Runs\/lua-ui-20260516-134530-build-app\|run\]\] \|/
+    /\| lua-ui-20260516-134530 \| build \| app \| Lua_template 기반 첫 실제 앱 실행 흐름을 잡아줘 \| plan \| Forge \| routed \| \[\[90_System\/80_Lua_Details\/Command Runs\/lua-ui-20260516-134530-build-app\|run\]\] \|/
   );
   assert.match(
     commandCenter,
@@ -122,7 +122,7 @@ test('runs a Lua Command UI command end-to-end through queue and Atlas router', 
   );
 
   const runNote = fs.readFileSync(
-    path.join(root, '00_Lua/01_Command Center', '01_Commands', 'Command Runs', 'lua-ui-20260516-134530-build-app.md'),
+    path.join(root, '90_System', '80_Lua_Details', 'Command Runs', 'lua-ui-20260516-134530-build-app.md'),
     'utf8'
   );
   assert.match(runNote, /status: routed/);

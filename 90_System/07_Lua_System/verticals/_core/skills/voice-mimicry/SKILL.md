@@ -32,14 +32,14 @@ NOT for:
 
 ## Step 1: Load voice profile
 
-Read `00_Lua/01_Command Center/02_Memory/Identity/voice.md` first, every single time. Pay attention to:
+Read `00_Lua/02_Memory/Identity/voice.md` first, every single time. Pay attention to:
 
 - Banned words and phrases
 - Anti-examples (writing patterns to never produce)
 - Tone defaults
 - Structural preferences
 
-Also load `00_Lua/01_Command Center/02_Memory/Identity/about-me.md` for context on who's writing.
+Also load `00_Lua/02_Memory/Identity/about-me.md` for context on who's writing.
 
 ## Step 2: Match structural preferences
 
@@ -84,7 +84,7 @@ If any check fails, rewrite that section before delivering.
 
 ## Step 5: Save and signal
 
-- Save to `00_Lua/05_Personal Studio/_Drafts/{YYYY-MM-DD}-{slug}.md`
+- Save to `90_System/80_Lua_Details/05_Personal Studio/_Drafts/{YYYY-MM-DD}-{slug}.md`
 - Frontmatter required: `status: draft`, `type`, `target_audience`, `word_count`, `created`
 - End the agent message with: "Draft saved at _Drafts/{filename}. Awaiting review."
 - Never publish, send, or post directly. This boundary is non-negotiable.

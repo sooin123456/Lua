@@ -15,7 +15,7 @@ Slack has two secondary roles in Lua.
 
 Lua's main personal remote command channel is [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]].
 
-Slack sending is a remote sync action. Follow [[00_Lua/01_Command Center/01_Commands/Command Modes|Command Modes]] before sending.
+Slack sending is a remote sync action. Follow [[90_System/80_Lua_Details/01_Command Center/01_Commands/Command Modes|Command Modes]] before sending.
 
 ## Channels
 
@@ -47,7 +47,7 @@ Next:
 
 ## Approval Rule
 
-Slack은 초기에 자동 전송하지 않는다. [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]에 초안을 만들고 사용자가 승인한 뒤 보낸다.
+Slack은 초기에 자동 전송하지 않는다. [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]에 초안을 만들고 사용자가 승인한 뒤 보낸다.
 
 ## Local Webhook Flow
 
@@ -59,7 +59,7 @@ Slack 플러그인 직접 전송 도구가 없을 때는 Incoming Webhook으로 
    - `#ai-briefings` -> `SLACK_WEBHOOK_AI_BRIEFINGS`
    - `#ops-alerts` -> `SLACK_WEBHOOK_OPS_ALERTS`
    - 테스트용 기본값 -> `SLACK_WEBHOOK_URL`
-4. [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]에 `slack-brief` 블록을 만든다.
+4. [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]에 `slack-brief` 블록을 만든다.
 5. 먼저 `node 90_System/scripts/slack_brief.js --dry-run`으로 확인한다.
 6. 사람이 승인하면 `status: approved`로 바꾼다.
 7. `node 90_System/scripts/slack_brief.js --confirm-send`로 보낸다.
@@ -98,10 +98,10 @@ Draft first. Human approval before sending until the format is trusted.
 ## Navigation
 
 - [[90_System/09_Automations/README|Automations]]
-- [[00_Lua/01_Command Center/01_Commands/Command Modes|Command Modes]]
+- [[90_System/80_Lua_Details/01_Command Center/01_Commands/Command Modes|Command Modes]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[00_Lua/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
-- [[00_Lua/03_Operation/Team Brief Drafts|Team Brief Drafts]]
-- [[00_Lua/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
-- [[00_Lua/01_Command Center/03_Summaries/Work Ledger|Work Ledger]]
+- [[90_System/80_Lua_Details/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
+- [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]
+- [[90_System/80_Lua_Details/01_Command Center/00_Dashboard/Master Dashboard|Master Dashboard]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

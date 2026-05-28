@@ -50,7 +50,7 @@ NOT for:
 
 ## Step 3: Gather supporting context
 
-Vault `00_Lua/02_Projects/` 검색 또는 사용자 질문으로 채운다.
+Vault `90_System/80_Lua_Details/02_Projects/` 검색 또는 사용자 질문으로 채운다.
 
 - 과제 핵심 아이디어(한 단락)
 - 기존 연구 성과·실증
@@ -94,8 +94,8 @@ voice-mimicry를 적용하되 정부 과제 톤은 다음을 추가한다.
 
 ## Step 7: Save and signal
 
-- 경로: `00_Lua/02_Projects/{project-name}/proposals/{YYYY-MM-DD}-{program}-{slug}.md`  
-  또는 신규 프로젝트면 `00_Lua/03_Operation/Proposals/{YYYY-MM-DD}-{program}-{slug}.md`
+- 경로: `90_System/80_Lua_Details/02_Projects/{project-name}/proposals/{YYYY-MM-DD}-{program}-{slug}.md`  
+  또는 신규 프로젝트면 `90_System/80_Lua_Details/03_Operation/Proposals/{YYYY-MM-DD}-{program}-{slug}.md`
 - Frontmatter 예시:
 
 ```yaml

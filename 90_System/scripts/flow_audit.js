@@ -4,12 +4,8 @@ const path = require('path');
 const { findFiles, relativePosix } = require('./lib/files');
 
 const DEFAULT_ROOT = path.resolve(__dirname, '..', '..');
-const COMMAND_CENTER_REL = path.join(
-  '00_Lua/01_Command Center',
-  '01_Commands',
-  'Obsidian Command Center.md'
-);
-const RUNS_DIR_REL = path.join('00_Lua/01_Command Center', '01_Commands', 'Command Runs');
+const COMMAND_CENTER_REL = path.join('00_Lua', '01_Commands', 'Command Inbox.md');
+const RUNS_DIR_REL = path.join('90_System', '80_Lua_Details', 'Command Runs');
 const COMPLETED_STATUSES = new Set(['routed', 'briefed', 'done']);
 
 function parseRows(content) {

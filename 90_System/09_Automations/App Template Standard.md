@@ -120,7 +120,7 @@ Current static prototype bridge:
 
 ## Navigation
 
-- [[00_Lua/02_Projects/Lucia/Lua Command UI|Lua Command UI]]
+- [[90_System/80_Lua_Details/02_Projects/Lucia/Lua Command UI|Lua Command UI]]
 - [[90_System/08_Artifacts/Lua Command UI Prototype/README|Lua Command UI Prototype]]
 - [[90_System/07_Lua_System/commands/Domain Command Playbook|Domain Command Playbook]]
 - [[90_System/09_Automations/README|Automations]]

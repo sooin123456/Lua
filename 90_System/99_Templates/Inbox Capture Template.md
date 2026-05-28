@@ -30,5 +30,5 @@ node 90_System/scripts/add_inbox_capture.js --source manual "떠오른 생각"
 
 ## Navigation
 
-- [[00_Lua/00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
+- [[90_System/80_Lua_Details/00_Inbox/AI 분류 대기중...|AI 분류 대기중]]
 - [[90_System/99_Templates/Templates Hub|Templates Hub]]

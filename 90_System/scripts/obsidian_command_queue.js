@@ -5,9 +5,9 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..', '..');
 const COMMAND_CENTER = path.join(
   ROOT,
-  '00_Lua/01_Command Center',
+  '00_Lua',
   '01_Commands',
-  'Obsidian Command Center.md'
+  'Command Inbox.md'
 );
 const VALID_DOMAINS = new Set(['planning', 'marketing', 'design', 'service', 'project', 'research', 'build', 'ops']);
 

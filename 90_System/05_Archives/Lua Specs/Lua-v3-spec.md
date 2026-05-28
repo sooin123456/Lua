@@ -65,13 +65,13 @@ Lua/
 │       └── check.yml                               [Step 11 — new]
 ├── 90_System/scripts/
 │   └── check.js                                    [Step 10 — new]
-├── 00_Lua/00_Inbox/                                       (기존)
-├── 00_Lua/01_Command Center/                              (기존)
-├── 00_Lua/02_Projects/                                    (기존)
-├── 00_Lua/03_Operation/                                   (기존)
-├── 00_Lua/04_Resources/                                   (기존)
+├── 90_System/80_Lua_Details/00_Inbox/                                       (기존)
+├── 90_System/80_Lua_Details/01_Command Center/                              (기존)
+├── 90_System/80_Lua_Details/02_Projects/                                    (기존)
+├── 90_System/80_Lua_Details/03_Operation/                                   (기존)
+├── 90_System/80_Lua_Details/04_Resources/                                   (기존)
 ├── 90_System/05_Archives/                                    (기존)
-├── 00_Lua/05_Personal Studio/                             (기존)
+├── 90_System/80_Lua_Details/05_Personal Studio/                             (기존)
 ├── 90_System/07_Lua_System/                                  [Step 1 — new]
 │   ├── agents/                                     (Phase 2 — 빈 폴더로 둠)
 │   ├── verticals/
@@ -143,10 +143,10 @@ last_updated: 2026-05-13
    - 예: "Solo agent company for climate-energy R&D (company 1) and personal ventures (company 2)."
 
 2. **`## Who I am`** — Identity 파일들 link
-   - `[[00_Lua/01_Command Center/02_Memory/Identity/about-me]]` — 기본 사실
-   - `[[00_Lua/01_Command Center/02_Memory/Identity/voice]]` — 글 톤
-   - `[[00_Lua/01_Command Center/02_Memory/Identity/decision-principles]]` — 트레이드오프 결정
-   - `[[00_Lua/01_Command Center/02_Memory/Identity/context]]` — 단기 컨텍스트
+   - `[[00_Lua/02_Memory/Identity/about-me]]` — 기본 사실
+   - `[[00_Lua/02_Memory/Identity/voice]]` — 글 톤
+   - `[[00_Lua/02_Memory/Identity/decision-principles]]` — 트레이드오프 결정
+   - `[[00_Lua/02_Memory/Identity/context]]` — 단기 컨텍스트
    - 본문에서 "Always read these four before any task" 명시
 
 3. **`## Verticals`** — 3개 vertical (각 1-2줄):
@@ -158,16 +158,16 @@ last_updated: 2026-05-13
    - 예시 로직: "정부/특허/탄소/에너지 키워드 → climate-energy. 신규 아이디어/검증/MVP 키워드 → personal-venture. 위 모두 X면 _core."
 
 5. **`## Agent loop`** — Harness Loop link
-   - `[[00_Lua/01_Command Center/01_Commands/Harness Loop]]`
+   - `[[90_System/80_Lua_Details/01_Command Center/01_Commands/Harness Loop]]`
    - 한 문장: "Every agent invocation follows the Harness Loop: invoke → check → refine → log."
 
 6. **`## Safety boundaries`** — 비협상 룰
-   - All drafts → `00_Lua/05_Personal Studio/_Drafts/`, never publish or send directly
-   - Operations touching `00_Lua/01_Command Center/02_Memory/Identity/` require explicit human confirmation per file
+   - All drafts → `90_System/80_Lua_Details/05_Personal Studio/_Drafts/`, never publish or send directly
+   - Operations touching `00_Lua/02_Memory/Identity/` require explicit human confirmation per file
    - Budget caps live in `decision-principles.md`
    - `_meta/` and `_System/` are off-limits to all agents
 
-7. **`## Vault permissions`** — `[[00_Lua/01_Command Center/04_Policies/_System/agent-permissions]]` link
+7. **`## Vault permissions`** — `[[90_System/80_Lua_Details/01_Command Center/04_Policies/_System/agent-permissions]]` link
    - Phase 2에서 _System/agent-permissions.md 만들 거니까 지금은 link만 박아두기
 
 8. **`## When to ask vs when to act`** — 한 단락
@@ -346,13 +346,13 @@ NOT for:
 
 ## Step 1: Load voice profile
 
-Read `00_Lua/01_Command Center/02_Memory/Identity/voice.md` first, every single time. Pay attention to:
+Read `00_Lua/02_Memory/Identity/voice.md` first, every single time. Pay attention to:
 - Banned words and phrases
 - Anti-examples (writing patterns to never produce)
 - Tone defaults
 - Structural preferences
 
-Also load `00_Lua/01_Command Center/02_Memory/Identity/about-me.md` for context on who's writing.
+Also load `00_Lua/02_Memory/Identity/about-me.md` for context on who's writing.
 
 ## Step 2: Match structural preferences
 
@@ -393,7 +393,7 @@ If any check fails, rewrite that section before delivering.
 
 ## Step 5: Save and signal
 
-- Save to `00_Lua/05_Personal Studio/_Drafts/{YYYY-MM-DD}-{slug}.md`
+- Save to `90_System/80_Lua_Details/05_Personal Studio/_Drafts/{YYYY-MM-DD}-{slug}.md`
 - Frontmatter required: `status: draft`, `type`, `target_audience`, `word_count`, `created`
 - End the agent message with: "Draft saved at _Drafts/{filename}. Awaiting review."
 - Never publish, send, or post directly. This boundary is non-negotiable.
@@ -771,8 +771,8 @@ jobs:
 
 ### 2. CLAUDE.md의 link 형식
 
-Obsidian에선 `[[00_Lua/01_Command Center/02_Memory/Identity/voice]]` (wiki-link)가 hover preview 됨.
-Claude Code/Cursor에선 `00_Lua/01_Command Center/02_Memory/Identity/voice.md` (plain path)가 안전.
+Obsidian에선 `[[00_Lua/02_Memory/Identity/voice]]` (wiki-link)가 hover preview 됨.
+Claude Code/Cursor에선 `00_Lua/02_Memory/Identity/voice.md` (plain path)가 안전.
 **두 가지 다 작동하니까 wiki-link 사용 권장** — Obsidian 안에서 작업할 때 훨씬 편함.
 
 ### 3. description 길이가 너무 짧으면
@@ -825,8 +825,8 @@ description: Helps with writing.
 - `verticals/_core/commands/` — `/weekly-review`, `/inbox-triage`
 - `verticals/climate-energy/skills/proposal-drafting/` — 정부 R&D 과제 작성 (회사 1 첫 도메인 skill)
 - `verticals/personal-venture/` skeleton
-- `00_Lua/01_Command Center/02_Memory/Identity/` 채우기 가이드 (about-me / voice / decision-principles / context)
-- `00_Lua/01_Command Center/04_Policies/_System/agent-permissions.md` 작성
+- `00_Lua/02_Memory/Identity/` 채우기 가이드 (about-me / voice / decision-principles / context)
+- `90_System/80_Lua_Details/01_Command Center/04_Policies/_System/agent-permissions.md` 작성
 
 ---
 

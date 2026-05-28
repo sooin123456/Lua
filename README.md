@@ -31,14 +31,14 @@ Every meaningful command should become durable work:
 ## Repository Shape
 
 ```text
-00_Lua/00_Inbox/                  Raw captures
-00_Lua/01_Command Center/         Dashboards, identity, permissions, command runs
-00_Lua/02_Projects/               Project spaces
-00_Lua/03_Operation/              CRM, proposals, industry intelligence, operations
+90_System/80_Lua_Details/00_Inbox/                  Raw captures
+90_System/80_Lua_Details/01_Command Center/         Dashboards, identity, permissions, command runs
+90_System/80_Lua_Details/02_Projects/               Project spaces
+90_System/80_Lua_Details/03_Operation/              CRM, proposals, industry intelligence, operations
 90_System/03_Wiki/                   Lua operating knowledge
-00_Lua/04_Resources/              Reference material and tech stack notes
+90_System/80_Lua_Details/04_Resources/              Reference material and tech stack notes
 90_System/05_Archives/               Archived context
-00_Lua/05_Personal Studio/        Personal ideas, drafts, experiments
+90_System/80_Lua_Details/05_Personal Studio/        Personal ideas, drafts, experiments
 90_System/07_Lua_System/             Agent prompts, skills, verticals, runtime notes
 90_System/08_Artifacts/              Artifact ledger
 90_System/09_Automations/            Automation specs and runbooks
@@ -145,6 +145,6 @@ Important design records:
 - `90_System/docs/superpowers/plans/2026-05-27-lua-project-agent-mvp.md`
 - `90_System/docs/vision.md`
 - `Lua-v4-operating-architecture.md`
-- `00_Lua/04_Resources/Tech Stack/Lua Template.md`
+- `90_System/80_Lua_Details/04_Resources/Tech Stack/Lua Template.md`
 
-Meaningful sessions should also be recorded in `00_Lua/01_Command Center/03_Summaries/Work Ledger.md`.
+Meaningful sessions should also be recorded in `00_Lua/03_Records/Work Ledger.md`.

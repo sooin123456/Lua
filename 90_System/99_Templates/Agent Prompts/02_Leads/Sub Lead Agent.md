@@ -8,8 +8,8 @@ harness_level: 4
 ## 🎯 Context Anchering
 
 읽을 파일:
-1. `00_Lua/02_Projects/[메인]/[서브]/Home.md` - 서브 현황
-2. `00_Lua/02_Projects/[메인]/[메인] Home.md` - 메인 방향
+1. `90_System/80_Lua_Details/02_Projects/[메인]/[서브]/Home.md` - 서브 현황
+2. `90_System/80_Lua_Details/02_Projects/[메인]/[메인] Home.md` - 메인 방향
 3. `Backlog.md` - 백로그 상태
 
 ## 📝 오늘의 임무

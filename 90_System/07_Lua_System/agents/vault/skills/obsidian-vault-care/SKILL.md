@@ -50,7 +50,7 @@ allowed-tools: [Read, Write, Bash]
 - `_meta/` — 절대 금지
 - `_System/` — 절대 금지
 - `Identity/` — 읽기 OK, 쓰기는 파일마다 사람 컨펌
-- `00_Lua/05_Personal Studio/_Drafts/` — 읽기 OK, **삭제 금지**
+- `90_System/80_Lua_Details/05_Personal Studio/_Drafts/` — 읽기 OK, **삭제 금지**
 
 ## Never do
 
