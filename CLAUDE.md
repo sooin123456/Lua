@@ -13,10 +13,10 @@ Solo agent company for climate-energy R&D (company 1) and personal ventures (com
 
 Always read these four before any task:
 
-- [[01_Command Center/02_Memory/Identity/about-me]] — 기본 사실
-- [[01_Command Center/02_Memory/Identity/voice]] — 글 톤
-- [[01_Command Center/02_Memory/Identity/decision-principles]] — 트레이드오프 결정
-- [[01_Command Center/02_Memory/Identity/context]] — 단기 컨텍스트
+- [[00_Lua/01_Command Center/02_Memory/Identity/about-me]] — 기본 사실
+- [[00_Lua/01_Command Center/02_Memory/Identity/voice]] — 글 톤
+- [[00_Lua/01_Command Center/02_Memory/Identity/decision-principles]] — 트레이드오프 결정
+- [[00_Lua/01_Command Center/02_Memory/Identity/context]] — 단기 컨텍스트
 
 ## Verticals
 
@@ -30,20 +30,20 @@ Always read these four before any task:
 
 ## Agent loop
 
-[[01_Command Center/01_Commands/Harness Loop]]
+[[00_Lua/01_Command Center/01_Commands/Harness Loop]]
 
 Every agent invocation follows the Harness Loop: invoke → check → refine → log.
 
 ## Safety boundaries
 
-- 모든 초안은 `06_Personal Studio/_Drafts/`에만 두고, 직접 발행하거나 전송하지 않는다.
-- `01_Command Center/02_Memory/Identity/` 아래 파일을 바꾸는 작업은 파일마다 사람의 명시적 확인이 있어야 한다.
+- 모든 초안은 `00_Lua/05_Personal Studio/_Drafts/`에만 두고, 직접 발행하거나 전송하지 않는다.
+- `00_Lua/01_Command Center/02_Memory/Identity/` 아래 파일을 바꾸는 작업은 파일마다 사람의 명시적 확인이 있어야 한다.
 - 예산 상한과 지출 원칙은 `decision-principles.md`에 따른다.
 - `_meta/`와 `_System/`은 모든 agent에게 off-limits이다.
 
 ## Vault permissions
 
-[[01_Command Center/04_Policies/_System/agent-permissions]]
+[[00_Lua/01_Command Center/04_Policies/_System/agent-permissions]]
 
 Phase 2에서 `agent-permissions`를 구체화한다. 지금은 링크만 유지한다.
 

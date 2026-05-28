@@ -11,7 +11,7 @@ Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하
 ## Target Flow
 
 ```text
-00_Inbox 또는 Obsidian Command Center에 입력
+00_Lua/00_Inbox 또는 Obsidian Command Center에 입력
 → Inbox 원문은 triage 후 명령/프로젝트/리서치로 분리
 → Atlas CEO가 자동 분류
 → 역할별 agent app에 하달
@@ -137,7 +137,7 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 
 ### Phase 4: Notion Publishing
 
-- `[[09_Automations/Notion Publish Queue|Notion Publish Queue]]`에 팀 공유 후보를 만든다.
+- `[[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]`에 팀 공유 후보를 만든다.
 - Notion DB가 있으면 DB로, 없으면 승인 후 `Lua_Home` 하위 페이지로 보낸다.
 - 자동 저장은 approved 상태에서만 한다.
 
@@ -145,18 +145,18 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 
 다음 단계는 Notion Publish Queue를 승인 흐름으로 굴리는 것이다.
 
-1. [[09_Automations/Notion Publish Queue|Notion Publish Queue]]에서 draft를 확인한다.
+1. [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]에서 draft를 확인한다.
 2. 공유해도 되는 항목만 approved로 바꾼다.
 3. Codex가 승인된 항목만 Notion에 만든다.
 4. 결과 링크를 Work Ledger와 원본 note에 남긴다.
 
 ## Navigation
 
-- [[01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
-- [[01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
-- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
-- [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
-- [[09_Automations/Notion Sync|Notion Sync]]
-- [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
-- [[07_Lua_System/agents/README|Lua Agents]]
+- [[00_Lua/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
+- [[00_Lua/01_Command Center/01_Commands/Obsidian Command Center|Obsidian Command Center]]
+- [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
+- [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
+- [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
+- [[90_System/09_Automations/Notion Sync|Notion Sync]]
+- [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
+- [[90_System/07_Lua_System/agents/README|Lua Agents]]

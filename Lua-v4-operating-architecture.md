@@ -24,7 +24,7 @@ Lua는 개인 지식, 팀 운영, 앱 제작을 하나의 연결 머리로 묶�
 
 ```mermaid
 flowchart LR
-  Inbox["00_Inbox capture"] --> Vault["Obsidian vault"]
+  Inbox["00_Lua/00_Inbox capture"] --> Vault["Obsidian vault"]
   Vault --> Atlas["Atlas router"]
   Atlas --> Runtime["lua_agent runtime"]
   Atlas --> Lens["Lens research"]
@@ -36,12 +36,12 @@ flowchart LR
   Runtime --> Goals["Codex /goal instructions"]
   Runtime --> Notes["Obsidian project notes"]
   Forge --> GitHub["GitHub repos and Actions"]
-  Scribe --> Drafts["06_Personal Studio/_Drafts"]
-  Lens --> Research["00_Inbox research notes"]
+  Scribe --> Drafts["00_Lua/05_Personal Studio/_Drafts"]
+  Lens --> Research["00_Lua/00_Inbox research notes"]
   VaultAgent --> Vault
   Archivist --> Notion["Notion team databases"]
   Notion --> Slack["Slack team briefs"]
-  GitHub --> Artifacts["08_Artifacts ledger"]
+  GitHub --> Artifacts["90_System/08_Artifacts ledger"]
   Artifacts --> Notion
 ```
 
@@ -62,7 +62,7 @@ flowchart LR
 Lua now has two coordinated layers:
 
 - **Vault layer:** Obsidian markdown for context, identity, command center, project memory, agent prompts, and operating documentation.
-- **Runtime layer:** Python package `lua_agent/` for durable project/task/checkpoint state, Codex `/goal` generation, and future command execution.
+- **Runtime layer:** Python package `90_System/lua_agent/` for durable project/task/checkpoint state, Codex `/goal` generation, and future command execution.
 
 The runtime should stay small and boring. It should not become a second memory graph. Its job is to make work resumable and testable:
 
@@ -72,13 +72,13 @@ The runtime should stay small and boring. It should not become a second memory g
 4. Generate tool-specific instructions.
 5. Export Obsidian-readable notes.
 
-Runtime documentation lives in `07_Lua_System/runtime/README.md`. Development specs and plans live in `docs/`.
+Runtime documentation lives in `90_System/07_Lua_System/runtime/README.md`. Development specs and plans live in `90_System/docs/`.
 
 ## Core Loops
 
 ### 1. Capture Loop
 
-Telegram, Slack, meeting notes, browser research, and spontaneous ideas enter `00_Inbox/`. Vault or Atlas classifies each item into a project, resource, operation, or archive destination.
+Telegram, Slack, meeting notes, browser research, and spontaneous ideas enter `00_Lua/00_Inbox/`. Vault or Atlas classifies each item into a project, resource, operation, or archive destination.
 
 Command: `/inbox-triage`
 
@@ -137,11 +137,11 @@ Command: `/artifact-log {name}`
 Keep the existing seven core zones. Add two lightweight zones:
 
 ```text
-08_Artifacts/
+90_System/08_Artifacts/
   Artifact Ledger.md
   README.md
 
-09_Automations/
+90_System/09_Automations/
   README.md
   GitHub Actions.md
   Notion Sync.md
@@ -150,8 +150,8 @@ Keep the existing seven core zones. Add two lightweight zones:
 
 Reasoning:
 
-- `08_Artifacts` gives you the useful part of Artifact Keeper now without operating another service too early.
-- `09_Automations` keeps cron jobs, GitHub Actions, Notion syncs, Slack briefs, and future MCP jobs from being scattered.
+- `90_System/08_Artifacts` gives you the useful part of Artifact Keeper now without operating another service too early.
+- `90_System/09_Automations` keeps cron jobs, GitHub Actions, Notion syncs, Slack briefs, and future MCP jobs from being scattered.
 - Full Artifact Keeper becomes useful later when artifact volume, retention, permissions, or deployment environments become hard to track in Markdown.
 
 ## Agent Model
@@ -177,11 +177,11 @@ Minimum useful Notion setup:
 
 | Database | Mirrors from Obsidian | Key fields |
 |---|---|---|
-| Projects | `02_Projects/**/Home.md` | Status, owner, next action, deadline, Slack channel |
+| Projects | `00_Lua/02_Projects/**/Home.md` | Status, owner, next action, deadline, Slack channel |
 | Decisions | Command Center and project DevLogs | Decision, date, context, reversible, owner |
-| Artifacts | `08_Artifacts/Artifact Ledger.md` | Type, project, path/url, status, reviewer |
-| Proposals | `03_Operation/Proposals/` | Grant, deadline, stage, blocker |
-| Patents | `03_Operation/Patents/` | Title, stage, attorney review, prior art status |
+| Artifacts | `90_System/08_Artifacts/Artifact Ledger.md` | Type, project, path/url, status, reviewer |
+| Proposals | `00_Lua/03_Operation/Proposals/` | Grant, deadline, stage, blocker |
+| Patents | `00_Lua/03_Operation/Patents/` | Title, stage, attorney review, prior art status |
 
 ## Slack Channels
 
@@ -205,18 +205,18 @@ Use a lightweight artifact ledger now. Add a full artifact system later when at 
 - deployments need reproducible provenance
 - file size or binary volume makes GitHub/Obsidian awkward
 
-Until then, `08_Artifacts/Artifact Ledger.md` plus GitHub releases or repo paths is enough.
+Until then, `90_System/08_Artifacts/Artifact Ledger.md` plus GitHub releases or repo paths is enough.
 
 ## First 30 Days
 
-1. Make Codex entry real: add `AGENTS.md`, make `node scripts/check.js` dependency-free, and keep checks green.
+1. Make Codex entry real: add `AGENTS.md`, make `node 90_System/scripts/check.js` dependency-free, and keep checks green.
 2. Replace `Harness Loop.md` with the actual operating loop.
-3. Add `/office-hours`, `/project-sprint`, `/team-brief`, and `/artifact-log` command docs.
-4. Add `08_Artifacts` and `09_Automations`.
+3. Add `/office-hours`, `/project-sprint`, `/team-brief`, and `/artifact-log` command 90_System/docs.
+4. Add `90_System/08_Artifacts` and `90_System/09_Automations`.
 5. Pick one app project and run a full loop from Office Hours to local demo.
 6. Mirror only the project dashboard and decision log to Notion.
 7. Send Slack briefs manually first, then automate once the wording is trusted.
-8. Keep `lua_agent/` tests green as the executable project runtime grows.
+8. Keep `90_System/lua_agent/` tests green as the executable project runtime grows.
 
 ## Definition of Done
 

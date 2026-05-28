@@ -16,10 +16,13 @@ dev = [
 [project.scripts]
 lua = "lua_agent.cli:app"
 
+[tool.hatch.build.targets.wheel]
+packages = ["90_System/lua_agent"]
+
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
-pythonpath = ["."]
+testpaths = ["90_System/tests"]
+pythonpath = ["90_System"]

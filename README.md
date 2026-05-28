@@ -31,22 +31,22 @@ Every meaningful command should become durable work:
 ## Repository Shape
 
 ```text
-00_Inbox/                  Raw captures
-01_Command Center/         Dashboards, identity, permissions, command runs
-02_Projects/               Project spaces
-03_Operation/              CRM, proposals, industry intelligence, operations
-03_Wiki/                   Lua operating knowledge
-04_Resources/              Reference material and tech stack notes
-05_Archives/               Archived context
-06_Personal Studio/        Personal ideas, drafts, experiments
-07_Lua_System/             Agent prompts, skills, verticals, runtime notes
-08_Artifacts/              Artifact ledger
-09_Automations/            Automation specs and runbooks
-99_Templates/              Reusable templates
-lua_agent/                 Python runtime for durable project operation
-docs/                      Development specs, plans, and customization docs
-scripts/                   Node-based vault checks and automations
-tests/                     Node and Python tests
+00_Lua/00_Inbox/                  Raw captures
+00_Lua/01_Command Center/         Dashboards, identity, permissions, command runs
+00_Lua/02_Projects/               Project spaces
+00_Lua/03_Operation/              CRM, proposals, industry intelligence, operations
+90_System/03_Wiki/                   Lua operating knowledge
+00_Lua/04_Resources/              Reference material and tech stack notes
+90_System/05_Archives/               Archived context
+00_Lua/05_Personal Studio/        Personal ideas, drafts, experiments
+90_System/07_Lua_System/             Agent prompts, skills, verticals, runtime notes
+90_System/08_Artifacts/              Artifact ledger
+90_System/09_Automations/            Automation specs and runbooks
+90_System/99_Templates/              Reusable templates
+90_System/lua_agent/                 Python runtime for durable project operation
+90_System/docs/                      Development specs, plans, and customization docs
+90_System/scripts/                   Node-based vault checks and automations
+90_System/tests/                     Node and Python tests
 ```
 
 ## Current MVP Runtime
@@ -105,7 +105,7 @@ Lua is being shaped around three real projects:
 - Telegram trading bot that can expand into an app/dashboard
 - floating solar monitoring system planning, including vendor research and selection
 
-The use-case specs live in `docs/use-cases/`.
+The use-case specs live in `90_System/docs/use-cases/`.
 
 ## Validation
 
@@ -141,10 +141,10 @@ npm run test:all
 
 Important design records:
 
-- `docs/superpowers/specs/2026-05-27-lua-agent-design.md`
-- `docs/superpowers/plans/2026-05-27-lua-project-agent-mvp.md`
-- `docs/vision.md`
+- `90_System/docs/superpowers/specs/2026-05-27-lua-agent-design.md`
+- `90_System/docs/superpowers/plans/2026-05-27-lua-project-agent-mvp.md`
+- `90_System/docs/vision.md`
 - `Lua-v4-operating-architecture.md`
-- `04_Resources/Tech Stack/Lua Template.md`
+- `00_Lua/04_Resources/Tech Stack/Lua Template.md`
 
-Meaningful sessions should also be recorded in `01_Command Center/03_Summaries/Work Ledger.md`.
+Meaningful sessions should also be recorded in `00_Lua/01_Command Center/03_Summaries/Work Ledger.md`.
