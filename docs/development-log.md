@@ -144,3 +144,20 @@ Added `01_Command Center/Lua Command And Record Channels.md` as the single-page 
 Next action:
 
 - Add a runtime `status/report` command later so this audit can be generated automatically.
+
+## 2026-05-28 Telegram Main Command Channel
+
+Promoted Telegram to Lua's main remote command channel.
+
+Added:
+
+- `09_Automations/Telegram Command Inbox.md`
+- `scripts/telegram_command_inbox.js`
+- `npm run telegram:queue`
+- Node tests for Telegram command parsing and queue writing
+
+Updated operating docs so Slack is treated as a secondary/team-sharing channel, while Telegram is the personal command surface for Lua.
+
+Next action:
+
+- Wire the local Telegram queue to a Telegram Bot API capture path when credentials and hosting are ready.

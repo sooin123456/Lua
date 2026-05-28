@@ -118,6 +118,17 @@ last_updated: 2026-05-15
 - Commit: pending
 - Next: consider a runtime `status/report` command that generates this health check automatically
 
+## 2026-05-28 KST - promote Telegram as main command channel
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Telegram command inbox, command docs, automation scripts
+- Trigger: user clarified that the main command channel should be Telegram
+- Changed: added Telegram Command Inbox, added `scripts/telegram_command_inbox.js`, added `npm run telegram:queue`, updated command mode and usage docs to make Telegram the main personal command channel and Slack the secondary/team channel
+- Verification: `node --test tests/telegram_command_inbox.test.js`; `node scripts/telegram_command_inbox.js --source telegram-mobile --now 2026-05-28T04:05:06.000Z "/lua status Lua"`; `npm run check`; `npm run test:all`; `node scripts/vault_audit.js` reported existing orphan/broken-link items only
+- Commit: pending
+- Next: wire Telegram Bot API capture after local queue behavior is stable
+
 ## 2026-05-15 23:46 KST - capture actual Obsidian vault baseline
 
 - Host: `windows-codex`

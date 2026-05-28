@@ -1,14 +1,14 @@
 ---
 type: operating-guide
 status: active
-last_updated: 2026-05-15
+last_updated: 2026-05-28
 ---
 
 # Lua Usage Guide
 
 이 문서는 Obsidian에서 어디에 글을 쓰고, 어디에 명령을 적고, Codex/Claude/Pi를 언제 쓰는지 정하는 사용자 설명서다.
 
-전체 자동화 흐름은 [[Lua End-to-End Flow|Lua End-to-End Flow]]를 기준으로 본다. 기본 명령 하달 장소는 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]다.
+전체 자동화 흐름은 [[Lua End-to-End Flow|Lua End-to-End Flow]]를 기준으로 본다. 기본 원격 명령 하달 장소는 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]이고, 컴퓨터 앞에서 구조화해 적는 명령 장소는 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]다.
 
 ## One Rule
 
@@ -20,7 +20,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 - 가벼운 터미널형 실험, 타입별 프리셋, 컨텍스트 실험은 Pi로 분리한다.
 
 무엇을 Obsidian에 써야 하는지 애매하면 [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]를 먼저 본다.
-명령을 컴퓨터 앞에서 내리는지, 밖에서 Slack으로 내리는지 애매하면 [[01_Command Center/Command Modes|Command Modes]]를 먼저 본다.
+명령을 컴퓨터 앞에서 내리는지, 밖에서 Telegram으로 내리는지 애매하면 [[01_Command Center/Command Modes|Command Modes]]를 먼저 본다.
 
 ## Where To Write
 
@@ -40,6 +40,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 
 | 하고 싶은 일 | 명령 위치 | 예시 |
 |---|---|---|
+| Lua에게 원격 명령 | Telegram | `/lua status Lua` |
 | Codex에게 실제 수정 요청 | Codex 채팅창 | `지원사업 검토를 Policy Tracker에 연결해줘` |
 | Claude에게 긴 글/기획 요청 | Claude 채팅창 | `이 사업계획서 목차를 Notion용으로 정리해줘` |
 | Obsidian 안에 다음 실행 예약 | [[01_Command Center/Agent Dashboard|Agent Dashboard]]의 Quick Commands | `/project-sprint time-management-app first-demo` |
@@ -55,7 +56,7 @@ Obsidian에 적는 `/command`는 자동 실행 버튼이 아니라 "AI에게 넘
 | 타입 | 뜻 | 예시 | 실행 기준 |
 |---|---|---|---|
 | Offline | 컴퓨터 앞에서 Codex/Claude/Obsidian에 직접 내리는 명령 | `/inbox-triage`, `/work-log`, `/project-sprint` | 바로 처리 가능 |
-| Online | 밖에 있을 때 Slack으로 Lua에게 던지는 원격 명령 | `/lua inbox`, `/lua todo`, `/lua brief` | 먼저 Command Inbox에 저장 |
+| Online | 밖에 있을 때 Telegram으로 Lua에게 던지는 원격 명령 | `/lua inbox`, `/lua todo`, `/lua brief` | 먼저 Telegram Command Inbox에 저장 |
 
 Online command는 기본적으로 capture만 한다. Slack/Notion/GitHub로 실제 반영하는 일은 별도 승인 후 실행한다.
 
@@ -137,6 +138,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Command Modes|Command Modes]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[01_Command Center/Agent Dashboard|Agent Dashboard]]
 - [[03_Wiki/LLM Wiki Operating Model|LLM Wiki Operating Model]]
 - [[03_Wiki/Repository Registry|Repository Registry]]

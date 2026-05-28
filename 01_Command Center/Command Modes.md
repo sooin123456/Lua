@@ -1,7 +1,7 @@
 ---
 type: operating-guide
 status: active
-last_updated: 2026-05-16
+last_updated: 2026-05-28
 ---
 
 # Command Modes
@@ -11,7 +11,7 @@ Lua 명령은 "내가 어디서 명령을 내리는지" 기준으로 오프라�
 ## Core Rule
 
 - Offline command: 내가 컴퓨터 앞에서 Codex/Claude/Obsidian을 직접 열고 내리는 명령.
-- Online command: 내가 밖에 있을 때 Slack 같은 모바일/외부 채널로 Lua에게 내리는 명령.
+- Online command: 내가 밖에 있을 때 Telegram 같은 모바일/외부 채널로 Lua에게 내리는 명령.
 
 여기서 online은 "외부로 공개한다"는 뜻이 아니라, "내가 외부에 있을 때 원격으로 명령한다"는 뜻이다.
 
@@ -31,9 +31,9 @@ Lua 명령은 "내가 어디서 명령을 내리는지" 기준으로 오프라�
 
 ## Online Commands
 
-내가 밖에 있을 때 Slack으로 Lua에게 던지는 명령이다. Slack은 작업 공간이 아니라 "원격 명령 입력창"이다.
+내가 밖에 있을 때 Telegram으로 Lua에게 던지는 명령이다. Telegram은 Lua의 메인 원격 명령 입력창이다. Slack은 팀 공유와 보조 수신함으로 둔다.
 
-| Slack 명령 | 목적 | 기본 처리 |
+| Telegram 명령 | 목적 | 기본 처리 |
 |---|---|---|
 | `/lua inbox {내용}` | 떠오른 생각 저장 | Obsidian Inbox에 capture |
 | `/lua todo {내용}` | 할 일 등록 | Backlog 후보로 분류 |
@@ -43,14 +43,14 @@ Lua 명령은 "내가 어디서 명령을 내리는지" 기준으로 오프라�
 | `/lua remind {내용}` | 리마인더 후보 | Automation 후보 |
 | `/lua approve {id}` | 승인 표시 | approved 상태로 변경 |
 
-초기 버전에서는 Slack 명령이 바로 실행되지 않고 Obsidian에 "명령 대기열"로 들어간다. Codex가 나중에 대기열을 읽고 처리한다.
+초기 버전에서는 Telegram 명령이 바로 실행되지 않고 Obsidian에 "명령 대기열"로 들어간다. Codex가 나중에 대기열을 읽고 처리한다.
 
 ## Command Queue
 
-Slack에서 들어온 온라인 명령은 아래 흐름으로 처리한다.
+Telegram에서 들어온 온라인 명령은 아래 흐름으로 처리한다.
 
-1. Slack message 또는 slash command.
-2. Lua Command Inbox에 저장.
+1. Telegram message 또는 bot command.
+2. [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]에 저장.
 3. Codex가 명령을 분류.
 4. 안전한 것은 Obsidian에 반영.
 5. 외부 전송/게시가 필요한 것은 draft 상태로 멈춤.
@@ -62,7 +62,7 @@ Slack에서 들어온 온라인 명령은 아래 흐름으로 처리한다.
 
 | Level | 설명 | 예시 |
 |---|---|---|
-| S0 Capture | 기록만 함 | Slack에서 Inbox 저장 |
+| S0 Capture | 기록만 함 | Telegram에서 Inbox 저장 |
 | S1 Local Edit | Obsidian/로컬 파일 수정 | 노트 분류, 초안 작성 |
 | S2 Local Commit | Git 로컬 커밋 | vault 정리 커밋 |
 | S3 Remote Sync | GitHub/Slack/Notion으로 반영 | GitHub push, Slack send |
@@ -72,7 +72,7 @@ Online command라도 기본은 S0 또는 S1까지만 자동 처리한다. S3 이
 
 ## Naming
 
-Slack에서 쓰는 온라인 명령은 `/lua`로 시작한다.
+Telegram에서 쓰는 온라인 명령은 `/lua`로 시작한다.
 
 | Prefix | 의미 |
 |---|---|
@@ -83,17 +83,25 @@ Slack에서 쓰는 온라인 명령은 `/lua`로 시작한다.
 | `/lua status` | 상태 요청 |
 | `/lua approve` | 승인 |
 
-역할별 agent app 명령은 [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]에서 관리한다.
+역할별 agent command는 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]를 기본으로 하고, Slack 전용 팀 공유 명령은 [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]에서 관리한다.
 
 Codex/Claude에서 쓰는 오프라인 명령은 자연어로 말하거나 기존 `/project-sprint`, `/work-log` 같은 명령을 쓴다.
 
 Obsidian에서 쓰는 기본 명령은 [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]의 `/lua {domain} {intent} :: {payload}` 형식을 따른다.
 
+## Telegram Rule
+
+Telegram은 Lua의 main command ingress다.
+
+- Telegram으로 들어온 명령은 먼저 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]에 저장한다.
+- 현재 로컬 테스트는 `node scripts/telegram_command_inbox.js` 또는 `npm run telegram:queue -- "/lua status Lua"`로 한다.
+- Telegram 명령은 기본적으로 capture-first이며, S3 이상 행동은 승인 없이는 실행하지 않는다.
+
 ## Slack Rule
 
-Slack은 online command ingress다.
+Slack은 secondary/team channel이다.
 
-- Slack으로 들어온 명령은 먼저 [[09_Automations/Slack Command Inbox|Slack Command Inbox]]에 저장한다.
+- Slack으로 들어온 명령은 필요한 경우 [[09_Automations/Slack Command Inbox|Slack Command Inbox]]에 저장한다.
 - Slack으로 나가는 메시지는 [[03_Operation/Team Brief Drafts|Team Brief Drafts]]에서 approved 상태가 되어야 한다.
 - Slack 전송 스크립트는 `--confirm-send` 없이는 보내지 않는다.
 
@@ -112,6 +120,7 @@ GitHub push는 online command가 아니라 offline command의 remote sync 단계
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]

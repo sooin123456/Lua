@@ -157,11 +157,13 @@ Slack 명령은 기본적으로 Stage 1 또는 Stage 2까지만 자동 처리한
 
 ## MVP Implementation
 
-1. `/lua` slash command를 하나 만든다.
-2. 모든 payload를 [[09_Automations/Slack Command Inbox|Slack Command Inbox]] Queue에 저장한다.
+1. Slack용 `/lua` slash command를 하나 만든다.
+2. 모든 Slack payload를 [[09_Automations/Slack Command Inbox|Slack Command Inbox]] Queue에 저장한다.
 3. Codex가 Queue를 읽고 라우팅한다.
 4. Slack 응답은 "접수됨 + 다음 처리 위치"까지만 보낸다.
 5. 자동 실행은 S0/S1까지만 허용한다.
+
+개인 원격 명령의 기본 입구는 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]다. 이 문서는 Slack 워크스페이스 안에서 필요한 팀/공유용 agent command 체계를 다룬다.
 
 ## Sources
 
@@ -170,6 +172,7 @@ Slack 명령은 기본적으로 Stage 1 또는 Stage 2까지만 자동 처리한
 
 ## Navigation
 
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[Lua End-to-End Flow|Lua End-to-End Flow]]
 - [[01_Command Center/Command Modes|Command Modes]]

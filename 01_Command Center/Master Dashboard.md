@@ -12,6 +12,7 @@ Daily operating view for Lua. Keep this page small. Use [[01_Command Center/Lua 
 ## Navigation
 
 - [[02_Projects/Projects Hub|Projects]]
+- [[09_Automations/Telegram Command Inbox|Telegram]]
 - [[01_Command Center/Obsidian Command Center|Command Center]]
 - [[01_Command Center/User Action Board|Actions]]
 - [[01_Command Center/Work Ledger|Work Ledger]]
@@ -38,6 +39,8 @@ Expected current shape: `TASK-003` through `TASK-015` active across the three Lu
 ## Command And Record Channels
 
 Use [[01_Command Center/Lua Command And Record Channels|Command/Record Channels]] when checking where commands enter and where records should land.
+
+Main command channel: [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]].
 
 Quick check:
 

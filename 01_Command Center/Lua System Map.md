@@ -56,6 +56,7 @@ This is the system navigation map. The [[01_Command Center/Master Dashboard|Mast
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[01_Command Center/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[01_Command Center/Command Modes|Command Modes]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[03_Wiki/Home|Wiki]]
 - [[03_Wiki/Repository Registry|Repository Registry]]
 

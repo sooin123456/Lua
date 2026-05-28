@@ -123,10 +123,10 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 - Codex가 Queue를 읽고 처리한다.
 - 결과는 Obsidian에 저장한다.
 
-### Phase 2: Slack Command Intake
+### Phase 2: Telegram Command Intake
 
 - `/lua` slash command를 붙인다.
-- Slack 명령이 자동으로 Slack Command Inbox에 들어온다.
+- Telegram 명령이 자동으로 Telegram Command Inbox에 들어온다.
 - 응답은 "접수됨" 정도만 자동 전송한다.
 
 ### Phase 3: Agent Router
@@ -154,6 +154,7 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 
 - [[01_Command Center/Lua Usage Guide|Lua Usage Guide]]
 - [[01_Command Center/Obsidian Command Center|Obsidian Command Center]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Notion Sync|Notion Sync]]

@@ -2,6 +2,7 @@
 ai-index: true
 type: dashboard
 area: Command_Center
+last_updated: 2026-05-28
 ---
 
 # 🤖 Agent Dashboard
@@ -29,6 +30,7 @@ area: Command_Center
 - [[01_Command Center/Work Ledger|Work Ledger]]
 - [[08_Artifacts/Artifact Ledger|Artifact Ledger]]
 - [[09_Automations/README|Automations]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[99_Templates/Templates Hub|Templates Hub]]
@@ -66,19 +68,23 @@ area: Command_Center
 
 ## 📲 Telegram Command Format
 
-- `/urgent <내용>` -> P0 즉시 처리
-- `/todo <내용>` -> P1 실행 항목
-- `/status-check <프로젝트>` -> P1 상태 점검
-- `/summarize <대상>` -> P2 요약 요청
-- `/connect <A> + <B>` -> P2 연결 제안
+- `/lua inbox <내용>` -> 생각/메모 capture
+- `/lua todo <내용>` -> 실행 항목 후보
+- `/lua status <프로젝트>` -> 상태 점검
+- `/lua research brief :: <내용>` -> 조사 브리프 후보
+- `/lua build app :: <내용>` -> 앱/기능 구현 후보
+
+Local queue test:
+
+```bash
+npm run telegram:queue -- "/lua status Lua"
+```
 
 ---
 
 ## 📨 Telegram Command Queue
 
-<!-- AUTO-COMMAND-START -->
-- [ ] (telegram 명령 대기중)
-<!-- AUTO-COMMAND-END -->
+Telegram 명령의 canonical queue는 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]다.
 
 ---
 

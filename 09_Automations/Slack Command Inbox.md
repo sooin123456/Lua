@@ -1,19 +1,19 @@
 ---
 type: automation-map
 system: slack
-status: draft
-last_updated: 2026-05-16
+status: secondary
+last_updated: 2026-05-28
 ---
 
 # Slack Command Inbox
 
-내가 외부에 있을 때 Slack으로 Lua에게 명령을 내리는 온라인 명령 수신함이다.
+Slack에서 Lua 관련 요청을 보조로 capture하는 수신함이다.
 
 ## Purpose
 
-Slack은 개인/팀 작업 공간이 아니라 모바일 원격 조종석이다.
+Telegram이 Lua의 메인 개인 명령 창구다. Slack은 팀 공유, 팀 알림, Slack 안에서 발생한 요청을 capture하는 보조 채널이다.
 
-밖에서 떠오른 생각, 할 일, 팀 공유 요청, AI agent app 실행 요청을 Slack에 던지고, Lua가 나중에 Obsidian과 Codex 작업으로 분리한다.
+Slack에서 떠오른 팀 공유 요청, 알림, AI agent app 실행 요청은 이 문서에 저장하고, Lua가 나중에 Obsidian과 Codex 작업으로 분리한다.
 
 ## Command Format
 
@@ -43,7 +43,7 @@ Slack은 개인/팀 작업 공간이 아니라 모바일 원격 조종석이다.
 
 ## Initial Implementation
 
-처음에는 Slack API 자동 수신보다 수동-반자동으로 시작한다.
+처음에는 Slack API 자동 수신보다 수동-반자동으로 시작한다. 개인 원격 명령은 [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]를 우선한다.
 
 1. Slack에서 명령을 적는다.
 2. Codex 또는 Claude가 Slack 내용을 가져오거나 사용자가 붙여넣는다.
@@ -87,6 +87,7 @@ node scripts/slack_command_inbox.js --source slack-mobile "/lua inbox 밖에서 
 ## Navigation
 
 - [[01_Command Center/Command Modes|Command Modes]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
 - [[09_Automations/Slack Briefs|Slack Briefs]]
 - [[03_Operation/Team Brief Drafts|Team Brief Drafts]]

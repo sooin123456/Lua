@@ -10,6 +10,7 @@ last_updated: 2026-05-15
 - [[09_Automations/Notion Workspace Plan|Notion Workspace Plan]]
 - [[09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[09_Automations/App Template Standard|App Template Standard]]
+- [[09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[09_Automations/Slack Command Inbox|Slack Command Inbox]]
 - [[09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
  
