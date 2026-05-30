@@ -8,6 +8,17 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-05-30 KST - add safe Obsidian vault sync
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: repo-to-Obsidian sync script, Node tests, package scripts
+- Trigger: user asked to continue the next system setup after the real Obsidian vault and repo structure diverged
+- Changed: added a dry-run-first sync command that copies `00_Lua`, `90_System`, and root operating docs into the actual Obsidian vault while excluding secrets, `.obsidian`, `.git`, runtime DBs, backups, and dependency folders; added Obsidian ignore-filter merging so internal folders stay hidden in the app
+- Verification: `npm run obsidian:sync:dry-run`; `npm run obsidian:sync`; `npm run check`; `npm run test:node`
+- Commit: pending
+- Next: run dry-run, apply sync to the actual Obsidian vault, then validate the repo and Node tests
+
 ## 2026-05-28 KST - promote Lua user workspace to root
 
 - Host: `mac-codex`

@@ -26,6 +26,8 @@
     "slack:queue": "node 90_System/scripts/slack_command_inbox.js",
     "slack:dry-run": "node 90_System/scripts/slack_brief.js --dry-run",
     "slack:send": "node 90_System/scripts/slack_brief.js --confirm-send",
+    "obsidian:sync:dry-run": "node 90_System/scripts/sync_obsidian_vault.js --dry-run",
+    "obsidian:sync": "node 90_System/scripts/sync_obsidian_vault.js --apply",
     "sync:skills": "node 90_System/scripts/sync_skills.js",
     "test": "node 90_System/scripts/check.js",
     "test:node": "node --test 90_System/tests/*.test.js",
