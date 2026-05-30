@@ -19,6 +19,17 @@ last_updated: 2026-05-28
 - Commit: pending
 - Next: run dry-run, apply sync to the actual Obsidian vault, then validate the repo and Node tests
 
+## 2026-05-30 KST - commit actual Obsidian vault baseline
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: `/Users/sooin/Documents/Obsidian Vault`
+- Trigger: user approved continuing after the repo-to-vault sync command was added
+- Changed: staged the actual Obsidian vault structure so the user-facing `00_Lua` workspace, internal `90_System` support layer, and Obsidian ignore filters are tracked as the current baseline
+- Verification: `npm run obsidian:sync`; `node 90_System/scripts/check.js` in `/Users/sooin/Documents/Obsidian Vault`; staged diff checked for excluded cache, backup, secret, and local workspace files
+- Commit: pending
+- Next: use Telegram as the main command intake and confirm the end-to-end command loop in daily use
+
 ## 2026-05-28 KST - promote Lua user workspace to root
 
 - Host: `mac-codex`
