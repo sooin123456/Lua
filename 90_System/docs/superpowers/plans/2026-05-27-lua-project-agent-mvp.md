@@ -4,7 +4,7 @@
 
 **Goal:** Build a CLI-first `lua_Project_Agent` MVP that stores projects/tasks/checkpoints, writes Obsidian-ready logs, and generates Codex `/goal` prompts.
 
-**Architecture:** The MVP is local-first. A small Python package owns typed domain models, a SQLite repository, an Obsidian markdown exporter, a Codex goal generator, and a Typer CLI. External systems such as Notion, Telegram, Slack, Claude, Gemini, Kimi, Grok, Manus, and Canva are represented as generated tool instructions, not live integrations.
+**Architecture:** The MVP is local-first. A small Python package owns typed domain models, a SQLite repository, an Obsidian markdown exporter, a Codex goal generator, and a Typer CLI. External systems such as Notion, Telegram, Claude, Gemini, Kimi, Grok, Manus, and Canva are represented as generated tool instructions, not live integrations.
 
 **Tech Stack:** Python 3.11+, Typer, Pydantic, SQLite via stdlib `sqlite3`, pytest.
 
@@ -40,7 +40,6 @@
 # 90_System/tests/test_models.py
 from lua_agent.models import Project, Task, TaskStatus
 
-
 def test_task_requires_next_action_for_running_status():
     task = Task(
         id="TASK-001",
@@ -54,7 +53,6 @@ def test_task_requires_next_action_for_running_status():
 
     assert task.status == TaskStatus.RUNNING
     assert task.next_action == "Write the first implementation task."
-
 
 def test_project_can_hold_initial_context():
     project = Project(
@@ -119,10 +117,8 @@ from enum import StrEnum
 
 from pydantic import BaseModel, Field, field_validator
 
-
 def utc_now() -> datetime:
     return datetime.now(timezone.utc)
-
 
 class TaskStatus(StrEnum):
     INBOX = "inbox"
@@ -133,7 +129,6 @@ class TaskStatus(StrEnum):
     DONE = "done"
     FAILED = "failed"
 
-
 class Project(BaseModel):
     id: str
     name: str
@@ -141,7 +136,6 @@ class Project(BaseModel):
     description: str = ""
     created_at: datetime = Field(default_factory=utc_now)
     updated_at: datetime = Field(default_factory=utc_now)
-
 
 class Task(BaseModel):
     id: str
@@ -163,7 +157,6 @@ class Task(BaseModel):
             raise ValueError("next_action must not be empty")
         return value
 
-
 class Checkpoint(BaseModel):
     id: str
     task_id: str
@@ -173,7 +166,6 @@ class Checkpoint(BaseModel):
     blocked_reason: str = ""
     created_at: datetime = Field(default_factory=utc_now)
 
-
 class Agent(BaseModel):
     id: str
     name: str
@@ -181,7 +173,6 @@ class Agent(BaseModel):
     capabilities: list[str] = Field(default_factory=list)
     tools: list[str] = Field(default_factory=list)
     risk_level: str = "low"
-
 
 class ToolInstruction(BaseModel):
     id: str
@@ -222,7 +213,6 @@ git commit -m "Add lua_Agent domain models"
 from lua_agent.models import Checkpoint, Project, Task, TaskStatus
 from lua_agent.storage import SQLiteStore
 
-
 def test_store_saves_and_loads_project(tmp_path):
     store = SQLiteStore(tmp_path / "lua.db")
     project = Project(
@@ -235,7 +225,6 @@ def test_store_saves_and_loads_project(tmp_path):
 
     loaded = store.get_project("PROJ-001")
     assert loaded == project
-
 
 def test_store_lists_tasks_by_project(tmp_path):
     store = SQLiteStore(tmp_path / "lua.db")
@@ -253,7 +242,6 @@ def test_store_lists_tasks_by_project(tmp_path):
     store.save_task(task)
 
     assert store.list_tasks("PROJ-001") == [task]
-
 
 def test_store_returns_active_tasks(tmp_path):
     store = SQLiteStore(tmp_path / "lua.db")
@@ -280,7 +268,6 @@ def test_store_returns_active_tasks(tmp_path):
     store.save_task(done)
 
     assert store.list_active_tasks() == [running]
-
 
 def test_store_appends_checkpoints(tmp_path):
     store = SQLiteStore(tmp_path / "lua.db")
@@ -321,7 +308,6 @@ from typing import Any
 from pydantic import TypeAdapter
 
 from lua_agent.models import Checkpoint, Project, Task, TaskStatus
-
 
 class SQLiteStore:
     def __init__(self, path: str | Path):
@@ -483,7 +469,6 @@ git commit -m "Add SQLite storage for lua projects"
 from lua_agent.models import Checkpoint, Project, Task, TaskStatus
 from lua_agent.obsidian import render_project_note
 
-
 def test_render_project_note_contains_tasks_and_checkpoints():
     project = Project(
         id="PROJ-001",
@@ -533,7 +518,6 @@ Expected: FAIL with `ModuleNotFoundError: No module named 'lua_agent.obsidian'`.
 from __future__ import annotations
 
 from lua_agent.models import Checkpoint, Project, Task
-
 
 def render_project_note(
     project: Project,
@@ -619,7 +603,6 @@ git commit -m "Add Obsidian project note rendering"
 from lua_agent.codex import render_codex_goal
 from lua_agent.models import Project, Task, TaskStatus
 
-
 def test_render_codex_goal_includes_objective_validation_and_approval_boundaries():
     project = Project(
         id="PROJ-001",
@@ -664,7 +647,6 @@ Expected: FAIL with `ModuleNotFoundError: No module named 'lua_agent.codex'`.
 from __future__ import annotations
 
 from lua_agent.models import Project, Task
-
 
 def render_codex_goal(project: Project, task: Task) -> str:
     approval_line = (
@@ -732,7 +714,6 @@ from typer.testing import CliRunner
 
 from lua_agent.cli import app
 
-
 def test_cli_can_create_and_list_project(tmp_path):
     runner = CliRunner()
     db_path = tmp_path / "lua.db"
@@ -755,7 +736,6 @@ def test_cli_can_create_and_list_project(tmp_path):
     listed = runner.invoke(app, ["--db", str(db_path), "project", "list"])
     assert listed.exit_code == 0
     assert "Toss Mini App To App" in listed.stdout
-
 
 def test_cli_can_generate_codex_goal(tmp_path):
     runner = CliRunner()
@@ -831,14 +811,11 @@ app.add_typer(project_app, name="project")
 app.add_typer(task_app, name="task")
 app.add_typer(codex_app, name="codex")
 
-
 def _store(db: Path) -> SQLiteStore:
     return SQLiteStore(db)
 
-
 def _next_id(prefix: str, existing_count: int) -> str:
     return f"{prefix}-{existing_count + 1:03d}"
-
 
 @app.callback()
 def main(
@@ -846,7 +823,6 @@ def main(
     db: Path = typer.Option(Path(".lua_agent/lua.db"), "--db", help="SQLite database path."),
 ) -> None:
     ctx.obj = {"db": db}
-
 
 @project_app.command("create")
 def create_project(
@@ -861,13 +837,11 @@ def create_project(
     store.save_project(project)
     typer.echo(f"{project.id} {project.name}")
 
-
 @project_app.command("list")
 def list_projects(ctx: typer.Context) -> None:
     store = _store(ctx.obj["db"])
     for project in store.list_projects():
         typer.echo(f"{project.id} {project.name}")
-
 
 @task_app.command("create")
 def create_task(
@@ -893,7 +867,6 @@ def create_task(
     )
     store.save_task(task)
     typer.echo(f"{task.id} {task.title}")
-
 
 @codex_app.command("goal")
 def codex_goal(ctx: typer.Context, project_id: str, task_id: str) -> None:
@@ -975,7 +948,7 @@ Spec coverage:
 - Codex `/goal` generation is covered by Task 4.
 - CLI-first MVP is covered by Task 5.
 - External tools are intentionally represented as generated instructions, matching MVP exclusions.
-- Notion, Telegram, Slack, Canva, and browser automation are excluded from this first executable slice.
+- Notion, Telegram, Canva, and browser automation are excluded from this first executable slice.
 
 Placeholder scan:
 

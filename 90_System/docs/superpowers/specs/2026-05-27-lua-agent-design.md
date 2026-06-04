@@ -12,7 +12,7 @@ The first product focus is `lua_Project_Agent`: an agent that turns a user's pro
 
 ## Primary Use Case
 
-The first user is a builder using many AI tools and external systems. Their problem is not a lack of AI assistants; it is that work gets scattered across Codex, Claude, Gemini, Kimi, Grok, Manus, Canva, Notion, Telegram, Slack, and Obsidian.
+The first user is a builder using many AI tools and external systems. Their problem is not a lack of AI assistants; it is that work gets scattered across Codex, Claude, Gemini, Kimi, Grok, Manus, Canva, Notion, Telegram, and Obsidian.
 
 `lua_Agent` should act as the operating layer above those tools:
 
@@ -202,7 +202,7 @@ Canva:
 - Proposal visuals
 - Marketing or presentation assets
 
-Telegram and Slack:
+Telegram:
 
 - Command input
 - Notifications
@@ -252,7 +252,7 @@ Allowed automatically:
 
 Ask first:
 
-- Slack or Telegram message sending
+- Telegram message sending
 - Notion shared page edits
 - Git commit, push, PR, or deployment
 - Canva publishing or sharing
@@ -290,7 +290,7 @@ The MVP should not include:
 - Full Canva automation
 - Automatic live trading
 - Automatic public posting
-- Complete Slack/Telegram automation
+- Complete Telegram automation
 - Complete Notion sync
 - Autonomous multi-agent delegation loops
 

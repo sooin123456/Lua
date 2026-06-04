@@ -34,7 +34,7 @@ Obsidian에는 "나중에 다시 써먹을 맥락"만 남긴다.
 |---|---|---|
 | 단순 질문/답변 | 다시 쓸 맥락이 아님 | 채팅에서 끝내기 |
 | 이미 Notion에 팀용으로 정리된 내용 | Obsidian 중복 기록 방지 | Notion 링크만 필요하면 남기기 |
-| Slack에서 끝난 가벼운 확인 | 기록 가치가 낮음 | 중요한 결정만 Decisions/DevLog에 남기기 |
+| Notion에서 끝난 가벼운 확인 | 기록 가치가 낮음 | 중요한 결정만 Decisions/DevLog에 남기기 |
 | API key, token, password | 보안 위험 | `.env`, 비밀번호 관리자, Secret Manager 사용 |
 | 완전히 확정된 외부 문서 원문 | 원본 중복 저장 | 링크와 요약만 Research에 남기기 |
 | 너무 사적인 감정 메모 | 팀/프로젝트 맥락과 분리 필요 | 개인 노트에만 짧게 두기 |
@@ -48,7 +48,7 @@ Obsidian에는 "나중에 다시 써먹을 맥락"만 남긴다.
 | "뭘 시켜야 할지 아직 모르겠다" | Inbox에 원문 저장 | Codex가 domain/task로 분리 |
 | "이건 바로 시킬 수 있다" | [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]에 명령 작성 | Atlas CEO 라우팅 |
 | "누가 해야 하지?" | Backlog에 task로 작성 | Notion Tasks 후보 |
-| "팀이 알아야 하나?" | Team Brief Drafts에 초안 | Notion Team Briefs 또는 Slack |
+| "팀이 알아야 하나?" | Team Brief Drafts에 초안 | Notion Team Briefs 또는 Notion |
 | "근거가 필요하다" | Research에 출처 저장 | Notion Research Briefs 후보 |
 | "앱/서비스로 만들고 싶다" | Home + Backlog 작성 | Codex project-sprint 후보 |
 | "AI가 파일을 바꿨다" | Work Ledger 기록 | Git commit |

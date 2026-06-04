@@ -6,18 +6,15 @@ from pydantic import BaseModel
 
 from lua_agent.models import Project, Task
 
-
 class ApprovalLevel(StrEnum):
     AUTO = "auto"
     ASK_FIRST = "ask_first"
     EXPLICIT_APPROVAL = "explicit_approval"
 
-
 class ApprovalPolicy(BaseModel):
     level: ApprovalLevel
     reason: str
     matched_terms: list[str]
-
 
 EXPLICIT_TERMS = {
     "Trading": ["live trading", "auto trading", "real exchange", "place real", "order", "orders", "api key"],
@@ -25,11 +22,11 @@ EXPLICIT_TERMS = {
     "Payments": ["payment", "subscribe", "subscription", "billing", "charge card"],
     "Destructive": ["bulk delete", "delete all", "wipe", "remove all"],
     "Account changes": ["account setting", "change account", "permission change"],
-    "Public posting": ["public post", "publish publicly", "post to instagram", "post to slack"],
+    "Public posting": ["public post", "publish publicly", "post to instagram", "post externally"],
 }
 
 ASK_FIRST_TERMS = {
-    "External communication": ["send email", "contact vendor", "contact vendors", "message slack", "send telegram"],
+    "External communication": ["send email", "contact vendor", "contact vendors", "send external message", "send telegram"],
     "Deployment": ["deploy", "deployment", "publish", "release"],
     "Git remote": ["git push", "create pr", "pull request", "merge"],
     "Paid API": ["paid api", "paid model", "spend", "cost"],
@@ -37,7 +34,6 @@ ASK_FIRST_TERMS = {
 }
 
 AUTO_TERMS = ["research", "draft", "compare", "summarize", "plan", "outline", "test", "local"]
-
 
 def classify_approval(project: Project, task: Task) -> ApprovalPolicy:
     text = _combined_text(project, task)
@@ -64,7 +60,6 @@ def classify_approval(project: Project, task: Task) -> ApprovalPolicy:
         matched_terms=auto_matches,
     )
 
-
 def render_approval_boundary(project: Project, task: Task) -> str:
     policy = classify_approval(project, task)
     return (
@@ -73,7 +68,6 @@ def render_approval_boundary(project: Project, task: Task) -> str:
         f"- Reason: {policy.reason}\n"
         f"- Matched terms: {', '.join(policy.matched_terms) if policy.matched_terms else 'none'}\n"
     )
-
 
 def _combined_text(project: Project, task: Task) -> str:
     return " ".join(
@@ -87,7 +81,6 @@ def _combined_text(project: Project, task: Task) -> str:
             task.next_action,
         ]
     ).lower()
-
 
 def _matches(term_groups: dict[str, list[str]], text: str) -> list[str]:
     matched = []

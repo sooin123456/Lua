@@ -88,7 +88,7 @@ last_updated: ${TODAY}
 ## Later
 
 - [ ] Notion mirror 필요 여부 결정
-- [ ] Slack brief 필요 여부 결정
+- [ ] Notion brief 필요 여부 결정
 `;
 }
 

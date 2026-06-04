@@ -56,7 +56,7 @@ Toss 미니앱 만들기: https://toss.im/apps-in-toss/blog/making-miniapps 토�
 ### 6. Brief
 
 - [ ] Update Work Ledger.
-- [ ] Decide whether Slack/Notion sharing is needed.
+- [ ] Decide whether Notion sharing is needed.
 
 ## Next User Action
 

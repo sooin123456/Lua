@@ -6,7 +6,7 @@ last_updated: 2026-05-16
 
 # Lua End-to-End Flow
 
-Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하고, 각 agent app이 결과물을 만들고, 필요한 결과만 Notion/Slack에 공유"하는 구조다. Slack은 외부에 있을 때 쓰는 보조 입력 채널이다.
+Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하고, 각 agent app이 결과물을 만들고, 필요한 결과만 Notion에 공유"하는 구조다. Notion은 외부에 있을 때 쓰는 보조 입력 채널이다.
 
 ## Target Flow
 
@@ -16,8 +16,8 @@ Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하
 → Atlas CEO가 자동 분류
 → 역할별 agent app에 하달
 → 결과물을 Obsidian에 저장
-→ 팀 공유가 필요한 것만 Notion/Slack 초안 생성
-→ 승인 후 Notion 저장 또는 Slack 전송
+→ 팀 공유가 필요한 것만 Notion 초안 생성
+→ 승인 후 Notion 저장 또는 Notion 전송
 → Work Ledger에 출처 기록
 ```
 
@@ -29,12 +29,12 @@ Lua의 전체 흐름은 "Obsidian에서 명령을 넣고, Atlas CEO가 분류하
 |---|---|
 | Obsidian에 명령/기록 작성 | 가능 |
 | Inbox에서 Command Center로 승격 | 수동 가능 |
-| Slack에서 원격 명령 설계 | 가능, 보조 경로 |
-| Slack 명령을 로컬 Queue에 넣기 | 가능 |
+| Notion에서 원격 명령 설계 | 가능, 보조 경로 |
+| Notion 명령을 로컬 Queue에 넣기 | 가능 |
 | Atlas CEO 자동 분류 | 가능 |
 | 각 agent app 하달 | 설계됨, Codex/Claude가 수동 실행 |
 | 결과물을 Obsidian에 저장 | 가능 |
-| Slack으로 테스트 메시지 전송 | 가능 |
+| Notion으로 테스트 메시지 전송 | 가능 |
 | Notion 발행 큐 생성 | 가능 |
 | Notion에 자동 저장 | 아직 안 됨, 승인 후 수동 실행 |
 
@@ -62,7 +62,7 @@ Obsidian 명령 입력
 → Queue/노트에 저장
 → Codex가 읽고 분류/처리
 → Obsidian에 결과 저장
-→ 필요하면 Slack으로 보냄
+→ 필요하면 Notion으로 보냄
 ```
 
 목표는 아래 상태다.
@@ -72,7 +72,7 @@ Obsidian 명령 입력
 → Atlas CEO 자동 분류
 → Agent App 자동 실행 또는 초안 생성
 → Obsidian 저장
-→ Notion/Slack 공유 후보 생성
+→ Notion 공유 후보 생성
 → 승인 후 공유
 ```
 
@@ -86,7 +86,7 @@ Obsidian 명령 입력
 | agent 실행 기록 | Work Ledger |
 | 팀 공유 초안 | Team Brief Drafts |
 | 팀이 보는 정리본 | Notion |
-| 즉시 알림/승인 요청 | Slack |
+| 즉시 알림/승인 요청 | Notion |
 
 Notion은 원본 저장소가 아니다. Notion은 팀이 보는 정리본이다.
 
@@ -155,8 +155,8 @@ Notion에는 아래 조건을 만족할 때만 저장한다.
 - [[90_System/80_Lua_Details/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
 - [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
-- [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
+- [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
+- [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[90_System/09_Automations/Notion Sync|Notion Sync]]
 - [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[90_System/07_Lua_System/agents/README|Lua Agents]]

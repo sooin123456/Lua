@@ -186,7 +186,7 @@ last_updated: 2026-05-13
 5. `## 도구 스택`:
    - IDE: Cursor (+ Kimi K2.6 custom model)
    - 노트: Obsidian (이 vault, Lua/)
-   - 협업: Slack, Notion (Business)
+   - 협업: legacy messaging, Notion (Business)
    - AI: Claude Opus 4.7, Kimi K2.6, Manus (드물게)
    - 시각화: Tldraw? Excalidraw? Figma? 등 추가
 

@@ -42,7 +42,7 @@ The original Lua system began as an Obsidian-first vault. That is still useful f
 - every task needs a stored `next_action`
 - every work session needs a checkpoint
 - Codex needs clean `/goal` instructions
-- future Telegram, Slack, Notion, and Obsidian integrations need one stable core
+- future Telegram, Notion, and Obsidian integrations need one stable core
 
 ## Validation
 

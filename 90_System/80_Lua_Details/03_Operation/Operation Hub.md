@@ -27,7 +27,7 @@ area: Operation
 - [[90_System/80_Lua_Details/03_Operation/Team Sharing Workflow|Team Sharing Workflow]]
 - [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]
 - [[90_System/09_Automations/Notion Sync|Notion Sync]]
-- [[90_System/09_Automations/Slack Briefs|Slack Briefs]]
+- [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]
 
 ## Control Links
 

@@ -60,7 +60,7 @@ After meaningful sessions, append an entry to `00_Lua/03_Records/Work Ledger.md`
 - Install Node.js LTS so `npm` is available outside Codex.
 - Decide whether Obsidian plugin bundles should remain tracked.
 - Configure Obsidian Local REST API key in `.env` only. Never commit it.
-- Connect Notion and Slack only after the brief format is stable.
+- Connect Notion only after the brief format is stable.
 
 ## Rule
 

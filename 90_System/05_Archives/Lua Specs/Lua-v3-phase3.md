@@ -1306,7 +1306,7 @@ Phase 3 끝나면:
 - **`agents/validation-agent/`** — personal-venture workflow agent
 - **`managed-agents/<slug>/agent.yaml`** — Claude Managed Agents API 배포 wrapper
 - **`.github/workflows/`** cron 자동화:
-  - `industry-scan.yml` — 매주 월요일 9시 KST, industry-intel-agent 호출, 결과 Slack 다이제스트
+  - `industry-scan.yml` — 매주 월요일 9시 KST, industry-intel-agent 호출, 결과 legacy messaging 다이제스트
   - `weekly-review.yml` — 매주 일요일 21시 KST, weekly-review command 실행
   - `pr-voice-check.yml` — `_Drafts/` PR마다 voice_check.js 자동 검증
 - **NTIS / KIPRIS MCP 래퍼** — 자체 빌드 (Phase 4-extra, 시간 여유 있으면)

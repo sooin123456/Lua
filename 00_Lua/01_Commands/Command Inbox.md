@@ -6,7 +6,7 @@ last_updated: 2026-05-28
 
 # Obsidian Command Center
 
-Lua의 기본 명령 하달 장소다. Slack은 보조 입력 채널이고, 기본 운영은 Obsidian에서 한다.
+Lua의 기본 명령 하달 장소다. Notion은 보조 입력 채널이고, 기본 운영은 Obsidian에서 한다.
 
 For the complete command and record map, see [[00_Lua/01_Commands/Command And Record Channels|Lua Command And Record Channels]].
 
@@ -49,7 +49,7 @@ Inbox에 넣어도 플로우는 이어진다. 다만 한 단계가 추가된다.
 → gstack-style role 선택
 → Superpowers-style workflow 진행
 → 결과물을 Obsidian에 저장
-→ 필요한 것만 Slack/Notion 공유 후보로 이동
+→ 필요한 것만 Notion 공유 후보로 이동
 ```
 
 ## Task Domains
@@ -77,7 +77,7 @@ Obsidian에서는 아래 형식을 권장한다.
 
 ```text
 /lua planning prioritize :: 이번 주 해야 할 일 정리
-/lua marketing brief :: 신제품 소개 Slack 초안
+/lua marketing brief :: 신제품 소개 Notion 초안
 /lua design screen :: 타이머 앱 첫 화면 설계
 /lua service flow :: 고객 문의 처리 흐름 정리
 /lua project split :: 수상태양광 조사 일을 task로 쪼개기
@@ -112,7 +112,7 @@ Obsidian에서는 아래 형식을 권장한다.
 | `plan` | 어떤 작은 일로 쪼갤까? | task list |
 | `execute` | 실제로 무엇을 만들까? | draft/code/note |
 | `verify` | 제대로 됐나? | check/audit/review |
-| `brief` | 누구에게 어떻게 공유할까? | Slack/Notion/Work Ledger |
+| `brief` | 누구에게 어떻게 공유할까? | Notion/Work Ledger |
 
 중요한 일은 `clarify`와 `design` 없이 바로 `execute`하지 않는다.
 
@@ -125,7 +125,7 @@ Obsidian에서는 아래 형식을 권장한다.
 | Designer | Scribe + Forge | 화면, UX, service flow |
 | Eng Manager | Forge | 구현 계획, 기술 선택 |
 | Release Manager | Archivist + Vault | push, release, handoff |
-| Doc Engineer | Scribe | 문서, Notion/Slack 초안 |
+| Doc Engineer | Scribe | 문서, Notion 초안 |
 | QA | Vault + Forge | 검사, 보안, 회귀 확인 |
 | Researcher | Lens | 조사, 비교, 출처 |
 

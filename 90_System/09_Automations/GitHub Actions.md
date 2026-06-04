@@ -20,7 +20,7 @@ last_updated: 2026-05-15
 
 ## Failure Handling
 
-Failed automations should create a note in `90_System/80_Lua_Details/00_Inbox/` and optionally draft a Slack alert. Do not auto-spam Slack on repeated failures.
+Failed automations should create a note in `90_System/80_Lua_Details/00_Inbox/` and optionally draft a Notion alert. Do not auto-spam Notion on repeated failures.
 
 ## Navigation
 

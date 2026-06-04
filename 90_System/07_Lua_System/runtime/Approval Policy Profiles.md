@@ -30,7 +30,7 @@ The task should pause and ask before taking the action.
 Examples:
 
 - vendor contact
-- Slack or Telegram messages
+- Telegram messages
 - deployment
 - git push, PR, merge
 - paid API usage

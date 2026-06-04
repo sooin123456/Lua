@@ -16,7 +16,7 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 
 - 생각, 회의, 아이디어, 프로젝트 상태는 Obsidian에 쓴다.
 - 파일 수정, 앱 제작, 테스트, 정리는 Codex에서 실행한다.
-- 긴 글, 관계 정리, Notion/Slack 초안은 Claude에서 다듬는다.
+- 긴 글, 관계 정리, Notion 초안은 Claude에서 다듬는다.
 - 가벼운 터미널형 실험, 타입별 프리셋, 컨텍스트 실험은 Pi로 분리한다.
 
 무엇을 Obsidian에 써야 하는지 애매하면 [[90_System/80_Lua_Details/01_Command Center/04_Policies/Obsidian Writing Rules|Obsidian Writing Rules]]를 먼저 본다.
@@ -37,8 +37,8 @@ Obsidian은 기록하는 곳이고, AI 앱은 실행하는 곳이다.
 | 회사/프로젝트 진행 | 각 프로젝트의 `DevLog.md` | 나중에 팀 공유와 회고에 사용 |
 | 해야 할 일 | 각 프로젝트의 `Backlog.md` 또는 [[90_System/80_Lua_Details/01_Command Center/01_Commands/Urgent List|Urgent List]] | 실행 항목만 모으기 |
 | 자료 조사 | 각 프로젝트의 `Research.md` | 출처와 판단 근거 보관 |
-| 팀에게 보낼 글 | [[90_System/80_Lua_Details/03_Operation/Operation Hub|Operation Hub]] 아래 관련 문서 | Slack/Notion 전 검토 공간 |
-| Notion/Slack 공유 초안 | [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]] | 승인 전 초안 보관 |
+| 팀에게 보낼 글 | [[90_System/80_Lua_Details/03_Operation/Operation Hub|Operation Hub]] 아래 관련 문서 | Notion 전 검토 공간 |
+| Notion 공유 초안 | [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]] | 승인 전 초안 보관 |
 | 재사용 가능한 결과물 | [[90_System/08_Artifacts/Artifact Ledger|Artifact Ledger]] | 앱, 프롬프트, 템플릿, 자동화 자산화 |
 | 시스템 규칙 변경 | [[00_Lua/03_Records/Work Ledger|Work Ledger]] | 어디서 누가 바꿨는지 추적 |
 
@@ -64,7 +64,7 @@ Obsidian에 적는 `/command`는 자동 실행 버튼이 아니라 "AI에게 넘
 | Offline | 컴퓨터 앞에서 Codex/Claude/Obsidian에 직접 내리는 명령 | `/inbox-triage`, `/work-log`, `/project-sprint` | 바로 처리 가능 |
 | Online | 밖에 있을 때 Telegram으로 Lua에게 던지는 원격 명령 | `/lua inbox`, `/lua todo`, `/lua brief` | 먼저 Telegram Command Inbox에 저장 |
 
-Online command는 기본적으로 capture만 한다. Slack/Notion/GitHub로 실제 반영하는 일은 별도 승인 후 실행한다.
+Online command는 기본적으로 capture만 한다. Notion/GitHub로 실제 반영하는 일은 별도 승인 후 실행한다.
 
 ## Daily Flow
 
@@ -106,8 +106,8 @@ Inbox에 추가해도 전체 플로우는 이어진다.
 | 앱 만들기 | Codex | Pi | 프로젝트 DevLog, Artifact Ledger |
 | 코드 검토/테스트 | Codex | Pi | DevLog, Work Ledger |
 | 사업 기획/문서 | Claude | Codex | Operation, Notion 초안 |
-| 팀 공유 | Claude | Codex | Slack Briefs, Operation |
-| Notion/Slack 공유 설계 | Codex | Claude | Team Sharing Workflow |
+| 팀 공유 | Claude | Codex | Team Brief Drafts, Operation |
+| Notion 공유 설계 | Codex | Claude | Team Sharing Workflow |
 | 자료 조사 | Claude | Pi | Research |
 | Vault 정리 | Codex | Pi | Work Ledger |
 | 짧은 실험 | Pi | Codex | DevLog 또는 Inbox |
@@ -121,7 +121,7 @@ Pi는 Lua의 메인 도구라기보다 "작은 타입별 실행기"로 둔다.
 | `lua-vault-care` | orphan, broken link, frontmatter 점검 | [[90_System/07_Lua_System/verticals/_core/skills/obsidian-vault-care/SKILL|obsidian-vault-care]] |
 | `lua-project-sprint` | 작은 앱/기능을 한 사이클로 만들기 | [[90_System/07_Lua_System/verticals/_core/commands/project-sprint|project-sprint]] |
 | `lua-research-brief` | 자료 조사 후 요약 | [[90_System/07_Lua_System/verticals/_core/skills/research-synthesis/SKILL|research-synthesis]] |
-| `lua-team-brief` | Notion/Slack 공유 초안 | [[90_System/07_Lua_System/verticals/_core/commands/team-brief|team-brief]] |
+| `lua-team-brief` | Notion 공유 초안 | [[90_System/07_Lua_System/verticals/_core/commands/team-brief|team-brief]] |
 | `lua-artifact-keeper` | 결과물을 재사용 자산으로 등록 | [[90_System/08_Artifacts/Artifact Ledger|Artifact Ledger]] |
 | `lua-eval` | 여러 프롬프트/모델 결과 비교 | [[90_System/09_Automations/GitHub Actions|GitHub Actions]] |
 

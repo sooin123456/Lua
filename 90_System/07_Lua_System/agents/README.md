@@ -26,11 +26,11 @@ type: agents-readme
 | Industry Intel Agent | climate-energy | cron weekly |
 | Validation Agent | personal-venture | `/validate {idea}` |
 
-## Slack Agent Apps
+## Remote Agent Commands
 
-Slack에서 호출하는 agent app 명령 체계는 [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]을 따른다.
+원격 agent 호출은 Telegram command를 기본으로 하고, 자세한 수신 규칙은 [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]를 따른다.
 
-| Slack App | Base Agent | Command |
+| Command | Base Agent | Pattern |
 |---|---|---|
 | Lua CEO | Atlas | `/lua ceo` |
 | Lua PM | Atlas + Vault | `/lua pm` |

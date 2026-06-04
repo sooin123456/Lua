@@ -132,7 +132,7 @@ npm run test:all
 - Obsidian is the private memory and command center.
 - GitHub is the versioned code and change-history ledger.
 - Notion is for team-facing dashboards and mirrored operational state.
-- Slack and Telegram are command/notification surfaces, not canonical memory.
+- Telegram is the command surface; Notion is an optional shared record. Neither is canonical memory.
 - Codex handles implementation and deterministic verification.
 - Claude handles planning, synthesis, long-context review, and writing.
 - External publishing, trading, spending, deletion, account changes, and public communication require explicit approval.

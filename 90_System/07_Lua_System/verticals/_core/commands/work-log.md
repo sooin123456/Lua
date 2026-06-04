@@ -1,6 +1,6 @@
 ---
 name: work-log
-description: Record the origin host and agent for a completed work session. Use before or after commits, Notion mirrors, Slack briefs, and automation runs.
+description: Record the origin host and agent for a completed work session. Use before or after commits, Notion mirrors briefs, and automation runs.
 vertical: _core
 trigger: "/work-log"
 applies_to: [atlas, vault, forge, archivist]

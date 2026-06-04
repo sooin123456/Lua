@@ -249,7 +249,7 @@ vertical: _core
 
 4. **`## MCP connectors`** — `.mcp.json` 참조
    - 현재: obsidian, notion
-   - Phase 2 추가: slack
+   - Phase 2 추가: legacy messaging
 
 5. **`## Used by`** — 모든 agent (Phase 2에서 list로 채움. 지금은 "All agents (Phase 2 list)" 한 줄)
 

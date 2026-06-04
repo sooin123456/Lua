@@ -56,7 +56,7 @@ last_updated: 2026-05-16
 ### 6. Brief
 
 - [ ] Update Work Ledger.
-- [ ] Decide whether Slack/Notion sharing is needed.
+- [ ] Decide whether Notion sharing is needed.
 
 ## Atlas CEO Router Update
 

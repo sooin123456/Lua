@@ -225,10 +225,10 @@ function designScreenContent(entry) {
 function planningContent(entry) {
   return {
     clarify: `- 목표: "${entry.payload}"를 이번 주 실행 가능한 우선순위와 다음 행동으로 바꾼다.
-- 현재 제약: Obsidian이 기본 명령 본부이고, Slack은 보조 입력/알림, Notion은 나중의 팀 공유 정리본으로 둔다.
-- 아직 하지 않을 것: Notion DB 자동 발행, Slack 중심 운영, 큰 범위의 사업 실행을 먼저 시작하는 일.`,
+- 현재 제약: Obsidian이 기본 명령 본부이고은 보조 입력/알림, Notion은 나중의 팀 공유 정리본으로 둔다.
+- 아직 하지 않을 것: Notion DB 자동 발행 중심 운영, 큰 범위의 사업 실행을 먼저 시작하는 일.`,
     design: `- 추천 방향: Obsidian Command Center를 먼저 안정화하고, planned/queued run을 Atlas Router가 순서대로 처리하게 만든다.
-- 대안 1: Slack 명령 앱을 먼저 키운다. 원격 입력은 좋아지지만 지금의 기본 운영 원칙과 맞지 않는다.
+- 대안 1: Notion 명령 앱을 먼저 키운다. 원격 입력은 좋아지지만 지금의 기본 운영 원칙과 맞지 않는다.
 - 대안 2: Notion 공유 DB를 먼저 만든다. 팀 공유에는 좋지만 아직 개인 command flow가 충분히 안정적이지 않다.`,
     plan: `- [x] 첫 처리 대상: [[90_System/80_Lua_Details/Command Runs/${path.basename(runRelFor(entry))}|${entry.id}]].
 - [x] Atlas CEO 방식으로 clarify/design/plan 작성.

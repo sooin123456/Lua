@@ -11,9 +11,7 @@ last_updated: 2026-05-15
 - [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[90_System/09_Automations/App Template Standard|App Template Standard]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
-- [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
- 
+
 
 This folder tracks recurring jobs and cross-tool syncs.
 
@@ -23,7 +21,7 @@ Automations should be documented here before they are enabled. A good automation
 
 - GitHub Actions for vault checks
 - Obsidian to Notion project mirror
-- Slack team brief drafts
+- Notion team brief drafts
 - weekly review
 - inbox triage
 - Windows Codex setup
@@ -32,7 +30,7 @@ Automations should be documented here before they are enabled. A good automation
 
 ## Rule
 
-Start manual, then semi-automatic, then automatic. Slack and Notion writes should stay draft-only until the team trusts the output.
+Start manual, then semi-automatic, then automatic. Notion writes should stay draft-only until the team trusts the output.
 
 ## Local Docs
 
@@ -46,6 +44,5 @@ Start manual, then semi-automatic, then automatic. Slack and Notion writes shoul
 - [[90_System/09_Automations/Notion Sync|Notion Sync]]
 - [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[90_System/09_Automations/App Template Standard|App Template Standard]]
-- [[90_System/09_Automations/Slack Briefs|Slack Briefs]]
 - [[90_System/09_Automations/Windows Codex Setup|Windows Codex Setup]]
 - [[90_System/09_Automations/Cleanup Backlog|Cleanup Backlog]]

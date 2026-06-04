@@ -42,7 +42,6 @@ This guide defines command types and the behavior Lua should follow for each typ
 | Codex chat | local implementation and repo work | Codex |
 | Obsidian Command Center | structured durable commands | command queue scripts |
 | Inbox | unclassified memory | inbox promotion scripts |
-| Slack | team sharing / secondary capture | Slack queue or brief scripts |
 
 ## Command Record
 

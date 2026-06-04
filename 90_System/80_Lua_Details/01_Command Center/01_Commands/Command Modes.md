@@ -31,7 +31,7 @@ Lua 명령은 "내가 어디서 명령을 내리는지" 기준으로 오프라�
 
 ## Online Commands
 
-내가 밖에 있을 때 Telegram으로 Lua에게 던지는 명령이다. Telegram은 Lua의 메인 원격 명령 입력창이다. Slack은 팀 공유와 보조 수신함으로 둔다.
+내가 밖에 있을 때 Telegram으로 Lua에게 던지는 명령이다. Telegram은 Lua의 메인 원격 명령 입력창이다. Notion은 명령 창구가 아니라 승인된 내용을 정리해두는 선택적 공유 기록이다.
 
 | Telegram 명령 | 목적 | 기본 처리 |
 |---|---|---|
@@ -65,7 +65,7 @@ Telegram에서 들어온 온라인 명령은 아래 흐름으로 처리한다.
 | S0 Capture | 기록만 함 | Telegram에서 Inbox 저장 |
 | S1 Local Edit | Obsidian/로컬 파일 수정 | 노트 분류, 초안 작성 |
 | S2 Local Commit | Git 로컬 커밋 | vault 정리 커밋 |
-| S3 Remote Sync | GitHub/Slack/Notion으로 반영 | GitHub push, Slack send |
+| S3 Remote Sync | GitHub/Notion으로 반영 | GitHub push, Notion publish |
 | S4 Public/Irreversible | 공개 게시, 삭제, 결제 | 웹사이트 공개, 대량 삭제 |
 
 Online command라도 기본은 S0 또는 S1까지만 자동 처리한다. S3 이상은 승인 없이 실행하지 않는다.
@@ -83,7 +83,7 @@ Telegram에서 쓰는 온라인 명령은 `/lua`로 시작한다.
 | `/lua status` | 상태 요청 |
 | `/lua approve` | 승인 |
 
-역할별 agent command는 [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]를 기본으로 하고, Slack 전용 팀 공유 명령은 [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]에서 관리한다.
+역할별 agent command는 [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]를 기본으로 한다. 팀 공유가 필요하면 먼저 Obsidian에 초안을 만들고, 승인 후 Notion에 정리한다.
 
 Codex/Claude에서 쓰는 오프라인 명령은 자연어로 말하거나 기존 `/project-sprint`, `/work-log` 같은 명령을 쓴다.
 
@@ -98,13 +98,13 @@ Telegram은 Lua의 main command ingress다.
 - 실제 Bot API polling은 `TELEGRAM_BOT_TOKEN=... npm run telegram:poll` 또는 `npm run telegram:watch`로 한다.
 - Telegram 명령은 기본적으로 capture-first이며, S3 이상 행동은 승인 없이는 실행하지 않는다.
 
-## Slack Rule
+## External Sharing Rule
 
-Slack은 secondary/team channel이다.
+외부 공유는 Notion draft를 기본으로 한다.
 
-- Slack으로 들어온 명령은 필요한 경우 [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]에 저장한다.
-- Slack으로 나가는 메시지는 [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]에서 approved 상태가 되어야 한다.
-- Slack 전송 스크립트는 `--confirm-send` 없이는 보내지 않는다.
+- Telegram 명령은 capture-first로만 처리한다.
+- 외부 전송, 공개 게시, 배포, 계정 변경은 사용자 승인 전에는 실행하지 않는다.
+- 팀 공유가 필요하면 [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]에 먼저 초안을 만든다.
 
 ## Git Rule
 
@@ -122,7 +122,4 @@ GitHub push는 online command가 아니라 offline command의 remote sync 단계
 - [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
 - [[90_System/80_Lua_Details/01_Command Center/04_Policies/Obsidian Writing Rules|Obsidian Writing Rules]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
-- [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
-- [[90_System/09_Automations/Slack Agent App Command System|Slack Agent App Command System]]
-- [[90_System/09_Automations/Slack Briefs|Slack Briefs]]
 - [[00_Lua/03_Records/Work Ledger|Work Ledger]]

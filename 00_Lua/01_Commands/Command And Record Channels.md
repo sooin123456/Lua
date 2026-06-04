@@ -21,7 +21,6 @@ Use one command channel for each kind of input, then record every meaningful res
 | Codex chat | You want code, file edits, tests, repo inspection, or local automation now | active | Codex |
 | Obsidian Command Center | You want to write a structured `/lua {domain} {intent} :: {payload}` command for later processing | active | `process_command_queue.js`, `atlas_router.js` |
 | Inbox notes | You have an idea, link, meeting note, or unclassified thought | active | `promote_inbox_to_commands.js` |
-| Slack Command Inbox | You want team-facing command capture or Slack-specific sharing workflow | secondary/shared channel | `slack_command_inbox.js`, then Codex |
 | Lua runtime CLI | A project/task already exists and should continue from stored state | active | `uv run lua --db .lua_agent/lua.db ...` |
 
 ## Record Channels
@@ -77,7 +76,7 @@ npm run test:all
 
 - Obsidian commands do not execute automatically. They are durable task instructions.
 - Telegram commands are capture-first. They should not deploy, post, purchase, or push without approval.
-- Slack is secondary: use it for team sharing, notifications, and Slack-specific capture.
+- Notion is an optional shared record surface. Lua does not treat it as a command inbox.
 - Runtime DB is canonical for Lua project task status.
 - Obsidian project notes are readable exports and should be refreshed after runtime task changes.
 - Deployments, external account writes, paid API calls, public posts, and git push require user approval.

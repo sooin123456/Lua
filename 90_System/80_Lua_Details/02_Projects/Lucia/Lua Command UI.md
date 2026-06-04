@@ -92,7 +92,7 @@ Command Queue에 초안으로 넣기
 - 사용자가 payload를 쓰기 전에도 예시 문장을 보여준다.
 - Command Preview는 항상 보인다.
 - 실행 버튼은 Queue 쓰기와 end-to-end 실행을 구분한다.
-- Notion/Slack 발행은 이 화면에서 하지 않는다.
+- Notion 발행은 이 화면에서 하지 않는다.
 
 ## MVP Boundary
 
@@ -111,7 +111,7 @@ Command Queue에 초안으로 넣기
 - 로그인
 - 결제
 - 개인정보 연동
-- Slack/Notion 직접 발행
+- Notion 직접 발행
 
 ## Next Build Candidate
 

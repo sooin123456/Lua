@@ -18,7 +18,7 @@ last_updated: 2026-05-16
 |---|---|
 | ID | 자동 생성되는 capture id |
 | Created | 작성 시각 |
-| Source | manual, meeting, slack, mobile, web |
+| Source | manual, meeting, mobile, web |
 | Status | captured, triaged, promoted, archived |
 | Raw Capture | 원문 |
 

@@ -40,7 +40,7 @@ It should not:
 - execute trades
 - publish public content
 - push to GitHub
-- mutate Notion or Slack externally
+- mutate Notion or Notion externally
 - expose tokens or secrets in replies
 
 Those actions still require explicit approval.

@@ -13,7 +13,7 @@ Telegram is Lua's main remote command channel.
 
 Telegram is the personal command window for Lua. When the user is away from Codex or Obsidian, commands should enter here first, then Lua/Codex can classify, execute, and record them.
 
-Slack remains useful for team sharing and notifications, but Telegram is the primary personal control surface.
+Notion remains useful for team sharing and notifications, but Telegram is the primary personal control surface.
 
 ## Command Format
 
@@ -101,5 +101,5 @@ TELEGRAM_BOT_TOKEN=... node 90_System/scripts/telegram_bot_poll.js --once --ack
 
 - [[00_Lua/01_Commands/Command And Record Channels|Command/Record Channels]]
 - [[90_System/80_Lua_Details/01_Command Center/01_Commands/Command Modes|Command Modes]]
-- [[90_System/09_Automations/Slack Command Inbox|Slack Command Inbox]]
+- [[90_System/09_Automations/Notion Publish Queue|Notion Publish Queue]]
 - [[00_Lua/03_Records/Work Ledger|Work Ledger]]

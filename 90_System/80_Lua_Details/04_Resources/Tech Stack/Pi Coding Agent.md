@@ -21,7 +21,7 @@ pi.dev의 핵심 방향은 작은 본체 위에 extensions, skills, prompt templ
 | Pi | 타입별 프리셋, 터미널 실험, 컨텍스트 관리, eval |
 | Obsidian | 기록, 지식 그래프, 작업 지시서 |
 | Notion | 팀 공유용 정리본 |
-| Slack | 팀에게 전달하는 알림과 브리프 |
+| Notion | 팀에게 전달하는 알림과 브리프 |
 
 ## Features To Borrow
 
@@ -31,7 +31,7 @@ pi.dev의 핵심 방향은 작은 본체 위에 extensions, skills, prompt templ
 | Skills | `90_System/07_Lua_System/verticals`와 agents skills로 유지 |
 | Prompt templates | core commands를 Pi preset 후보로 사용 |
 | Packages | 나중에 `.pi/` 패키지로 묶어 공유 |
-| MCP | Notion, Slack, Obsidian 연결 시 도구별 권한 분리 |
+| MCP | Notion, Obsidian 연결 시 도구별 권한 분리 |
 | JSON/RPC mode | 자동화나 eval 실행에 사용 |
 | Telemetry | 프롬프트/모델 비교 기록에 사용 |
 | Context management | 긴 작업을 milestone/summary 단위로 관리 |
@@ -43,7 +43,7 @@ pi.dev의 핵심 방향은 작은 본체 위에 extensions, skills, prompt templ
 | `lua-vault-care` | vault 점검과 링크 정리 | audit report, Work Ledger |
 | `lua-project-sprint` | 작은 기능 구현 | DevLog, 테스트 결과 |
 | `lua-research-brief` | 자료 조사와 비교 | Research note |
-| `lua-team-brief` | 팀 공유 초안 | Notion/Slack draft |
+| `lua-team-brief` | 팀 공유 초안 | Notion draft |
 | `lua-artifact-keeper` | 재사용 자산 등록 | Artifact Ledger |
 | `lua-eval` | prompt/model 비교 | eval log |
 

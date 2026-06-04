@@ -140,7 +140,7 @@ ${entry.payload}
 ### 6. Brief
 
 - [ ] Update Work Ledger.
-- [ ] Decide whether Slack/Notion sharing is needed.
+- [ ] Decide whether Notion sharing is needed.
 
 ## Next User Action
 

@@ -76,7 +76,7 @@ Do not create these automatically yet. Use `[[90_System/09_Automations/Notion Pu
 | Property | Type | Purpose |
 |---|---|---|
 | Title | title | Shared update title |
-| Channel | select | Notion, Slack, Both |
+| Channel | select | Notion, Both |
 | Status | status | draft, approved, sent |
 | Audience | multi-select | Team, project, external |
 | Changed | text | What changed |

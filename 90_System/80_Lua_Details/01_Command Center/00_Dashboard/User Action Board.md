@@ -84,7 +84,7 @@ npm run lua-ui 실행해줘
 | Inbox가 쌓임 | domain/intent로 분류하고 Command Queue로 승격 |
 | Command Queue가 쌓임 | Atlas CEO처럼 clarify/design/plan 순서로 처리 |
 | 결과물이 생김 | Obsidian에 저장하고 Work Ledger에 기록 |
-| 공유가 필요함 | Team Brief Drafts 또는 Slack draft로 보냄 |
+| 공유가 필요함 | Team Brief Drafts 또는 Notion draft로 보냄 |
 
 ## Current Recommended Commands
 

@@ -156,7 +156,7 @@ Added:
 - `npm run telegram:queue`
 - Node tests for Telegram command parsing and queue writing
 
-Updated operating 90_System/docs so Slack is treated as a secondary/team-sharing channel, while Telegram is the personal command surface for Lua.
+Updated operating 90_System/docs so Notion is treated as a secondary/team-sharing channel, while Telegram is the personal command surface for Lua.
 
 Next action:
 

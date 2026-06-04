@@ -1,6 +1,6 @@
 ---
 name: team-brief
-description: Draft a Notion and Slack-ready project brief from Obsidian project notes. Use after meaningful status changes or before team updates.
+description: Draft a Notion-ready project brief from Obsidian project notes. Use after meaningful status changes or before team updates.
 vertical: _core
 trigger: "/team-brief"
 applies_to: [archivist, scribe, atlas]
@@ -8,7 +8,7 @@ applies_to: [archivist, scribe, atlas]
 
 # /team-brief
 
-Obsidian의 깊은 맥락을 팀이 바로 읽을 수 있는 Notion/Slack 브리프로 줄인다.
+Obsidian의 깊은 맥락을 팀이 바로 읽을 수 있는 Notion 브리프로 줄인다.
 
 ## Input
 
@@ -48,7 +48,7 @@ Blocker:
 Latest artifact:
 ```
 
-### 4. Slack draft
+### 4. Notion draft
 
 Draft only:
 
@@ -63,7 +63,7 @@ Next:
 
 ## Approval
 
-Slack 전송은 사람 승인 후에만 한다. 처음 2주 동안은 자동 전송하지 않고 초안만 만든다.
+Notion 전송은 사람 승인 후에만 한다. 처음 2주 동안은 자동 전송하지 않고 초안만 만든다.
 
 ## Never do
 

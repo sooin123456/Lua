@@ -56,9 +56,9 @@ npm run build
 ### 5. Security review
 
 - secret이 출력되거나 커밋되지 않았는가?
-- Notion, Slack, Obsidian, GitHub 토큰이 파일에 들어가지 않았는가?
+- Notion, Obsidian, GitHub 토큰이 파일에 들어가지 않았는가?
 - 외부 전송은 사람 승인을 받았는가?
-- 팀이 보아도 되는 데이터만 Notion/Slack으로 나가는가?
+- 팀이 보아도 되는 데이터만 Notion으로 나가는가?
 
 ### 6. Log
 
@@ -78,7 +78,7 @@ Next:
 
 - Do not skip verification because the change is small.
 - Do not mutate Identity files.
-- Do not send Slack or Notion updates directly unless explicitly approved.
+- Do not send Notion or Notion updates directly unless explicitly approved.
 
 ## Navigation
 

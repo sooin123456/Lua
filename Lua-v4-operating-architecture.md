@@ -9,7 +9,7 @@ last_updated: 2026-05-15
 
 ## Goal
 
-Lua는 개인 지식, 팀 운영, 앱 제작을 하나의 연결 머리로 묶는 AI 운영체제다. Obsidian은 생각과 맥락의 원장이고, GitHub는 변경 이력과 실행 코드의 원장이고, Notion은 팀이 보는 운영 데이터베이스이며, Slack은 팀에게 전달되는 신호 채널이다.
+Lua는 개인 지식, 팀 운영, 앱 제작을 하나의 연결 머리로 묶는 AI 운영체제다. Obsidian은 생각과 맥락의 원장이고, GitHub는 변경 이력과 실행 코드의 원장이고, Notion은 팀이 보는 운영 데이터베이스이며은 팀에게 전달되는 신호 채널이다.
 
 이번 v4의 목표는 도구를 더 늘리는 것이 아니라, 각 도구가 맡는 일을 분명하게 나누고 모든 작업이 검증 가능한 루프로 흐르게 만드는 것이다.
 
@@ -40,7 +40,7 @@ flowchart LR
   Lens --> Research["00_Lua/00_Inbox research notes"]
   VaultAgent --> Vault
   Archivist --> Notion["Notion team databases"]
-  Notion --> Slack["Slack team briefs"]
+  Notion --> Notion["Notion team briefs"]
   GitHub --> Artifacts["90_System/08_Artifacts ledger"]
   Artifacts --> Notion
 ```
@@ -52,7 +52,7 @@ flowchart LR
 | Obsidian | Source of truth for context, thinking, project memory, agent prompts | Become a public/team reporting UI |
 | GitHub | Versioned code, scripts, app repos, checks, issue/PR history | Store private secrets or raw team chatter |
 | Notion | Team-facing project database, decision log, artifact index | Replace Obsidian as the private thinking graph |
-| Slack | Delivery channel for briefs, blockers, decision requests | Become the canonical project database |
+| Notion | Delivery channel for briefs, blockers, decision requests | Become the canonical project database |
 | Claude on Mac | Planning, synthesis, writing, Notion curation | Final deterministic code verification |
 | Codex on Windows | Code edits, scripts, tests, local app verification | Send external messages without approval |
 | `lua_agent` runtime | Durable project/task/checkpoint state and repeatable local commands | Replace Obsidian as the human-readable memory graph |
@@ -78,7 +78,7 @@ Runtime documentation lives in `90_System/07_Lua_System/runtime/README.md`. Deve
 
 ### 1. Capture Loop
 
-Telegram, Slack, meeting notes, browser research, and spontaneous ideas enter `90_System/80_Lua_Details/00_Inbox/`. Vault or Atlas classifies each item into a project, resource, operation, or archive destination.
+Telegram, meeting notes, browser research, and spontaneous ideas enter `90_System/80_Lua_Details/00_Inbox/`. Vault or Atlas classifies each item into a project, resource, operation, or archive destination.
 
 Command: `/inbox-triage`
 
@@ -114,7 +114,7 @@ When a meaningful decision, artifact, or project state changes:
 
 1. Obsidian note is updated first.
 2. Notion receives a concise team-facing mirror.
-3. Slack receives a brief only when someone needs to know or decide.
+3. Notion receives a brief only when someone needs to know or decide.
 
 Command: `/team-brief {project}`
 
@@ -145,13 +145,13 @@ Keep the existing seven core zones. Add two lightweight zones:
   README.md
   GitHub Actions.md
   Notion Sync.md
-  Slack Briefs.md
+  Notion Publish Queue.md
 ```
 
 Reasoning:
 
 - `90_System/08_Artifacts` gives you the useful part of Artifact Keeper now without operating another service too early.
-- `90_System/09_Automations` keeps cron jobs, GitHub Actions, Notion syncs, Slack briefs, and future MCP jobs from being scattered.
+- `90_System/09_Automations` keeps cron jobs, GitHub Actions, Notion syncs, approved publish queues, and future MCP jobs from being scattered.
 - Full Artifact Keeper becomes useful later when artifact volume, retention, permissions, or deployment environments become hard to track in Markdown.
 
 ## Agent Model
@@ -166,7 +166,7 @@ The agent names should be stable even if model providers change.
 | Forge | coding, refactors, tests, local apps | Codex |
 | Vault | Obsidian hygiene | Claude or Codex |
 | Archivist | Notion mirror and database curation | Claude |
-| Courier | Slack brief drafting and delivery checklist | Claude |
+| Courier | Notion brief drafting checklist | Claude |
 | Steward | security, cost, permission review | Codex |
 
 Do not bind the architecture to a specific model name. Bind it to capability, context window, tool access, cost, and verification need.
@@ -177,13 +177,13 @@ Minimum useful Notion setup:
 
 | Database | Mirrors from Obsidian | Key fields |
 |---|---|---|
-| Projects | `90_System/80_Lua_Details/02_Projects/**/Home.md` | Status, owner, next action, deadline, Slack channel |
+| Projects | `90_System/80_Lua_Details/02_Projects/**/Home.md` | Status, owner, next action, deadline channel |
 | Decisions | Command Center and project DevLogs | Decision, date, context, reversible, owner |
 | Artifacts | `90_System/08_Artifacts/Artifact Ledger.md` | Type, project, path/url, status, reviewer |
 | Proposals | `90_System/80_Lua_Details/03_Operation/Proposals/` | Grant, deadline, stage, blocker |
 | Patents | `90_System/80_Lua_Details/03_Operation/Patents/` | Title, stage, attorney review, prior art status |
 
-## Slack Channels
+## Notion Channels
 
 Start with a small channel map:
 
@@ -193,7 +193,7 @@ Start with a small channel map:
 | `#project-{slug}` | project-specific blockers and ship notes |
 | `#ops-alerts` | failed syncs, broken automations, urgent reminders |
 
-Slack messages should be staged as drafts first until the team trusts the format.
+external messages should be staged as drafts first until the team trusts the format.
 
 ## Artifact Keeper Decision
 
@@ -215,7 +215,7 @@ Until then, `90_System/08_Artifacts/Artifact Ledger.md` plus GitHub releases or 
 4. Add `90_System/08_Artifacts` and `90_System/09_Automations`.
 5. Pick one app project and run a full loop from Office Hours to local demo.
 6. Mirror only the project dashboard and decision log to Notion.
-7. Send Slack briefs manually first, then automate once the wording is trusted.
+7. Send Notion briefs manually first, then automate once the wording is trusted.
 8. Keep `90_System/lua_agent/` tests green as the executable project runtime grows.
 
 ## Definition of Done
@@ -225,5 +225,5 @@ The system is working when:
 - a new idea can enter Inbox and become a project without losing context
 - a project can become a coded app through Codex with checks attached
 - a decision can be found in both Obsidian and Notion
-- a team member can understand status from Notion or Slack without opening Obsidian
+- a team member can understand status from Notion or Notion without opening Obsidian
 - artifacts have a stable path, owner, status, and review state

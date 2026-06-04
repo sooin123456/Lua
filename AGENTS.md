@@ -25,7 +25,7 @@ Codex is the implementation and verification harness.
 - Edit repositories, scripts, tests, and local apps.
 - Run `node 90_System/scripts/check.js` before handing work back.
 - Keep design decisions in Markdown close to the Obsidian vault.
-- Do not send Slack messages, publish drafts, or mutate Notion records unless the user explicitly approves that action.
+- Do not send external messages, publish drafts, or mutate Notion records unless the user explicitly approves that action.
 
 ## Mac Claude Role
 
@@ -94,5 +94,5 @@ Every meaningful session needs an origin record.
 
 - `00_Lua/02_Memory/Identity/` is read-only unless the user approves the exact file edit.
 - `90_System/80_Lua_Details/01_Command Center/04_Policies/_System/` is read-only unless the user asks for permission changes.
-- Never commit secrets, API keys, Slack tokens, Notion tokens, or Obsidian Local REST API keys.
+- Never commit secrets, API keys, messaging tokens, Notion tokens, or Obsidian Local REST API keys.
 - Stage external communications in drafts first.
