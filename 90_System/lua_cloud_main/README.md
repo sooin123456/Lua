@@ -51,6 +51,7 @@ SUPABASE_SERVICE_ROLE_KEY=
 - `TELEGRAM_WEBHOOK_SECRET` protects the webhook endpoint.
 - `SUPABASE_SERVICE_ROLE_KEY` is server-only.
 - The server never returns token values in health checks or Telegram replies.
+- Supabase insert failures are recorded as in-memory warnings instead of failing the Telegram webhook. Apply `supabase_schema.sql` so commands and memories persist durably.
 
 ## Railway
 

@@ -88,6 +88,38 @@ test('memory store records commands, logs, and memory without Supabase config', 
   assert.equal(store.snapshot().logs.length, 1);
 });
 
+test('memory store keeps running when Supabase insert fails', async () => {
+  const store = createMemoryStore({
+    env: {
+      SUPABASE_URL: 'https://example.supabase.co',
+      SUPABASE_SERVICE_ROLE_KEY: 'service-role-secret',
+    },
+    fetchImpl: async () => ({
+      ok: false,
+      text: async () => '{"message":"table missing"}',
+    }),
+  });
+  const command = {
+    updateId: 1,
+    chatId: '123',
+    text: '/lua status Lua',
+    command: '/lua status',
+    agent: 'status',
+    payload: 'Lua',
+    receivedAt: '2026-06-04T02:00:00.000Z',
+  };
+
+  await store.saveCommand(command);
+  await store.saveLog({ level: 'info', event: 'test' });
+
+  const snapshot = store.snapshot();
+  assert.equal(snapshot.commands.length, 1);
+  assert.equal(snapshot.logs.length, 1);
+  assert.equal(snapshot.warnings.length, 2);
+  assert.equal(snapshot.warnings[0].event, 'supabase_insert_failed');
+  assert.equal(JSON.stringify(snapshot).includes('service-role-secret'), false);
+});
+
 test('cloud main health endpoint reports configured channels', async () => {
   const server = createServer({
     env: {
@@ -158,6 +190,60 @@ test('Telegram webhook queues /lua status commands and responds without exposing
     assert.equal(fetchCalls[0].body.chat_id, '1780466684');
     assert.match(fetchCalls[0].body.text, /Lua status/);
     assert.doesNotMatch(fetchCalls[0].body.text, /telegram-secret-token/);
+  } finally {
+    await close(server);
+  }
+});
+
+test('Telegram webhook still acknowledges when Supabase table is missing', async () => {
+  const fetchCalls = [];
+  const fetchImpl = async (url, init) => {
+    fetchCalls.push({ url, body: JSON.parse(init.body) });
+    if (String(url).includes('supabase.co')) {
+      return {
+        ok: false,
+        text: async () => '{"message":"Could not find the table"}',
+      };
+    }
+    return {
+      ok: true,
+      json: async () => ({ ok: true, result: { message_id: 9 } }),
+    };
+  };
+  const server = createServer({
+    env: {
+      SUPABASE_URL: 'https://example.supabase.co',
+      SUPABASE_SERVICE_ROLE_KEY: 'service-role-secret',
+      TELEGRAM_BOT_TOKEN: 'telegram-secret-token',
+      TELEGRAM_WEBHOOK_SECRET: 'test-secret',
+    },
+    fetchImpl,
+  });
+  const baseUrl = await listen(server);
+
+  try {
+    const response = await fetch(`${baseUrl}/webhooks/telegram`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-telegram-bot-api-secret-token': 'test-secret',
+      },
+      body: JSON.stringify({
+        update_id: 2,
+        message: {
+          message_id: 6,
+          date: 1780538400,
+          chat: { id: 1780466684 },
+          text: '/lua status Lua',
+        },
+      }),
+    });
+    const body = await response.json();
+
+    assert.equal(response.status, 200);
+    assert.equal(body.queued, true);
+    assert.ok(fetchCalls.some((call) => String(call.url).includes('/rest/v1/lua_commands')));
+    assert.ok(fetchCalls.some((call) => String(call.url).includes('/sendMessage')));
   } finally {
     await close(server);
   }

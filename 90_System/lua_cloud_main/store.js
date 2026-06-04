@@ -3,6 +3,7 @@ function createMemoryStore(options = {}) {
     commands: [],
     memories: [],
     logs: [],
+    warnings: [],
   };
   const fetchImpl = options.fetchImpl || fetch;
   const supabaseUrl = options.supabaseUrl || options.env?.SUPABASE_URL || '';
@@ -10,7 +11,7 @@ function createMemoryStore(options = {}) {
   const configured = Boolean(supabaseUrl && serviceRoleKey);
 
   async function insert(table, payload) {
-    if (!configured) return;
+    if (!configured) return { ok: false, skipped: true, reason: 'supabase_not_configured' };
     const response = await fetchImpl(`${supabaseUrl.replace(/\/$/, '')}/rest/v1/${table}`, {
       method: 'POST',
       headers: {
@@ -23,8 +24,17 @@ function createMemoryStore(options = {}) {
     });
     if (!response.ok) {
       const text = await response.text();
-      throw new Error(`Supabase insert failed for ${table}: ${text || response.statusText}`);
+      const warning = {
+        level: 'warn',
+        event: 'supabase_insert_failed',
+        table,
+        message: text || response.statusText,
+        createdAt: new Date().toISOString(),
+      };
+      state.warnings.push(warning);
+      return { ok: false, warning };
     }
+    return { ok: true };
   }
 
   return {
@@ -61,6 +71,7 @@ function createMemoryStore(options = {}) {
         commands: [...state.commands],
         memories: [...state.memories],
         logs: [...state.logs],
+        warnings: [...state.warnings],
       };
     },
   };

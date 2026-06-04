@@ -8,6 +8,16 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - connect Telegram webhook and harden Cloud Main
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main, Telegram webhook, Supabase store
+- Trigger: user asked Codex to continue the next system setup
+- Changed: confirmed Railway `/health` is live, registered the Telegram webhook to the Railway domain, found Supabase schema was not applied yet, and changed the Cloud Main store so missing Supabase tables do not break Telegram webhook acknowledgements
+- Verification: `npm run cloud:webhook:dry-run -- --url https://lua-production-6d18.up.railway.app`; `npm run cloud:webhook:set -- --url https://lua-production-6d18.up.railway.app`; Telegram `getWebhookInfo`; non-Lua webhook smoke test reproduced the Supabase table error; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run check`
+- Next: push the hardening patch, wait for Railway redeploy, then smoke-test `/webhooks/telegram` again and apply `90_System/lua_cloud_main/supabase_schema.sql` in Supabase
+
 ## 2026-06-04 KST - remove legacy messaging integration surface
 
 - Host: `mac-codex`
