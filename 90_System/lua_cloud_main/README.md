@@ -32,6 +32,14 @@ Process queued commands:
 npm run cloud:process
 ```
 
+Create a local Codex handoff note from the latest Telegram todo:
+
+```bash
+npm run cloud:codex:next
+```
+
+This writes a planned handoff into `90_System/80_Lua_Details/Command Runs/` so Codex can pick up the latest Telegram todo as repo work without exposing Supabase or Telegram secrets.
+
 Useful command behavior in v1:
 
 ```text

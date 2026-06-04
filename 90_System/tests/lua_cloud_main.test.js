@@ -1,12 +1,17 @@
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
 const http = require('node:http');
+const os = require('node:os');
+const path = require('node:path');
 const test = require('node:test');
 
 const {
   buildCommandResult,
   buildStatusText,
+  createCodexHandoff,
   createMemoryStore,
   createServer,
+  getLatestTodo,
   normalizeTelegramUpdate,
   processQueuedCommands,
   shouldStartProcessorLoop,
@@ -441,6 +446,54 @@ test('processor loop tick handles queued commands', async () => {
   assert.equal(updates[0].patch.status, 'processing');
   assert.equal(updates[1].patch.status, 'done');
   assert.match(updates[1].patch.result, /Recommended: Toss miniapp follow up/);
+});
+
+test('creates a Codex handoff note from the latest Telegram todo without leaking secrets', async () => {
+  const calls = [];
+  const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-codex-handoff-'));
+  const fetchImpl = async (url, init) => {
+    calls.push({ url, authorization: init.headers.authorization });
+    return {
+      ok: true,
+      text: async () =>
+        JSON.stringify([
+          {
+            id: 12,
+            agent: 'todo',
+            command: '/lua todo',
+            payload: 'Toss miniapp QA follow up',
+            status: 'done',
+            result: 'Todo captured: Toss miniapp QA follow up',
+            createdAt: '2026-06-04T05:12:00.000Z',
+            processedAt: '2026-06-04T05:12:01.000Z',
+          },
+        ]),
+    };
+  };
+
+  const todo = await getLatestTodo({
+    env: {
+      SUPABASE_URL: 'https://example.supabase.co',
+      SUPABASE_SERVICE_ROLE_KEY: 'service-role-secret',
+    },
+    fetchImpl,
+  });
+  const result = createCodexHandoff({
+    todo,
+    rootDir: tmpDir,
+    now: new Date('2026-06-04T06:00:00.000Z'),
+  });
+
+  assert.equal(todo.id, 12);
+  assert.equal(result.created, true);
+  assert.equal(result.fileRel, '90_System/80_Lua_Details/Command Runs/telegram-todo-12-codex-handoff.md');
+  assert.ok(fs.existsSync(result.filePath));
+  const content = fs.readFileSync(result.filePath, 'utf8');
+  assert.match(content, /Toss miniapp QA follow up/);
+  assert.match(content, /Tell Codex: `telegram-todo-12-codex-handoff 처리해줘`/);
+  assert.doesNotMatch(content, /service-role-secret/);
+  assert.equal(JSON.stringify(result).includes('service-role-secret'), false);
+  assert.ok(calls.every((call) => call.authorization === 'Bearer service-role-secret'));
 });
 
 test('cloud env validation reports missing values without leaking secrets', () => {

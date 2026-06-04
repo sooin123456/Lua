@@ -8,6 +8,16 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - add Codex handoff for Telegram todos
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main, Telegram todo handoff, Command Runs
+- Trigger: user approved connecting task-aware `/lua next` results to actual Codex follow-up work
+- Changed: added `npm run cloud:codex:next`, a Supabase latest-todo reader, and a Codex handoff generator that writes Telegram todos into `90_System/80_Lua_Details/Command Runs/`; generated `telegram-todo-12-codex-handoff` for `Toss miniapp QA follow up`
+- Verification: `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run cloud:codex:next`; `npm run test:node`; `npm run check`; `npm run obsidian:sync`; `node 90_System/scripts/check.js` in the actual Obsidian vault
+- Next: use the generated handoff as the next Codex work item and turn it into a concrete Toss miniapp QA follow-up task
+
 ## 2026-06-04 KST - make next and todo task-aware
 
 - Host: `mac-codex`

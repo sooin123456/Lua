@@ -28,6 +28,7 @@
     "cloud:main": "node 90_System/lua_cloud_main/cli.js",
     "cloud:check-env": "node 90_System/lua_cloud_main/setup.js check-env",
     "cloud:process": "node 90_System/lua_cloud_main/process_cli.js",
+    "cloud:codex:next": "node 90_System/lua_cloud_main/codex_handoff.js",
     "cloud:supabase:check": "node 90_System/lua_cloud_main/setup.js check-supabase-schema",
     "cloud:webhook:dry-run": "node 90_System/lua_cloud_main/setup.js set-telegram-webhook",
     "cloud:webhook:set": "node 90_System/lua_cloud_main/setup.js set-telegram-webhook --apply",
