@@ -8,6 +8,16 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - fix Telegram invalid command acknowledgement
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main Telegram webhook, command parser boundary
+- Trigger: user said Telegram replies/alerts were not visible and asked whether commands were coming in
+- Changed: found Telegram had a pending update with `500 Internal Server Error`; added invalid `/lua` command handling so malformed commands return 200, send a helpful command-format reply, and log `telegram_command_invalid` instead of leaving Telegram to retry silently
+- Verification: reproduced the malformed `/lua` 500 with a failing test; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run test:node`; `npm run check`; `npm run obsidian:sync`; `node 90_System/scripts/check.js` in the actual Obsidian vault
+- Next: deploy the fix, confirm Telegram webhook pending count clears, then continue the Toss miniapp QA handoff
+
 ## 2026-06-04 KST - add Codex handoff for Telegram todos
 
 - Host: `mac-codex`

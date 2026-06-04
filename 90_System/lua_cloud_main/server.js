@@ -56,6 +56,21 @@ function isAuthorizedTelegramRequest(req, env) {
   return req.headers['x-telegram-bot-api-secret-token'] === env.TELEGRAM_WEBHOOK_SECRET;
 }
 
+function getTelegramChatId(update) {
+  const message = update.message || update.channel_post || null;
+  return message && message.chat && message.chat.id ? String(message.chat.id) : '';
+}
+
+function buildInvalidCommandReply(error) {
+  return [
+    'Lua command format',
+    '/lua status Lua',
+    '/lua todo :: next action',
+    '/lua next',
+    `error: ${error.message}`,
+  ].join('\n');
+}
+
 function createServer(options = {}) {
   const env = options.env || process.env;
   const store = options.store || createMemoryStore({ env, fetchImpl: options.fetchImpl });
@@ -80,7 +95,38 @@ function createServer(options = {}) {
         }
 
         const update = await readJson(req);
-        const command = normalizeTelegramUpdate(update);
+        let command;
+        try {
+          command = normalizeTelegramUpdate(update);
+        } catch (error) {
+          const chatId = getTelegramChatId(update);
+          if (chatId) {
+            try {
+              await sendTelegramMessage({ chatId }, buildInvalidCommandReply(error), {
+                env,
+                fetchImpl: options.fetchImpl,
+              });
+            } catch (replyError) {
+              await store.saveLog({
+                level: 'warn',
+                event: 'telegram_reply_failed',
+                chatId,
+                message: replyError.message,
+              });
+            }
+          }
+          await store.saveLog({
+            level: 'warn',
+            event: 'telegram_command_invalid',
+            chatId,
+            message: error.message,
+          });
+          return sendJson(res, 200, {
+            ok: true,
+            queued: false,
+            error: 'invalid_lua_command',
+          });
+        }
         if (!command) {
           await store.saveLog({ level: 'info', event: 'telegram_update_ignored' });
           return sendJson(res, 200, { ok: true, queued: false });

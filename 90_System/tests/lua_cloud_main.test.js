@@ -325,6 +325,55 @@ test('Telegram webhook rejects requests with the wrong secret', async () => {
   }
 });
 
+test('Telegram webhook acknowledges malformed /lua commands with a helpful reply', async () => {
+  const fetchCalls = [];
+  const fetchImpl = async (url, init) => {
+    fetchCalls.push({ url, body: init.body ? JSON.parse(init.body) : null });
+    return {
+      ok: true,
+      json: async () => ({ ok: true, result: { message_id: 10 } }),
+    };
+  };
+  const server = createServer({
+    env: {
+      TELEGRAM_BOT_TOKEN: 'telegram-secret-token',
+      TELEGRAM_WEBHOOK_SECRET: 'test-secret',
+    },
+    fetchImpl,
+  });
+  const baseUrl = await listen(server);
+
+  try {
+    const response = await fetch(`${baseUrl}/webhooks/telegram`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-telegram-bot-api-secret-token': 'test-secret',
+      },
+      body: JSON.stringify({
+        update_id: 4,
+        message: {
+          message_id: 8,
+          date: 1780538400,
+          chat: { id: 1780466684 },
+          text: '/lua',
+        },
+      }),
+    });
+    const body = await response.json();
+
+    assert.equal(response.status, 200);
+    assert.equal(body.ok, true);
+    assert.equal(body.queued, false);
+    assert.equal(body.error, 'invalid_lua_command');
+    assert.match(fetchCalls[0].url, /sendMessage$/);
+    assert.match(fetchCalls[0].body.text, /Lua command format/);
+    assert.doesNotMatch(fetchCalls[0].body.text, /telegram-secret-token/);
+  } finally {
+    await close(server);
+  }
+});
+
 test('status text explains the next actionable Lua step', () => {
   const text = buildStatusText({
     commandCount: 3,
