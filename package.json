@@ -27,6 +27,7 @@
     "obsidian:sync": "node 90_System/scripts/sync_obsidian_vault.js --apply",
     "cloud:main": "node 90_System/lua_cloud_main/cli.js",
     "cloud:check-env": "node 90_System/lua_cloud_main/setup.js check-env",
+    "cloud:supabase:check": "node 90_System/lua_cloud_main/setup.js check-supabase-schema",
     "cloud:webhook:dry-run": "node 90_System/lua_cloud_main/setup.js set-telegram-webhook",
     "cloud:webhook:set": "node 90_System/lua_cloud_main/setup.js set-telegram-webhook --apply",
     "sync:skills": "node 90_System/scripts/sync_skills.js",

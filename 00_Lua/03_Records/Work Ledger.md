@@ -14,9 +14,9 @@ last_updated: 2026-05-28
 - Agent: `Codex`
 - Repo/area: Lua Cloud Main, Telegram webhook, Supabase store
 - Trigger: user asked Codex to continue the next system setup
-- Changed: confirmed Railway `/health` is live, registered the Telegram webhook to the Railway domain, found Supabase schema was not applied yet, and changed Cloud Main so missing Supabase tables or failed Telegram replies do not break webhook acknowledgements
-- Verification: `npm run cloud:webhook:dry-run -- --url https://lua-production-6d18.up.railway.app`; `npm run cloud:webhook:set -- --url https://lua-production-6d18.up.railway.app`; Telegram `getWebhookInfo`; webhook smoke tests reproduced the Supabase table error and reply-failure edge; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run check`
-- Next: push the hardening patch, wait for Railway redeploy, then smoke-test `/webhooks/telegram` again and apply `90_System/lua_cloud_main/supabase_schema.sql` in Supabase
+- Changed: confirmed Railway `/health` is live, registered the Telegram webhook to the Railway domain, found Supabase schema was not applied yet, changed Cloud Main so missing Supabase tables or failed Telegram replies do not break webhook acknowledgements, and added `npm run cloud:supabase:check` for safe schema verification
+- Verification: `npm run cloud:webhook:dry-run -- --url https://lua-production-6d18.up.railway.app`; `npm run cloud:webhook:set -- --url https://lua-production-6d18.up.railway.app`; Telegram `getWebhookInfo`; webhook smoke tests reproduced the Supabase table error and reply-failure edge; `npm run cloud:supabase:check`; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run check`
+- Next: user applies `90_System/lua_cloud_main/supabase_schema.sql` in the Supabase SQL Editor, then Codex runs `npm run cloud:supabase:check` and sends one Telegram `/lua status Lua` smoke command
 
 ## 2026-06-04 KST - remove legacy messaging integration surface
 

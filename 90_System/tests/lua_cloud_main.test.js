@@ -9,7 +9,7 @@ const {
   normalizeTelegramUpdate,
   validateCloudEnv,
 } = require('../lua_cloud_main');
-const { buildTelegramWebhookRequest, runSetupCommand } = require('../lua_cloud_main/setup');
+const { buildTelegramWebhookRequest, checkSupabaseSchema, runSetupCommand } = require('../lua_cloud_main/setup');
 
 function listen(server) {
   return new Promise((resolve) => {
@@ -387,5 +387,29 @@ test('setup command can check required cloud environment values', async () => {
   });
 
   assert.equal(result.ok, true);
+  assert.equal(JSON.stringify(result).includes('service-role-secret'), false);
+});
+
+test('checks Supabase schema without leaking service role key', async () => {
+  const calls = [];
+  const result = await checkSupabaseSchema({
+    env: {
+      SUPABASE_URL: 'https://example.supabase.co',
+      SUPABASE_SERVICE_ROLE_KEY: 'service-role-secret',
+    },
+    fetchImpl: async (url, init) => {
+      calls.push({ url, authorization: init.headers.authorization });
+      return {
+        ok: !String(url).includes('lua_logs'),
+        status: String(url).includes('lua_logs') ? 404 : 200,
+        json: async () => ({ message: 'table missing' }),
+      };
+    },
+  });
+
+  assert.equal(result.ok, false);
+  assert.equal(result.tables.length, 3);
+  assert.equal(result.tables.find((table) => table.table === 'lua_logs').ok, false);
+  assert.ok(calls.every((call) => call.authorization === 'Bearer service-role-secret'));
   assert.equal(JSON.stringify(result).includes('service-role-secret'), false);
 });

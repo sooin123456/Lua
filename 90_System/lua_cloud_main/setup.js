@@ -75,6 +75,46 @@ function buildTelegramWebhookRequest({ env = process.env, publicUrl }) {
   };
 }
 
+async function checkSupabaseSchema({ env = process.env, fetchImpl = fetch } = {}) {
+  const required = ['lua_commands', 'lua_memories', 'lua_logs'];
+  if (!env.SUPABASE_URL) throw new Error('SUPABASE_URL is required.');
+  if (!env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('SUPABASE_SERVICE_ROLE_KEY is required.');
+
+  const baseUrl = env.SUPABASE_URL.replace(/\/$/, '');
+  const tables = [];
+
+  for (const table of required) {
+    const response = await fetchImpl(`${baseUrl}/rest/v1/${table}?select=id&limit=1`, {
+      method: 'GET',
+      headers: {
+        apikey: env.SUPABASE_SERVICE_ROLE_KEY,
+        authorization: `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`,
+      },
+    });
+    let message = '';
+    if (!response.ok) {
+      try {
+        const body = await response.json();
+        message = body.message || response.statusText;
+      } catch {
+        message = response.statusText;
+      }
+    }
+    tables.push({
+      table,
+      ok: response.ok,
+      status: response.status,
+      message,
+    });
+  }
+
+  return {
+    ok: tables.every((table) => table.ok),
+    tables,
+    schemaFile: '90_System/lua_cloud_main/supabase_schema.sql',
+  };
+}
+
 async function runSetupCommand(options = {}) {
   const argv = options.argv || process.argv.slice(2);
   const env = options.env || process.env;
@@ -83,6 +123,10 @@ async function runSetupCommand(options = {}) {
 
   if (args.command === 'check-env') {
     return validateCloudEnv(env);
+  }
+
+  if (args.command === 'check-supabase-schema') {
+    return checkSupabaseSchema({ env, fetchImpl: options.fetchImpl || fetch });
   }
 
   if (args.command === 'set-telegram-webhook') {
@@ -133,6 +177,7 @@ if (require.main === module) {
 
 module.exports = {
   buildTelegramWebhookRequest,
+  checkSupabaseSchema,
   loadDotEnv,
   normalizePublicUrl,
   parseArgs,

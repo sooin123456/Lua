@@ -20,6 +20,12 @@ Check cloud environment without printing secret values:
 npm run cloud:check-env
 ```
 
+Check whether Supabase tables exist without printing secret values:
+
+```bash
+npm run cloud:supabase:check
+```
+
 Telegram webhook endpoint:
 
 ```text
