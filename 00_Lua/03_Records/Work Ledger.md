@@ -15,8 +15,8 @@ last_updated: 2026-05-28
 - Repo/area: Lua Cloud Main webhook replies, background processor loop, runtime config
 - Trigger: user asked to continue after manual `npm run cloud:process` worked
 - Changed: made Telegram webhooks process simple commands inline and reply with the processed result, added a lightweight background processor loop for leftover queued commands, added `LUA_PROCESSOR_LOOP`, `LUA_PROCESS_INTERVAL_MS`, and `LUA_PROCESS_LIMIT` controls, and documented the behavior
-- Verification: pending
-- Next: deploy to Railway, send a real Telegram `/lua status Lua`, and confirm the reply comes from the processed result while Supabase stores `done`
+- Verification: `npm run test:node`; `npm run check`; `npm run cloud:supabase:check`; deployed Railway smoke request returned `processed: true` with result text; Telegram webhook info had no pending/error; Supabase confirmed command id 7 processed inline and command id 6 processed later by the background loop
+- Next: make `/lua next` and `/lua todo` return useful task-aware responses instead of generic routing text
 
 ## 2026-06-04 KST - add Cloud Main command processor v1
 
