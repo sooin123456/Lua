@@ -37,7 +37,7 @@ async function processCommand(command, options = {}) {
 
   await updateOrThrow({ status: 'processing' });
   try {
-    const snapshot = store.snapshot ? store.snapshot() : {};
+    const snapshot = store.getStats ? await store.getStats() : store.snapshot ? store.snapshot() : {};
     const result = buildCommandResult(command, snapshot, env);
     await updateOrThrow({
       status: 'done',

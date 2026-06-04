@@ -92,6 +92,28 @@ function createMemoryStore(options = {}) {
       return result.data || [];
     },
 
+    async getStats() {
+      if (!configured) {
+        return {
+          commandCount: state.commands.length,
+          memoryCount: state.memories.length,
+          logCount: state.logs.length,
+        };
+      }
+
+      const [commands, memories, logs] = await Promise.all([
+        request('lua_commands', { query: '?select=id' }),
+        request('lua_memories', { query: '?select=id' }),
+        request('lua_logs', { query: '?select=id' }),
+      ]);
+
+      return {
+        commandCount: commands.ok && Array.isArray(commands.data) ? commands.data.length : 0,
+        memoryCount: memories.ok && Array.isArray(memories.data) ? memories.data.length : 0,
+        logCount: logs.ok && Array.isArray(logs.data) ? logs.data.length : 0,
+      };
+    },
+
     async updateCommand(id, patch) {
       const local = state.commands.find((command) => String(command.id || command.updateId) === String(id));
       if (local) Object.assign(local, patch);

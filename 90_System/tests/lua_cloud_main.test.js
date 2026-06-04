@@ -343,7 +343,7 @@ test('processes queued commands into done results and logs', async () => {
   const updates = [];
   const logs = [];
   const store = {
-    snapshot: () => ({ commandCount: 1, memoryCount: 0 }),
+    getStats: async () => ({ commandCount: 4, memoryCount: 1, logCount: 2 }),
     listQueuedCommands: async () => [
       {
         id: 7,
@@ -371,6 +371,7 @@ test('processes queued commands into done results and logs', async () => {
   assert.equal(updates[1].id, 7);
   assert.equal(updates[1].patch.status, 'done');
   assert.match(updates[1].patch.result, /Lua status/);
+  assert.match(updates[1].patch.result, /commands: 4/);
   assert.equal(logs[0].event, 'lua_command_processed');
 });
 
