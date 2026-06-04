@@ -9,6 +9,8 @@ const {
   createServer,
   normalizeTelegramUpdate,
   processQueuedCommands,
+  shouldStartProcessorLoop,
+  startProcessorLoop,
   validateCloudEnv,
 } = require('../lua_cloud_main');
 const { buildTelegramWebhookRequest, checkSupabaseSchema, runSetupCommand } = require('../lua_cloud_main/setup');
@@ -148,10 +150,10 @@ test('cloud main health endpoint reports configured channels', async () => {
   }
 });
 
-test('Telegram webhook queues /lua status commands and responds without exposing secrets', async () => {
+test('Telegram webhook processes /lua status commands and responds without exposing secrets', async () => {
   const fetchCalls = [];
   const fetchImpl = async (url, init) => {
-    fetchCalls.push({ url, body: JSON.parse(init.body) });
+    fetchCalls.push({ url, body: init.body ? JSON.parse(init.body) : null });
     return {
       ok: true,
       json: async () => ({ ok: true, result: { message_id: 9 } }),
@@ -186,8 +188,10 @@ test('Telegram webhook queues /lua status commands and responds without exposing
     const body = await response.json();
 
     assert.equal(response.status, 200);
-    assert.equal(body.queued, true);
+    assert.equal(body.queued, false);
+    assert.equal(body.processed, true);
     assert.equal(body.command.command, '/lua status');
+    assert.match(body.result, /Lua status/);
     assert.match(fetchCalls[0].url, /sendMessage$/);
     assert.equal(fetchCalls[0].body.chat_id, '1780466684');
     assert.match(fetchCalls[0].body.text, /Lua status/);
@@ -200,7 +204,7 @@ test('Telegram webhook queues /lua status commands and responds without exposing
 test('Telegram webhook still acknowledges when Supabase table is missing', async () => {
   const fetchCalls = [];
   const fetchImpl = async (url, init) => {
-    fetchCalls.push({ url, body: JSON.parse(init.body) });
+    fetchCalls.push({ url, body: init.body ? JSON.parse(init.body) : null });
     if (String(url).includes('supabase.co')) {
       return {
         ok: false,
@@ -243,7 +247,8 @@ test('Telegram webhook still acknowledges when Supabase table is missing', async
     const body = await response.json();
 
     assert.equal(response.status, 200);
-    assert.equal(body.queued, true);
+    assert.equal(body.queued, false);
+    assert.equal(body.processed, true);
     assert.ok(fetchCalls.some((call) => String(call.url).includes('/rest/v1/lua_commands')));
     assert.ok(fetchCalls.some((call) => String(call.url).includes('/sendMessage')));
   } finally {
@@ -251,7 +256,7 @@ test('Telegram webhook still acknowledges when Supabase table is missing', async
   }
 });
 
-test('Telegram webhook still queues when Telegram reply send fails', async () => {
+test('Telegram webhook still processes when Telegram reply send fails', async () => {
   const fetchImpl = async () => ({
     ok: false,
     text: async () => '{"description":"chat not found"}',
@@ -285,7 +290,8 @@ test('Telegram webhook still queues when Telegram reply send fails', async () =>
     const body = await response.json();
 
     assert.equal(response.status, 200);
-    assert.equal(body.queued, true);
+    assert.equal(body.queued, false);
+    assert.equal(body.processed, true);
     assert.equal(body.command.command, '/lua status');
   } finally {
     await close(server);
@@ -373,6 +379,46 @@ test('processes queued commands into done results and logs', async () => {
   assert.match(updates[1].patch.result, /Lua status/);
   assert.match(updates[1].patch.result, /commands: 4/);
   assert.equal(logs[0].event, 'lua_command_processed');
+});
+
+test('processor loop can be disabled by env', () => {
+  assert.equal(shouldStartProcessorLoop({ LUA_PROCESSOR_LOOP: 'false' }), false);
+  assert.equal(shouldStartProcessorLoop({}), true);
+  assert.equal(shouldStartProcessorLoop({}, { disableProcessorLoop: true }), false);
+});
+
+test('processor loop tick handles queued commands', async () => {
+  const updates = [];
+  const store = {
+    getStats: async () => ({ commandCount: 1, memoryCount: 0, logCount: 0 }),
+    listQueuedCommands: async () => [
+      {
+        id: 8,
+        chatId: '1780466684',
+        command: '/lua next',
+        agent: 'next',
+        payload: '',
+      },
+    ],
+    updateCommand: async (id, patch) => {
+      updates.push({ id, patch });
+      return { ok: true };
+    },
+    saveLog: async (log) => log,
+  };
+
+  const loop = startProcessorLoop({
+    env: {},
+    store,
+    intervalMs: 60_000,
+    startImmediately: false,
+  });
+  loop.stop();
+  await loop.tick();
+
+  assert.equal(updates[0].patch.status, 'processing');
+  assert.equal(updates[1].patch.status, 'done');
+  assert.match(updates[1].patch.result, /Next:/);
 });
 
 test('cloud env validation reports missing values without leaking secrets', () => {

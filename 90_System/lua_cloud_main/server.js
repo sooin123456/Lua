@@ -1,6 +1,7 @@
 const http = require('node:http');
 
-const { buildReply, normalizeTelegramUpdate } = require('./command');
+const { normalizeTelegramUpdate } = require('./command');
+const { processCommand, processQueuedCommands } = require('./processor');
 const { createMemoryStore } = require('./store');
 
 function sendJson(res, statusCode, body) {
@@ -90,7 +91,10 @@ function createServer(options = {}) {
           await store.saveMemory(command);
         }
 
-        const reply = buildReply(command, store.snapshot(), env);
+        const processed = await processCommand(command, { store, env });
+        const reply = processed.ok
+          ? processed.result
+          : `Lua could not process ${command.command}: ${processed.error}`;
         try {
           await sendTelegramMessage(command, reply, { env, fetchImpl: options.fetchImpl });
         } catch (error) {
@@ -103,13 +107,20 @@ function createServer(options = {}) {
           });
         }
         await store.saveLog({
-          level: 'info',
-          event: 'telegram_command_queued',
+          level: processed.ok ? 'info' : 'error',
+          event: processed.ok ? 'telegram_command_processed' : 'telegram_command_failed',
           command: command.command,
           chatId: command.chatId,
         });
 
-        return sendJson(res, 200, { ok: true, queued: true, command });
+        return sendJson(res, 200, {
+          ok: true,
+          queued: false,
+          processed: processed.ok,
+          command,
+          result: processed.result || null,
+          error: processed.error || null,
+        });
       }
 
       return sendJson(res, 404, { ok: false, error: 'Not found' });
@@ -119,9 +130,52 @@ function createServer(options = {}) {
   });
 }
 
+function shouldStartProcessorLoop(env, options = {}) {
+  if (options.disableProcessorLoop) return false;
+  return env.LUA_PROCESSOR_LOOP !== 'false';
+}
+
+function startProcessorLoop(options = {}) {
+  const env = options.env || process.env;
+  const store = options.store || createMemoryStore({ env, fetchImpl: options.fetchImpl });
+  const intervalMs = Number(options.intervalMs || env.LUA_PROCESS_INTERVAL_MS || 60_000);
+  const limit = Number(options.limit || env.LUA_PROCESS_LIMIT || 10);
+  let running = false;
+
+  async function tick() {
+    if (running) return;
+    running = true;
+    try {
+      const result = await processQueuedCommands({ store, env, limit });
+      if (result.processed > 0) {
+        console.log(`Lua processor handled ${result.processed} command(s).`);
+      }
+    } catch (error) {
+      console.error(`Lua processor loop failed: ${error.message}`);
+    } finally {
+      running = false;
+    }
+  }
+
+  const timer = setInterval(tick, intervalMs);
+  if (typeof timer.unref === 'function') timer.unref();
+  if (options.startImmediately !== false) tick();
+  return {
+    stop() {
+      clearInterval(timer);
+    },
+    tick,
+  };
+}
+
 function start(options = {}) {
   const port = Number(options.port || process.env.PORT || 3000);
-  const server = createServer(options);
+  const env = options.env || process.env;
+  const store = options.store || createMemoryStore({ env, fetchImpl: options.fetchImpl });
+  const server = createServer({ ...options, env, store });
+  if (shouldStartProcessorLoop(env, options)) {
+    server.processorLoop = startProcessorLoop({ ...options, env, store });
+  }
   server.listen(port, () => {
     console.log(`Lua Cloud Main listening on ${port}`);
   });
@@ -130,5 +184,7 @@ function start(options = {}) {
 
 module.exports = {
   createServer,
+  shouldStartProcessorLoop,
   start,
+  startProcessorLoop,
 };

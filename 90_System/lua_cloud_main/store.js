@@ -39,8 +39,14 @@ function createMemoryStore(options = {}) {
       return { ok: false, warning };
     }
     if (options.json === false) return { ok: true };
-    const text = await response.text();
-    return { ok: true, data: text ? JSON.parse(text) : null };
+    if (typeof response.text === 'function') {
+      const text = await response.text();
+      return { ok: true, data: text ? JSON.parse(text) : null };
+    }
+    if (typeof response.json === 'function') {
+      return { ok: true, data: await response.json() };
+    }
+    return { ok: true, data: null };
   }
 
   async function insert(table, payload) {
@@ -55,7 +61,14 @@ function createMemoryStore(options = {}) {
   return {
     async saveCommand(command) {
       state.commands.push(command);
-      await insert('lua_commands', command);
+      const result = await request('lua_commands', {
+        method: 'POST',
+        body: command,
+        prefer: 'return=representation',
+      });
+      if (result.ok && Array.isArray(result.data) && result.data[0]) {
+        Object.assign(command, result.data[0]);
+      }
       return command;
     },
 

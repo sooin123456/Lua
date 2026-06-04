@@ -1,7 +1,7 @@
 const { buildReply, buildStatusText, normalizeTelegramUpdate } = require('./command');
 const { buildCommandResult, processCommand, processQueuedCommands } = require('./processor');
 const { validateCloudEnv } = require('./config');
-const { createServer, start } = require('./server');
+const { createServer, shouldStartProcessorLoop, start, startProcessorLoop } = require('./server');
 const { createMemoryStore } = require('./store');
 
 module.exports = {
@@ -13,6 +13,8 @@ module.exports = {
   normalizeTelegramUpdate,
   processCommand,
   processQueuedCommands,
+  shouldStartProcessorLoop,
   start,
+  startProcessorLoop,
   validateCloudEnv,
 };

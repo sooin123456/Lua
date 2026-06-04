@@ -8,6 +8,16 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - automate Cloud Main command processing
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main webhook replies, background processor loop, runtime config
+- Trigger: user asked to continue after manual `npm run cloud:process` worked
+- Changed: made Telegram webhooks process simple commands inline and reply with the processed result, added a lightweight background processor loop for leftover queued commands, added `LUA_PROCESSOR_LOOP`, `LUA_PROCESS_INTERVAL_MS`, and `LUA_PROCESS_LIMIT` controls, and documented the behavior
+- Verification: pending
+- Next: deploy to Railway, send a real Telegram `/lua status Lua`, and confirm the reply comes from the processed result while Supabase stores `done`
+
 ## 2026-06-04 KST - add Cloud Main command processor v1
 
 - Host: `mac-codex`

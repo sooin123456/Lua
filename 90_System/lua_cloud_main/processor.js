@@ -27,19 +27,11 @@ async function processCommand(command, options = {}) {
   if (!store) throw new Error('processCommand requires a store.');
   const commandId = command.id ?? command.updateId;
 
-  async function updateOrThrow(patch) {
-    const update = await store.updateCommand(commandId, patch);
-    if (update && update.ok === false) {
-      throw new Error(update.warning?.message || 'Command update failed');
-    }
-    return update;
-  }
-
-  await updateOrThrow({ status: 'processing' });
   try {
+    await store.updateCommand(commandId, { status: 'processing' });
     const snapshot = store.getStats ? await store.getStats() : store.snapshot ? store.snapshot() : {};
     const result = buildCommandResult(command, snapshot, env);
-    await updateOrThrow({
+    await store.updateCommand(commandId, {
       status: 'done',
       result,
       processedAt: new Date().toISOString(),

@@ -32,6 +32,16 @@ Process queued commands:
 npm run cloud:process
 ```
 
+Railway also starts a lightweight in-process command loop by default. Use these optional service variables to tune it:
+
+```text
+LUA_PROCESSOR_LOOP=true
+LUA_PROCESS_INTERVAL_MS=60000
+LUA_PROCESS_LIMIT=10
+```
+
+Set `LUA_PROCESSOR_LOOP=false` to disable the background processor.
+
 If `cloud:supabase:check` reports missing command processing columns, rerun:
 
 ```text
@@ -43,6 +53,8 @@ Telegram webhook endpoint:
 ```text
 POST /webhooks/telegram
 ```
+
+The webhook stores incoming commands, processes simple commands immediately, and sends the processed result back to Telegram when possible. The background loop catches any queued commands that were not processed inline.
 
 Prepare Telegram webhook setup after Railway gives a public domain:
 
