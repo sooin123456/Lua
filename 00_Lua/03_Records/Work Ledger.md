@@ -15,8 +15,8 @@ last_updated: 2026-05-28
 - Repo/area: Lua Cloud Main Telegram webhook, command parser boundary
 - Trigger: user said Telegram replies/alerts were not visible and asked whether commands were coming in
 - Changed: found Telegram had a pending update with `500 Internal Server Error`; added invalid `/lua` command handling so malformed commands return 200, send a helpful command-format reply, and log `telegram_command_invalid` instead of leaving Telegram to retry silently
-- Verification: reproduced the malformed `/lua` 500 with a failing test; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run test:node`; `npm run check`; `npm run obsidian:sync`; `node 90_System/scripts/check.js` in the actual Obsidian vault
-- Next: deploy the fix, confirm Telegram webhook pending count clears, then continue the Toss miniapp QA handoff
+- Verification: reproduced the malformed `/lua` 500 with a failing test; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run test:node`; `npm run check`; `npm run obsidian:sync`; `node 90_System/scripts/check.js` in the actual Obsidian vault; deployed Railway smoke returned `200 invalid_lua_command`; Telegram webhook pending count cleared to 0; Supabase logs recorded invalid command warnings instead of 500 retries
+- Next: continue the Toss miniapp QA handoff, and later add an alias/router for project-style commands like `/lua toss`
 
 ## 2026-06-04 KST - add Codex handoff for Telegram todos
 
