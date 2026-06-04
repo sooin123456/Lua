@@ -249,6 +249,47 @@ test('Telegram webhook still acknowledges when Supabase table is missing', async
   }
 });
 
+test('Telegram webhook still queues when Telegram reply send fails', async () => {
+  const fetchImpl = async () => ({
+    ok: false,
+    text: async () => '{"description":"chat not found"}',
+  });
+  const server = createServer({
+    env: {
+      TELEGRAM_BOT_TOKEN: 'telegram-secret-token',
+      TELEGRAM_WEBHOOK_SECRET: 'test-secret',
+    },
+    fetchImpl,
+  });
+  const baseUrl = await listen(server);
+
+  try {
+    const response = await fetch(`${baseUrl}/webhooks/telegram`, {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        'x-telegram-bot-api-secret-token': 'test-secret',
+      },
+      body: JSON.stringify({
+        update_id: 3,
+        message: {
+          message_id: 7,
+          date: 1780538400,
+          chat: { id: 0 },
+          text: '/lua status Lua',
+        },
+      }),
+    });
+    const body = await response.json();
+
+    assert.equal(response.status, 200);
+    assert.equal(body.queued, true);
+    assert.equal(body.command.command, '/lua status');
+  } finally {
+    await close(server);
+  }
+});
+
 test('Telegram webhook rejects requests with the wrong secret', async () => {
   const server = createServer({
     env: {

@@ -91,7 +91,17 @@ function createServer(options = {}) {
         }
 
         const reply = buildReply(command, store.snapshot(), env);
-        await sendTelegramMessage(command, reply, { env, fetchImpl: options.fetchImpl });
+        try {
+          await sendTelegramMessage(command, reply, { env, fetchImpl: options.fetchImpl });
+        } catch (error) {
+          await store.saveLog({
+            level: 'warn',
+            event: 'telegram_reply_failed',
+            command: command.command,
+            chatId: command.chatId,
+            message: error.message,
+          });
+        }
         await store.saveLog({
           level: 'info',
           event: 'telegram_command_queued',
