@@ -15,8 +15,8 @@ last_updated: 2026-05-28
 - Repo/area: Lua Cloud Main command context, `/lua next`, `/lua todo`
 - Trigger: user asked to continue after automated processing worked
 - Changed: added command context lookup for recent commands, stored todos, and memories; changed `/lua todo` to return a todo capture confirmation; changed `/lua next` to recommend the latest stored todo or recent command instead of a generic routing message
-- Verification: pending
-- Next: deploy to Railway and confirm `/lua todo :: ...` followed by `/lua next` returns the stored todo as the recommendation
+- Verification: `npm run test:node`; `npm run check`; Railway smoke confirmed `/lua todo :: Toss miniapp QA follow up` returns `Todo captured` and `/lua next` recommends todo #12; Supabase rows #12 and #13 are `done`; Telegram webhook has no pending/error
+- Next: connect task-aware `/lua next` results to Codex follow-up work so recommended todos can become actual repo tasks
 
 ## 2026-06-04 KST - automate Cloud Main command processing
 
