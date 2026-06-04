@@ -26,6 +26,18 @@ Check whether Supabase tables exist without printing secret values:
 npm run cloud:supabase:check
 ```
 
+Process queued commands:
+
+```bash
+npm run cloud:process
+```
+
+If `cloud:supabase:check` reports missing command processing columns, rerun:
+
+```text
+90_System/lua_cloud_main/supabase_schema.sql
+```
+
 Telegram webhook endpoint:
 
 ```text

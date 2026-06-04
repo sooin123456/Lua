@@ -3,10 +3,12 @@ const http = require('node:http');
 const test = require('node:test');
 
 const {
+  buildCommandResult,
   buildStatusText,
   createMemoryStore,
   createServer,
   normalizeTelegramUpdate,
+  processQueuedCommands,
   validateCloudEnv,
 } = require('../lua_cloud_main');
 const { buildTelegramWebhookRequest, checkSupabaseSchema, runSetupCommand } = require('../lua_cloud_main/setup');
@@ -322,6 +324,54 @@ test('status text explains the next actionable Lua step', () => {
   assert.match(text, /Lua status/);
   assert.match(text, /Railway/);
   assert.match(text, /commands: 3/);
+});
+
+test('builds practical command processor results', () => {
+  const status = buildCommandResult(
+    { agent: 'status', command: '/lua status', payload: 'Lua' },
+    { commandCount: 4, memoryCount: 1 },
+    { LUA_DEPLOYMENT_TARGET: 'railway' },
+  );
+  const remember = buildCommandResult({ agent: 'remember', command: '/lua remember', payload: '중요한 기억' });
+
+  assert.match(status, /Lua status/);
+  assert.match(status, /commands: 4/);
+  assert.match(remember, /Lua memory recorded/);
+});
+
+test('processes queued commands into done results and logs', async () => {
+  const updates = [];
+  const logs = [];
+  const store = {
+    snapshot: () => ({ commandCount: 1, memoryCount: 0 }),
+    listQueuedCommands: async () => [
+      {
+        id: 7,
+        chatId: '1780466684',
+        command: '/lua status',
+        agent: 'status',
+        payload: 'Lua',
+      },
+    ],
+    updateCommand: async (id, patch) => {
+      updates.push({ id, patch });
+      return { ok: true };
+    },
+    saveLog: async (log) => {
+      logs.push(log);
+      return log;
+    },
+  };
+
+  const result = await processQueuedCommands({ store, env: { LUA_DEPLOYMENT_TARGET: 'railway' } });
+
+  assert.equal(result.ok, true);
+  assert.equal(result.processed, 1);
+  assert.deepEqual(updates[0], { id: 7, patch: { status: 'processing' } });
+  assert.equal(updates[1].id, 7);
+  assert.equal(updates[1].patch.status, 'done');
+  assert.match(updates[1].patch.result, /Lua status/);
+  assert.equal(logs[0].event, 'lua_command_processed');
 });
 
 test('cloud env validation reports missing values without leaking secrets', () => {

@@ -84,7 +84,8 @@ async function checkSupabaseSchema({ env = process.env, fetchImpl = fetch } = {}
   const tables = [];
 
   for (const table of required) {
-    const response = await fetchImpl(`${baseUrl}/rest/v1/${table}?select=id&limit=1`, {
+    const select = table === 'lua_commands' ? 'id,status,processedAt,result' : 'id';
+    const response = await fetchImpl(`${baseUrl}/rest/v1/${table}?select=${select}&limit=1`, {
       method: 'GET',
       headers: {
         apikey: env.SUPABASE_SERVICE_ROLE_KEY,

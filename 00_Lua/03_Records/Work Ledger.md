@@ -8,6 +8,16 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - add Cloud Main command processor v1
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main command processor, Supabase schema, npm scripts
+- Trigger: user approved moving from command capture into a practical command processing loop
+- Changed: added `npm run cloud:process`, command processing result builders, Supabase queued-command lookup/update helpers, `status`/`processedAt`/`result` fields for `lua_commands`, a safe `message` field for logs, and tests for queued command processing
+- Verification: `npm run test:node`; `npm run check`; `npm run cloud:supabase:check` correctly reports the live DB still needs the new `lua_commands.status` migration
+- Next: rerun `90_System/lua_cloud_main/supabase_schema.sql` in Supabase SQL Editor so the new processing columns exist, then run `npm run cloud:supabase:check` and `npm run cloud:process`
+
 ## 2026-06-04 KST - connect Telegram webhook and harden Cloud Main
 
 - Host: `mac-codex`

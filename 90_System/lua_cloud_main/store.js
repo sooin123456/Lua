@@ -10,17 +10,21 @@ function createMemoryStore(options = {}) {
   const serviceRoleKey = options.serviceRoleKey || options.env?.SUPABASE_SERVICE_ROLE_KEY || '';
   const configured = Boolean(supabaseUrl && serviceRoleKey);
 
-  async function insert(table, payload) {
+  function baseTableUrl(table) {
+    return `${supabaseUrl.replace(/\/$/, '')}/rest/v1/${table}`;
+  }
+
+  async function request(table, options = {}) {
     if (!configured) return { ok: false, skipped: true, reason: 'supabase_not_configured' };
-    const response = await fetchImpl(`${supabaseUrl.replace(/\/$/, '')}/rest/v1/${table}`, {
-      method: 'POST',
+    const response = await fetchImpl(`${baseTableUrl(table)}${options.query || ''}`, {
+      method: options.method || 'GET',
       headers: {
         apikey: serviceRoleKey,
         authorization: `Bearer ${serviceRoleKey}`,
-        'content-type': 'application/json',
-        prefer: 'return=minimal',
+        ...(options.body ? { 'content-type': 'application/json' } : {}),
+        ...(options.prefer ? { prefer: options.prefer } : {}),
       },
-      body: JSON.stringify(payload),
+      ...(options.body ? { body: JSON.stringify(options.body) } : {}),
     });
     if (!response.ok) {
       const text = await response.text();
@@ -34,7 +38,18 @@ function createMemoryStore(options = {}) {
       state.warnings.push(warning);
       return { ok: false, warning };
     }
-    return { ok: true };
+    if (options.json === false) return { ok: true };
+    const text = await response.text();
+    return { ok: true, data: text ? JSON.parse(text) : null };
+  }
+
+  async function insert(table, payload) {
+    return request(table, {
+      method: 'POST',
+      body: payload,
+      prefer: 'return=minimal',
+      json: false,
+    });
   }
 
   return {
@@ -64,6 +79,31 @@ function createMemoryStore(options = {}) {
       state.logs.push(entry);
       await insert('lua_logs', entry);
       return entry;
+    },
+
+    async listQueuedCommands(limit = 10) {
+      const localQueued = state.commands.filter((command) => !command.status || command.status === 'queued');
+      if (!configured) return localQueued.slice(0, limit);
+
+      const result = await request('lua_commands', {
+        query: `?select=*&or=(status.is.null,status.eq.queued)&order=id.asc&limit=${Number(limit) || 10}`,
+      });
+      if (!result.ok) return [];
+      return result.data || [];
+    },
+
+    async updateCommand(id, patch) {
+      const local = state.commands.find((command) => String(command.id || command.updateId) === String(id));
+      if (local) Object.assign(local, patch);
+      if (!configured) return { ok: true, localOnly: true };
+
+      return request('lua_commands', {
+        method: 'PATCH',
+        query: `?id=eq.${encodeURIComponent(id)}`,
+        body: patch,
+        prefer: 'return=minimal',
+        json: false,
+      });
     },
 
     snapshot() {
