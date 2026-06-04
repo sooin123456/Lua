@@ -117,6 +117,7 @@ async function pollTelegramCommands(options) {
   );
 
   const queued = [];
+  const skipped = [];
   let nextOffset = offset;
   for (const update of updates) {
     if (typeof update.update_id === 'number') {
@@ -126,12 +127,22 @@ async function pollTelegramCommands(options) {
     if (!command) continue;
     if (allowedChatIds.size > 0 && !allowedChatIds.has(command.chatId)) continue;
 
-    const result = queueTelegramCommand({
-      root: options.root || ROOT,
-      source: `telegram:${command.chatId}`,
-      text: command.text,
-      now: command.date,
-    });
+    let result;
+    try {
+      result = queueTelegramCommand({
+        root: options.root || ROOT,
+        source: `telegram:${command.chatId}`,
+        text: command.text,
+        now: command.date,
+      });
+    } catch (error) {
+      skipped.push({
+        chatId: command.chatId,
+        text: command.text,
+        reason: error.message,
+      });
+      continue;
+    }
     queued.push(result);
 
     if (options.ack) {
@@ -147,7 +158,7 @@ async function pollTelegramCommands(options) {
   }
 
   if (nextOffset !== offset) writeOffset(options.offsetFile, nextOffset);
-  return { queued, nextOffset };
+  return { queued, skipped, nextOffset };
 }
 
 async function main() {
@@ -168,6 +179,7 @@ async function main() {
     const result = await pollTelegramCommands(options);
     if (result.queued.length === 0) console.log('No Telegram /lua commands found.');
     else result.queued.forEach((entry) => console.log(`Queued ${entry.id}: ${entry.command} -> ${entry.payload}`));
+    result.skipped.forEach((entry) => console.log(`Skipped ${entry.text}: ${entry.reason}`));
   } while (args.watch);
 }
 

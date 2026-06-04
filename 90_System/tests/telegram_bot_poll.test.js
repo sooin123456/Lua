@@ -147,6 +147,40 @@ test('polls Telegram updates into the command inbox and stores offset', async ()
   assert.doesNotMatch(inbox, /secret/);
 });
 
+test('skips invalid /lua commands while preserving the Telegram offset', async () => {
+  const root = makeVault();
+  const offsetFile = path.join(root, '.lua_agent', 'telegram_offset.txt');
+  const fetchImpl = async () => ({
+    ok: true,
+    json: async () => ({
+      ok: true,
+      result: [
+        {
+          update_id: 21,
+          message: {
+            date: 1779937200,
+            chat: { id: 123 },
+            text: '/lua sds',
+          },
+        },
+      ],
+    }),
+  });
+
+  const result = await pollTelegramCommands({
+    root,
+    token: 'test-token',
+    offsetFile,
+    fetchImpl,
+    allowedChatIds: new Set(['123']),
+  });
+
+  assert.equal(result.queued.length, 0);
+  assert.equal(result.skipped.length, 1);
+  assert.equal(result.nextOffset, 22);
+  assert.equal(fs.readFileSync(offsetFile, 'utf8'), '22');
+});
+
 test('sends an acknowledgement when ack is enabled', async () => {
   const root = makeVault();
   const calls = [];

@@ -8,6 +8,17 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - verify Telegram command intake
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Telegram bot poller, Telegram Command Inbox, local `.env`
+- Trigger: user sent a Telegram message and asked whether Lua received it
+- Changed: confirmed the bot received `/lua status lua`; corrected the local allowed chat id to the numeric Telegram chat id; restored the valid status command into the Telegram Command Inbox; made the poller skip invalid `/lua` commands without stopping the intake loop
+- Verification: `npm run telegram:poll`; `node --test 90_System/tests/telegram_bot_poll.test.js 90_System/tests/telegram_command_inbox.test.js`; `npm run check`; `npm run test:node`
+- Commit: pending
+- Next: turn queued Telegram status commands into a status response/report flow
+
 ## 2026-05-30 KST - add safe Obsidian vault sync
 
 - Host: `mac-codex`
