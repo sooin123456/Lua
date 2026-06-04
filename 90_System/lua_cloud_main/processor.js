@@ -1,6 +1,10 @@
 const { buildStatusText } = require('./command');
 const { createMemoryStore } = require('./store');
 
+function compactText(value, fallback = '') {
+  return String(value || fallback).replace(/\s+/g, ' ').trim();
+}
+
 function buildCommandResult(command, snapshot = {}, env = {}) {
   if (command.agent === 'status') {
     return buildStatusText({
@@ -10,12 +14,47 @@ function buildCommandResult(command, snapshot = {}, env = {}) {
     });
   }
 
+  if (command.agent === 'todo') {
+    const todo = compactText(command.payload || command.intent || command.text, 'empty todo');
+    return [
+      `Todo captured: ${todo}`,
+      'Next: send /lua next when you want Lua to pick the next action from stored todos.',
+    ].join('\n');
+  }
+
   if (command.agent === 'remember') {
     return `Lua memory recorded: ${command.payload || command.text || 'empty memory'}`;
   }
 
   if (command.agent === 'next') {
-    return 'Next: review queued Lua commands, then route the highest-priority item into Codex or Claude.';
+    const todos = Array.isArray(snapshot.todos) ? snapshot.todos : [];
+    const recentCommands = Array.isArray(snapshot.recentCommands) ? snapshot.recentCommands : [];
+    const latestTodo = todos.find((todo) => compactText(todo.payload));
+    const latestCommand = recentCommands.find((item) => item.agent !== 'next');
+
+    if (latestTodo) {
+      return [
+        'Lua next',
+        `Recommended: ${compactText(latestTodo.payload)}`,
+        `Source: todo #${latestTodo.id || 'local'}`,
+        'Action: ask Codex to execute it, or send /lua todo :: ... to add a sharper next action.',
+      ].join('\n');
+    }
+
+    if (latestCommand) {
+      return [
+        'Lua next',
+        `Recommended: continue from ${latestCommand.command || latestCommand.agent}`,
+        `Context: ${compactText(latestCommand.payload || latestCommand.result, 'recent Lua command')}`,
+        'Action: add a concrete /lua todo if this should become the next work item.',
+      ].join('\n');
+    }
+
+    return [
+      'Lua next',
+      'Recommended: add one concrete todo.',
+      'Example: /lua todo :: Toss miniapp QA flow 확인',
+    ].join('\n');
   }
 
   return `Queued for manual routing: ${command.command}${command.payload ? ` :: ${command.payload}` : ''}`;
@@ -29,7 +68,13 @@ async function processCommand(command, options = {}) {
 
   try {
     await store.updateCommand(commandId, { status: 'processing' });
-    const snapshot = store.getStats ? await store.getStats() : store.snapshot ? store.snapshot() : {};
+    const snapshot = store.getCommandContext
+      ? await store.getCommandContext()
+      : store.getStats
+        ? await store.getStats()
+        : store.snapshot
+          ? store.snapshot()
+          : {};
     const result = buildCommandResult(command, snapshot, env);
     await store.updateCommand(commandId, {
       status: 'done',

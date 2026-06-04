@@ -127,6 +127,36 @@ function createMemoryStore(options = {}) {
       };
     },
 
+    async getCommandContext(limit = 5) {
+      const count = Number(limit) || 5;
+      const stats = await this.getStats();
+      if (!configured) {
+        const recentCommands = [...state.commands].slice(-count).reverse();
+        const todos = recentCommands.filter((command) => command.agent === 'todo');
+        const memories = [...state.memories].slice(-count).reverse();
+        return { ...stats, recentCommands, todos, memories };
+      }
+
+      const [recentCommands, todos, memories] = await Promise.all([
+        request('lua_commands', {
+          query: `?select=id,agent,command,payload,status,result,createdAt&order=id.desc&limit=${count}`,
+        }),
+        request('lua_commands', {
+          query: `?select=id,agent,command,payload,status,result,createdAt&agent=eq.todo&order=id.desc&limit=${count}`,
+        }),
+        request('lua_memories', {
+          query: `?select=id,text,createdAt&order=id.desc&limit=${count}`,
+        }),
+      ]);
+
+      return {
+        ...stats,
+        recentCommands: recentCommands.ok && Array.isArray(recentCommands.data) ? recentCommands.data : [],
+        todos: todos.ok && Array.isArray(todos.data) ? todos.data : [],
+        memories: memories.ok && Array.isArray(memories.data) ? memories.data : [],
+      };
+    },
+
     async updateCommand(id, patch) {
       const local = state.commands.find((command) => String(command.id || command.updateId) === String(id));
       if (local) Object.assign(local, patch);

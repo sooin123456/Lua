@@ -32,6 +32,14 @@ Process queued commands:
 npm run cloud:process
 ```
 
+Useful command behavior in v1:
+
+```text
+/lua todo :: <next action>  -> captures a todo and confirms it
+/lua next                  -> recommends the latest stored todo or recent command
+/lua status Lua             -> returns runtime, command, and memory counts
+```
+
 Railway also starts a lightweight in-process command loop by default. Use these optional service variables to tune it:
 
 ```text

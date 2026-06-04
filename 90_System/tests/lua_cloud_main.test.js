@@ -339,17 +339,32 @@ test('builds practical command processor results', () => {
     { LUA_DEPLOYMENT_TARGET: 'railway' },
   );
   const remember = buildCommandResult({ agent: 'remember', command: '/lua remember', payload: '중요한 기억' });
+  const todo = buildCommandResult({ agent: 'todo', command: '/lua todo', payload: 'Toss miniapp QA 확인' });
+  const next = buildCommandResult(
+    { agent: 'next', command: '/lua next', payload: '' },
+    { todos: [{ id: 11, payload: 'Toss miniapp QA 확인' }], recentCommands: [] },
+  );
 
   assert.match(status, /Lua status/);
   assert.match(status, /commands: 4/);
   assert.match(remember, /Lua memory recorded/);
+  assert.match(todo, /Todo captured: Toss miniapp QA/);
+  assert.match(next, /Recommended: Toss miniapp QA/);
+  assert.match(next, /todo #11/);
 });
 
 test('processes queued commands into done results and logs', async () => {
   const updates = [];
   const logs = [];
   const store = {
-    getStats: async () => ({ commandCount: 4, memoryCount: 1, logCount: 2 }),
+    getCommandContext: async () => ({
+      commandCount: 4,
+      memoryCount: 1,
+      logCount: 2,
+      todos: [],
+      recentCommands: [],
+      memories: [],
+    }),
     listQueuedCommands: async () => [
       {
         id: 7,
@@ -390,7 +405,14 @@ test('processor loop can be disabled by env', () => {
 test('processor loop tick handles queued commands', async () => {
   const updates = [];
   const store = {
-    getStats: async () => ({ commandCount: 1, memoryCount: 0, logCount: 0 }),
+    getCommandContext: async () => ({
+      commandCount: 1,
+      memoryCount: 0,
+      logCount: 0,
+      todos: [{ id: 8, payload: 'Toss miniapp follow up' }],
+      recentCommands: [],
+      memories: [],
+    }),
     listQueuedCommands: async () => [
       {
         id: 8,
@@ -418,7 +440,7 @@ test('processor loop tick handles queued commands', async () => {
 
   assert.equal(updates[0].patch.status, 'processing');
   assert.equal(updates[1].patch.status, 'done');
-  assert.match(updates[1].patch.result, /Next:/);
+  assert.match(updates[1].patch.result, /Recommended: Toss miniapp follow up/);
 });
 
 test('cloud env validation reports missing values without leaking secrets', () => {

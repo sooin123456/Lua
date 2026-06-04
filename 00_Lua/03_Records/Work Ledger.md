@@ -8,6 +8,16 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - make next and todo task-aware
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main command context, `/lua next`, `/lua todo`
+- Trigger: user asked to continue after automated processing worked
+- Changed: added command context lookup for recent commands, stored todos, and memories; changed `/lua todo` to return a todo capture confirmation; changed `/lua next` to recommend the latest stored todo or recent command instead of a generic routing message
+- Verification: pending
+- Next: deploy to Railway and confirm `/lua todo :: ...` followed by `/lua next` returns the stored todo as the recommendation
+
 ## 2026-06-04 KST - automate Cloud Main command processing
 
 - Host: `mac-codex`
