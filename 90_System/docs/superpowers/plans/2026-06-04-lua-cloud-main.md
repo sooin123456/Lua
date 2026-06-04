@@ -47,3 +47,21 @@
 - [x] Run `npm run test:node`.
 - [x] Run `npm run obsidian:sync`.
 - [x] Commit the repo changes.
+
+### Task 4: Deployment Preparation
+
+**Files:**
+- Create: `railway.json`
+- Create: `90_System/lua_cloud_main/config.js`
+- Create: `90_System/lua_cloud_main/setup.js`
+- Modify: `90_System/lua_cloud_main/README.md`
+- Modify: `90_System/docs/lua-cloud-main-architecture.md`
+- Modify: `package.json`
+
+- [x] Add Railway start and health check configuration.
+- [x] Add safe cloud environment validation.
+- [x] Add Telegram webhook dry-run/apply setup commands.
+- [x] Add tests that prove setup commands do not expose tokens.
+- [x] Generate local `TELEGRAM_WEBHOOK_SECRET` in ignored `.env` without printing the secret value.
+- [x] Run `npm run cloud:check-env` to confirm only Supabase values remain missing locally.
+- [x] Run `npm run cloud:webhook:dry-run -- --url https://lua-main.example.railway.app`.

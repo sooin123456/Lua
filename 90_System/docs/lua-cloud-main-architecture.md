@@ -106,13 +106,25 @@ npm run cloud:main
 6. Set Telegram webhook:
 
 ```bash
-curl "https://api.telegram.org/bot$TELEGRAM_BOT_TOKEN/setWebhook" \
-  -d "url=https://YOUR-RAILWAY-DOMAIN/webhooks/telegram" \
-  -d "secret_token=$TELEGRAM_WEBHOOK_SECRET"
+npm run cloud:webhook:dry-run -- --url https://YOUR-RAILWAY-DOMAIN
+npm run cloud:webhook:set -- --url https://YOUR-RAILWAY-DOMAIN
 ```
 
 7. Send `/lua status Lua` to Telegram.
 8. Check Railway logs and Supabase `lua_commands`.
+
+## Prepared Local Commands
+
+These can be run before or after deployment:
+
+```bash
+npm run cloud:check-env
+npm run cloud:main
+npm run cloud:webhook:dry-run -- --url https://YOUR-RAILWAY-DOMAIN
+npm run cloud:webhook:set -- --url https://YOUR-RAILWAY-DOMAIN
+```
+
+`cloud:webhook:dry-run` does not call Telegram and does not print the bot token.
 
 ## Evolution Path
 

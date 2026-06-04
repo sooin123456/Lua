@@ -7,7 +7,9 @@ const {
   createMemoryStore,
   createServer,
   normalizeTelegramUpdate,
+  validateCloudEnv,
 } = require('../lua_cloud_main');
+const { buildTelegramWebhookRequest, runSetupCommand } = require('../lua_cloud_main/setup');
 
 function listen(server) {
   return new Promise((resolve) => {
@@ -193,4 +195,70 @@ test('status text explains the next actionable Lua step', () => {
   assert.match(text, /Lua status/);
   assert.match(text, /Railway/);
   assert.match(text, /commands: 3/);
+});
+
+test('cloud env validation reports missing values without leaking secrets', () => {
+  const result = validateCloudEnv({
+    TELEGRAM_BOT_TOKEN: 'secret-token',
+    SUPABASE_URL: '',
+    SUPABASE_SERVICE_ROLE_KEY: '',
+  });
+
+  assert.equal(result.ok, false);
+  assert.deepEqual(result.missing, [
+    'TELEGRAM_WEBHOOK_SECRET',
+    'SUPABASE_URL',
+    'SUPABASE_SERVICE_ROLE_KEY',
+  ]);
+  assert.equal(result.present.TELEGRAM_BOT_TOKEN, true);
+  assert.equal(JSON.stringify(result).includes('secret-token'), false);
+});
+
+test('builds Telegram webhook setup requests without exposing the bot token in output', () => {
+  const request = buildTelegramWebhookRequest({
+    env: {
+      TELEGRAM_BOT_TOKEN: 'secret-token',
+      TELEGRAM_WEBHOOK_SECRET: 'webhook-secret',
+    },
+    publicUrl: 'https://lua-main.up.railway.app',
+  });
+
+  assert.equal(request.method, 'setWebhook');
+  assert.equal(request.body.url, 'https://lua-main.up.railway.app/webhooks/telegram');
+  assert.equal(request.body.secret_token, 'webhook-secret');
+  assert.equal(request.safeSummary.tokenConfigured, true);
+  assert.equal(JSON.stringify(request.safeSummary).includes('secret-token'), false);
+});
+
+test('setup command dry-runs webhook setup without making network calls', async () => {
+  let called = false;
+  const result = await runSetupCommand({
+    argv: ['set-telegram-webhook', '--url', 'https://lua-main.up.railway.app'],
+    env: {
+      TELEGRAM_BOT_TOKEN: 'secret-token',
+      TELEGRAM_WEBHOOK_SECRET: 'webhook-secret',
+    },
+    fetchImpl: async () => {
+      called = true;
+    },
+  });
+
+  assert.equal(called, false);
+  assert.equal(result.mode, 'dry-run');
+  assert.equal(result.request.safeSummary.url, 'https://lua-main.up.railway.app/webhooks/telegram');
+});
+
+test('setup command can check required cloud environment values', async () => {
+  const result = await runSetupCommand({
+    argv: ['check-env'],
+    env: {
+      TELEGRAM_BOT_TOKEN: 'secret-token',
+      TELEGRAM_WEBHOOK_SECRET: 'webhook-secret',
+      SUPABASE_URL: 'https://example.supabase.co',
+      SUPABASE_SERVICE_ROLE_KEY: 'service-role-secret',
+    },
+  });
+
+  assert.equal(result.ok, true);
+  assert.equal(JSON.stringify(result).includes('service-role-secret'), false);
 });

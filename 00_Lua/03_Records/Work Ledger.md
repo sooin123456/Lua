@@ -19,6 +19,17 @@ last_updated: 2026-05-28
 - Commit: pending
 - Next: create Supabase project, run the schema, deploy the Cloud Main service to Railway, and set the Telegram webhook
 
+## 2026-06-04 KST - prepare Lua Cloud Main deployment helpers
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Railway config, Cloud Main setup scripts, Telegram webhook setup, local `.env`
+- Trigger: user asked Codex to do everything except the account-side Supabase and Railway project creation
+- Changed: added Railway deployment config, safe cloud environment validation, Telegram webhook dry-run/apply setup commands, local webhook secret generation, and deployment helper docs; verified the setup commands do not print Telegram or Supabase secret values
+- Verification: `npm run cloud:check-env`; `npm run cloud:webhook:dry-run -- --url https://lua-main.example.railway.app`; `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run check`; `npm run test:node`; `npm run obsidian:sync`; `node 90_System/scripts/check.js` in the actual Obsidian vault
+- Commit: pending
+- Next: user creates Supabase and Railway projects, then Codex applies the Telegram webhook to the Railway public URL
+
 ## 2026-06-04 KST - verify Telegram command intake
 
 - Host: `mac-codex`

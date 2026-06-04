@@ -14,10 +14,23 @@ Health check:
 curl http://localhost:3000/health
 ```
 
+Check cloud environment without printing secret values:
+
+```bash
+npm run cloud:check-env
+```
+
 Telegram webhook endpoint:
 
 ```text
 POST /webhooks/telegram
+```
+
+Prepare Telegram webhook setup after Railway gives a public domain:
+
+```bash
+npm run cloud:webhook:dry-run -- --url https://YOUR-RAILWAY-DOMAIN
+npm run cloud:webhook:set -- --url https://YOUR-RAILWAY-DOMAIN
 ```
 
 ## Environment
@@ -38,3 +51,19 @@ SUPABASE_SERVICE_ROLE_KEY=
 - `TELEGRAM_WEBHOOK_SECRET` protects the webhook endpoint.
 - `SUPABASE_SERVICE_ROLE_KEY` is server-only.
 - The server never returns token values in health checks or Telegram replies.
+
+## Railway
+
+This repo includes `railway.json`.
+
+Railway should use:
+
+```bash
+npm run cloud:main
+```
+
+Health check path:
+
+```text
+/health
+```
