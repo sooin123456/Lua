@@ -8,6 +8,17 @@ last_updated: 2026-05-28
 
 이 문서는 작업이 어느 컴퓨터와 어느 AI에서 진행됐는지 추적한다.
 
+## 2026-06-04 KST - start Lua Cloud Main
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main runtime, Railway/Supabase architecture, Telegram webhook server
+- Trigger: user decided Lua should become an always-on Hermes-like main agent and approved the Railway + Supabase stack
+- Changed: added a dependency-free Node Cloud Main server with `/health` and `/webhooks/telegram`; added Telegram command normalization, status replies, `/lua remember` memory capture, Supabase REST store adapter, Supabase schema, Railway deployment docs, environment template, and tests
+- Verification: `node --test 90_System/tests/lua_cloud_main.test.js`; `npm run check`; `npm run test:node`; `PORT=3307 LUA_DEPLOYMENT_TARGET=railway npm run cloud:main` with `/health` smoke test
+- Commit: pending
+- Next: create Supabase project, run the schema, deploy the Cloud Main service to Railway, and set the Telegram webhook
+
 ## 2026-06-04 KST - verify Telegram command intake
 
 - Host: `mac-codex`
