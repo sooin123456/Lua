@@ -1,0 +1,15 @@
+{
+  "name": "lua-main",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "gateway": "node apps/gateway.mjs",
+    "runner": "node apps/runner.mjs",
+    "keys": "node scripts/generate-keys.mjs",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}
+
