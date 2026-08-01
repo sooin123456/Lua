@@ -7,6 +7,7 @@ const test = require('node:test');
 
 const {
   buildCommandResult,
+  claudeIsConfigured,
   buildStatusText,
   createCodexHandoff,
   createMemoryStore,
@@ -16,6 +17,7 @@ const {
   processCommand,
   processQueuedCommands,
   routeCommand,
+  searchVaultContext,
   shouldStartProcessorLoop,
   startProcessorLoop,
   validateCloudEnv,
@@ -100,6 +102,60 @@ test('routes plain Telegram text to Claude, Codex, or Lua deterministically', ()
   assert.equal(claude.routeAgent, 'claude');
   assert.equal(claude.approval, 'auto');
   assert.equal(memory.agent, 'remember');
+});
+
+test('searches only permitted Markdown context and excludes protected folders', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-context-'));
+  fs.mkdirSync(path.join(root, '90_System/80_Lua_Details/02_Projects'), { recursive: true });
+  fs.mkdirSync(path.join(root, '00_Lua/02_Memory/Identity'), { recursive: true });
+  fs.writeFileSync(path.join(root, '90_System/80_Lua_Details/02_Projects', 'Solar.md'), '# Solar\n센서 교체 범위를 검토한다.');
+  fs.writeFileSync(path.join(root, '00_Lua/02_Memory/Identity', 'secret.md'), 'private identity detail');
+
+  const context = await searchVaultContext({
+    root,
+    directories: ['90_System/80_Lua_Details/02_Projects', '00_Lua/02_Memory/Identity'],
+    query: '센서 교체 범위',
+  });
+
+  assert.equal(context.length, 1);
+  assert.equal(context[0].path, path.join('90_System/80_Lua_Details/02_Projects', 'Solar.md'));
+  assert.doesNotMatch(JSON.stringify(context), /identity detail/);
+  fs.rmSync(root, { recursive: true, force: true });
+});
+
+test('runs a configured Claude task with limited Obsidian context', async () => {
+  const store = createMemoryStore({});
+  const task = {
+    updateId: 44,
+    chatId: '1780466684',
+    text: '/lua ask :: 이번 주 센서 계획을 요약해줘',
+    command: '/lua ask',
+    agent: 'ask',
+    payload: '이번 주 센서 계획을 요약해줘',
+    routeAgent: 'claude',
+    approval: 'auto',
+  };
+  const requests = [];
+  await store.saveCommand(task);
+  const result = await processCommand(task, {
+    store,
+    env: { ANTHROPIC_API_KEY: 'test-key', CLAUDE_MODEL: 'test-model' },
+    fetchImpl: async (url, init) => {
+      requests.push({ url, init });
+      return { ok: true, text: async () => JSON.stringify({ content: [{ type: 'text', text: '이번 주 센서 계획입니다.' }] }) };
+    },
+    vaultRoot: path.join(os.tmpdir(), 'lua-empty-context'),
+  });
+
+  assert.equal(result.ok, true);
+  assert.match(result.result, /센서 계획/);
+  assert.equal(store.snapshot().commands[0].status, 'done');
+  assert.equal(requests.length, 1);
+  assert.match(requests[0].url, /anthropic\.com\/v1\/messages$/);
+  assert.equal(JSON.parse(requests[0].init.body).model, 'test-model');
+  assert.doesNotMatch(requests[0].init.body, /test-key/);
+  assert.equal(claudeIsConfigured({}), false);
+  assert.equal(claudeIsConfigured({ ANTHROPIC_API_KEY: 'key' }), true);
 });
 
 test('memory store records commands, logs, and memory without Supabase config', async () => {

@@ -53,7 +53,9 @@ Useful command behavior in v1:
 /lua reject :: <id>         -> rejects a queued task
 ```
 
-Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Claude and Codex tasks are durable handoffs, not direct API calls. Connecting either provider requires its own approved credential and execution endpoint.
+Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Codex remains a durable handoff. Claude responds directly only when `ANTHROPIC_API_KEY` is configured; otherwise its task remains safely queued.
+
+Claude receives at most five short excerpts from permitted Markdown folders. It never searches or sends `00_Lua/02_Memory/Identity/`, `_System/`, `.git/`, or `node_modules/`.
 
 Railway also starts a lightweight in-process command loop by default. Use these optional service variables to tune it:
 
@@ -97,6 +99,9 @@ TELEGRAM_BOT_TOKEN=
 TELEGRAM_WEBHOOK_SECRET=
 SUPABASE_URL=
 SUPABASE_SERVICE_ROLE_KEY=
+ANTHROPIC_API_KEY=
+CLAUDE_MODEL=claude-sonnet-4-6
+CLAUDE_MAX_TOKENS=800
 ```
 
 ## Security

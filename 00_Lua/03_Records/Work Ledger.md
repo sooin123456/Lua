@@ -895,3 +895,10 @@ last_updated: 2026-05-28
 - Changed: added deterministic natural-language routing for Lua, Claude, and Codex; approval and rejection callbacks; durable task statuses; task listing; and Codex handoff support for approved Codex tasks
 - Verification: `npm run test:node` (65 passing); `node 90_System/scripts/check.js`; Supabase routing columns applied with RLS preserved and no security advisor findings
 - Next: connect a user-approved Claude execution endpoint, then add selective Obsidian memory retrieval and scheduled assistant briefings
+# 2026-08-01 — Claude execution adapter and vault context search
+
+- Origin: Telegram-first Lua personal assistant build.
+- Added an optional Claude Messages API adapter that stays disabled until Railway has `ANTHROPIC_API_KEY`.
+- Added bounded Markdown context search that excludes Identity, `_System`, `.git`, and `node_modules`.
+- Verified with `npm run test:node` (67 passing) and `node 90_System/scripts/check.js`.
+- Next action: User configures the Claude API key in Railway, then tests `/lua ask :: 이번 주 우선순위를 정리해줘`.

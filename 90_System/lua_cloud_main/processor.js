@@ -1,4 +1,5 @@
 const { buildStatusText } = require('./command');
+const { askClaude, claudeIsConfigured } = require('./claude');
 const { buildApprovalReply, routeCommand } = require('./router');
 const { createMemoryStore } = require('./store');
 
@@ -128,6 +129,19 @@ async function processCommand(command, options = {}) {
       });
       await store.saveLog({ level: 'info', event: 'lua_command_awaiting_approval', command: route.command, chatId: route.chatId });
       return { ok: true, commandId, command: route.command, result: approvalReply.text, replyMarkup: approvalReply.replyMarkup };
+    }
+    if (route.routeAgent === 'claude' && claudeIsConfigured(env)) {
+      await store.updateCommand(commandId, { status: 'processing', routeAgent: 'claude', approval: route.approval });
+      const answer = await askClaude(route, { env, fetchImpl: options.fetchImpl, vaultRoot: options.vaultRoot });
+      await store.updateCommand(commandId, {
+        status: 'done',
+        routeAgent: 'claude',
+        approval: route.approval,
+        result: answer.text,
+        processedAt: new Date().toISOString(),
+      });
+      await store.saveLog({ level: 'info', event: 'lua_claude_completed', command: route.command, chatId: route.chatId });
+      return { ok: true, commandId, command: route.command, result: answer.text };
     }
     if (['claude', 'codex'].includes(route.routeAgent)) {
       const result = [

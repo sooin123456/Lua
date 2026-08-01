@@ -30,10 +30,12 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 - [x] 일반 문장을 todo로 저장하고 즉시 응답
 - [x] `/lua status`, `/lua todo`, `/lua next` 기본 명령 처리
 - [x] 자연어 요청 의도 분류
-- [ ] Claude 실행 연결 (API 또는 실행 endpoint 권한 필요)
+- [x] Claude 실행 어댑터와 안전한 대기열
+- [ ] Claude API 키 설정 및 실 호출 활성화 (사용자 권한 필요)
 - [x] Codex handoff 연결
 - [x] 승인 버튼과 승인 대기열
-- [ ] Obsidian 기억 검색과 결과 기록
+- [x] Obsidian 제한 맥락 검색
+- [ ] Obsidian 결과 기록 자동화 (GitHub 쓰기 권한과 사용자 승인 필요)
 - [ ] 능동형 브리핑과 리마인더
 
 ## 목표 흐름
@@ -144,7 +146,7 @@ captured → classified → awaiting_approval → running → completed
 - 필요한 Obsidian 맥락만 선별해 제공한다.
 - 답변과 후속 행동을 Telegram으로 돌려준다.
 
-완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다.
+완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. 런타임 어댑터와 제한 맥락 검색은 완료했으며, Railway `ANTHROPIC_API_KEY` 설정 후 실제 호출을 활성화한다.
 
 ### 4. 승인 시스템
 
@@ -160,7 +162,7 @@ captured → classified → awaiting_approval → running → completed
 - 완료 결과를 올바른 프로젝트와 Work Ledger에 기록한다.
 - Identity와 `_System` 보호 규칙을 유지한다.
 
-완료 기준: Lua가 이전 결정은 기억하지만 불필요한 vault 전체를 agent에 보내지 않는다.
+완료 기준: Lua가 이전 결정은 기억하지만 불필요한 vault 전체를 agent에 보내지 않는다. **검색 완료: 2026-08-01** — `Identity`, `_System`, `.git`, `node_modules`는 검색·전송에서 제외한다. 완료 결과의 영구 기록은 GitHub 쓰기 권한 및 사용자 승인 흐름을 추가한 뒤 활성화한다.
 
 ### 6. 능동형 비서
 
@@ -183,7 +185,7 @@ captured → classified → awaiting_approval → running → completed
 
 ## 바로 다음 작업
 
-Claude 실행 endpoint를 연결한다. Claude API 키 또는 사용자가 승인한 실행 endpoint를 Railway에 넣은 뒤, `/lua ask` 작업을 실제 Claude 호출로 바꾼다.
+Railway에 `ANTHROPIC_API_KEY`를 추가한다. 이후 `/lua ask`는 관련 Obsidian Markdown 발췌만 포함해 Claude에 직접 질의하고 Telegram으로 결과를 돌려준다. 키가 없으면 기존처럼 작업을 안전한 대기열에 남긴다.
 
 ## 관련 문서
 

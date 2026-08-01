@@ -3,6 +3,7 @@ const http = require('node:http');
 const { normalizeTelegramUpdate } = require('./command');
 const { processCommand, processQueuedCommands } = require('./processor');
 const { createMemoryStore } = require('./store');
+const { claudeIsConfigured } = require('./claude');
 
 function sendJson(res, statusCode, body) {
   res.writeHead(statusCode, { 'content-type': 'application/json; charset=utf-8' });
@@ -95,6 +96,7 @@ function createServer(options = {}) {
           deploymentTarget: env.LUA_DEPLOYMENT_TARGET || 'railway',
           supabaseConfigured: Boolean(env.SUPABASE_URL && env.SUPABASE_SERVICE_ROLE_KEY),
           telegramConfigured: Boolean(env.TELEGRAM_BOT_TOKEN),
+          claudeConfigured: claudeIsConfigured(env),
         });
       }
 
@@ -150,7 +152,12 @@ function createServer(options = {}) {
           await store.saveMemory(command);
         }
 
-        const processed = await processCommand(command, { store, env });
+        const processed = await processCommand(command, {
+          store,
+          env,
+          fetchImpl: options.fetchImpl,
+          vaultRoot: options.vaultRoot,
+        });
         const reply = processed.ok
           ? processed.result
           : `Lua could not process ${command.command}: ${processed.error}`;
