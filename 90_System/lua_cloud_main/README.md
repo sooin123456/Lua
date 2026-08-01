@@ -78,7 +78,7 @@ Useful command behavior in v1:
 ```text
 /lua todo :: <next action>  -> captures a todo and confirms it
 /lua next                  -> recommends the latest stored todo or recent command
-/lua status Lua             -> returns runtime, command, and memory counts
+/lua status                  -> returns Railway, Supabase, paired Mac Worker, queue, command, and memory status directly (no AI task)
 /lua ask :: <question>      -> classifies and queues a Claude task
 /lua do :: <task>           -> asks approval, then queues a Codex task
 /lua tasks                  -> lists work awaiting approval or an agent

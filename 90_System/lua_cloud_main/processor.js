@@ -9,10 +9,14 @@ function compactText(value, fallback = '') {
 
 function buildCommandResult(command, snapshot = {}, env = {}) {
   if (command.agent === 'status') {
+    const runtime = snapshot.runtime || {};
     return buildStatusText({
       commandCount: Number(snapshot.commandCount ?? snapshot.commands?.length ?? 0),
       memoryCount: Number(snapshot.memoryCount ?? snapshot.memories?.length ?? 0),
       deploymentTarget: env.LUA_DEPLOYMENT_TARGET || 'railway',
+      supabaseConnected: runtime.supabaseConnected,
+      worker: runtime.worker,
+      queue: runtime.queue,
     });
   }
 
@@ -183,6 +187,9 @@ async function processCommand(command, options = {}) {
         : store.snapshot
           ? store.snapshot()
           : {};
+    if (command.agent === 'status' && store.getRuntimeStatus) {
+      snapshot.runtime = await store.getRuntimeStatus(command.chatId);
+    }
     const result = buildCommandResult(command, snapshot, env);
     await store.updateCommand(commandId, {
       status: 'done',

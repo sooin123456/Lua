@@ -54,13 +54,22 @@ function buildStatusText(options = {}) {
   const deploymentTarget = options.deploymentTarget || 'Railway';
   const commandCount = Number(options.commandCount || 0);
   const memoryCount = Number(options.memoryCount || 0);
-  return [
+  const worker = options.worker || null;
+  const workerLastSeen = worker?.lastSeenAt ? new Date(worker.lastSeenAt).getTime() : 0;
+  const workerOnline = workerLastSeen > 0 && (Date.now() - workerLastSeen) <= 90_000;
+  const queue = options.queue || {};
+  const lines = [
     'Lua status',
-    `runtime: ${deploymentTarget === 'railway' ? 'Railway' : deploymentTarget}`,
+    `Railway: ${deploymentTarget === 'railway' ? 'online' : deploymentTarget}`,
+    `Supabase: ${options.supabaseConnected === false ? 'unavailable' : 'connected'}`,
+    `Mac Worker: ${worker ? (workerOnline ? 'online' : 'paired, waiting for heartbeat') : 'not paired'}`,
+    `queue: ${Number(queue.waiting || 0)} waiting, ${Number(queue.running || 0)} running`,
     `commands: ${commandCount}`,
     `memories: ${memoryCount}`,
-    'next: Cloud Main is ready to route Telegram commands into durable work.',
-  ].join('\n');
+    'next: /lua ask for a question, or /lua do for a repository task requiring approval.',
+  ];
+  if (worker?.workerId) lines.splice(4, 0, `worker: ${worker.workerId}`);
+  return lines.join('\n');
 }
 
 function buildReply(command, snapshot, env = {}) {

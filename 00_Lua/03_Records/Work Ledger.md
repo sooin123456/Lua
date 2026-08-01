@@ -920,3 +920,11 @@ last_updated: 2026-05-28
 - Changed: completed Claude App subscription login, created and consumed a one-time Worker pair without exposing it, stored the local token in `.env.worker` mode `0600`, and installed `dev.lua.mac-worker` as a running macOS LaunchAgent.
 - Verification: Worker check reports Claude and Codex both installed/logged in and paired; empty queue poll succeeded; Supabase shows a live non-revoked Worker with `lastSeenAt`; direct read-only executions returned `CLAUDE_SUBSCRIPTION_OK` and `CODEX_SUBSCRIPTION_OK`.
 - Next: send one `/lua ask` Telegram command to verify the complete user-facing round trip.
+
+## 2026-08-01 KST - add direct Lua runtime status
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Changed: `/lua status` now reads Railway's active request path, Supabase connectivity, the paired Mac Worker's heartbeat, and queued/running agent work directly instead of routing through Claude.
+- Verification: full Node test suite passed (72 tests); vault check passed.
+- Next: send `/lua status` in Telegram and confirm the reported Worker heartbeat and queue are current.

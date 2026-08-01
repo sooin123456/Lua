@@ -632,10 +632,15 @@ test('status text explains the next actionable Lua step', () => {
     commandCount: 3,
     memoryCount: 2,
     deploymentTarget: 'railway',
+    worker: { workerId: 'lua-mac', lastSeenAt: new Date().toISOString() },
+    queue: { waiting: 1, running: 0 },
   });
 
   assert.match(text, /Lua status/);
-  assert.match(text, /Railway/);
+  assert.match(text, /Railway: online/);
+  assert.match(text, /Supabase: connected/);
+  assert.match(text, /Mac Worker: online/);
+  assert.match(text, /1 waiting, 0 running/);
   assert.match(text, /commands: 3/);
 });
 

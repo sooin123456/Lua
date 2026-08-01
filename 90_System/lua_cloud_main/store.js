@@ -253,6 +253,40 @@ function createMemoryStore(options = {}) {
       };
     },
 
+    async getRuntimeStatus(chatId) {
+      if (!configured) {
+        const worker = [...state.workerPairs]
+          .filter((pair) => String(pair.chatId) === String(chatId) && pair.pairedAt && !pair.revokedAt)
+          .sort((a, b) => String(b.pairedAt).localeCompare(String(a.pairedAt)))[0] || null;
+        const active = state.commands.filter((command) => ['awaiting_agent', 'running'].includes(command.status));
+        return {
+          supabaseConnected: false,
+          worker,
+          queue: {
+            waiting: active.filter((command) => command.status === 'awaiting_agent').length,
+            running: active.filter((command) => command.status === 'running').length,
+          },
+        };
+      }
+
+      const encodedChatId = encodeURIComponent(String(chatId || ''));
+      const [workerResult, waitingResult, runningResult] = await Promise.all([
+        request('lua_worker_pairs', {
+          query: `?select=workerId,pairedAt,lastSeenAt,revokedAt&chatId=eq.${encodedChatId}&pairedAt=not.is.null&revokedAt=is.null&order=pairedAt.desc&limit=1`,
+        }),
+        request('lua_commands', { query: '?select=id&status=eq.awaiting_agent' }),
+        request('lua_commands', { query: '?select=id&status=eq.running' }),
+      ]);
+      return {
+        supabaseConnected: workerResult.ok && waitingResult.ok && runningResult.ok,
+        worker: workerResult.ok && Array.isArray(workerResult.data) ? workerResult.data[0] || null : null,
+        queue: {
+          waiting: waitingResult.ok && Array.isArray(waitingResult.data) ? waitingResult.data.length : 0,
+          running: runningResult.ok && Array.isArray(runningResult.data) ? runningResult.data.length : 0,
+        },
+      };
+    },
+
     async getCommandContext(limit = 5) {
       const count = Number(limit) || 5;
       const stats = await this.getStats();
