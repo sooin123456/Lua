@@ -10,6 +10,7 @@ const { loadDotEnv } = require('./setup');
 const DEFAULT_WORKER_URL = 'https://lua-production-6d18.up.railway.app';
 const DEFAULT_ENV_FILE = '.env.worker';
 const MAX_OUTPUT = 2_000_000;
+const RECORD_RELATIVE_PATH = path.join('00_Lua', '03_Records', 'Lua Assistant Records.md');
 
 function safeText(value) {
   return String(value || '')
@@ -163,6 +164,60 @@ function writeWorkerEnv(filePath, values) {
   fs.writeFileSync(filePath, content, { encoding: 'utf8', mode: 0o600 });
 }
 
+function formatObsidianRecord(record) {
+  const title = record.agent === 'remember' ? 'Remembered item' : `Task #${record.id} result`;
+  const request = safeText(record.payload || record.text || '');
+  const result = safeText(record.agent === 'remember' ? record.payload : record.result || '');
+  return [
+    `## ${new Date().toISOString().slice(0, 10)} - ${title}`,
+    '',
+    `- Command: ${safeText(record.command || '/lua')}`,
+    `- Agent: ${safeText(record.routeAgent || record.agent || 'lua')}`,
+    `- Request: ${request.slice(0, 2_000)}`,
+    `- Result: ${result.slice(0, 6_000)}`,
+    `- Source task: ${record.id || 'local'}`,
+    '',
+  ].join('\n');
+}
+
+async function appendObsidianRecord(record, options = {}) {
+  const rootDir = options.rootDir || process.cwd();
+  const recordPath = path.join(rootDir, RECORD_RELATIVE_PATH);
+  await fsp.mkdir(path.dirname(recordPath), { recursive: true });
+  if (!fs.existsSync(recordPath)) {
+    await fsp.writeFile(recordPath, '# Lua Assistant Records\n\nAutomatically captured completed Lua tasks and explicit memories.\n\n', 'utf8');
+  }
+  await fsp.appendFile(recordPath, formatObsidianRecord(record), 'utf8');
+  return recordPath;
+}
+
+async function runRecordOnce(options = {}) {
+  const env = options.env || process.env;
+  if (!env.LUA_WORKER_TOKEN) return { ok: false, reason: 'worker_not_paired' };
+  const workerId = env.LUA_WORKER_ID || os.hostname();
+  const claim = await workerRequest('/worker/records/claim', {
+    env,
+    fetchImpl: options.fetchImpl,
+    token: env.LUA_WORKER_TOKEN,
+    body: { workerId },
+  });
+  if (!claim.record) return { ok: true, recorded: false };
+  let outcome;
+  try {
+    const recordPath = await appendObsidianRecord(claim.record, options);
+    outcome = { ok: true, recordPath };
+  } catch (error) {
+    outcome = { ok: false, error: safeText(error.message) };
+  }
+  await workerRequest(`/worker/records/${claim.record.id}/complete`, {
+    env,
+    fetchImpl: options.fetchImpl,
+    token: env.LUA_WORKER_TOKEN,
+    body: { ok: outcome.ok },
+  });
+  return { ok: outcome.ok, recorded: true, recordId: claim.record.id, recordPath: outcome.recordPath, error: outcome.error };
+}
+
 async function pairWorker(code, options = {}) {
   if (!code) throw new Error('Pairing code is required. Send /lua pair to Telegram first.');
   const workerId = options.workerId || os.hostname();
@@ -182,9 +237,10 @@ async function pairWorker(code, options = {}) {
 
 async function runWorkerOnce(options = {}) {
   const env = options.env || process.env;
+  if (!env.LUA_WORKER_TOKEN) return { ok: false, reason: 'worker_not_paired' };
+  const recordResult = await runRecordOnce({ ...options, env });
   const availability = options.availability || await detectAgentAvailability(options);
   if (!availability.agents.length) return { ok: false, reason: 'no_subscription_agent_logged_in', availability };
-  if (!env.LUA_WORKER_TOKEN) return { ok: false, reason: 'worker_not_paired', availability };
   const workerId = env.LUA_WORKER_ID || os.hostname();
   const claim = await workerRequest('/worker/tasks/claim', {
     env,
@@ -192,7 +248,7 @@ async function runWorkerOnce(options = {}) {
     token: env.LUA_WORKER_TOKEN,
     body: { workerId, agents: availability.agents },
   });
-  if (!claim.task) return { ok: true, processed: false, availability };
+  if (!claim.task) return { ok: recordResult.ok, processed: false, recorded: recordResult.recorded, availability };
   const task = claim.task;
   let outcome;
   try {
@@ -209,7 +265,7 @@ async function runWorkerOnce(options = {}) {
     token: env.LUA_WORKER_TOKEN,
     body: outcome,
   });
-  return { ok: outcome.ok, processed: true, taskId: task.id, agent: task.routeAgent, error: outcome.error };
+  return { ok: outcome.ok, processed: true, recorded: recordResult.recorded, taskId: task.id, agent: task.routeAgent, error: outcome.error };
 }
 
 function parseArgs(argv) {
@@ -249,11 +305,13 @@ if (require.main === module) {
 
 module.exports = {
   buildAgentPrompt,
+  appendObsidianRecord,
   detectAgentAvailability,
   pairWorker,
   parseArgs,
   runClaudeTask,
   runCodexTask,
+  runRecordOnce,
   runWorkerOnce,
   safeText,
   spawnCapture,

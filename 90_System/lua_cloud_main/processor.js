@@ -1,6 +1,7 @@
 const { buildStatusText } = require('./command');
 const { askClaude, claudeIsConfigured } = require('./claude');
 const { buildApprovalReply, routeCommand } = require('./router');
+const { parseReminderInput } = require('./proactive');
 const { createMemoryStore } = require('./store');
 
 function compactText(value, fallback = '') {
@@ -138,6 +139,15 @@ async function processCommand(command, options = {}) {
         processedAt: new Date().toISOString(),
       });
       return { ...approval, commandId, command: command.command };
+    }
+    if (command.agent === 'remind') {
+      if (!store.createReminder) throw new Error('Lua reminders are unavailable.');
+      const reminder = parseReminderInput(command.payload || command.intent || command.text);
+      const created = await store.createReminder({ ...reminder, chatId: command.chatId });
+      const result = `Reminder set for ${new Date(created.remindAt).toLocaleString('sv-SE', { timeZone: 'Asia/Seoul', hour12: false }).replace(' ', ' ')} KST: ${created.message}`;
+      await store.updateCommand(commandId, { status: 'done', result, processedAt: new Date().toISOString() });
+      await store.saveLog({ level: 'info', event: 'lua_reminder_created', command: command.command, chatId: command.chatId });
+      return { ok: true, commandId, command: command.command, result };
     }
     const route = command.routeAgent ? command : { ...command, ...routeCommand(command) };
     if (route.approval !== 'auto') {

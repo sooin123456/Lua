@@ -76,7 +76,7 @@ function buildTelegramWebhookRequest({ env = process.env, publicUrl }) {
 }
 
 async function checkSupabaseSchema({ env = process.env, fetchImpl = fetch } = {}) {
-  const required = ['lua_commands', 'lua_memories', 'lua_logs'];
+  const required = ['lua_commands', 'lua_memories', 'lua_logs', 'lua_reminders'];
   if (!env.SUPABASE_URL) throw new Error('SUPABASE_URL is required.');
   if (!env.SUPABASE_SERVICE_ROLE_KEY) throw new Error('SUPABASE_SERVICE_ROLE_KEY is required.');
 
@@ -84,7 +84,11 @@ async function checkSupabaseSchema({ env = process.env, fetchImpl = fetch } = {}
   const tables = [];
 
   for (const table of required) {
-    const select = table === 'lua_commands' ? 'id,status,processedAt,result' : 'id';
+    const select = table === 'lua_commands'
+      ? 'id,status,processedAt,recordedAt,result'
+      : table === 'lua_reminders'
+        ? 'id,status,remindAt'
+        : 'id';
     const response = await fetchImpl(`${baseUrl}/rest/v1/${table}?select=${select}&limit=1`, {
       method: 'GET',
       headers: {

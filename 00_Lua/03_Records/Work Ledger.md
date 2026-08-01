@@ -928,3 +928,12 @@ last_updated: 2026-05-28
 - Changed: `/lua status` now reads Railway's active request path, Supabase connectivity, the paired Mac Worker's heartbeat, and queued/running agent work directly instead of routing through Claude.
 - Verification: full Node test suite passed (72 tests); vault check passed.
 - Next: send `/lua status` in Telegram and confirm the reported Worker heartbeat and queue are current.
+
+## 2026-08-01 KST - complete Lua records and proactive assistant
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Changed: completed Claude/Codex outcomes and explicit memories are now redacted and recorded locally in Obsidian by the paired Mac Worker; added durable KST reminders, disabled-by-default daily briefs, and optional Monday weekly reviews.
+- Safety: Railway receives only a record-complete acknowledgement, never the local Obsidian result text. Proactive Telegram delivery requires an explicit enabled environment flag and chosen chat ID; Git commit/push remains manual approval.
+- Verification: Supabase migration `add_lua_proactive_assistant` applied; RLS is enabled and policies are service-role-only; Supabase security/performance advisors have no findings; `npm run test:node` passed (75 tests); vault check passed.
+- Next: choose a KST morning briefing time and explicitly enable proactive delivery in Railway if desired.

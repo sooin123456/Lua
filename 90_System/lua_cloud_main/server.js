@@ -4,6 +4,7 @@ const { normalizeTelegramUpdate } = require('./command');
 const { processCommand, processQueuedCommands } = require('./processor');
 const { createMemoryStore } = require('./store');
 const { claudeIsConfigured } = require('./claude');
+const { runProactiveCheck } = require('./proactive');
 
 function sendJson(res, statusCode, body) {
   res.writeHead(statusCode, { 'content-type': 'application/json; charset=utf-8' });
@@ -125,6 +126,30 @@ function createServer(options = {}) {
         const body = await readJson(req);
         const task = await store.claimNextAgentTask(body.agents, body.workerId || worker.workerId);
         return sendJson(res, 200, { ok: true, task: task || null });
+      }
+
+      if (req.method === 'POST' && url.pathname === '/worker/records/claim') {
+        const worker = await store.authorizeWorker(getBearerToken(req));
+        if (!worker) return sendJson(res, 401, { ok: false, error: 'Unauthorized worker' });
+        const body = await readJson(req);
+        const record = await store.claimNextRecord(body.workerId || worker.workerId);
+        return sendJson(res, 200, { ok: true, record: record || null });
+      }
+
+      const recordMatch = url.pathname.match(/^\/worker\/records\/(\d+)\/complete$/);
+      if (req.method === 'POST' && recordMatch) {
+        const worker = await store.authorizeWorker(getBearerToken(req));
+        if (!worker) return sendJson(res, 401, { ok: false, error: 'Unauthorized worker' });
+        const body = await readJson(req);
+        const record = await store.completeRecord(recordMatch[1], { ok: body.ok === true });
+        if (!record) return sendJson(res, 404, { ok: false, error: 'Record not found' });
+        await store.saveLog({
+          level: body.ok === true ? 'info' : 'warn',
+          event: body.ok === true ? 'lua_obsidian_recorded' : 'lua_obsidian_record_failed',
+          command: record.command,
+          chatId: record.chatId,
+        });
+        return sendJson(res, 200, { ok: true, recorded: body.ok === true });
       }
 
       const resultMatch = url.pathname.match(/^\/worker\/tasks\/(\d+)\/result$/);
@@ -264,9 +289,15 @@ function startProcessorLoop(options = {}) {
     running = true;
     try {
       const result = await processQueuedCommands({ store, env, limit });
+      const proactive = await runProactiveCheck({
+        store,
+        env,
+        sendTelegram: (chatId, text) => sendTelegramMessage({ chatId }, text, { env, fetchImpl: options.fetchImpl }),
+      });
       if (result.processed > 0) {
         console.log(`Lua processor handled ${result.processed} command(s).`);
       }
+      if (proactive.sent?.length) console.log(`Lua proactive sent ${proactive.sent.join(', ')}.`);
     } catch (error) {
       console.error(`Lua processor loop failed: ${error.message}`);
     } finally {

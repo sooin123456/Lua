@@ -38,8 +38,8 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 - [x] Codex handoff 연결
 - [x] 승인 버튼과 승인 대기열
 - [x] Obsidian 제한 맥락 검색
-- [ ] Obsidian 결과 기록 자동화 (GitHub 쓰기 권한과 사용자 승인 필요)
-- [ ] 능동형 브리핑과 리마인더
+- [x] Obsidian 결과 기록 자동화 (Mac Worker가 로컬 vault에 기록, GitHub push는 승인 필요)
+- [x] 능동형 브리핑과 리마인더 (기본 비활성, 사용자 선택 시간·채팅 ID로만 활성화)
 
 ## 목표 흐름
 
@@ -69,7 +69,8 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 | `/lua tasks` | 진행 중 작업 확인 | 현재 지원 |
 | `/lua approve {id}` | 승인 대기 작업 승인 | 현재 지원 |
 | `/lua reject {id}` | 작업 거절 | 현재 지원 |
-| `/lua remember {내용}` | 장기 기억 요청 | Obsidian 기록 예정 |
+| `/lua remember {내용}` | 장기 기억 요청 | Mac Worker가 Obsidian 기록 |
+| `/lua remind :: YYYY-MM-DD HH:mm 내용` | KST 리마인더 등록 | Proactive 모드에서만 발송 |
 | `/lua pair` | Mac Worker 연결 | 일회용 코드 발급 |
 
 ## Agent 배분 규칙
@@ -168,7 +169,7 @@ captured → classified → awaiting_approval → running → completed
 - 완료 결과를 올바른 프로젝트와 Work Ledger에 기록한다.
 - Identity와 `_System` 보호 규칙을 유지한다.
 
-완료 기준: Lua가 이전 결정은 기억하지만 불필요한 vault 전체를 agent에 보내지 않는다. **검색 완료: 2026-08-01** — `Identity`, `_System`, `.git`, `node_modules`는 검색·전송에서 제외한다. 완료 결과의 영구 기록은 GitHub 쓰기 권한 및 사용자 승인 흐름을 추가한 뒤 활성화한다.
+완료 기준: Lua가 이전 결정은 기억하지만 불필요한 vault 전체를 agent에 보내지 않는다. **완료: 2026-08-01** — `Identity`, `_System`, `.git`, `node_modules`는 검색·전송에서 제외한다. 완료된 Claude·Codex 작업과 명시적 기억은 Mac Worker가 로컬 `Lua Assistant Records.md`에 기록한다. GitHub commit/push는 자동으로 실행하지 않는다.
 
 ### 6. 능동형 비서
 
@@ -178,7 +179,7 @@ captured → classified → awaiting_approval → running → completed
 - 프로젝트 상태 요약
 - 실패와 비용 이상 알림
 
-완료 기준: 사용자가 요청하지 않아도 정해진 시간에 유용한 보고를 보내며, 전송 빈도와 중단 방법을 사용자가 통제한다.
+완료 기준: 사용자가 요청하지 않아도 정해진 시간에 유용한 보고를 보내며, 전송 빈도와 중단 방법을 사용자가 통제한다. **구현 완료: 2026-08-01** — 기본값은 비활성이다. `LUA_PROACTIVE_ENABLED=true`, 수신 chat ID, KST 시각을 명시한 뒤에만 일일 브리핑, 등록 리마인더, 선택적 월요일 주간 리뷰를 보낸다. `false`로 즉시 중단한다.
 
 ## 운영 점검
 
@@ -191,7 +192,9 @@ captured → classified → awaiting_approval → running → completed
 
 ## 바로 다음 작업
 
-Telegram에서 `/lua ask :: 지금 Lua 연결 상태를 한 문장으로 알려줘`를 보내 실제 Telegram → Railway → Supabase → Mac Worker → Claude → Telegram 왕복을 확인한다.
+1. Railway에 최신 커밋을 배포한다.
+2. Telegram에서 `/lua remind :: 2026-08-02 09:00 회의 준비`로 리마인더 등록을 확인한다.
+3. 능동형 발송을 원하면 `LUA_PROACTIVE_ENABLED=true`, 수신 chat ID, 아침 시각을 Railway에 설정한다. 기본값은 `false`다.
 
 ## 관련 문서
 

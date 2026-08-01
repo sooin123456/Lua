@@ -6,6 +6,7 @@ function createMemoryStore(options = {}) {
     logs: [],
     warnings: [],
     workerPairs: [],
+    reminders: [],
   };
   const fetchImpl = options.fetchImpl || fetch;
   const supabaseUrl = options.supabaseUrl || options.env?.SUPABASE_URL || '';
@@ -176,6 +177,102 @@ function createMemoryStore(options = {}) {
       await this.updateCommand(id, patch);
       return task ? { ...task, ...patch } : null;
     },
+
+    async claimNextRecord(workerId, now = new Date()) {
+      const claimedAt = now.toISOString();
+      let record = state.commands.find((command) => (
+        command.status === 'done'
+        && !command.recordedAt
+        && !command.recordingAt
+        && (command.agent === 'remember' || ['claude', 'codex'].includes(command.routeAgent))
+      ));
+      if (configured) {
+        const result = await request('lua_commands', {
+          query: '?select=*&status=eq.done&recordedAt=is.null&recordingAt=is.null&or=(agent.eq.remember,routeAgent.eq.claude,routeAgent.eq.codex)&order=id.asc&limit=1',
+        });
+        record = result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
+      }
+      if (!record) return null;
+      const patch = { recordingAt: claimedAt, workerId: String(workerId || 'mac-worker').slice(0, 120) };
+      Object.assign(record, patch);
+      if (configured) {
+        const result = await request('lua_commands', {
+          method: 'PATCH',
+          query: `?id=eq.${record.id}&recordedAt=is.null&recordingAt=is.null`,
+          body: patch,
+          prefer: 'return=representation',
+        });
+        if (!result.ok || !Array.isArray(result.data) || !result.data[0]) return null;
+        record = result.data[0];
+      }
+      return record;
+    },
+
+    async completeRecord(id, outcome, now = new Date()) {
+      const patch = outcome.ok
+        ? { recordedAt: now.toISOString(), recordingAt: null }
+        : { recordingAt: null };
+      await this.updateCommand(id, patch);
+      return this.getCommand(id);
+    },
+    async createReminder(reminder) {
+      const record = {
+        chatId: String(reminder.chatId),
+        message: String(reminder.message).slice(0, 2_000),
+        remindAt: reminder.remindAt,
+        status: 'pending',
+      };
+      state.reminders.push(record);
+      const result = await request('lua_reminders', { method: 'POST', body: record, prefer: 'return=representation' });
+      if (result.ok && Array.isArray(result.data) && result.data[0]) Object.assign(record, result.data[0]);
+      return record;
+    },
+    async claimDueReminders(chatId, now = new Date(), limit = 3) {
+      const max = Math.min(Math.max(Number(limit) || 3, 1), 10);
+      let reminders = state.reminders
+        .filter((item) => item.status === 'pending' && String(item.chatId) === String(chatId) && new Date(item.remindAt) <= now)
+        .slice(0, max);
+      if (configured) {
+        const result = await request('lua_reminders', {
+          query: `?select=*&chatId=eq.${encodeURIComponent(String(chatId))}&status=eq.pending&remindAt=lte.${encodeURIComponent(now.toISOString())}&order=remindAt.asc&limit=${max}`,
+        });
+        reminders = result.ok && Array.isArray(result.data) ? result.data : [];
+      }
+      const claimed = [];
+      for (const reminder of reminders) {
+        const patch = { status: 'sending' };
+        if (configured) {
+          const result = await request('lua_reminders', {
+            method: 'PATCH', query: `?id=eq.${reminder.id}&status=eq.pending`, body: patch, prefer: 'return=representation',
+          });
+          if (!result.ok || !Array.isArray(result.data) || !result.data[0]) continue;
+          claimed.push(result.data[0]);
+        } else {
+          Object.assign(reminder, patch);
+          claimed.push(reminder);
+        }
+      }
+      return claimed;
+    },
+    async completeReminder(id, outcome, now = new Date()) {
+      const patch = outcome.ok
+        ? { status: 'sent', sentAt: now.toISOString() }
+        : { status: 'pending' };
+      const local = state.reminders.find((item) => String(item.id) === String(id));
+      if (local) Object.assign(local, patch);
+      if (!configured) return local || null;
+      const result = await request('lua_reminders', {
+        method: 'PATCH', query: `?id=eq.${encodeURIComponent(id)}`, body: patch, prefer: 'return=representation',
+      });
+      return result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
+    },
+    async hasLogSince(event, chatId, since) {
+      if (!configured) return state.logs.some((item) => item.event === event && String(item.chatId) === String(chatId) && item.createdAt >= since);
+      const result = await request('lua_logs', {
+        query: `?select=id&event=eq.${encodeURIComponent(event)}&chatId=eq.${encodeURIComponent(String(chatId))}&createdAt=gte.${encodeURIComponent(since)}&limit=1`,
+      });
+      return Boolean(result.ok && Array.isArray(result.data) && result.data[0]);
+    },
     async saveCommand(command) {
       state.commands.push(command);
       const result = await request('lua_commands', {
@@ -340,6 +437,7 @@ function createMemoryStore(options = {}) {
         commands: [...state.commands],
         memories: [...state.memories],
         logs: [...state.logs],
+        reminders: [...state.reminders],
         warnings: [...state.warnings],
       };
     },

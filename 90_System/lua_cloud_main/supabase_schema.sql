@@ -66,6 +66,12 @@ add column if not exists "workerId" text;
 alter table public.lua_commands
 add column if not exists "startedAt" timestamptz;
 
+alter table public.lua_commands
+add column if not exists "recordingAt" timestamptz;
+
+alter table public.lua_commands
+add column if not exists "recordedAt" timestamptz;
+
 create table if not exists public.lua_worker_pairs (
   id bigint generated always as identity primary key,
   "chatId" text not null,
@@ -79,76 +85,45 @@ create table if not exists public.lua_worker_pairs (
   "revokedAt" timestamptz
 );
 
+create table if not exists public.lua_reminders (
+  id bigint generated always as identity primary key,
+  "chatId" text not null,
+  message text not null,
+  "remindAt" timestamptz not null,
+  status text not null default 'pending',
+  "sentAt" timestamptz,
+  "createdAt" timestamptz not null default now()
+);
+
 alter table public.lua_commands enable row level security;
 alter table public.lua_memories enable row level security;
 alter table public.lua_logs enable row level security;
 alter table public.lua_worker_pairs enable row level security;
+alter table public.lua_reminders enable row level security;
 
 revoke all on table public.lua_worker_pairs from anon, authenticated;
 grant select, insert, update, delete on table public.lua_worker_pairs to service_role;
 grant usage, select on sequence public.lua_worker_pairs_id_seq to service_role;
+revoke all on table public.lua_reminders from anon, authenticated;
+grant select, insert, update, delete on table public.lua_reminders to service_role;
+grant usage, select on sequence public.lua_reminders_id_seq to service_role;
 
-do $$
-begin
-  if not exists (
-    select 1 from pg_policies
-    where schemaname = 'public'
-      and tablename = 'lua_commands'
-      and policyname = 'service role manages lua_commands'
-  ) then
-    create policy "service role manages lua_commands"
-    on public.lua_commands
-    for all
-    using (auth.role() = 'service_role')
-    with check (auth.role() = 'service_role');
-  end if;
-end $$;
+drop policy if exists "service role manages lua_commands" on public.lua_commands;
+create policy "service role manages lua_commands" on public.lua_commands
+for all to service_role using (true) with check (true);
 
-do $$
-begin
-  if not exists (
-    select 1 from pg_policies
-    where schemaname = 'public'
-      and tablename = 'lua_worker_pairs'
-      and policyname = 'service role manages lua_worker_pairs'
-  ) then
-    create policy "service role manages lua_worker_pairs"
-    on public.lua_worker_pairs
-    for all
-    to service_role
-    using (true)
-    with check (true);
-  end if;
-end $$;
+drop policy if exists "service role manages lua_reminders" on public.lua_reminders;
+create policy "service role manages lua_reminders" on public.lua_reminders
+for all to service_role using (true) with check (true);
 
-do $$
-begin
-  if not exists (
-    select 1 from pg_policies
-    where schemaname = 'public'
-      and tablename = 'lua_memories'
-      and policyname = 'service role manages lua_memories'
-  ) then
-    create policy "service role manages lua_memories"
-    on public.lua_memories
-    for all
-    using (auth.role() = 'service_role')
-    with check (auth.role() = 'service_role');
-  end if;
-end $$;
+drop policy if exists "service role manages lua_worker_pairs" on public.lua_worker_pairs;
+create policy "service role manages lua_worker_pairs" on public.lua_worker_pairs
+for all to service_role using (true) with check (true);
 
-do $$
-begin
-  if not exists (
-    select 1 from pg_policies
-    where schemaname = 'public'
-      and tablename = 'lua_logs'
-      and policyname = 'service role manages lua_logs'
-  ) then
-    create policy "service role manages lua_logs"
-    on public.lua_logs
-    for all
-    using (auth.role() = 'service_role')
-    with check (auth.role() = 'service_role');
-  end if;
-end $$;
+drop policy if exists "service role manages lua_memories" on public.lua_memories;
+create policy "service role manages lua_memories" on public.lua_memories
+for all to service_role using (true) with check (true);
+
+drop policy if exists "service role manages lua_logs" on public.lua_logs;
+create policy "service role manages lua_logs" on public.lua_logs
+for all to service_role using (true) with check (true);

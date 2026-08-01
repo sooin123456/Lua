@@ -85,6 +85,7 @@ Useful command behavior in v1:
 /lua approve :: <id>        -> approves a queued task
 /lua reject :: <id>         -> rejects a queued task
 /lua pair                    -> creates a one-time Mac Worker pairing code
+/lua remind :: YYYY-MM-DD HH:mm message -> stores a KST reminder; it sends only when proactive mode is enabled
 ```
 
 Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Claude and Codex tasks remain durable until a paired Mac Worker claims them. The optional direct Claude API adapter remains disabled when `ANTHROPIC_API_KEY` is absent.
@@ -97,9 +98,30 @@ Railway also starts a lightweight in-process command loop by default. Use these 
 LUA_PROCESSOR_LOOP=true
 LUA_PROCESS_INTERVAL_MS=60000
 LUA_PROCESS_LIMIT=10
+LUA_PROACTIVE_ENABLED=false
+LUA_PROACTIVE_CHAT_ID=
+LUA_DAILY_BRIEF_HOUR_KST=8
+LUA_WEEKLY_REVIEW_ENABLED=false
 ```
 
 Set `LUA_PROCESSOR_LOOP=false` to disable the background processor.
+
+### Proactive assistant
+
+Proactive Telegram delivery is **off by default**. After choosing the receiving chat and morning time, set these Railway variables to enable it:
+
+```text
+LUA_PROACTIVE_ENABLED=true
+LUA_PROACTIVE_CHAT_ID=YOUR_TELEGRAM_CHAT_ID
+LUA_DAILY_BRIEF_HOUR_KST=8
+LUA_WEEKLY_REVIEW_ENABLED=true
+```
+
+The server checks due `/lua remind` records, sends at most three per loop, sends one daily brief at the selected KST hour, and optionally sends a Monday weekly review. A durable Supabase log prevents duplicate daily or weekly messages. Set `LUA_PROACTIVE_ENABLED=false` to stop all unsolicited messages immediately.
+
+### Obsidian result records
+
+The paired Mac Worker records completed Claude/Codex tasks and explicit `/lua remember` entries in `00_Lua/03_Records/Lua Assistant Records.md`. It stores only redacted local text and reports only record completion to Railway. It never auto-commits or pushes the vault; GitHub sync remains an approved action.
 
 If `cloud:supabase:check` reports missing command processing columns, rerun:
 
@@ -136,6 +158,10 @@ SUPABASE_SERVICE_ROLE_KEY=
 ANTHROPIC_API_KEY=
 CLAUDE_MODEL=claude-sonnet-4-6
 CLAUDE_MAX_TOKENS=800
+LUA_PROACTIVE_ENABLED=false
+LUA_PROACTIVE_CHAT_ID=
+LUA_DAILY_BRIEF_HOUR_KST=8
+LUA_WEEKLY_REVIEW_ENABLED=false
 ```
 
 ## Security

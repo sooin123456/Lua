@@ -7,6 +7,7 @@ const { createMemoryStore } = require('./store');
 const { buildApprovalReply, commandForPlainText, routeCommand } = require('./router');
 const { askClaude, buildClaudeSystemPrompt, claudeIsConfigured, extractClaudeText } = require('./claude');
 const { DEFAULT_CONTEXT_DIRS, isAllowedRelativePath, searchVaultContext, toTerms } = require('./vault_context');
+const { buildDailyBrief, buildWeeklyReview, parseReminderInput, runProactiveCheck } = require('./proactive');
 
 module.exports = {
   buildReply,
@@ -14,7 +15,9 @@ module.exports = {
   buildClaudeSystemPrompt,
   buildApprovalReply,
   buildCommandResult,
+  buildDailyBrief,
   buildStatusText,
+  buildWeeklyReview,
   commandForPlainText,
   claudeIsConfigured,
   createCodexHandoff,
@@ -26,8 +29,10 @@ module.exports = {
   normalizeTelegramUpdate,
   processCommand,
   processQueuedCommands,
+  parseReminderInput,
   runCodexHandoff,
   routeCommand,
+  runProactiveCheck,
   isAllowedRelativePath,
   searchVaultContext,
   shouldStartProcessorLoop,
