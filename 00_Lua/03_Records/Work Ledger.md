@@ -845,3 +845,12 @@ last_updated: 2026-05-28
 - Verification: `npm run check`; `npm run test:node` (62 passing); Railway deployment active; public `/health` reports Supabase and Telegram configured
 - Commit: GitHub `e938b80` (`Enforce Telegram chat allowlist`); local merge commit pending
 - Next: explicitly approve generating and storing `TELEGRAM_WEBHOOK_SECRET` in Railway, then register the Telegram webhook at `https://lua-production-6d18.up.railway.app/webhooks/telegram`
+
+## 2026-08-01 KST - activate Lua Telegram webhook
+
+- Host: `codex`
+- Agent: `Codex`
+- Repo/area: Railway, Telegram
+- Changed: generated and stored the server-only `TELEGRAM_WEBHOOK_SECRET` in Railway, then registered the production Telegram webhook
+- Verification: Railway service online; `GET /health` reports Telegram and Supabase configured; unauthenticated webhook requests return `401`; Telegram reports the registered production URL with zero pending updates
+- Next: send `/lua status Lua` to `@Lua_mainbot` to use the live command entrance
