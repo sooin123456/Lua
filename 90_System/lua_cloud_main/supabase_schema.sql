@@ -14,12 +14,24 @@ create table if not exists public.lua_commands (
   "receivedAt" timestamptz not null,
   "createdAt" timestamptz not null default now(),
   status text not null default 'queued',
+  "routeAgent" text not null default 'lua',
+  approval text not null default 'auto',
+  "approvedAt" timestamptz,
   "processedAt" timestamptz,
   result text
 );
 
 alter table public.lua_commands
 add column if not exists status text not null default 'queued';
+
+alter table public.lua_commands
+add column if not exists "routeAgent" text not null default 'lua';
+
+alter table public.lua_commands
+add column if not exists approval text not null default 'auto';
+
+alter table public.lua_commands
+add column if not exists "approvedAt" timestamptz;
 
 alter table public.lua_commands
 add column if not exists "processedAt" timestamptz;

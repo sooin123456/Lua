@@ -885,3 +885,13 @@ last_updated: 2026-05-28
 - Changed: created `Lua Personal Assistant Build Guide.md` with the target architecture, Claude/Codex routing, approval rules, command model, implementation order, and completion criteria
 - Verification: `node 90_System/scripts/check.js`
 - Next: implement the first natural-language router for Claude, Codex, and Lua
+
+## 2026-08-01 KST - implement Lua task routing and approvals
+
+- Host: `codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main, Telegram, Supabase
+- Trigger: user asked to complete the personal assistant build guide
+- Changed: added deterministic natural-language routing for Lua, Claude, and Codex; approval and rejection callbacks; durable task statuses; task listing; and Codex handoff support for approved Codex tasks
+- Verification: `npm run test:node` (65 passing); `node 90_System/scripts/check.js`; Supabase routing columns applied with RLS preserved and no security advisor findings
+- Next: connect a user-approved Claude execution endpoint, then add selective Obsidian memory retrieval and scheduled assistant briefings

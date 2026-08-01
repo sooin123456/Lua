@@ -4,11 +4,14 @@ const { buildCommandResult, processCommand, processQueuedCommands } = require('.
 const { validateCloudEnv } = require('./config');
 const { createServer, shouldStartProcessorLoop, start, startProcessorLoop } = require('./server');
 const { createMemoryStore } = require('./store');
+const { buildApprovalReply, commandForPlainText, routeCommand } = require('./router');
 
 module.exports = {
   buildReply,
+  buildApprovalReply,
   buildCommandResult,
   buildStatusText,
+  commandForPlainText,
   createCodexHandoff,
   createMemoryStore,
   createServer,
@@ -17,6 +20,7 @@ module.exports = {
   processCommand,
   processQueuedCommands,
   runCodexHandoff,
+  routeCommand,
   shouldStartProcessorLoop,
   start,
   startProcessorLoop,

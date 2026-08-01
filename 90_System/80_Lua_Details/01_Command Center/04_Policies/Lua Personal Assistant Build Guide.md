@@ -29,10 +29,10 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 - [x] 사용자 Telegram chat allowlist 적용
 - [x] 일반 문장을 todo로 저장하고 즉시 응답
 - [x] `/lua status`, `/lua todo`, `/lua next` 기본 명령 처리
-- [ ] 자연어 요청 의도 분류
-- [ ] Claude 실행 연결
-- [ ] Codex 실행 연결
-- [ ] 승인 버튼과 승인 대기열
+- [x] 자연어 요청 의도 분류
+- [ ] Claude 실행 연결 (API 또는 실행 endpoint 권한 필요)
+- [x] Codex handoff 연결
+- [x] 승인 버튼과 승인 대기열
 - [ ] Obsidian 기억 검색과 결과 기록
 - [ ] 능동형 브리핑과 리마인더
 
@@ -128,7 +128,7 @@ captured → classified → awaiting_approval → running → completed
 - 담당을 `claude`, `codex`, `lua` 중 하나로 정한다.
 - 위험도를 `auto`, `ask_first`, `explicit_approval`로 판정한다.
 
-완료 기준: 동일한 입력을 반복했을 때 담당과 승인 등급이 일관되게 나온다.
+완료 기준: 동일한 입력을 반복했을 때 담당과 승인 등급이 일관되게 나온다. **완료: 2026-08-01**
 
 ### 2. Codex 실행 연결
 
@@ -136,7 +136,7 @@ captured → classified → awaiting_approval → running → completed
 - 저장소와 작업 범위를 명시한다.
 - 테스트 결과와 변경 파일을 Telegram으로 보고한다.
 
-완료 기준: Telegram에서 요청한 작은 저장소 작업이 Codex에서 실행되고 결과가 돌아온다.
+완료 기준: Telegram에서 요청한 작은 저장소 작업이 Codex에서 실행되고 결과가 돌아온다. 승인된 작업은 `npm run cloud:codex:next`로 handoff note를 만들고 Codex가 처리한다.
 
 ### 3. Claude 실행 연결
 
@@ -152,7 +152,7 @@ captured → classified → awaiting_approval → running → completed
 - Telegram 인라인 버튼으로 승인과 거절을 처리한다.
 - 승인 전에는 외부 상태를 변경하지 않는다.
 
-완료 기준: 배포 요청이 승인 전에는 멈추고 승인 후에만 실행된다.
+완료 기준: 배포 요청이 승인 전에는 멈추고 승인 후에만 실행된다. **완료: 2026-08-01**
 
 ### 5. Obsidian 기억 연결
 
@@ -183,7 +183,7 @@ captured → classified → awaiting_approval → running → completed
 
 ## 바로 다음 작업
 
-자연어 라우터를 먼저 구현한다. 첫 버전은 Claude, Codex, Lua 세 가지 담당과 세 가지 승인 등급만 지원한다. 라우터가 안정된 뒤 Codex 실행 연결을 붙인다.
+Claude 실행 endpoint를 연결한다. Claude API 키 또는 사용자가 승인한 실행 endpoint를 Railway에 넣은 뒤, `/lua ask` 작업을 실제 Claude 호출로 바꾼다.
 
 ## 관련 문서
 
@@ -192,4 +192,3 @@ captured → classified → awaiting_approval → running → completed
 - [[90_System/80_Lua_Details/01_Command Center/01_Commands/Harness Loop|Harness Loop]]
 - [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
 - [[90_System/07_Lua_System/runtime/Approval Policy Profiles|Approval Policy Profiles]]
-

@@ -105,6 +105,15 @@ function createMemoryStore(options = {}) {
       return result.data || [];
     },
 
+    async getCommand(id) {
+      const local = state.commands.find((command) => String(command.id || command.updateId) === String(id));
+      if (!configured) return local || null;
+      const result = await request('lua_commands', {
+        query: `?select=*&id=eq.${encodeURIComponent(id)}&limit=1`,
+      });
+      return result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
+    },
+
     async getStats() {
       if (!configured) {
         return {
@@ -134,7 +143,8 @@ function createMemoryStore(options = {}) {
         const recentCommands = [...state.commands].slice(-count).reverse();
         const todos = recentCommands.filter((command) => command.agent === 'todo');
         const memories = [...state.memories].slice(-count).reverse();
-        return { ...stats, recentCommands, todos, memories };
+        const tasks = recentCommands.filter((command) => ['awaiting_approval', 'awaiting_agent', 'running'].includes(command.status));
+        return { ...stats, recentCommands, todos, memories, tasks };
       }
 
       const [recentCommands, todos, memories] = await Promise.all([
@@ -152,6 +162,9 @@ function createMemoryStore(options = {}) {
       return {
         ...stats,
         recentCommands: recentCommands.ok && Array.isArray(recentCommands.data) ? recentCommands.data : [],
+        tasks: recentCommands.ok && Array.isArray(recentCommands.data)
+          ? recentCommands.data.filter((command) => ['awaiting_approval', 'awaiting_agent', 'running'].includes(command.status))
+          : [],
         todos: todos.ok && Array.isArray(todos.data) ? todos.data : [],
         memories: memories.ok && Array.isArray(memories.data) ? memories.data : [],
       };

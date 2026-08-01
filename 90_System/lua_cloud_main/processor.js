@@ -1,4 +1,5 @@
 const { buildStatusText } = require('./command');
+const { buildApprovalReply, routeCommand } = require('./router');
 const { createMemoryStore } = require('./store');
 
 function compactText(value, fallback = '') {
@@ -57,7 +58,47 @@ function buildCommandResult(command, snapshot = {}, env = {}) {
     ].join('\n');
   }
 
+  if (command.agent === 'tasks') {
+    const tasks = Array.isArray(snapshot.tasks) ? snapshot.tasks : [];
+    if (!tasks.length) return 'Lua tasks\nNo work is waiting for approval or an agent.';
+    return ['Lua tasks', ...tasks.map((task) => `#${task.id || task.updateId} ${task.routeAgent || task.agent}: ${task.status}`)].join('\n');
+  }
+
   return `Queued for manual routing: ${command.command}${command.payload ? ` :: ${command.payload}` : ''}`;
+}
+
+async function resolveApproval(command, options) {
+  const store = options.store;
+  const targetId = String(command.payload || '').trim();
+  if (!/^\d+$/.test(targetId) || !store.getCommand) {
+    return { ok: false, error: 'Give Lua a numeric task ID, for example /lua approve :: 12.' };
+  }
+  const target = await store.getCommand(targetId);
+  if (!target || String(target.chatId) !== String(command.chatId)) {
+    return { ok: false, error: `Lua could not find task #${targetId}.` };
+  }
+  if (!['awaiting_approval', 'awaiting_agent'].includes(target.status)) {
+    return { ok: false, error: `Task #${targetId} is ${target.status || 'not awaiting approval'}.` };
+  }
+  if (command.agent === 'reject') {
+    await store.updateCommand(targetId, { status: 'rejected', processedAt: new Date().toISOString() });
+    return { ok: true, result: `Task #${targetId} rejected. No agent work was started.` };
+  }
+  await store.updateCommand(targetId, {
+    status: 'awaiting_agent',
+    approvedAt: new Date().toISOString(),
+  });
+  return {
+    ok: true,
+    result: [
+      `Task #${targetId} approved for ${target.routeAgent || 'Lua'}.`,
+      target.routeAgent === 'codex'
+        ? `Next: ask Codex to process task #${targetId}.`
+        : target.routeAgent === 'claude'
+          ? `Next: ask Claude to process task #${targetId}.`
+          : 'Lua will continue the task.',
+    ].join('\n'),
+  };
 }
 
 async function processCommand(command, options = {}) {
@@ -67,6 +108,42 @@ async function processCommand(command, options = {}) {
   const commandId = command.id ?? command.updateId;
 
   try {
+    if (['approve', 'reject'].includes(command.agent)) {
+      const approval = await resolveApproval(command, { store });
+      await store.updateCommand(commandId, {
+        status: approval.ok ? 'done' : 'failed',
+        result: approval.result || approval.error,
+        processedAt: new Date().toISOString(),
+      });
+      return { ...approval, commandId, command: command.command };
+    }
+    const route = command.routeAgent ? command : { ...command, ...routeCommand(command) };
+    if (route.approval !== 'auto') {
+      const approvalReply = buildApprovalReply(route, commandId);
+      await store.updateCommand(commandId, {
+        status: 'awaiting_approval',
+        routeAgent: route.routeAgent,
+        approval: route.approval,
+        result: approvalReply.text,
+      });
+      await store.saveLog({ level: 'info', event: 'lua_command_awaiting_approval', command: route.command, chatId: route.chatId });
+      return { ok: true, commandId, command: route.command, result: approvalReply.text, replyMarkup: approvalReply.replyMarkup };
+    }
+    if (['claude', 'codex'].includes(route.routeAgent)) {
+      const result = [
+        `${route.routeAgent === 'codex' ? 'Codex' : 'Claude'} task #${commandId} queued.`,
+        `Task: ${compactText(route.payload || route.text, 'empty task')}`,
+        `Use /lua tasks to check its status.`,
+      ].join('\n');
+      await store.updateCommand(commandId, {
+        status: 'awaiting_agent',
+        routeAgent: route.routeAgent,
+        approval: route.approval,
+        result,
+      });
+      await store.saveLog({ level: 'info', event: 'lua_command_routed', command: route.command, chatId: route.chatId });
+      return { ok: true, commandId, command: route.command, result };
+    }
     await store.updateCommand(commandId, { status: 'processing' });
     const snapshot = store.getCommandContext
       ? await store.getCommandContext()

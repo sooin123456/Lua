@@ -32,7 +32,7 @@ Process queued commands:
 npm run cloud:process
 ```
 
-Create a local Codex handoff note from the latest Telegram todo:
+Create a local Codex handoff note from the latest Telegram todo or approved Codex task:
 
 ```bash
 npm run cloud:codex:next
@@ -46,7 +46,14 @@ Useful command behavior in v1:
 /lua todo :: <next action>  -> captures a todo and confirms it
 /lua next                  -> recommends the latest stored todo or recent command
 /lua status Lua             -> returns runtime, command, and memory counts
+/lua ask :: <question>      -> classifies and queues a Claude task
+/lua do :: <task>           -> asks approval, then queues a Codex task
+/lua tasks                  -> lists work awaiting approval or an agent
+/lua approve :: <id>        -> approves a queued task
+/lua reject :: <id>         -> rejects a queued task
 ```
+
+Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Claude and Codex tasks are durable handoffs, not direct API calls. Connecting either provider requires its own approved credential and execution endpoint.
 
 Railway also starts a lightweight in-process command loop by default. Use these optional service variables to tune it:
 

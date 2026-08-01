@@ -13,7 +13,9 @@ const {
   createServer,
   getLatestTodo,
   normalizeTelegramUpdate,
+  processCommand,
   processQueuedCommands,
+  routeCommand,
   shouldStartProcessorLoop,
   startProcessorLoop,
   validateCloudEnv,
@@ -60,6 +62,8 @@ test('normalizes Telegram /lua webhook updates into durable commands', () => {
     payload: 'Railway + Supabase로 Lua Cloud Main 시작',
     source: 'telegram:webhook',
     receivedAt: '2026-06-04T02:00:00.000Z',
+    routeAgent: 'lua',
+    approval: 'auto',
   });
 });
 
@@ -75,6 +79,27 @@ test('captures plain Telegram text as a todo command', () => {
   assert.equal(command.command, '/lua todo');
   assert.equal(command.agent, 'todo');
   assert.equal(command.payload, '다음 주 회의 준비해줘');
+});
+
+test('routes plain Telegram text to Claude, Codex, or Lua deterministically', () => {
+  assert.deepEqual(routeCommand({ agent: 'ask', payload: '이번 주 계획을 정리해줘' }), {
+    routeAgent: 'claude',
+    approval: 'auto',
+  });
+  assert.deepEqual(routeCommand({ agent: 'do', payload: '저장소 테스트를 고쳐줘' }), {
+    routeAgent: 'codex',
+    approval: 'ask_first',
+  });
+
+  const codex = normalizeTelegramUpdate({ update_id: 2, message: { chat: { id: 1 }, text: 'GitHub 배포 오류를 수정해줘' } });
+  const claude = normalizeTelegramUpdate({ update_id: 3, message: { chat: { id: 1 }, text: '이번 주 계획을 요약해줘' } });
+  const memory = normalizeTelegramUpdate({ update_id: 4, message: { chat: { id: 1 }, text: '이 결정 기억해줘' } });
+
+  assert.equal(codex.routeAgent, 'codex');
+  assert.equal(codex.approval, 'ask_first');
+  assert.equal(claude.routeAgent, 'claude');
+  assert.equal(claude.approval, 'auto');
+  assert.equal(memory.agent, 'remember');
 });
 
 test('memory store records commands, logs, and memory without Supabase config', async () => {
@@ -443,6 +468,56 @@ test('builds practical command processor results', () => {
   assert.match(todo, /Todo captured: Toss miniapp QA/);
   assert.match(next, /Recommended: Toss miniapp QA/);
   assert.match(next, /todo #11/);
+});
+
+test('holds Codex work for approval and releases it with an approval command', async () => {
+  const store = createMemoryStore({});
+  const task = {
+    updateId: 31,
+    chatId: '1780466684',
+    text: '/lua do :: GitHub 배포 오류 수정',
+    command: '/lua do',
+    agent: 'do',
+    payload: 'GitHub 배포 오류 수정',
+    routeAgent: 'codex',
+    approval: 'ask_first',
+    receivedAt: '2026-06-04T02:00:00.000Z',
+  };
+  await store.saveCommand(task);
+  const held = await processCommand(task, { store });
+
+  assert.equal(held.ok, true);
+  assert.equal(store.snapshot().commands[0].status, 'awaiting_approval');
+  assert.equal(held.replyMarkup.inline_keyboard[0][0].callback_data, 'approve:31');
+
+  const approval = {
+    updateId: 32,
+    chatId: '1780466684',
+    command: '/lua approve',
+    agent: 'approve',
+    payload: '31',
+    receivedAt: '2026-06-04T02:00:01.000Z',
+  };
+  await store.saveCommand(approval);
+  const released = await processCommand(approval, { store });
+
+  assert.equal(released.ok, true);
+  assert.equal(store.snapshot().commands[0].status, 'awaiting_agent');
+  assert.match(released.result, /approved for codex/i);
+});
+
+test('normalizes Telegram approval button callbacks', () => {
+  const command = normalizeTelegramUpdate({
+    update_id: 33,
+    callback_query: {
+      data: 'approve:31',
+      from: { id: 1780466684, username: 'sooin123456' },
+      message: { message_id: 9, chat: { id: 1780466684 } },
+    },
+  });
+
+  assert.equal(command.command, '/lua approve');
+  assert.equal(command.payload, '31');
 });
 
 test('processes queued commands into done results and logs', async () => {

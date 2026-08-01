@@ -41,6 +41,7 @@ async function sendTelegramMessage(command, text, options) {
       body: JSON.stringify({
         chat_id: command.chatId,
         text,
+        ...(options.replyMarkup ? { reply_markup: options.replyMarkup } : {}),
       }),
     },
   );
@@ -57,7 +58,7 @@ function isAuthorizedTelegramRequest(req, env) {
 }
 
 function getTelegramChatId(update) {
-  const message = update.message || update.channel_post || null;
+  const message = update.message || update.channel_post || update.callback_query?.message || null;
   return message && message.chat && message.chat.id ? String(message.chat.id) : '';
 }
 
@@ -154,7 +155,11 @@ function createServer(options = {}) {
           ? processed.result
           : `Lua could not process ${command.command}: ${processed.error}`;
         try {
-          await sendTelegramMessage(command, reply, { env, fetchImpl: options.fetchImpl });
+          await sendTelegramMessage(command, reply, {
+            env,
+            fetchImpl: options.fetchImpl,
+            replyMarkup: processed.replyMarkup,
+          });
         } catch (error) {
           await store.saveLog({
             level: 'warn',

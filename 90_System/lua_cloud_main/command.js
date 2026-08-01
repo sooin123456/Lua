@@ -1,13 +1,34 @@
 const { parseCommand } = require('../scripts/telegram_command_inbox');
+const { commandForPlainText, routeCommand } = require('./router');
 
 function normalizeTelegramUpdate(update) {
-  const message = update.message || update.channel_post || null;
+  const callback = update.callback_query || null;
+  const message = update.message || update.channel_post || callback?.message || null;
+  if (callback && /^(approve|reject):\d+$/.test(callback.data || '')) {
+    const [agent, payload] = callback.data.split(':');
+    const chat = message?.chat || {};
+    const from = callback.from || {};
+    return {
+      updateId: update.update_id,
+      messageId: message?.message_id,
+      chatId: String(chat.id),
+      userId: from.id ? String(from.id) : String(chat.id),
+      username: from.username || '',
+      text: `/lua ${agent} :: ${payload}`,
+      command: `/lua ${agent}`,
+      agent,
+      intent: '',
+      payload,
+      source: 'telegram:webhook',
+      receivedAt: new Date().toISOString(),
+    };
+  }
   const text = message && typeof message.text === 'string' ? message.text.trim() : '';
   if (!text) return null;
 
   const parsed = text.startsWith('/lua')
     ? parseCommand(text)
-    : { command: '/lua todo', agent: 'todo', intent: '', payload: text };
+    : commandForPlainText(text);
   const chat = message.chat || {};
   const from = message.from || {};
   const date = message.date ? new Date(message.date * 1000) : new Date();
@@ -25,6 +46,7 @@ function normalizeTelegramUpdate(update) {
     payload: parsed.payload,
     source: 'telegram:webhook',
     receivedAt: date.toISOString(),
+    ...routeCommand(parsed),
   };
 }
 
