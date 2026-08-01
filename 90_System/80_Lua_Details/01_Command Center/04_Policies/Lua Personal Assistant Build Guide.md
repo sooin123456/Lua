@@ -33,7 +33,8 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 - [x] Claude 실행 어댑터와 안전한 대기열
 - [x] 구독형 Claude Code Mac Worker 연결 구현
 - [x] 구독형 Codex Mac Worker 연결 구현
-- [ ] Claude Code 구독 로그인 및 Mac Worker Telegram 페어링
+- [x] Claude Code 구독 로그인 및 Mac Worker 페어링
+- [x] macOS LaunchAgent 자동 시작
 - [x] Codex handoff 연결
 - [x] 승인 버튼과 승인 대기열
 - [x] Obsidian 제한 맥락 검색
@@ -143,7 +144,7 @@ captured → classified → awaiting_approval → running → completed
 - 저장소와 작업 범위를 명시한다.
 - 테스트 결과와 변경 파일을 Telegram으로 보고한다.
 
-완료 기준: Telegram에서 요청한 작은 저장소 작업이 Codex에서 실행되고 결과가 돌아온다. 승인된 작업은 Mac Worker가 `codex exec`로 처리하고 결과를 Railway가 Telegram으로 돌려준다. Worker 미연결 시 `npm run cloud:codex:next` 수동 handoff를 사용할 수 있다.
+완료 기준: Telegram에서 요청한 작은 저장소 작업이 Codex에서 실행되고 결과가 돌아온다. 승인된 작업은 Mac Worker가 `codex exec`로 처리하고 결과를 Railway가 Telegram으로 돌려준다. Worker 미연결 시 `npm run cloud:codex:next` 수동 handoff를 사용할 수 있다. **구독 실행·페어링·자동 시작 완료: 2026-08-01**
 
 ### 3. Claude 실행 연결
 
@@ -151,7 +152,7 @@ captured → classified → awaiting_approval → running → completed
 - 필요한 Obsidian 맥락만 선별해 제공한다.
 - 답변과 후속 행동을 Telegram으로 돌려준다.
 
-완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. Mac Worker는 Claude App 구독으로 로그인된 `claude -p`를 사용하며 별도 AI API 키를 요구하지 않는다.
+완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. Mac Worker는 Claude App 구독으로 로그인된 `claude -p`를 사용하며 별도 AI API 키를 요구하지 않는다. **Claude 구독 실행 확인: 2026-08-01**
 
 ### 4. 승인 시스템
 
@@ -190,11 +191,7 @@ captured → classified → awaiting_approval → running → completed
 
 ## 바로 다음 작업
 
-1. 이 Mac에서 `claude`를 실행해 Claude App 구독으로 로그인한다.
-2. Telegram에서 `/lua pair`를 보낸다.
-3. 받은 코드를 `npm run cloud:worker:pair -- CODE`로 입력한다.
-4. `npm run cloud:worker:once`로 첫 작업을 검증한다.
-5. `npm run cloud:worker:install`로 로그인 세션에서 자동 시작한다.
+Telegram에서 `/lua ask :: 지금 Lua 연결 상태를 한 문장으로 알려줘`를 보내 실제 Telegram → Railway → Supabase → Mac Worker → Claude → Telegram 왕복을 확인한다.
 
 ## 관련 문서
 

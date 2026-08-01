@@ -912,3 +912,11 @@ last_updated: 2026-05-28
 - Security: Worker tokens are hashed in Supabase; the local token is stored only in git-ignored `.env.worker` mode `0600`; `Identity` and `_System` protections remain; automated agents cannot send, publish, push, deploy, delete, purchase, or change accounts.
 - Verification: `npm run test:node` (72 passing); Supabase RLS enabled; no anon/authenticated grants; security advisor returned no findings.
 - Next: log Claude Code into the Claude App subscription, send `/lua pair`, pair the Mac, run one Codex task, then install the LaunchAgent.
+
+## 2026-08-01 KST - activate Lua Mac Worker subscriptions
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Changed: completed Claude App subscription login, created and consumed a one-time Worker pair without exposing it, stored the local token in `.env.worker` mode `0600`, and installed `dev.lua.mac-worker` as a running macOS LaunchAgent.
+- Verification: Worker check reports Claude and Codex both installed/logged in and paired; empty queue poll succeeded; Supabase shows a live non-revoked Worker with `lastSeenAt`; direct read-only executions returned `CLAUDE_SUBSCRIPTION_OK` and `CODEX_SUBSCRIPTION_OK`.
+- Next: send one `/lua ask` Telegram command to verify the complete user-facing round trip.
