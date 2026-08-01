@@ -865,3 +865,13 @@ last_updated: 2026-05-28
 - Verification: `npm run check`; `npm run test:node` (62 passing); GitHub deployment published; Railway `/health` returns configured Telegram and Supabase
 - Commit: GitHub `Capture plain Telegram commands`; local `dfad523`
 - Next: user sends a normal test message such as `내일 회의 준비해줘` and confirms the bot reply
+
+## 2026-08-01 KST - correct Lua Telegram chat allowlist
+
+- Host: `codex`
+- Agent: `Codex`
+- Repo/area: Railway, Telegram
+- Trigger: user reported that the bot still did not answer after the command parser update
+- Changed: replaced the incorrectly configured bot username in Railway's Telegram allowlist with the user's numeric Telegram chat ID and deployed the configuration
+- Verification: Railway deployment status is Online; public `/health` reports Telegram and Supabase configured
+- Next: user sends a normal message to `@Lua_mainbot` and confirms the reply
