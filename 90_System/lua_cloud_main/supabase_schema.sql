@@ -60,9 +60,33 @@ create table if not exists public.lua_logs (
 alter table public.lua_logs
 add column if not exists message text;
 
+alter table public.lua_commands
+add column if not exists "workerId" text;
+
+alter table public.lua_commands
+add column if not exists "startedAt" timestamptz;
+
+create table if not exists public.lua_worker_pairs (
+  id bigint generated always as identity primary key,
+  "chatId" text not null,
+  "pairCodeHash" text not null unique,
+  "workerTokenHash" text unique,
+  "workerId" text,
+  "createdAt" timestamptz not null default now(),
+  "pairExpiresAt" timestamptz not null,
+  "pairedAt" timestamptz,
+  "lastSeenAt" timestamptz,
+  "revokedAt" timestamptz
+);
+
 alter table public.lua_commands enable row level security;
 alter table public.lua_memories enable row level security;
 alter table public.lua_logs enable row level security;
+alter table public.lua_worker_pairs enable row level security;
+
+revoke all on table public.lua_worker_pairs from anon, authenticated;
+grant select, insert, update, delete on table public.lua_worker_pairs to service_role;
+grant usage, select on sequence public.lua_worker_pairs_id_seq to service_role;
 
 do $$
 begin
@@ -77,6 +101,23 @@ begin
     for all
     using (auth.role() = 'service_role')
     with check (auth.role() = 'service_role');
+  end if;
+end $$;
+
+do $$
+begin
+  if not exists (
+    select 1 from pg_policies
+    where schemaname = 'public'
+      and tablename = 'lua_worker_pairs'
+      and policyname = 'service role manages lua_worker_pairs'
+  ) then
+    create policy "service role manages lua_worker_pairs"
+    on public.lua_worker_pairs
+    for all
+    to service_role
+    using (true)
+    with check (true);
   end if;
 end $$;
 

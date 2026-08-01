@@ -1,9 +1,11 @@
 function createMemoryStore(options = {}) {
+  const crypto = require('node:crypto');
   const state = {
     commands: [],
     memories: [],
     logs: [],
     warnings: [],
+    workerPairs: [],
   };
   const fetchImpl = options.fetchImpl || fetch;
   const supabaseUrl = options.supabaseUrl || options.env?.SUPABASE_URL || '';
@@ -58,7 +60,122 @@ function createMemoryStore(options = {}) {
     });
   }
 
+  function hashSecret(value) {
+    return crypto.createHash('sha256').update(String(value || '')).digest('hex');
+  }
+
+  function newPairCode() {
+    return crypto.randomBytes(8).toString('hex').toUpperCase();
+  }
+
+  function newWorkerToken() {
+    return `lua_worker_${crypto.randomBytes(32).toString('base64url')}`;
+  }
+
   return {
+    async createWorkerPair(chatId, now = new Date()) {
+      const code = newPairCode();
+      const pair = {
+        chatId: String(chatId),
+        pairCodeHash: hashSecret(code),
+        createdAt: now.toISOString(),
+        pairExpiresAt: new Date(now.getTime() + 10 * 60_000).toISOString(),
+      };
+      state.workerPairs.push(pair);
+      if (configured) await insert('lua_worker_pairs', pair);
+      return { code, expiresAt: pair.pairExpiresAt };
+    },
+
+    async exchangeWorkerPair(code, workerId, now = new Date()) {
+      const pairCodeHash = hashSecret(code);
+      let pair = state.workerPairs.find((item) => item.pairCodeHash === pairCodeHash && !item.pairedAt);
+      if (configured) {
+        const result = await request('lua_worker_pairs', {
+          query: `?select=*&pairCodeHash=eq.${pairCodeHash}&pairedAt=is.null&limit=1`,
+        });
+        pair = result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
+      }
+      if (!pair || new Date(pair.pairExpiresAt).getTime() <= now.getTime()) return null;
+      const token = newWorkerToken();
+      const patch = {
+        workerTokenHash: hashSecret(token),
+        workerId: String(workerId || 'mac-worker').slice(0, 120),
+        pairedAt: now.toISOString(),
+        lastSeenAt: now.toISOString(),
+      };
+      Object.assign(pair, patch);
+      if (configured) {
+        await request('lua_worker_pairs', {
+          method: 'PATCH',
+          query: `?id=eq.${pair.id}`,
+          body: patch,
+          prefer: 'return=minimal',
+          json: false,
+        });
+      }
+      return { token, chatId: pair.chatId };
+    },
+
+    async authorizeWorker(token, now = new Date()) {
+      const workerTokenHash = hashSecret(token);
+      let pair = state.workerPairs.find((item) => item.workerTokenHash === workerTokenHash && !item.revokedAt);
+      if (configured) {
+        const result = await request('lua_worker_pairs', {
+          query: `?select=id,chatId,workerId,revokedAt&workerTokenHash=eq.${workerTokenHash}&revokedAt=is.null&limit=1`,
+        });
+        pair = result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
+      }
+      if (!pair) return null;
+      const patch = { lastSeenAt: now.toISOString() };
+      Object.assign(pair, patch);
+      if (configured) {
+        await request('lua_worker_pairs', {
+          method: 'PATCH',
+          query: `?id=eq.${pair.id}`,
+          body: patch,
+          prefer: 'return=minimal',
+          json: false,
+        });
+      }
+      return pair;
+    },
+
+    async claimNextAgentTask(agents, workerId, now = new Date()) {
+      const allowedAgents = Array.isArray(agents) ? agents.filter((agent) => ['claude', 'codex'].includes(agent)) : [];
+      if (!allowedAgents.length) return null;
+      let task = state.commands.find((command) => command.status === 'awaiting_agent' && allowedAgents.includes(command.routeAgent));
+      if (configured) {
+        const result = await request('lua_commands', {
+          query: `?select=*&status=eq.awaiting_agent&routeAgent=in.(${allowedAgents.join(',')})&order=id.asc&limit=1`,
+        });
+        task = result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
+      }
+      if (!task) return null;
+      const patch = { status: 'running', workerId: String(workerId || 'mac-worker').slice(0, 120), startedAt: now.toISOString() };
+      Object.assign(task, patch);
+      if (configured) {
+        const claimed = await request('lua_commands', {
+          method: 'PATCH',
+          query: `?id=eq.${task.id}&status=eq.awaiting_agent`,
+          body: patch,
+          prefer: 'return=representation',
+        });
+        if (!claimed.ok || !Array.isArray(claimed.data) || !claimed.data[0]) return null;
+        task = claimed.data[0];
+      }
+      return task;
+    },
+
+    async completeAgentTask(id, outcome, now = new Date()) {
+      const patch = {
+        status: outcome.ok ? 'done' : 'failed',
+        result: String(outcome.result || outcome.error || '').slice(0, 100_000),
+        processedAt: now.toISOString(),
+      };
+      const task = await this.getCommand(id);
+      await this.updateCommand(id, patch);
+      return task ? { ...task, ...patch } : null;
+    },
     async saveCommand(command) {
       state.commands.push(command);
       const result = await request('lua_commands', {

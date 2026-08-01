@@ -902,3 +902,13 @@ last_updated: 2026-05-28
 - Added bounded Markdown context search that excludes Identity, `_System`, `.git`, and `node_modules`.
 - Verified with `npm run test:node` (67 passing) and `node 90_System/scripts/check.js`.
 - Next action: User configures the Claude API key in Railway, then tests `/lua ask :: 이번 주 우선순위를 정리해줘`.
+
+## 2026-08-01 KST - build subscription-based Lua Mac Worker
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Trigger: user chose to use existing Claude and ChatGPT subscriptions instead of AI API keys.
+- Changed: added Telegram one-time Worker pairing, service-role-only Supabase Worker credentials, authenticated task claim/result endpoints, Claude Code and Codex CLI subscription execution, secret redaction, and a macOS LaunchAgent installer.
+- Security: Worker tokens are hashed in Supabase; the local token is stored only in git-ignored `.env.worker` mode `0600`; `Identity` and `_System` protections remain; automated agents cannot send, publish, push, deploy, delete, purchase, or change accounts.
+- Verification: `npm run test:node` (72 passing); Supabase RLS enabled; no anon/authenticated grants; security advisor returned no findings.
+- Next: log Claude Code into the Claude App subscription, send `/lua pair`, pair the Mac, run one Codex task, then install the LaunchAgent.

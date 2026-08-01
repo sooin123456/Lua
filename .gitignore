@@ -8,6 +8,7 @@
 XX_System/
 node_modules/
 .env
+.env.worker
 .venv/
 .pytest_cache/
 __pycache__/

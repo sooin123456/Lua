@@ -109,6 +109,23 @@ async function processCommand(command, options = {}) {
   const commandId = command.id ?? command.updateId;
 
   try {
+    if (command.agent === 'pair') {
+      if (!store.createWorkerPair) throw new Error('Lua Worker pairing is unavailable.');
+      const pairing = await store.createWorkerPair(command.chatId);
+      const result = [
+        'Lua Mac Worker pairing',
+        `Code: ${pairing.code}`,
+        'Valid for 10 minutes and usable once.',
+        `On the Mac run: npm run cloud:worker:pair -- ${pairing.code}`,
+      ].join('\n');
+      await store.updateCommand(commandId, {
+        status: 'done',
+        result: 'Lua Mac Worker pairing code sent to the authorized Telegram chat.',
+        processedAt: new Date().toISOString(),
+      });
+      await store.saveLog({ level: 'info', event: 'lua_worker_pair_requested', command: command.command, chatId: command.chatId });
+      return { ok: true, commandId, command: command.command, result };
+    }
     if (['approve', 'reject'].includes(command.agent)) {
       const approval = await resolveApproval(command, { store });
       await store.updateCommand(commandId, {

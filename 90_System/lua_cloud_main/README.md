@@ -2,6 +2,39 @@
 
 Always-on Lua runtime for Railway + Supabase + Telegram webhook.
 
+## Subscription-based Mac Worker
+
+Lua can use existing Claude and ChatGPT subscriptions without AI API keys. Railway receives and approves work; a paired Mac runs Claude Code or Codex CLI and returns the result through Railway.
+
+1. Confirm subscription logins:
+
+```bash
+npm run cloud:worker:check
+```
+
+2. If Claude is not logged in, run `claude` once and choose the Claude App subscription login. Codex should report `Logged in using ChatGPT`.
+
+3. Send `/lua pair` to `@Lua_mainbot`, then use the one-time code within ten minutes:
+
+```bash
+npm run cloud:worker:pair -- YOUR_PAIR_CODE
+```
+
+4. Run one poll safely:
+
+```bash
+npm run cloud:worker:once
+```
+
+5. Install the 24-hour macOS LaunchAgent after pairing:
+
+```bash
+npm run cloud:worker:install
+npm run cloud:worker:status
+```
+
+The pairing token is stored only in the git-ignored `.env.worker` file with mode `0600`. Telegram, Supabase service-role, Claude, and Codex credentials are never copied into that file. The Mac must be awake, online, and signed into the user session for the LaunchAgent to work.
+
 ## Local Run
 
 ```bash
@@ -51,9 +84,10 @@ Useful command behavior in v1:
 /lua tasks                  -> lists work awaiting approval or an agent
 /lua approve :: <id>        -> approves a queued task
 /lua reject :: <id>         -> rejects a queued task
+/lua pair                    -> creates a one-time Mac Worker pairing code
 ```
 
-Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Codex remains a durable handoff. Claude responds directly only when `ANTHROPIC_API_KEY` is configured; otherwise its task remains safely queued.
+Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Claude and Codex tasks remain durable until a paired Mac Worker claims them. The optional direct Claude API adapter remains disabled when `ANTHROPIC_API_KEY` is absent.
 
 Claude receives at most five short excerpts from permitted Markdown folders. It never searches or sends `00_Lua/02_Memory/Identity/`, `_System/`, `.git/`, or `node_modules/`.
 

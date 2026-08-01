@@ -58,6 +58,17 @@ function isAuthorizedTelegramRequest(req, env) {
   return req.headers['x-telegram-bot-api-secret-token'] === env.TELEGRAM_WEBHOOK_SECRET;
 }
 
+function getBearerToken(req) {
+  const authorization = String(req.headers.authorization || '');
+  return authorization.startsWith('Bearer ') ? authorization.slice(7).trim() : '';
+}
+
+function workerResultText(task) {
+  const label = task.status === 'done' ? 'completed' : 'failed';
+  const result = String(task.result || '').slice(0, 3_500);
+  return [`Lua ${task.routeAgent || 'agent'} task #${task.id} ${label}`, result].filter(Boolean).join('\n');
+}
+
 function getTelegramChatId(update) {
   const message = update.message || update.channel_post || update.callback_query?.message || null;
   return message && message.chat && message.chat.id ? String(message.chat.id) : '';
@@ -98,6 +109,42 @@ function createServer(options = {}) {
           telegramConfigured: Boolean(env.TELEGRAM_BOT_TOKEN),
           claudeConfigured: claudeIsConfigured(env),
         });
+      }
+
+      if (req.method === 'POST' && url.pathname === '/worker/pair') {
+        const body = await readJson(req);
+        const pairing = await store.exchangeWorkerPair(body.code, body.workerId);
+        if (!pairing) return sendJson(res, 401, { ok: false, error: 'Invalid or expired pairing code' });
+        await store.saveLog({ level: 'info', event: 'lua_worker_paired' });
+        return sendJson(res, 200, { ok: true, token: pairing.token });
+      }
+
+      if (req.method === 'POST' && url.pathname === '/worker/tasks/claim') {
+        const worker = await store.authorizeWorker(getBearerToken(req));
+        if (!worker) return sendJson(res, 401, { ok: false, error: 'Unauthorized worker' });
+        const body = await readJson(req);
+        const task = await store.claimNextAgentTask(body.agents, body.workerId || worker.workerId);
+        return sendJson(res, 200, { ok: true, task: task || null });
+      }
+
+      const resultMatch = url.pathname.match(/^\/worker\/tasks\/(\d+)\/result$/);
+      if (req.method === 'POST' && resultMatch) {
+        const worker = await store.authorizeWorker(getBearerToken(req));
+        if (!worker) return sendJson(res, 401, { ok: false, error: 'Unauthorized worker' });
+        const body = await readJson(req);
+        const task = await store.completeAgentTask(resultMatch[1], {
+          ok: body.ok === true,
+          result: body.result,
+          error: body.error,
+        });
+        if (!task) return sendJson(res, 404, { ok: false, error: 'Task not found' });
+        try {
+          await sendTelegramMessage(task, workerResultText(task), { env, fetchImpl: options.fetchImpl });
+        } catch (error) {
+          await store.saveLog({ level: 'warn', event: 'telegram_reply_failed', command: task.command, chatId: task.chatId, message: error.message });
+        }
+        await store.saveLog({ level: task.status === 'done' ? 'info' : 'error', event: 'lua_worker_task_finished', command: task.command, chatId: task.chatId });
+        return sendJson(res, 200, { ok: true, status: task.status });
       }
 
       if (req.method === 'POST' && url.pathname === '/webhooks/telegram') {
@@ -188,7 +235,7 @@ function createServer(options = {}) {
           queued: false,
           processed: processed.ok,
           command,
-          result: processed.result || null,
+          result: command.agent === 'pair' ? 'pairing_code_sent' : processed.result || null,
           error: processed.error || null,
         });
       }
@@ -254,6 +301,7 @@ function start(options = {}) {
 
 module.exports = {
   createServer,
+  getBearerToken,
   isAllowedTelegramChat,
   shouldStartProcessorLoop,
   start,

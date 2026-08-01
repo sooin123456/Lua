@@ -31,7 +31,9 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 - [x] `/lua status`, `/lua todo`, `/lua next` 기본 명령 처리
 - [x] 자연어 요청 의도 분류
 - [x] Claude 실행 어댑터와 안전한 대기열
-- [ ] Claude API 키 설정 및 실 호출 활성화 (사용자 권한 필요)
+- [x] 구독형 Claude Code Mac Worker 연결 구현
+- [x] 구독형 Codex Mac Worker 연결 구현
+- [ ] Claude Code 구독 로그인 및 Mac Worker Telegram 페어링
 - [x] Codex handoff 연결
 - [x] 승인 버튼과 승인 대기열
 - [x] Obsidian 제한 맥락 검색
@@ -44,7 +46,9 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 사용자 Telegram 명령
 → Railway Lua Cloud Main
 → 요청 분류와 위험도 판정
-→ Claude 또는 Codex에 작업 배정
+→ Supabase 승인 작업 대기열
+→ 구독 로그인된 Mac Worker
+→ Claude Code 또는 Codex CLI에 작업 배정
 → 실행 결과 검증
 → Telegram 결과 보고
 → Supabase 작업 상태 저장
@@ -59,12 +63,13 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 | `/lua status` | Lua 상태 확인 | 현재 지원 |
 | `/lua todo {내용}` | 할 일 등록 | 현재 지원 |
 | `/lua next` | 다음 행동 추천 | 현재 지원 |
-| `/lua ask {질문}` | 질문, 분석, 요약 | Claude로 전달 예정 |
-| `/lua do {작업}` | 실제 작업 수행 | 자동 라우팅 예정 |
-| `/lua tasks` | 진행 중 작업 확인 | 작업 상태 조회 예정 |
-| `/lua approve {id}` | 승인 대기 작업 승인 | 승인 시스템 예정 |
-| `/lua reject {id}` | 작업 거절 | 승인 시스템 예정 |
+| `/lua ask {질문}` | 질문, 분석, 요약 | Claude 대기열 → Mac Worker |
+| `/lua do {작업}` | 실제 작업 수행 | 승인 → Codex Mac Worker |
+| `/lua tasks` | 진행 중 작업 확인 | 현재 지원 |
+| `/lua approve {id}` | 승인 대기 작업 승인 | 현재 지원 |
+| `/lua reject {id}` | 작업 거절 | 현재 지원 |
 | `/lua remember {내용}` | 장기 기억 요청 | Obsidian 기록 예정 |
+| `/lua pair` | Mac Worker 연결 | 일회용 코드 발급 |
 
 ## Agent 배분 규칙
 
@@ -138,7 +143,7 @@ captured → classified → awaiting_approval → running → completed
 - 저장소와 작업 범위를 명시한다.
 - 테스트 결과와 변경 파일을 Telegram으로 보고한다.
 
-완료 기준: Telegram에서 요청한 작은 저장소 작업이 Codex에서 실행되고 결과가 돌아온다. 승인된 작업은 `npm run cloud:codex:next`로 handoff note를 만들고 Codex가 처리한다.
+완료 기준: Telegram에서 요청한 작은 저장소 작업이 Codex에서 실행되고 결과가 돌아온다. 승인된 작업은 Mac Worker가 `codex exec`로 처리하고 결과를 Railway가 Telegram으로 돌려준다. Worker 미연결 시 `npm run cloud:codex:next` 수동 handoff를 사용할 수 있다.
 
 ### 3. Claude 실행 연결
 
@@ -146,7 +151,7 @@ captured → classified → awaiting_approval → running → completed
 - 필요한 Obsidian 맥락만 선별해 제공한다.
 - 답변과 후속 행동을 Telegram으로 돌려준다.
 
-완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. 런타임 어댑터와 제한 맥락 검색은 완료했으며, Railway `ANTHROPIC_API_KEY` 설정 후 실제 호출을 활성화한다.
+완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. Mac Worker는 Claude App 구독으로 로그인된 `claude -p`를 사용하며 별도 AI API 키를 요구하지 않는다.
 
 ### 4. 승인 시스템
 
@@ -185,7 +190,11 @@ captured → classified → awaiting_approval → running → completed
 
 ## 바로 다음 작업
 
-Railway에 `ANTHROPIC_API_KEY`를 추가한다. 이후 `/lua ask`는 관련 Obsidian Markdown 발췌만 포함해 Claude에 직접 질의하고 Telegram으로 결과를 돌려준다. 키가 없으면 기존처럼 작업을 안전한 대기열에 남긴다.
+1. 이 Mac에서 `claude`를 실행해 Claude App 구독으로 로그인한다.
+2. Telegram에서 `/lua pair`를 보낸다.
+3. 받은 코드를 `npm run cloud:worker:pair -- CODE`로 입력한다.
+4. `npm run cloud:worker:once`로 첫 작업을 검증한다.
+5. `npm run cloud:worker:install`로 로그인 세션에서 자동 시작한다.
 
 ## 관련 문서
 

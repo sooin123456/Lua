@@ -28,6 +28,7 @@ const VALID_AGENTS = new Set([
   'qa',
   'release',
   'ops',
+  'pair',
 ]);
 
 function usage() {

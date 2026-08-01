@@ -23,6 +23,14 @@ const {
   validateCloudEnv,
 } = require('../lua_cloud_main');
 const { buildTelegramWebhookRequest, checkSupabaseSchema, runSetupCommand } = require('../lua_cloud_main/setup');
+const {
+  buildAgentPrompt,
+  detectAgentAvailability,
+  pairWorker,
+  runWorkerOnce,
+  safeText,
+} = require('../lua_cloud_main/mac_worker');
+const { buildPlist, servicePaths } = require('../lua_cloud_main/mac_worker_service');
 
 function listen(server) {
   return new Promise((resolve) => {
@@ -177,6 +185,132 @@ test('memory store records commands, logs, and memory without Supabase config', 
   assert.equal(store.snapshot().commands.length, 1);
   assert.equal(store.snapshot().memories.length, 1);
   assert.equal(store.snapshot().logs.length, 1);
+});
+
+test('pairs a Mac Worker with a one-time code and authorizes its token', async () => {
+  const store = createMemoryStore({});
+  const pairing = await store.createWorkerPair('1780466684', new Date('2026-08-01T00:00:00Z'));
+  const exchanged = await store.exchangeWorkerPair(pairing.code, 'test-mac', new Date('2026-08-01T00:01:00Z'));
+
+  assert.equal(pairing.code.length, 16);
+  assert.match(exchanged.token, /^lua_worker_/);
+  assert.equal((await store.exchangeWorkerPair(pairing.code, 'other-mac', new Date('2026-08-01T00:02:00Z'))), null);
+  const worker = await store.authorizeWorker(exchanged.token);
+  assert.equal(worker.workerId, 'test-mac');
+  assert.equal(JSON.stringify(store.snapshot()).includes(exchanged.token), false);
+});
+
+test('processes Telegram Mac Worker pairing without persisting the code in command result', async () => {
+  const store = createMemoryStore({});
+  const command = { id: 61, chatId: '1780466684', command: '/lua pair', agent: 'pair', payload: '' };
+  await store.saveCommand(command);
+  const result = await processCommand(command, { store });
+
+  assert.equal(result.ok, true);
+  assert.match(result.result, /Code: [A-Z0-9]{16}/);
+  assert.doesNotMatch(store.snapshot().commands[0].result, /[A-Z0-9]{16}/);
+});
+
+test('serves authenticated worker claim and completion endpoints', async () => {
+  const store = createMemoryStore({});
+  const pairing = await store.createWorkerPair('1780466684');
+  const { token } = await store.exchangeWorkerPair(pairing.code, 'test-mac');
+  await store.saveCommand({
+    id: 72,
+    chatId: '1780466684',
+    command: '/lua do',
+    agent: 'do',
+    payload: '검증 작업',
+    routeAgent: 'codex',
+    approval: 'ask_first',
+    status: 'awaiting_agent',
+  });
+  const telegramCalls = [];
+  const server = createServer({
+    store,
+    env: { TELEGRAM_BOT_TOKEN: 'test-token' },
+    fetchImpl: async (url, init) => {
+      telegramCalls.push({ url, body: JSON.parse(init.body) });
+      return { ok: true, json: async () => ({ ok: true }) };
+    },
+  });
+  const baseUrl = await listen(server);
+  try {
+    const unauthorized = await fetch(`${baseUrl}/worker/tasks/claim`, { method: 'POST', headers: { 'content-type': 'application/json' }, body: '{}' });
+    assert.equal(unauthorized.status, 401);
+
+    const claim = await fetch(`${baseUrl}/worker/tasks/claim`, {
+      method: 'POST',
+      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+      body: JSON.stringify({ workerId: 'test-mac', agents: ['codex'] }),
+    });
+    const claimed = await claim.json();
+    assert.equal(claimed.task.id, 72);
+    assert.equal(claimed.task.status, 'running');
+
+    const complete = await fetch(`${baseUrl}/worker/tasks/72/result`, {
+      method: 'POST',
+      headers: { authorization: `Bearer ${token}`, 'content-type': 'application/json' },
+      body: JSON.stringify({ ok: true, result: '검증 완료' }),
+    });
+    assert.equal(complete.status, 200);
+    assert.equal(store.snapshot().commands[0].status, 'done');
+    assert.match(telegramCalls[0].body.text, /검증 완료/);
+  } finally {
+    await close(server);
+  }
+});
+
+test('detects subscription CLI logins and processes a Codex worker task', async () => {
+  const availability = await detectAgentAvailability({
+    spawnCapture: async (command) => command.includes('claude')
+      ? { ok: false, stdout: '{"loggedIn":false}', stderr: '' }
+      : { ok: true, stdout: 'Logged in using ChatGPT', stderr: '' },
+    claudePath: '/test/claude',
+    codexPath: '/test/codex',
+  });
+  assert.deepEqual(availability.agents, ['codex']);
+
+  const requests = [];
+  const result = await runWorkerOnce({
+    env: { LUA_WORKER_URL: 'https://worker.test', LUA_WORKER_TOKEN: 'worker-token', LUA_WORKER_ID: 'test-mac' },
+    availability,
+    spawnCapture: async () => ({ ok: true, stdout: 'Codex 작업 완료', stderr: '', code: 0 }),
+    fetchImpl: async (url, init) => {
+      requests.push({ url, body: JSON.parse(init.body), authorization: init.headers.authorization });
+      const body = url.endsWith('/claim')
+        ? { ok: true, task: { id: 81, routeAgent: 'codex', payload: '테스트 실행' } }
+        : { ok: true, status: 'done' };
+      return { ok: true, text: async () => JSON.stringify(body) };
+    },
+  });
+  assert.equal(result.ok, true);
+  assert.equal(result.taskId, 81);
+  assert.equal(requests.length, 2);
+  assert.equal(requests[1].body.result, 'Codex 작업 완료');
+  assert.match(requests[0].authorization, /^Bearer /);
+});
+
+test('pairs worker into a protected env file and builds a secret-free launchd service', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-worker-'));
+  const envFile = path.join(root, '.env.worker');
+  const paired = await pairWorker('PAIR-CODE', {
+    envFile,
+    workerId: 'test-mac',
+    baseUrl: 'https://worker.test',
+    fetchImpl: async () => ({ ok: true, text: async () => JSON.stringify({ ok: true, token: 'lua_worker_private' }) }),
+  });
+  const content = fs.readFileSync(envFile, 'utf8');
+  assert.equal(paired.ok, true);
+  assert.match(content, /LUA_WORKER_TOKEN=lua_worker_private/);
+  assert.equal(fs.statSync(envFile).mode & 0o777, 0o600);
+  const plist = buildPlist({ rootDir: root, homeDir: root, nodePath: '/usr/bin/node' });
+  assert.match(plist, /dev\.lua\.mac-worker/);
+  assert.doesNotMatch(plist, /lua_worker_private/);
+  assert.match(servicePaths({ rootDir: root, homeDir: root }).plistPath, /Library\/LaunchAgents/);
+  assert.match(buildAgentPrompt({ id: 1, routeAgent: 'codex', payload: '수정' }), /must run relevant tests/);
+  assert.equal(safeText('token lua_worker_abcdefghijkl'), 'token [REDACTED_WORKER_TOKEN]');
+  fs.rmSync(root, { recursive: true, force: true });
 });
 
 test('memory store keeps running when Supabase insert fails', async () => {
