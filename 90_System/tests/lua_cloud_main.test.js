@@ -16,7 +16,9 @@ const {
   normalizeTelegramUpdate,
   processCommand,
   processQueuedCommands,
+  parseReminderInput,
   routeCommand,
+  runProactiveCheck,
   searchVaultContext,
   shouldStartProcessorLoop,
   startProcessorLoop,
@@ -27,6 +29,7 @@ const {
   buildAgentPrompt,
   detectAgentAvailability,
   pairWorker,
+  runRecordOnce,
   runWorkerOnce,
   safeText,
 } = require('../lua_cloud_main/mac_worker');
@@ -278,17 +281,41 @@ test('detects subscription CLI logins and processes a Codex worker task', async 
     spawnCapture: async () => ({ ok: true, stdout: 'Codex 작업 완료', stderr: '', code: 0 }),
     fetchImpl: async (url, init) => {
       requests.push({ url, body: JSON.parse(init.body), authorization: init.headers.authorization });
-      const body = url.endsWith('/claim')
-        ? { ok: true, task: { id: 81, routeAgent: 'codex', payload: '테스트 실행' } }
+      const body = url.endsWith('/records/claim')
+        ? { ok: true, record: null }
+        : url.endsWith('/tasks/claim')
+          ? { ok: true, task: { id: 81, routeAgent: 'codex', payload: '테스트 실행' } }
         : { ok: true, status: 'done' };
       return { ok: true, text: async () => JSON.stringify(body) };
     },
   });
   assert.equal(result.ok, true);
   assert.equal(result.taskId, 81);
-  assert.equal(requests.length, 2);
-  assert.equal(requests[1].body.result, 'Codex 작업 완료');
+  assert.equal(requests.length, 3);
+  assert.equal(requests[2].body.result, 'Codex 작업 완료');
   assert.match(requests[0].authorization, /^Bearer /);
+});
+
+test('writes completed Lua records into the local Obsidian vault without sending record contents back to Railway', async () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-record-'));
+  const requests = [];
+  const result = await runRecordOnce({
+    rootDir: root,
+    env: { LUA_WORKER_URL: 'https://worker.test', LUA_WORKER_TOKEN: 'worker-token', LUA_WORKER_ID: 'test-mac' },
+    fetchImpl: async (url, init) => {
+      requests.push({ url, body: JSON.parse(init.body) });
+      const body = url.endsWith('/records/claim')
+        ? { ok: true, record: { id: 99, command: '/lua ask', routeAgent: 'claude', payload: '계획 요약', result: '요약 완료' } }
+        : { ok: true, recorded: true };
+      return { ok: true, text: async () => JSON.stringify(body) };
+    },
+  });
+  const recordPath = path.join(root, '00_Lua', '03_Records', 'Lua Assistant Records.md');
+  const content = fs.readFileSync(recordPath, 'utf8');
+  assert.equal(result.ok, true);
+  assert.match(content, /요약 완료/);
+  assert.deepEqual(requests[1].body, { ok: true });
+  fs.rmSync(root, { recursive: true, force: true });
 });
 
 test('pairs worker into a protected env file and builds a secret-free launchd service', async () => {
@@ -665,6 +692,44 @@ test('builds practical command processor results', () => {
   assert.match(next, /todo #11/);
 });
 
+test('parses and stores a KST reminder without sending it immediately', async () => {
+  assert.deepEqual(parseReminderInput('2026-08-02 09:00 회의 준비'), {
+    remindAt: '2026-08-02T00:00:00.000Z',
+    message: '회의 준비',
+  });
+  const store = createMemoryStore({});
+  const command = { id: 52, chatId: '1780466684', command: '/lua remind', agent: 'remind', payload: '2026-08-02 09:00 회의 준비' };
+  await store.saveCommand(command);
+  const result = await processCommand(command, { store });
+  assert.equal(result.ok, true);
+  assert.match(result.result, /Reminder set/);
+  assert.equal(store.snapshot().reminders[0].status, 'pending');
+});
+
+test('sends due reminders and one daily brief only when proactive mode is explicitly enabled', async () => {
+  const store = createMemoryStore({});
+  await store.createReminder({ chatId: '1780466684', message: '회의 준비', remindAt: '2026-08-01T00:00:00.000Z' });
+  const sent = [];
+  const result = await runProactiveCheck({
+    store,
+    env: { LUA_PROACTIVE_ENABLED: 'true', LUA_PROACTIVE_CHAT_ID: '1780466684', LUA_DAILY_BRIEF_HOUR_KST: '9' },
+    now: new Date('2026-08-01T00:01:00.000Z'),
+    sendTelegram: async (chatId, text) => sent.push({ chatId, text }),
+  });
+  assert.equal(result.enabled, true);
+  assert.equal(sent.length, 2);
+  assert.match(sent[0].text, /회의 준비/);
+  assert.match(sent[1].text, /morning brief/);
+  assert.equal(store.snapshot().reminders[0].status, 'sent');
+  const again = await runProactiveCheck({
+    store,
+    env: { LUA_PROACTIVE_ENABLED: 'true', LUA_PROACTIVE_CHAT_ID: '1780466684', LUA_DAILY_BRIEF_HOUR_KST: '9' },
+    now: new Date('2026-08-01T00:05:00.000Z'),
+    sendTelegram: async (chatId, text) => sent.push({ chatId, text }),
+  });
+  assert.deepEqual(again.sent, []);
+});
+
 test('holds Codex work for approval and releases it with an approval command', async () => {
   const store = createMemoryStore({});
   const task = {
@@ -937,7 +1002,7 @@ test('checks Supabase schema without leaking service role key', async () => {
   });
 
   assert.equal(result.ok, false);
-  assert.equal(result.tables.length, 3);
+  assert.equal(result.tables.length, 4);
   assert.equal(result.tables.find((table) => table.table === 'lua_logs').ok, false);
   assert.ok(calls.every((call) => call.authorization === 'Bearer service-role-secret'));
   assert.equal(JSON.stringify(result).includes('service-role-secret'), false);
