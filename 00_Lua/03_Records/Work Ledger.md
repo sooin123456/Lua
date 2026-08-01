@@ -854,3 +854,14 @@ last_updated: 2026-05-28
 - Changed: generated and stored the server-only `TELEGRAM_WEBHOOK_SECRET` in Railway, then registered the production Telegram webhook
 - Verification: Railway service online; `GET /health` reports Telegram and Supabase configured; unauthenticated webhook requests return `401`; Telegram reports the registered production URL with zero pending updates
 - Next: send `/lua status Lua` to `@Lua_mainbot` to use the live command entrance
+
+## 2026-08-01 KST - accept plain Telegram commands
+
+- Host: `codex`
+- Agent: `Codex`
+- Repo/area: Lua Cloud Main, Telegram
+- Trigger: user reported that `@Lua_mainbot` did not answer
+- Changed: updated the Telegram command normalizer so ordinary non-empty messages are captured as `/lua todo` commands instead of being ignored; explicit `/lua` commands continue to work unchanged
+- Verification: `npm run check`; `npm run test:node` (62 passing); GitHub deployment published; Railway `/health` returns configured Telegram and Supabase
+- Commit: GitHub `Capture plain Telegram commands`; local `dfad523`
+- Next: user sends a normal test message such as `내일 회의 준비해줘` and confirms the bot reply
