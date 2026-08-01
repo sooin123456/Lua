@@ -1,97 +1,150 @@
-# Lua Main
+# Lua
 
-Telegram을 24시간 명령 입구로 사용하고, 로컬 Runner가 명령을 복호화해
-Obsidian Vault에 저장하는 개인 비서 기반입니다.
+Lua is a personal Agent OS for moving real projects forward without losing context.
 
-## 현재 범위
+It started as an Obsidian-first operating vault. The current direction keeps that vault as the memory and command center, then adds a small executable Python runtime for durable project/task/checkpoint management.
 
-```text
-Telegram → Cloud Gateway → 암호화된 작업 대기열
-                           → Local Runner → Obsidian Markdown
-```
+## What Lua Is
 
-아직 Agent 실행과 모델 라우팅은 포함하지 않습니다. 먼저 명령이 유실되지
-않고 로컬 Vault까지 도착하는 흐름을 검증합니다.
+Lua is not one generic Jarvis-style chatbot. It is a customizable system for composing purpose-specific agents:
 
-## 요구 사항
+- `lua_Project_Agent` for project continuity
+- `lua_Dev_Agent` for Codex-oriented implementation work
+- `lua_Research_Agent` for research and vendor comparison
+- `lua_Product_Agent` for MVP scope and roadmap work
+- `lua_Risk_Agent` for approval boundaries and safety checks
+- future custom `_Agent` variants for other users and domains
 
-- Node.js 24 이상
-- Telegram Bot token
-- 외부에서 접근 가능한 Gateway HTTPS 주소
+The first working target is `lua_Project_Agent`.
 
-## 1. Runner 키 생성
+## Core Idea
 
-```bash
-npm run keys
-```
+Every meaningful command should become durable work:
 
-출력되는 `RUNNER_PUBLIC_KEY_B64`는 Gateway 환경변수에 넣습니다. 비밀키는
-`local-data/keys/runner-private.pem`에 생성되며 Git에 포함되지 않습니다.
+1. Capture a command.
+2. Turn it into a project or task.
+3. Store the next action.
+4. Route the work to the right agent or tool.
+5. Write a checkpoint after each session.
+6. Resume from the checkpoint instead of restarting from memory.
 
-## 2. Gateway 실행
-
-`.env.example`의 Cloud Gateway 값을 배포 환경에 설정한 뒤 실행합니다.
-
-```bash
-npm run gateway
-```
-
-Telegram webhook 주소는 다음과 같습니다.
+## Repository Shape
 
 ```text
-https://YOUR_GATEWAY/telegram/webhook
+90_System/80_Lua_Details/00_Inbox/                  Raw captures
+90_System/80_Lua_Details/01_Command Center/         Dashboards, identity, permissions, command runs
+90_System/80_Lua_Details/02_Projects/               Project spaces
+90_System/80_Lua_Details/03_Operation/              CRM, proposals, industry intelligence, operations
+90_System/03_Wiki/                   Lua operating knowledge
+90_System/80_Lua_Details/04_Resources/              Reference material and tech stack notes
+90_System/05_Archives/               Archived context
+90_System/80_Lua_Details/05_Personal Studio/        Personal ideas, drafts, experiments
+90_System/07_Lua_System/             Agent prompts, skills, verticals, runtime notes
+90_System/08_Artifacts/              Artifact ledger
+90_System/09_Automations/            Automation specs and runbooks
+90_System/99_Templates/              Reusable templates
+90_System/lua_agent/                 Python runtime for durable project operation
+90_System/docs/                      Development specs, plans, and customization docs
+90_System/scripts/                   Node-based vault checks and automations
+90_System/tests/                     Node and Python tests
 ```
 
-Webhook을 등록할 때 `TELEGRAM_WEBHOOK_SECRET`과 같은 값을
-`secret_token`으로 지정해야 합니다.
+## Current MVP Runtime
 
-### Railway 배포
+The Python runtime currently supports:
 
-GitHub 저장소를 Railway 서비스에 연결하면 `main` 브랜치에 push할 때마다
-배포됩니다. 서비스에 Volume을 `/app/data`로 연결하고 다음 Variables를 넣습니다.
+- typed `Project`, `Task`, `Checkpoint`, `Agent`, and `ToolInstruction` models
+- SQLite persistence
+- active task lookup
+- Obsidian-ready project note rendering
+- Codex `/goal` generation
+- seed commands for the first three validation projects
+- checkpoint logging that updates task `next_action`
+- Obsidian markdown export
+- heartbeat listing for resumable active tasks
 
-```text
-GATEWAY_DB_PATH=/app/data/gateway.sqlite
-TELEGRAM_BOT_TOKEN=...
-TELEGRAM_WEBHOOK_SECRET=...
-TELEGRAM_USER_ID=...
-RUNNER_TOKEN=...
-RUNNER_PUBLIC_KEY_B64=...
-```
-
-Railway가 만든 Public Domain의 `/health`가 `{"ok":true}`를 반환하면,
-그 도메인의 `/telegram/webhook`을 Telegram webhook 주소로 등록합니다.
-
-## 3. Local Runner 실행
-
-로컬 환경에 다음 값을 설정합니다.
-
-```text
-GATEWAY_URL=https://YOUR_GATEWAY
-RUNNER_TOKEN=...
-RUNNER_PRIVATE_KEY_PATH=./local-data/keys/runner-private.pem
-VAULT_PATH=/absolute/path/to/Obsidian/Vault
-```
-
-그다음 실행합니다.
+Example:
 
 ```bash
-npm run runner
+uv run lua --db .lua_agent/lua.db project create "Toss Mini App To App" \
+  --goal "Plan and build a Toss mini app that can expand into a standalone app."
+
+uv run lua --db .lua_agent/lua.db task create PROJ-001 "Implement first prototype" \
+  --goal "Create a runnable MVP skeleton." \
+  --next-action "Create project files and tests." \
+  --owner-agent lua_Dev_Agent
+
+uv run lua --db .lua_agent/lua.db codex goal PROJ-001 TASK-001
 ```
 
-Telegram에서 보낸 텍스트는 Vault의 `01_Inbox/Commands/`에 Markdown으로
-저장됩니다.
-
-## 검증
+Start the three validation projects:
 
 ```bash
-npm test
+uv run lua --db .lua_agent/lua.db seed projects
+uv run lua --db .lua_agent/lua.db heartbeat
 ```
 
-테스트는 암호화 변조 거부와 Telegram webhook부터 임시 Vault까지의 전체
-흐름을 확인합니다.
+On a fresh database this creates 15 workflow tasks: five for Toss, five for Telegram trading bot, and five for floating solar monitoring.
 
-## 다음 단계
+Generate a tool-specific work order:
 
-이 흐름을 실제 Telegram에서 검증한 뒤, Local Runner에 작업 계획과
-Agent·모델 라우팅을 추가합니다.
+```bash
+uv run lua --db .lua_agent/lua.db tool route PROJ-001 TASK-001
+uv run lua --db .lua_agent/lua.db tool instruction PROJ-001 TASK-001
+```
+
+For app-like implementation tasks, Lua references `Lua_template` as the app baseline:
+
+- https://github.com/sooin123456/Lua_template
+
+## Initial Validation Projects
+
+Lua is being shaped around three real projects:
+
+- Toss mini app that can expand into a standalone app
+- Telegram trading bot that can expand into an app/dashboard
+- floating solar monitoring system planning, including vendor research and selection
+
+The use-case specs live in `90_System/docs/use-cases/`.
+
+## Validation
+
+Run the vault checks:
+
+```bash
+npm run check
+```
+
+Run the Python runtime tests:
+
+```bash
+uv run --extra dev pytest -v
+```
+
+Run both:
+
+```bash
+npm run test:all
+```
+
+## Operating Rules
+
+- Obsidian is the private memory and command center.
+- GitHub is the versioned code and change-history ledger.
+- Notion is for team-facing dashboards and mirrored operational state.
+- Telegram is the command surface; Notion is an optional shared record. Neither is canonical memory.
+- Codex handles implementation and deterministic verification.
+- Claude handles planning, synthesis, long-context review, and writing.
+- External publishing, trading, spending, deletion, account changes, and public communication require explicit approval.
+
+## Development Notes
+
+Important design records:
+
+- `90_System/docs/superpowers/specs/2026-05-27-lua-agent-design.md`
+- `90_System/docs/superpowers/plans/2026-05-27-lua-project-agent-mvp.md`
+- `90_System/docs/vision.md`
+- `Lua-v4-operating-architecture.md`
+- `90_System/80_Lua_Details/04_Resources/Tech Stack/Lua Template.md`
+
+Meaningful sessions should also be recorded in `00_Lua/03_Records/Work Ledger.md`.

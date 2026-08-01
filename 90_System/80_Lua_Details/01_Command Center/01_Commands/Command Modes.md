@@ -1,0 +1,125 @@
+---
+type: operating-guide
+status: active
+last_updated: 2026-05-28
+---
+
+# Command Modes
+
+Lua 명령은 "내가 어디서 명령을 내리는지" 기준으로 오프라인 명령과 온라인 명령을 나눈다.
+
+## Core Rule
+
+- Offline command: 내가 컴퓨터 앞에서 Codex/Claude/Obsidian을 직접 열고 내리는 명령.
+- Online command: 내가 밖에 있을 때 Telegram 같은 모바일/외부 채널로 Lua에게 내리는 명령.
+
+여기서 online은 "외부로 공개한다"는 뜻이 아니라, "내가 외부에 있을 때 원격으로 명령한다"는 뜻이다.
+
+## Offline Commands
+
+컴퓨터 앞에 있을 때 쓰는 명령이다. Codex, Claude, Obsidian, 터미널에서 실행한다.
+
+| 상황 | 명령 위치 | 예시 |
+|---|---|---|
+| vault 정리 | Codex | `orphan 연결해줘` |
+| 아이디어 분류 | Codex/Obsidian | `/inbox-triage` |
+| 도메인 명령 하달 | Obsidian Command Center | `/lua planning prioritize :: 이번 주 우선순위` |
+| 앱 만들기 | Codex | `/project-sprint time-app first-demo` |
+| 긴 글/기획 | Claude | `이 내용을 팀 공유 초안으로 바꿔줘` |
+| 로컬 검사 | 터미널/Codex | `node 90_System/scripts/check.js` |
+| GitHub 반영 | Codex | `올려줘` |
+
+## Online Commands
+
+내가 밖에 있을 때 Telegram으로 Lua에게 던지는 명령이다. Telegram은 Lua의 메인 원격 명령 입력창이다. Notion은 명령 창구가 아니라 승인된 내용을 정리해두는 선택적 공유 기록이다.
+
+| Telegram 명령 | 목적 | 기본 처리 |
+|---|---|---|
+| `/lua inbox {내용}` | 떠오른 생각 저장 | Obsidian Inbox에 capture |
+| `/lua todo {내용}` | 할 일 등록 | Backlog 후보로 분류 |
+| `/lua brief {내용}` | 팀 공유 초안 만들기 | Team Brief Drafts에 draft |
+| `/lua ask {질문}` | 나중에 AI가 답할 질문 저장 | Inbox 또는 Research 후보 |
+| `/lua status {프로젝트}` | 프로젝트 상태 요청 | 상태 요약 draft |
+| `/lua remind {내용}` | 리마인더 후보 | Automation 후보 |
+| `/lua approve {id}` | 승인 표시 | approved 상태로 변경 |
+
+초기 버전에서는 Telegram 명령이 바로 실행되지 않고 Obsidian에 "명령 대기열"로 들어간다. Codex가 나중에 대기열을 읽고 처리한다.
+
+## Command Queue
+
+Telegram에서 들어온 온라인 명령은 아래 흐름으로 처리한다.
+
+1. Telegram message 또는 bot command.
+2. [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]에 저장.
+3. Codex가 명령을 분류.
+4. 안전한 것은 Obsidian에 반영.
+5. 외부 전송/게시가 필요한 것은 draft 상태로 멈춤.
+6. 사용자가 승인하면 실행.
+
+## Safety Levels
+
+명령 위치와 별개로, 실제 행동의 위험도는 따로 본다.
+
+| Level | 설명 | 예시 |
+|---|---|---|
+| S0 Capture | 기록만 함 | Telegram에서 Inbox 저장 |
+| S1 Local Edit | Obsidian/로컬 파일 수정 | 노트 분류, 초안 작성 |
+| S2 Local Commit | Git 로컬 커밋 | vault 정리 커밋 |
+| S3 Remote Sync | GitHub/Notion으로 반영 | GitHub push, Notion publish |
+| S4 Public/Irreversible | 공개 게시, 삭제, 결제 | 웹사이트 공개, 대량 삭제 |
+
+Online command라도 기본은 S0 또는 S1까지만 자동 처리한다. S3 이상은 승인 없이 실행하지 않는다.
+
+## Naming
+
+Telegram에서 쓰는 온라인 명령은 `/lua`로 시작한다.
+
+| Prefix | 의미 |
+|---|---|
+| `/lua inbox` | 생각 캡처 |
+| `/lua todo` | 할 일 캡처 |
+| `/lua brief` | 공유 초안 |
+| `/lua ask` | 질문/조사 요청 |
+| `/lua status` | 상태 요청 |
+| `/lua approve` | 승인 |
+
+역할별 agent command는 [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]를 기본으로 한다. 팀 공유가 필요하면 먼저 Obsidian에 초안을 만들고, 승인 후 Notion에 정리한다.
+
+Codex/Claude에서 쓰는 오프라인 명령은 자연어로 말하거나 기존 `/project-sprint`, `/work-log` 같은 명령을 쓴다.
+
+Obsidian에서 쓰는 기본 명령은 [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]의 `/lua {domain} {intent} :: {payload}` 형식을 따른다.
+
+## Telegram Rule
+
+Telegram은 Lua의 main command ingress다.
+
+- Telegram으로 들어온 명령은 먼저 [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]에 저장한다.
+- 현재 로컬 테스트는 `node 90_System/scripts/telegram_command_inbox.js` 또는 `npm run telegram:queue -- "/lua status Lua"`로 한다.
+- 실제 Bot API polling은 `TELEGRAM_BOT_TOKEN=... npm run telegram:poll` 또는 `npm run telegram:watch`로 한다.
+- Telegram 명령은 기본적으로 capture-first이며, S3 이상 행동은 승인 없이는 실행하지 않는다.
+
+## External Sharing Rule
+
+외부 공유는 Notion draft를 기본으로 한다.
+
+- Telegram 명령은 capture-first로만 처리한다.
+- 외부 전송, 공개 게시, 배포, 계정 변경은 사용자 승인 전에는 실행하지 않는다.
+- 팀 공유가 필요하면 [[90_System/80_Lua_Details/03_Operation/Team Brief Drafts|Team Brief Drafts]]에 먼저 초안을 만든다.
+
+## Git Rule
+
+GitHub push는 online command가 아니라 offline command의 remote sync 단계다.
+
+1. 파일 수정.
+2. `node 90_System/scripts/check.js`.
+3. `node 90_System/scripts/vault_audit.js`.
+4. 로컬 commit.
+5. 사용자가 "올려줘" 또는 "push 해줘"라고 하면 push.
+
+## Navigation
+
+- [[90_System/80_Lua_Details/01_Command Center/04_Policies/Lua Usage Guide|Lua Usage Guide]]
+- [[00_Lua/01_Commands/Command Inbox|Obsidian Command Center]]
+- [[90_System/80_Lua_Details/01_Command Center/04_Policies/Obsidian Writing Rules|Obsidian Writing Rules]]
+- [[90_System/09_Automations/Telegram Command Inbox|Telegram Command Inbox]]
+- [[00_Lua/03_Records/Work Ledger|Work Ledger]]

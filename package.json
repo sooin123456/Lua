@@ -1,15 +1,45 @@
 {
-  "name": "lua-main",
+  "name": "obsidian-vault",
+  "version": "1.0.0",
+  "main": "index.js",
   "private": true,
-  "type": "module",
   "scripts": {
-    "gateway": "node apps/gateway.mjs",
-    "runner": "node apps/runner.mjs",
-    "keys": "node scripts/generate-keys.mjs",
-    "test": "node --test"
+    "audit": "node 90_System/scripts/vault_audit.js",
+    "check": "node 90_System/scripts/check.js",
+    "flow:audit": "node 90_System/scripts/flow_audit.js",
+    "notion:queue": "node 90_System/scripts/notion_publish_queue.js --apply",
+    "notion:dry-run": "node 90_System/scripts/notion_publish_queue.js --dry-run",
+    "lua-ui": "node 90_System/scripts/lua_command_ui_server.js",
+    "connect:agents": "node 90_System/scripts/connect_agent_hub.js",
+    "atlas:route": "node 90_System/scripts/atlas_router.js --apply",
+    "atlas:dry-run": "node 90_System/scripts/atlas_router.js --dry-run",
+    "build:run": "node 90_System/scripts/build_runner.js --apply",
+    "template:inspect": "node 90_System/scripts/lua_template_inspector.js",
+    "command:process": "node 90_System/scripts/process_command_queue.js --apply",
+    "fill:scaffolds": "node 90_System/scripts/fill_empty_scaffolds.js",
+    "command:queue": "node 90_System/scripts/obsidian_command_queue.js",
+    "inbox:add": "node 90_System/scripts/add_inbox_capture.js",
+    "inbox:promote": "node 90_System/scripts/promote_inbox_to_commands.js --apply",
+    "telegram:queue": "node 90_System/scripts/telegram_command_inbox.js",
+    "telegram:poll": "node 90_System/scripts/telegram_bot_poll.js --once",
+    "telegram:watch": "node 90_System/scripts/telegram_bot_poll.js --watch --timeout 25",
+    "obsidian:sync:dry-run": "node 90_System/scripts/sync_obsidian_vault.js --dry-run",
+    "obsidian:sync": "node 90_System/scripts/sync_obsidian_vault.js --apply",
+    "cloud:main": "node 90_System/lua_cloud_main/cli.js",
+    "cloud:check-env": "node 90_System/lua_cloud_main/setup.js check-env",
+    "cloud:process": "node 90_System/lua_cloud_main/process_cli.js",
+    "cloud:codex:next": "node 90_System/lua_cloud_main/codex_handoff.js",
+    "cloud:supabase:check": "node 90_System/lua_cloud_main/setup.js check-supabase-schema",
+    "cloud:webhook:dry-run": "node 90_System/lua_cloud_main/setup.js set-telegram-webhook",
+    "cloud:webhook:set": "node 90_System/lua_cloud_main/setup.js set-telegram-webhook --apply",
+    "sync:skills": "node 90_System/scripts/sync_skills.js",
+    "test": "node 90_System/scripts/check.js",
+    "test:node": "node --test 90_System/tests/*.test.js",
+    "test:python": "uv run --extra dev pytest -v",
+    "test:all": "npm run check && npm run test:node && npm run test:python"
   },
-  "engines": {
-    "node": ">=24"
-  }
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "Obsidian-based AI operating system for personal and team projects"
 }
-

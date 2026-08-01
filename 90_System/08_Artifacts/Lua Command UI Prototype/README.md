@@ -1,0 +1,63 @@
+---
+type: artifact
+status: draft
+last_updated: 2026-05-16
+---
+
+# Lua Command UI Prototype
+
+Static first-screen prototype for [[90_System/80_Lua_Details/02_Projects/Lucia/Lua Command UI|Lua Command UI]].
+
+Open `index.html` directly to try the command composer in copy-only mode.
+
+Run the local writer server to write directly into Obsidian Command Queue.
+
+```bash
+npm run lua-ui
+```
+
+Then open:
+
+```text
+http://127.0.0.1:8765
+```
+
+## Scope
+
+- domain selection
+- intent selection
+- payload input
+- `/lua ... :: ...` command preview
+- Obsidian Command Queue row preview
+- copy draft command and row to clipboard in `file://` mode
+- write queued command rows in `localhost` mode
+- run a command end-to-end in `localhost` mode:
+  - write queued row
+  - create command run note
+  - route through Atlas Router
+  - return the run note path
+
+## Local API
+
+```text
+POST /api/commands
+```
+
+Writes a `queued` row only.
+
+```text
+POST /api/commands/run
+```
+
+Writes the row, processes the Command Queue, routes the new command with Atlas Router, and returns the run note link.
+
+```text
+POST /api/commands/build
+```
+
+Writes the row, routes it, runs the Build Runner, creates a build output artifact, marks the command `done`, and returns the artifact link.
+
+## Navigation
+
+- [[90_System/80_Lua_Details/02_Projects/Lucia/Lua Command UI|Lua Command UI]]
+- [[90_System/08_Artifacts/Artifact Ledger|Artifact Ledger]]
