@@ -63,17 +63,18 @@ test('normalizes Telegram /lua webhook updates into durable commands', () => {
   });
 });
 
-test('rejects non-lua Telegram webhook updates', () => {
-  assert.equal(
-    normalizeTelegramUpdate({
-      update_id: 1,
-      message: {
-        chat: { id: 1 },
-        text: '/start',
-      },
-    }),
-    null,
-  );
+test('captures plain Telegram text as a todo command', () => {
+  const command = normalizeTelegramUpdate({
+    update_id: 1,
+    message: {
+      chat: { id: 1 },
+      text: '다음 주 회의 준비해줘',
+    },
+  });
+
+  assert.equal(command.command, '/lua todo');
+  assert.equal(command.agent, 'todo');
+  assert.equal(command.payload, '다음 주 회의 준비해줘');
 });
 
 test('memory store records commands, logs, and memory without Supabase config', async () => {

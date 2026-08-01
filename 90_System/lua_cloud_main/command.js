@@ -3,9 +3,11 @@ const { parseCommand } = require('../scripts/telegram_command_inbox');
 function normalizeTelegramUpdate(update) {
   const message = update.message || update.channel_post || null;
   const text = message && typeof message.text === 'string' ? message.text.trim() : '';
-  if (!text.startsWith('/lua')) return null;
+  if (!text) return null;
 
-  const parsed = parseCommand(text);
+  const parsed = text.startsWith('/lua')
+    ? parseCommand(text)
+    : { command: '/lua todo', agent: 'todo', intent: '', payload: text };
   const chat = message.chat || {};
   const from = message.from || {};
   const date = message.date ? new Date(message.date * 1000) : new Date();
