@@ -875,3 +875,13 @@ last_updated: 2026-05-28
 - Changed: replaced the incorrectly configured bot username in Railway's Telegram allowlist with the user's numeric Telegram chat ID and deployed the configuration
 - Verification: Railway deployment status is Online; public `/health` reports Telegram and Supabase configured
 - Next: user sends a normal message to `@Lua_mainbot` and confirms the reply
+
+## 2026-08-01 KST - document Lua personal assistant build plan
+
+- Host: `codex`
+- Agent: `Codex`
+- Repo/area: Command Center, Lua operating guides
+- Trigger: user asked for one Markdown guide covering the next personal assistant implementation steps
+- Changed: created `Lua Personal Assistant Build Guide.md` with the target architecture, Claude/Codex routing, approval rules, command model, implementation order, and completion criteria
+- Verification: `node 90_System/scripts/check.js`
+- Next: implement the first natural-language router for Claude, Codex, and Lua
