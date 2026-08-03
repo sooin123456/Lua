@@ -937,3 +937,22 @@ last_updated: 2026-05-28
 - Safety: Railway receives only a record-complete acknowledgement, never the local Obsidian result text. Proactive Telegram delivery requires an explicit enabled environment flag and chosen chat ID; Git commit/push remains manual approval.
 - Verification: Supabase migration `add_lua_proactive_assistant` applied; RLS is enabled and policies are service-role-only; Supabase security/performance advisors have no findings; `npm run test:node` passed (75 tests); vault check passed.
 - Next: choose a KST morning briefing time and explicitly enable proactive delivery in Railway if desired.
+
+## 2026-08-03 KST - verify Lua assistant completion
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Trigger: user asked to finish the system from the personal assistant guide.
+- Changed: renewed the Claude subscription OAuth flow, stored the one-year OAuth token only in the git-ignored `.env.worker` (`0600`), restarted the `dev.lua.mac-worker` LaunchAgent, and updated the guide to describe subscription-token execution.
+- Verification: Railway health is online with Supabase and Telegram configured; Worker check reports Claude and Codex logged in and paired; authenticated Worker poll completed with no queued task; `npm run test:node` (75 passing); `node 90_System/scripts/check.js`; `git diff --check`.
+- Safety: proactive Telegram delivery remains opt-in (`LUA_PROACTIVE_ENABLED=false` by default); no token was committed or sent to Railway/Obsidian.
+- Next: use `/lua ask`, `/lua do`, `/lua remind`, or `/lua status` from Telegram. Enable proactive delivery only after choosing the chat ID and KST schedule.
+
+## 2026-08-03 KST - add local Lua Fast model
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Trigger: user chose the recommended local model for faster Telegram responses.
+- Changed: installed Ollama as a local macOS service, downloaded Gemma 4 12B Q4, and added durable Lua Fast routing for compact todo, status, schedule, reminder, and one-sentence requests. Claude remains the route for deeper thinking and writing; Codex remains the route for implementation.
+- Safety: Ollama binds only to `127.0.0.1`; Lua Fast is enabled only by the git-ignored paired-Worker environment file. It cannot claim external actions or access private vault data.
+- Next: deploy the tested routing patch to Railway, then test a short `/lua ask` from Telegram.

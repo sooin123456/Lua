@@ -8,7 +8,7 @@ last_updated: 2026-08-01
 
 ## 목적
 
-Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 적절히 배분하며, Obsidian을 장기 기억과 기록 창고로 사용하는 개인 비서다.
+Lua는 Telegram을 24시간 명령 입구로 사용하고, Lua Fast·Claude·Codex를 적절히 배분하며, Obsidian을 장기 기억과 기록 창고로 사용하는 개인 비서다.
 
 ## 핵심 원칙
 
@@ -18,6 +18,7 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 - Obsidian은 지식, 결정, 프로젝트 맥락, 완료 기록을 보관한다.
 - Claude는 분석, 계획, 글쓰기, 요약을 담당한다.
 - Codex는 코드, 파일 수정, 테스트, 자동화, 검증을 담당한다.
+- Lua Fast는 Mac에서만 동작하는 Gemma Q4로, 짧은 할 일·상태·일정·리마인더 요청을 빠르게 담당한다.
 - Lua는 요청을 분류하고 적절한 agent에 넘기며 결과를 다시 Telegram으로 보고한다.
 - 외부 전송, 배포, 삭제, 결제, 계정 변경은 사용자 승인 없이 실행하지 않는다.
 
@@ -64,7 +65,7 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 | `/lua status` | Lua 상태 확인 | 현재 지원 |
 | `/lua todo {내용}` | 할 일 등록 | 현재 지원 |
 | `/lua next` | 다음 행동 추천 | 현재 지원 |
-| `/lua ask {질문}` | 질문, 분석, 요약 | Claude 대기열 → Mac Worker |
+| `/lua ask {질문}` | 짧은 운영 질문은 Lua Fast, 분석·요약은 Claude | Mac Worker |
 | `/lua do {작업}` | 실제 작업 수행 | 승인 → Codex Mac Worker |
 | `/lua tasks` | 진행 중 작업 확인 | 현재 지원 |
 | `/lua approve {id}` | 승인 대기 작업 승인 | 현재 지원 |
@@ -78,6 +79,7 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Claude와 Codex를 �
 | 요청 유형 | 담당 | 예시 |
 |---|---|---|
 | 계획, 판단, 비교, 요약 | Claude | 이번 주 우선순위 정리 |
+| 짧은 할 일, 상태, 일정, 리마인더 | Lua Fast | 오늘 해야 할 일 정리 |
 | 문서, 제안서, 외부 글 초안 | Claude | 사업계획서 목차 작성 |
 | 코드, 파일, 테스트, 저장소 작업 | Codex | 오류 수정 후 테스트 |
 | 자동화, 배포 준비, 검증 | Codex | Railway 설정 점검 |
@@ -153,7 +155,7 @@ captured → classified → awaiting_approval → running → completed
 - 필요한 Obsidian 맥락만 선별해 제공한다.
 - 답변과 후속 행동을 Telegram으로 돌려준다.
 
-완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. Mac Worker는 Claude App 구독으로 로그인된 `claude -p`를 사용하며 별도 AI API 키를 요구하지 않는다. **Claude 구독 실행 확인: 2026-08-01**
+완료 기준: Telegram 질문에 Claude가 프로젝트 맥락을 반영해 답한다. Mac Worker는 Claude App 구독 OAuth 토큰(`CLAUDE_CODE_OAUTH_TOKEN`)으로 `claude -p`를 실행하며 별도 AI API 키를 요구하지 않는다. 토큰은 Git에 올라가지 않는 로컬 Worker 환경 파일에만 저장한다. **Claude 구독 실행·Worker 왕복 확인: 2026-08-03**
 
 ### 4. 승인 시스템
 
@@ -169,7 +171,7 @@ captured → classified → awaiting_approval → running → completed
 - 완료 결과를 올바른 프로젝트와 Work Ledger에 기록한다.
 - Identity와 `_System` 보호 규칙을 유지한다.
 
-완료 기준: Lua가 이전 결정은 기억하지만 불필요한 vault 전체를 agent에 보내지 않는다. **완료: 2026-08-01** — `Identity`, `_System`, `.git`, `node_modules`는 검색·전송에서 제외한다. 완료된 Claude·Codex 작업과 명시적 기억은 Mac Worker가 로컬 `Lua Assistant Records.md`에 기록한다. GitHub commit/push는 자동으로 실행하지 않는다.
+완료 기준: Lua가 이전 결정은 기억하지만 불필요한 vault 전체를 agent에 보내지 않는다. **완료: 2026-08-01** — `Identity`, `_System`, `.git`, `node_modules`는 검색·전송에서 제외한다. 완료된 Lua Fast·Claude·Codex 작업과 명시적 기억은 Mac Worker가 로컬 `Lua Assistant Records.md`에 기록한다. GitHub commit/push는 자동으로 실행하지 않는다.
 
 ### 6. 능동형 비서
 

@@ -2,9 +2,9 @@
 
 Always-on Lua runtime for Railway + Supabase + Telegram webhook.
 
-## Subscription-based Mac Worker
+## Mac Worker: subscriptions + Lua Fast
 
-Lua can use existing Claude and ChatGPT subscriptions without AI API keys. Railway receives and approves work; a paired Mac runs Claude Code or Codex CLI and returns the result through Railway.
+Lua can use existing Claude and ChatGPT subscriptions without AI API keys. Railway receives and approves work; a paired Mac runs Claude Code or Codex CLI and returns the result through Railway. The same Mac can run the local Gemma Q4 model through Ollama as **Lua Fast**, without any API key.
 
 1. Confirm subscription logins:
 
@@ -34,6 +34,18 @@ npm run cloud:worker:status
 ```
 
 The pairing token is stored only in the git-ignored `.env.worker` file with mode `0600`. Telegram, Supabase service-role, Claude, and Codex credentials are never copied into that file. The Mac must be awake, online, and signed into the user session for the LaunchAgent to work.
+
+### Lua Fast local model
+
+The recommended local model is `hf.co/google/gemma-4-12B-it-qat-q4_0-gguf:Q4_0`. It is served only on the paired Mac at `127.0.0.1:11434`; it is never exposed through Railway. Enable it in the git-ignored `.env.worker` file:
+
+```text
+LUA_LOCAL_MODEL_ENABLED=true
+LUA_LOCAL_MODEL=hf.co/google/gemma-4-12B-it-qat-q4_0-gguf:Q4_0
+LUA_LOCAL_MODEL_URL=http://127.0.0.1:11434
+```
+
+`/lua ask` routes compact, operational requests such as today's todos, status, reminders, schedules, and one-sentence summaries to Lua Fast. Research, long-form planning, writing, comparisons, and sensitive judgments continue to route to Claude. Code and repository work continue to route to Codex.
 
 ## Local Run
 
@@ -79,7 +91,7 @@ Useful command behavior in v1:
 /lua todo :: <next action>  -> captures a todo and confirms it
 /lua next                  -> recommends the latest stored todo or recent command
 /lua status                  -> returns Railway, Supabase, paired Mac Worker, queue, command, and memory status directly (no AI task)
-/lua ask :: <question>      -> classifies and queues a Claude task
+/lua ask :: <question>      -> routes a short operational question to Lua Fast, otherwise Claude
 /lua do :: <task>           -> asks approval, then queues a Codex task
 /lua tasks                  -> lists work awaiting approval or an agent
 /lua approve :: <id>        -> approves a queued task
@@ -88,7 +100,7 @@ Useful command behavior in v1:
 /lua remind :: YYYY-MM-DD HH:mm message -> stores a KST reminder; it sends only when proactive mode is enabled
 ```
 
-Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; questions, research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Claude and Codex tasks remain durable until a paired Mac Worker claims them. The optional direct Claude API adapter remains disabled when `ANTHROPIC_API_KEY` is absent.
+Plain Telegram text is classified deterministically: coding, tests, deployment, and repository work route to Codex; short operational questions route to Lua Fast; research, summaries, and drafting route to Claude; memory requests route to Lua; everything else becomes a todo. Agent tasks remain durable until a paired Mac Worker claims them. The optional direct Claude API adapter remains disabled when `ANTHROPIC_API_KEY` is absent.
 
 Claude receives at most five short excerpts from permitted Markdown folders. It never searches or sends `00_Lua/02_Memory/Identity/`, `_System/`, `.git/`, or `node_modules/`.
 
@@ -121,7 +133,7 @@ The server checks due `/lua remind` records, sends at most three per loop, sends
 
 ### Obsidian result records
 
-The paired Mac Worker records completed Claude/Codex tasks and explicit `/lua remember` entries in `00_Lua/03_Records/Lua Assistant Records.md`. It stores only redacted local text and reports only record completion to Railway. It never auto-commits or pushes the vault; GitHub sync remains an approved action.
+The paired Mac Worker records completed Lua Fast, Claude, and Codex tasks and explicit `/lua remember` entries in `00_Lua/03_Records/Lua Assistant Records.md`. It stores only redacted local text and reports only record completion to Railway. It never auto-commits or pushes the vault; GitHub sync remains an approved action.
 
 If `cloud:supabase:check` reports missing command processing columns, rerun:
 

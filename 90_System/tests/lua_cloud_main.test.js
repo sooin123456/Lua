@@ -29,6 +29,7 @@ const {
   buildAgentPrompt,
   detectAgentAvailability,
   pairWorker,
+  runLocalTask,
   runRecordOnce,
   runWorkerOnce,
   safeText,
@@ -102,6 +103,10 @@ test('routes plain Telegram text to Claude, Codex, or Lua deterministically', ()
   assert.deepEqual(routeCommand({ agent: 'do', payload: '저장소 테스트를 고쳐줘' }), {
     routeAgent: 'codex',
     approval: 'ask_first',
+  });
+  assert.deepEqual(routeCommand({ agent: 'ask', payload: '해야할일들 정리해줘' }), {
+    routeAgent: 'local',
+    approval: 'auto',
   });
 
   const codex = normalizeTelegramUpdate({ update_id: 2, message: { chat: { id: 1 }, text: 'GitHub 배포 오류를 수정해줘' } });
@@ -296,6 +301,22 @@ test('detects subscription CLI logins and processes a Codex worker task', async 
   assert.match(requests[0].authorization, /^Bearer /);
 });
 
+test('uses Gemma through Ollama for a short Lua Fast task without thinking', async () => {
+  const requests = [];
+  const result = await runLocalTask({ id: 82, payload: '오늘 해야 할 일 정리해줘' }, {
+    env: { LUA_LOCAL_MODEL_ENABLED: 'true' },
+    fetchImpl: async (url, init) => {
+      requests.push({ url, init });
+      return { ok: true, text: async () => JSON.stringify({ message: { content: '1. 회의 준비\n2. 일정 확인' } }) };
+    },
+  });
+  assert.equal(result, '1. 회의 준비\n2. 일정 확인');
+  assert.match(requests[0].url, /127\.0\.0\.1:11434\/api\/chat$/);
+  const body = JSON.parse(requests[0].init.body);
+  assert.equal(body.think, false);
+  assert.equal(body.options.num_ctx, 8192);
+});
+
 test('writes completed Lua records into the local Obsidian vault without sending record contents back to Railway', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-record-'));
   const requests = [];
@@ -321,6 +342,7 @@ test('writes completed Lua records into the local Obsidian vault without sending
 test('pairs worker into a protected env file and builds a secret-free launchd service', async () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'lua-worker-'));
   const envFile = path.join(root, '.env.worker');
+  fs.writeFileSync(envFile, 'CLAUDE_CODE_OAUTH_TOKEN=preserved-token\nLUA_LOCAL_MODEL_ENABLED=true\n');
   const paired = await pairWorker('PAIR-CODE', {
     envFile,
     workerId: 'test-mac',
@@ -330,6 +352,8 @@ test('pairs worker into a protected env file and builds a secret-free launchd se
   const content = fs.readFileSync(envFile, 'utf8');
   assert.equal(paired.ok, true);
   assert.match(content, /LUA_WORKER_TOKEN=lua_worker_private/);
+  assert.match(content, /CLAUDE_CODE_OAUTH_TOKEN=preserved-token/);
+  assert.match(content, /LUA_LOCAL_MODEL_ENABLED=true/);
   assert.equal(fs.statSync(envFile).mode & 0o777, 0o600);
   const plist = buildPlist({ rootDir: root, homeDir: root, nodePath: '/usr/bin/node' });
   assert.match(plist, /dev\.lua\.mac-worker/);

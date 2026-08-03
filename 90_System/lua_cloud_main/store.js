@@ -142,7 +142,7 @@ function createMemoryStore(options = {}) {
     },
 
     async claimNextAgentTask(agents, workerId, now = new Date()) {
-      const allowedAgents = Array.isArray(agents) ? agents.filter((agent) => ['claude', 'codex'].includes(agent)) : [];
+      const allowedAgents = Array.isArray(agents) ? agents.filter((agent) => ['claude', 'codex', 'local'].includes(agent)) : [];
       if (!allowedAgents.length) return null;
       let task = state.commands.find((command) => command.status === 'awaiting_agent' && allowedAgents.includes(command.routeAgent));
       if (configured) {
@@ -184,11 +184,11 @@ function createMemoryStore(options = {}) {
         command.status === 'done'
         && !command.recordedAt
         && !command.recordingAt
-        && (command.agent === 'remember' || ['claude', 'codex'].includes(command.routeAgent))
+        && (command.agent === 'remember' || ['claude', 'codex', 'local'].includes(command.routeAgent))
       ));
       if (configured) {
         const result = await request('lua_commands', {
-          query: '?select=*&status=eq.done&recordedAt=is.null&recordingAt=is.null&or=(agent.eq.remember,routeAgent.eq.claude,routeAgent.eq.codex)&order=id.asc&limit=1',
+          query: '?select=*&status=eq.done&recordedAt=is.null&recordingAt=is.null&or=(agent.eq.remember,routeAgent.eq.claude,routeAgent.eq.codex,routeAgent.eq.local)&order=id.asc&limit=1',
         });
         record = result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
       }

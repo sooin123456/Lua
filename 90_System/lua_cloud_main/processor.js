@@ -102,6 +102,8 @@ async function resolveApproval(command, options) {
         ? `Next: ask Codex to process task #${targetId}.`
         : target.routeAgent === 'claude'
           ? `Next: ask Claude to process task #${targetId}.`
+          : target.routeAgent === 'local'
+            ? `Next: Lua Fast will process task #${targetId} on this Mac.`
           : 'Lua will continue the task.',
     ].join('\n'),
   };
@@ -174,9 +176,9 @@ async function processCommand(command, options = {}) {
       await store.saveLog({ level: 'info', event: 'lua_claude_completed', command: route.command, chatId: route.chatId });
       return { ok: true, commandId, command: route.command, result: answer.text };
     }
-    if (['claude', 'codex'].includes(route.routeAgent)) {
+    if (['claude', 'codex', 'local'].includes(route.routeAgent)) {
       const result = [
-        `${route.routeAgent === 'codex' ? 'Codex' : 'Claude'} task #${commandId} queued.`,
+        `${route.routeAgent === 'codex' ? 'Codex' : route.routeAgent === 'local' ? 'Lua Fast' : 'Claude'} task #${commandId} queued.`,
         `Task: ${compactText(route.payload || route.text, 'empty task')}`,
         `Use /lua tasks to check its status.`,
       ].join('\n');

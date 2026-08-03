@@ -1,5 +1,7 @@
 const CODEX_WORDS = /코드|개발|수정|테스트|버그|오류|배포|github|git |저장소|repository|자동화/i;
 const CLAUDE_WORDS = /\?|왜|어떻게|무엇|뭐야|알려|설명|요약|정리|분석|비교|계획|조사|작성|초안/i;
+const LOCAL_FAST_WORDS = /할 일|해야 ?할|오늘|내일|우선순위|상태|리마인더|일정|체크리스트|한 문장|간단/i;
+const DEEP_CLAUDE_WORDS = /분석|비교|조사|리서치|사업|전략|계획서|제안서|보고서|초안|근거|출처|문서|긴 글|코드/i;
 const REMEMBER_WORDS = /기억해|기록해|remember/i;
 const EXPLICIT_WORDS = /삭제|결제|구독|비밀번호|토큰|api key|계정|공개|게시|발행|송금|거래/i;
 const ASK_FIRST_WORDS = /수정|배포|push|커밋|commit|merge|전송|공유|연락/i;
@@ -29,6 +31,8 @@ function routeCommand(command) {
   const agent = command.agent;
   let routeAgent = 'lua';
   if (['ask', 'research', 'write', 'ceo', 'pm', 'brief'].includes(agent)) routeAgent = 'claude';
+  const payload = compact(command.payload || command.intent || command.text);
+  if (agent === 'ask' && payload.length <= 240 && LOCAL_FAST_WORDS.test(payload) && !DEEP_CLAUDE_WORDS.test(payload)) routeAgent = 'local';
   if (['do', 'work', 'run', 'build', 'qa', 'ops', 'release'].includes(agent)) routeAgent = 'codex';
 
   return {
