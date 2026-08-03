@@ -178,17 +178,61 @@ function createMemoryStore(options = {}) {
       return task ? { ...task, ...patch } : null;
     },
 
+    async completeTodo(chatId, target, now = new Date()) {
+      const query = String(target || '').trim().toLowerCase();
+      if (!query) return { ok: false, reason: 'missing_target' };
+      let todos = state.commands.filter((command) => (
+        command.agent === 'todo'
+        && String(command.chatId) === String(chatId)
+        && command.todoState === 'open'
+      ));
+      if (configured) {
+        const result = await request('lua_commands', {
+          query: `?select=*&agent=eq.todo&chatId=eq.${encodeURIComponent(String(chatId))}&todoState=eq.open&order=id.desc&limit=20`,
+        });
+        todos = result.ok && Array.isArray(result.data) ? result.data : [];
+      }
+      const matches = todos.filter((todo) => String(todo.payload || '').toLowerCase().includes(query));
+      if (!matches.length) return { ok: false, reason: 'not_found' };
+      const exact = matches.filter((todo) => String(todo.payload || '').trim().toLowerCase() === query);
+      const candidates = exact.length ? exact : matches;
+      if (candidates.length > 1) return { ok: false, reason: 'ambiguous', matches: candidates.slice(0, 5) };
+      const todo = candidates[0];
+      const completedAt = now.toISOString();
+      const patch = {
+        status: 'done',
+        todoState: 'completed',
+        completedAt,
+        processedAt: completedAt,
+        result: `Completed Todo\nClassification: Todo\nCompleted at: ${completedAt}\nObsidian record: pending local worker capture.`,
+      };
+      Object.assign(todo, patch);
+      if (configured) {
+        const result = await request('lua_commands', {
+          method: 'PATCH',
+          query: `?id=eq.${todo.id}&todoState=eq.open`,
+          body: patch,
+          prefer: 'return=representation',
+        });
+        if (!result.ok || !Array.isArray(result.data) || !result.data[0]) return { ok: false, reason: 'already_completed' };
+        return { ok: true, todo: result.data[0] };
+      }
+      return { ok: true, todo };
+    },
+
     async claimNextRecord(workerId, now = new Date()) {
       const claimedAt = now.toISOString();
       let record = state.commands.find((command) => (
         command.status === 'done'
         && !command.recordedAt
         && !command.recordingAt
-        && (command.agent === 'remember' || ['claude', 'codex', 'local'].includes(command.routeAgent))
+        && (command.agent === 'remember'
+          || (command.agent === 'todo' && command.todoState === 'completed')
+          || ['claude', 'codex', 'local'].includes(command.routeAgent))
       ));
       if (configured) {
         const result = await request('lua_commands', {
-          query: '?select=*&status=eq.done&recordedAt=is.null&recordingAt=is.null&or=(agent.eq.remember,routeAgent.eq.claude,routeAgent.eq.codex,routeAgent.eq.local)&order=id.asc&limit=1',
+          query: '?select=*&status=eq.done&recordedAt=is.null&recordingAt=is.null&or=(agent.eq.remember,routeAgent.eq.claude,routeAgent.eq.codex,routeAgent.eq.local,and(agent.eq.todo,todoState.eq.completed))&order=id.asc&limit=1',
         });
         record = result.ok && Array.isArray(result.data) ? result.data[0] || null : null;
       }
@@ -389,7 +433,7 @@ function createMemoryStore(options = {}) {
       const stats = await this.getStats();
       if (!configured) {
         const recentCommands = [...state.commands].slice(-count).reverse();
-        const todos = recentCommands.filter((command) => command.agent === 'todo');
+        const todos = recentCommands.filter((command) => command.agent === 'todo' && command.todoState === 'open');
         const memories = [...state.memories].slice(-count).reverse();
         const tasks = recentCommands.filter((command) => ['awaiting_approval', 'awaiting_agent', 'running'].includes(command.status));
         return { ...stats, recentCommands, todos, memories, tasks };
@@ -400,7 +444,7 @@ function createMemoryStore(options = {}) {
           query: `?select=id,agent,command,payload,status,result,createdAt&order=id.desc&limit=${count}`,
         }),
         request('lua_commands', {
-          query: `?select=id,agent,command,payload,status,result,createdAt&agent=eq.todo&order=id.desc&limit=${count}`,
+          query: `?select=id,agent,command,payload,status,result,createdAt&agent=eq.todo&todoState=eq.open&order=id.desc&limit=${count}`,
         }),
         request('lua_memories', {
           query: `?select=id,text,createdAt&order=id.desc&limit=${count}`,

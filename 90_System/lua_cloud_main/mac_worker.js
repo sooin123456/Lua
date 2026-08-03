@@ -180,7 +180,11 @@ function writeWorkerEnv(filePath, values) {
 }
 
 function formatObsidianRecord(record) {
-  const title = record.agent === 'remember' ? 'Remembered item' : `Task #${record.id} result`;
+  const title = record.agent === 'remember'
+    ? 'Remembered item'
+    : record.agent === 'todo' && record.todoState === 'completed'
+      ? `Completed Todo #${record.id}`
+      : `Task #${record.id} result`;
   const request = safeText(record.payload || record.text || '');
   const result = safeText(record.agent === 'remember' ? record.payload : record.result || '');
   return [
@@ -188,6 +192,8 @@ function formatObsidianRecord(record) {
     '',
     `- Command: ${safeText(record.command || '/lua')}`,
     `- Agent: ${safeText(record.routeAgent || record.agent || 'lua')}`,
+    ...(record.todoState ? [`- Todo state: ${safeText(record.todoState)}`] : []),
+    ...(record.completedAt ? [`- Completed: ${safeText(record.completedAt)}`] : []),
     `- Request: ${request.slice(0, 2_000)}`,
     `- Result: ${result.slice(0, 6_000)}`,
     `- Source task: ${record.id || 'local'}`,

@@ -88,7 +88,8 @@ This writes a planned handoff into `90_System/80_Lua_Details/Command Runs/` so C
 Useful command behavior in v1:
 
 ```text
-/lua todo :: <next action>  -> captures a todo and confirms it
+/lua todo :: <next action>  -> captures an open Todo (plain Telegram text does this automatically when it is not a question or repository task)
+/lua done <short target>    -> completes the matching open Todo and reports its Obsidian record plan
 /lua next                  -> recommends the latest stored todo or recent command
 /lua status                  -> returns Railway, Supabase, paired Mac Worker, queue, command, and memory status directly (no AI task)
 /lua ask :: <question>      -> routes a short operational question to Lua Fast, otherwise Claude
@@ -133,7 +134,7 @@ The server checks due `/lua remind` records, sends at most three per loop, sends
 
 ### Obsidian result records
 
-The paired Mac Worker records completed Lua Fast, Claude, and Codex tasks and explicit `/lua remember` entries in `00_Lua/03_Records/Lua Assistant Records.md`. It stores only redacted local text and reports only record completion to Railway. It never auto-commits or pushes the vault; GitHub sync remains an approved action.
+The paired Mac Worker records completed Todos, Lua Fast, Claude, and Codex tasks and explicit `/lua remember` entries in `00_Lua/03_Records/Lua Assistant Records.md`. `/lua done <short target>` matches only an open Todo, marks it complete, and immediately reports the classification, completion time, record path, and record contents that will be captured locally. It stores only redacted local text and reports only record completion to Railway. It never auto-commits or pushes the vault; GitHub sync remains an approved action.
 
 If `cloud:supabase:check` reports missing command processing columns, rerun:
 

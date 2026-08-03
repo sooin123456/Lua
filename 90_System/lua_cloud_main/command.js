@@ -26,8 +26,9 @@ function normalizeTelegramUpdate(update) {
   const text = message && typeof message.text === 'string' ? message.text.trim() : '';
   if (!text) return null;
 
-  let parsed = text.startsWith('/lua')
-    ? parseCommand(text)
+  const commandText = /^lua\s+done(?:\s|$)/i.test(text) ? `/${text}` : text;
+  let parsed = commandText.startsWith('/lua')
+    ? parseCommand(commandText)
     : commandForPlainText(text);
   if (parsed.agent === 'ask' && isTodoOverviewRequest(parsed)) {
     parsed = { command: '/lua next', agent: 'next', intent: '', payload: '' };

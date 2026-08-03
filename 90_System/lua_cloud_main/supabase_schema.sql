@@ -39,6 +39,16 @@ add column if not exists "processedAt" timestamptz;
 alter table public.lua_commands
 add column if not exists result text;
 
+alter table public.lua_commands
+add column if not exists "todoState" text;
+
+alter table public.lua_commands
+add column if not exists "completedAt" timestamptz;
+
+update public.lua_commands
+set "todoState" = 'open'
+where agent = 'todo' and "todoState" is null;
+
 create table if not exists public.lua_memories (
   id bigint generated always as identity primary key,
   source text not null,

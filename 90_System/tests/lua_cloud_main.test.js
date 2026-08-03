@@ -95,6 +95,23 @@ test('captures plain Telegram text as a todo command', () => {
   assert.equal(command.payload, '다음 주 회의 준비해줘');
 });
 
+test('parses a targeted Lua done command', () => {
+  const command = normalizeTelegramUpdate({
+    update_id: 7,
+    message: { chat: { id: 1 }, text: '/lua done 회의자료' },
+  });
+  assert.equal(command.command, '/lua done');
+  assert.equal(command.agent, 'done');
+  assert.equal(command.payload, '회의자료');
+
+  const plainCommand = normalizeTelegramUpdate({
+    update_id: 8,
+    message: { chat: { id: 1 }, text: 'lua done 회의자료' },
+  });
+  assert.equal(plainCommand.agent, 'done');
+  assert.equal(plainCommand.payload, '회의자료');
+});
+
 test('turns a request to organize stored todos into an immediate Lua next command', () => {
   const command = normalizeTelegramUpdate({
     update_id: 8,
@@ -203,6 +220,25 @@ test('memory store records commands, logs, and memory without Supabase config', 
   assert.equal(store.snapshot().commands.length, 1);
   assert.equal(store.snapshot().memories.length, 1);
   assert.equal(store.snapshot().logs.length, 1);
+});
+
+test('completes a targeted open Todo and explains its Obsidian record', async () => {
+  const store = createMemoryStore({});
+  const todo = { id: 501, chatId: '123', command: '/lua todo', agent: 'todo', payload: '회의자료 초안 만들기', routeAgent: 'lua', approval: 'auto' };
+  await store.saveCommand(todo);
+  await processCommand(todo, { store });
+
+  const done = { id: 502, chatId: '123', command: '/lua done', agent: 'done', payload: '회의자료' };
+  await store.saveCommand(done);
+  const result = await processCommand(done, { store });
+
+  assert.equal(result.ok, true);
+  assert.match(result.result, /Completed: 회의자료 초안 만들기/);
+  assert.match(result.result, /Obsidian: queued for structured record/);
+  assert.equal(store.snapshot().commands[0].todoState, 'completed');
+  assert.equal(store.snapshot().commands[0].status, 'done');
+  const record = await store.claimNextRecord('test-mac');
+  assert.equal(record.id, 501);
 });
 
 test('pairs a Mac Worker with a one-time code and authorizes its token', async () => {
@@ -721,7 +757,7 @@ test('builds practical command processor results', () => {
   assert.match(status, /Lua status/);
   assert.match(status, /commands: 4/);
   assert.match(remember, /Lua memory recorded/);
-  assert.match(todo, /Todo captured: Toss miniapp QA/);
+  assert.match(todo, /Lua captured: Toss miniapp QA/);
   assert.match(next, /Start with: Toss miniapp QA/);
   assert.match(next, /todo #11/);
 });
@@ -918,8 +954,9 @@ test('creates a Codex handoff note from the latest Telegram todo without leaking
             agent: 'todo',
             command: '/lua todo',
             payload: 'Toss miniapp QA follow up',
-            status: 'done',
-            result: 'Todo captured: Toss miniapp QA follow up',
+            status: 'todo_open',
+            todoState: 'open',
+            result: 'Lua captured: Toss miniapp QA follow up',
             createdAt: '2026-06-04T05:12:00.000Z',
             processedAt: '2026-06-04T05:12:01.000Z',
           },
@@ -934,6 +971,7 @@ test('creates a Codex handoff note from the latest Telegram todo without leaking
     },
     fetchImpl,
   });
+  assert.match(calls[0].url, /todoState.eq.open/);
   const result = createCodexHandoff({
     todo,
     rootDir: tmpDir,

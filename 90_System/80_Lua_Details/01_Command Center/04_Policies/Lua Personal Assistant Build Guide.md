@@ -64,6 +64,7 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Lua Fast·Claude·Cod
 | 일반 문장 | 빠른 할 일 입력 | todo 저장 |
 | `/lua status` | Lua 상태 확인 | 현재 지원 |
 | `/lua todo {내용}` | 할 일 등록 | 현재 지원 |
+| `/lua done {짧은 대상}` | 완료 및 기록 | 일치하는 open Todo 완료 → Obsidian 구조화 기록 |
 | `/lua next` | 다음 행동 추천 | 현재 지원 |
 | `/lua ask {질문}` | 짧은 운영 질문은 Lua Fast, 분석·요약은 Claude | Mac Worker |
 | `/lua do {작업}` | 실제 작업 수행 | 승인 → Codex Mac Worker |
@@ -85,6 +86,12 @@ Lua는 Telegram을 24시간 명령 입구로 사용하고, Lua Fast·Claude·Cod
 | 자동화, 배포 준비, 검증 | Codex | Railway 설정 점검 |
 | 복합 작업 | Claude → Codex | Claude가 작업 명세 작성 후 Codex가 구현 |
 | 단순 기록과 상태 조회 | Lua Cloud Main | todo 저장, 상태 응답 |
+
+### 자연어 Inbox 운영 규칙
+
+- 평소에는 Telegram에 할 일·생각·질문을 그냥 보낸다. Lua가 Todo, 기억, Claude, Codex, Lua Fast 경로를 내부적으로 분류한다.
+- 실제 완료 때만 `/lua done <짧은 대상>`을 쓴다. 여러 Todo가 같은 대상에 일치하면 Lua는 임의로 완료하지 않고 더 구체적인 대상을 요청한다.
+- 완료 응답은 항목, 분류, 완료 시각, Obsidian 기록 경로와 기록될 요약을 알려준다. Mac Worker가 `Lua Assistant Records.md`에 구조화해 기록한다.
 
 Lua는 Kimi, Grok 또는 다른 agent를 자동 선택하지 않는다. 새 agent를 추가하려면 사용자가 먼저 역할과 권한을 승인해야 한다.
 

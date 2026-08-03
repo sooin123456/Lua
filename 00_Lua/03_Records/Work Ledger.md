@@ -964,3 +964,12 @@ last_updated: 2026-05-28
 - Trigger: Lua Fast asked the user to provide tasks when asked to organize already stored todos.
 - Changed: requests such as `해야할일들 정리해줘` now bypass the model and return up to five durable Supabase todos with a clear first action.
 - Verification: `npm run test:node` (77 passing); `node 90_System/scripts/check.js`.
+
+## 2026-08-03 KST - add targeted Todo completion and records
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Trigger: user requested natural-language capture with only `/lua done <short target>` for completion and an explicit record explanation.
+- Changed: captured Todos are now durable `open` items. Targeted completion safely matches one open Todo, sets `completed`, reports the classification, completion time, Obsidian record path, and captured summary, then queues a structured local Obsidian record.
+- Data: added `todoState` and `completedAt` to production `lua_commands`; existing Todos were initialized as open. RLS policies remain unchanged.
+- Verification: `npm run test:node` (79 passing); production columns verified; Supabase security advisor returned no findings.

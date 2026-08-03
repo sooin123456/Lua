@@ -8,6 +8,18 @@ function compactText(value, fallback = '') {
   return String(value || fallback).replace(/\s+/g, ' ').trim();
 }
 
+function formatDoneReply(todo) {
+  const completedAt = todo.completedAt ? new Date(todo.completedAt).toLocaleString('sv-SE', { timeZone: 'Asia/Seoul', hour12: false }) : 'now';
+  return [
+    'Lua done',
+    `Completed: ${compactText(todo.payload)}`,
+    'Classification: Todo',
+    `Completed at: ${completedAt} KST`,
+    'Obsidian: queued for structured record in 00_Lua/03_Records/Lua Assistant Records.md',
+    'Record includes the original task, Todo classification, completion time, and completion summary.',
+  ].join('\n');
+}
+
 function buildCommandResult(command, snapshot = {}, env = {}) {
   if (command.agent === 'status') {
     const runtime = snapshot.runtime || {};
@@ -24,8 +36,9 @@ function buildCommandResult(command, snapshot = {}, env = {}) {
   if (command.agent === 'todo') {
     const todo = compactText(command.payload || command.intent || command.text, 'empty todo');
     return [
-      `Todo captured: ${todo}`,
-      'Next: send /lua next when you want Lua to pick the next action from stored todos.',
+      `Lua captured: ${todo}`,
+      'Classification: Todo · Status: open',
+      'Complete it with /lua done <short target>.',
     ].join('\n');
   }
 
@@ -152,6 +165,35 @@ async function processCommand(command, options = {}) {
       await store.saveLog({ level: 'info', event: 'lua_reminder_created', command: command.command, chatId: command.chatId });
       return { ok: true, commandId, command: command.command, result };
     }
+    if (command.agent === 'todo') {
+      const result = buildCommandResult(command);
+      await store.updateCommand(commandId, {
+        status: 'todo_open',
+        todoState: 'open',
+        approval: 'auto',
+        result,
+        processedAt: new Date().toISOString(),
+      });
+      await store.saveLog({ level: 'info', event: 'lua_todo_captured', command: command.command, chatId: command.chatId });
+      return { ok: true, commandId, command: command.command, result };
+    }
+    if (command.agent === 'done') {
+      const outcome = await store.completeTodo(command.chatId, command.payload || command.intent);
+      const result = outcome.ok
+        ? formatDoneReply(outcome.todo)
+        : outcome.reason === 'ambiguous'
+          ? `Lua found multiple open items:\n${outcome.matches.map((item) => `- ${compactText(item.payload)}`).join('\n')}\nTry /lua done <a more specific target>.`
+          : outcome.reason === 'missing_target'
+            ? 'Tell Lua what to complete, for example /lua done 회의자료.'
+            : `Lua could not find an open Todo matching “${compactText(command.payload || command.intent)}”.`;
+      await store.updateCommand(commandId, {
+        status: outcome.ok ? 'done' : 'failed',
+        result,
+        processedAt: new Date().toISOString(),
+      });
+      await store.saveLog({ level: outcome.ok ? 'info' : 'warn', event: outcome.ok ? 'lua_todo_completed' : 'lua_todo_completion_failed', command: command.command, chatId: command.chatId });
+      return { ok: outcome.ok, commandId, command: command.command, result };
+    }
     const route = command.routeAgent ? command : { ...command, ...routeCommand(command) };
     if (route.approval !== 'auto') {
       const approvalReply = buildApprovalReply(route, commandId);
@@ -252,6 +294,7 @@ async function processQueuedCommands(options = {}) {
 
 module.exports = {
   buildCommandResult,
+  formatDoneReply,
   processCommand,
   processQueuedCommands,
 };

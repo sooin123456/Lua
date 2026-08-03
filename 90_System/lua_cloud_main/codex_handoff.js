@@ -18,9 +18,8 @@ async function getLatestTodo(options = {}) {
 
   const baseUrl = env.SUPABASE_URL.replace(/\/$/, '');
   const query = [
-    'select=id,agent,command,payload,status,result,createdAt,processedAt',
-    'or=(agent.eq.todo,routeAgent.eq.codex)',
-    'status=in.(done,awaiting_agent)',
+    'select=id,agent,command,payload,status,result,createdAt,processedAt,todoState',
+    'or=(and(agent.eq.todo,todoState.eq.open),and(routeAgent.eq.codex,status.eq.awaiting_agent))',
     'order=id.desc',
     'limit=1',
   ].join('&');

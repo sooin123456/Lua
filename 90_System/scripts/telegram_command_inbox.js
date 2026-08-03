@@ -8,6 +8,7 @@ const INBOX = path.join(ROOT, INBOX_REL);
 const VALID_AGENTS = new Set([
   'inbox',
   'todo',
+  'done',
   'brief',
   'ask',
   'do',
