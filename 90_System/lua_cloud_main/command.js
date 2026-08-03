@@ -1,5 +1,5 @@
 const { parseCommand } = require('../scripts/telegram_command_inbox');
-const { commandForPlainText, routeCommand } = require('./router');
+const { commandForPlainText, isTodoOverviewRequest, routeCommand } = require('./router');
 
 function normalizeTelegramUpdate(update) {
   const callback = update.callback_query || null;
@@ -26,9 +26,12 @@ function normalizeTelegramUpdate(update) {
   const text = message && typeof message.text === 'string' ? message.text.trim() : '';
   if (!text) return null;
 
-  const parsed = text.startsWith('/lua')
+  let parsed = text.startsWith('/lua')
     ? parseCommand(text)
     : commandForPlainText(text);
+  if (parsed.agent === 'ask' && isTodoOverviewRequest(parsed)) {
+    parsed = { command: '/lua next', agent: 'next', intent: '', payload: '' };
+  }
   const chat = message.chat || {};
   const from = message.from || {};
   const date = message.date ? new Date(message.date * 1000) : new Date();

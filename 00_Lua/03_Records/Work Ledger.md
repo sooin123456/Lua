@@ -956,3 +956,11 @@ last_updated: 2026-05-28
 - Changed: installed Ollama as a local macOS service, downloaded Gemma 4 12B Q4, and added durable Lua Fast routing for compact todo, status, schedule, reminder, and one-sentence requests. Claude remains the route for deeper thinking and writing; Codex remains the route for implementation.
 - Safety: Ollama binds only to `127.0.0.1`; Lua Fast is enabled only by the git-ignored paired-Worker environment file. It cannot claim external actions or access private vault data.
 - Next: deploy the tested routing patch to Railway, then test a short `/lua ask` from Telegram.
+
+## 2026-08-03 KST - make stored Todo requests deterministic
+
+- Host: `mac-codex`
+- Agent: `Codex`
+- Trigger: Lua Fast asked the user to provide tasks when asked to organize already stored todos.
+- Changed: requests such as `해야할일들 정리해줘` now bypass the model and return up to five durable Supabase todos with a clear first action.
+- Verification: `npm run test:node` (77 passing); `node 90_System/scripts/check.js`.

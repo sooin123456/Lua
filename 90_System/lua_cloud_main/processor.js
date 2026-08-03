@@ -36,15 +36,16 @@ function buildCommandResult(command, snapshot = {}, env = {}) {
   if (command.agent === 'next') {
     const todos = Array.isArray(snapshot.todos) ? snapshot.todos : [];
     const recentCommands = Array.isArray(snapshot.recentCommands) ? snapshot.recentCommands : [];
-    const latestTodo = todos.find((todo) => compactText(todo.payload));
+    const actionableTodos = todos.filter((todo) => compactText(todo.payload)).slice(0, 5);
+    const latestTodo = actionableTodos[0];
     const latestCommand = recentCommands.find((item) => item.agent !== 'next');
 
     if (latestTodo) {
       return [
-        'Lua next',
-        `Recommended: ${compactText(latestTodo.payload)}`,
-        `Source: todo #${latestTodo.id || 'local'}`,
-        'Action: ask Codex to execute it, or send /lua todo :: ... to add a sharper next action.',
+        'Lua priorities',
+        ...actionableTodos.map((todo, index) => `${index + 1}. ${compactText(todo.payload)} (todo #${todo.id || 'local'})`),
+        `Start with: ${compactText(latestTodo.payload)}`,
+        'Action: send /lua do :: ... only when you want Codex to execute a repository task.',
       ].join('\n');
     }
 

@@ -95,6 +95,16 @@ test('captures plain Telegram text as a todo command', () => {
   assert.equal(command.payload, '다음 주 회의 준비해줘');
 });
 
+test('turns a request to organize stored todos into an immediate Lua next command', () => {
+  const command = normalizeTelegramUpdate({
+    update_id: 8,
+    message: { chat: { id: 1 }, text: '/lua ask :: 해야할일들 정리해줘' },
+  });
+  assert.equal(command.command, '/lua next');
+  assert.equal(command.agent, 'next');
+  assert.equal(command.routeAgent, 'lua');
+});
+
 test('routes plain Telegram text to Claude, Codex, or Lua deterministically', () => {
   assert.deepEqual(routeCommand({ agent: 'ask', payload: '이번 주 계획을 정리해줘' }), {
     routeAgent: 'claude',
@@ -712,7 +722,7 @@ test('builds practical command processor results', () => {
   assert.match(status, /commands: 4/);
   assert.match(remember, /Lua memory recorded/);
   assert.match(todo, /Todo captured: Toss miniapp QA/);
-  assert.match(next, /Recommended: Toss miniapp QA/);
+  assert.match(next, /Start with: Toss miniapp QA/);
   assert.match(next, /todo #11/);
 });
 
@@ -891,7 +901,7 @@ test('processor loop tick handles queued commands', async () => {
 
   assert.equal(updates[0].patch.status, 'processing');
   assert.equal(updates[1].patch.status, 'done');
-  assert.match(updates[1].patch.result, /Recommended: Toss miniapp follow up/);
+  assert.match(updates[1].patch.result, /Start with: Toss miniapp follow up/);
 });
 
 test('creates a Codex handoff note from the latest Telegram todo without leaking secrets', async () => {
